@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-import UIKit
+import AuthenticationServices
+
 
 enum GreetingTextOptions: String {
     case todaysClimbing = "오늘의 클라이밍"
@@ -41,19 +42,42 @@ struct LoginView: View {
                 
                 Text(GreetingTextOptions.timeToStart.rawValue)
                     .font(.title)
-                   
+            }.padding(.horizontal, 15)
+            
+            
+            
+            SignInWithAppleButton(.continue) { request in
+                request.requestedScopes = [.email, .fullName]
+            } onCompletion: { result in
+                switch result {
+                case .success(let auth):
+                    switch auth.credential {
+                    case let credential as ASAuthorizationAppleIDCredential:
+                        let userId = credential.user
+                        
+                        let email = credential.email
+                        let fullName = credential.fullName
+                       
+                    default:
+                        break
+                    }
+                case .failure(let error):
+                    print(error)
+                }
                 
-            }.padding(.horizontal, 10)
+            }
+            .aspectRatio(60.0 / 9.0 ,contentMode: .fit)
+                .padding(.horizontal, 35)
+                .cornerRadius(5)
             
             Link("문의하기", destination: url)
-                .font(.title3)
+                .font(.body)
                 .bold()
                 .foregroundColor(.black)
                 .padding(.vertical, 32)
         }
 
     }
-    
 }
 
 struct LoginView_Previews: PreviewProvider {

@@ -9,23 +9,25 @@
 /* Begin PBXBuildFile section */
 		A8433CCC28E44FC500185B47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8433CCB28E44FC500185B47 /* AppDelegate.swift */; };
 		A8433CCE28E44FC500185B47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8433CCD28E44FC500185B47 /* SceneDelegate.swift */; };
-		A8433CD028E44FC500185B47 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8433CCF28E44FC500185B47 /* LoginViewController.swift */; };
 		A8433CD328E44FC500185B47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8433CD128E44FC500185B47 /* Main.storyboard */; };
 		A8433CD528E44FC600185B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8433CD428E44FC600185B47 /* Assets.xcassets */; };
 		A8433CD828E44FC600185B47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8433CD628E44FC600185B47 /* LaunchScreen.storyboard */; };
 		A8433CE028E4519D00185B47 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8433CDF28E4519D00185B47 /* LoginView.swift */; };
+		A853FFF528E5B6EE0076EA37 /* LoginHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A853FFF428E5B6EE0076EA37 /* LoginHostingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A8433CC828E44FC500185B47 /* Ochle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ochle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8433CCB28E44FC500185B47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8433CCD28E44FC500185B47 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A8433CCF28E44FC500185B47 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A8433CD228E44FC500185B47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A8433CD428E44FC600185B47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A8433CD728E44FC600185B47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A8433CD928E44FC600185B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8433CDF28E4519D00185B47 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A853FFF228E5B3280076EA37 /* OchleRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OchleRelease.entitlements; sourceTree = "<group>"; };
+		A853FFF328E5B3C00076EA37 /* OchleDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OchleDebug.entitlements; sourceTree = "<group>"; };
+		A853FFF428E5B6EE0076EA37 /* LoginHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginHostingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,9 +60,11 @@
 		A8433CCA28E44FC500185B47 /* Ochle */ = {
 			isa = PBXGroup;
 			children = (
+				A853FFF328E5B3C00076EA37 /* OchleDebug.entitlements */,
+				A853FFF228E5B3280076EA37 /* OchleRelease.entitlements */,
 				A8433CCB28E44FC500185B47 /* AppDelegate.swift */,
 				A8433CCD28E44FC500185B47 /* SceneDelegate.swift */,
-				A8433CCF28E44FC500185B47 /* LoginViewController.swift */,
+				A853FFF428E5B6EE0076EA37 /* LoginHostingViewController.swift */,
 				A8433CDF28E4519D00185B47 /* LoginView.swift */,
 				A8433CD128E44FC500185B47 /* Main.storyboard */,
 				A8433CD428E44FC600185B47 /* Assets.xcassets */,
@@ -141,9 +145,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A8433CD028E44FC500185B47 /* LoginViewController.swift in Sources */,
 				A8433CCC28E44FC500185B47 /* AppDelegate.swift in Sources */,
 				A8433CE028E4519D00185B47 /* LoginView.swift in Sources */,
+				A853FFF528E5B6EE0076EA37 /* LoginHostingViewController.swift in Sources */,
 				A8433CCE28E44FC500185B47 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,6 +293,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Ochle/OchleDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7MJ69FU8BU;
@@ -317,6 +322,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Ochle/OchleRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7MJ69FU8BU;
