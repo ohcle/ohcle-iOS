@@ -13,7 +13,11 @@
 		A8433CD528E44FC600185B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8433CD428E44FC600185B47 /* Assets.xcassets */; };
 		A8433CD828E44FC600185B47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8433CD628E44FC600185B47 /* LaunchScreen.storyboard */; };
 		A8433CE028E4519D00185B47 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8433CDF28E4519D00185B47 /* LoginView.swift */; };
+		A853000028E5ED820076EA37 /* KakaoLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A853FFFF28E5ED820076EA37 /* KakaoLoginView.swift */; };
 		A853FFF528E5B6EE0076EA37 /* LoginHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A853FFF428E5B6EE0076EA37 /* LoginHostingViewController.swift */; };
+		A853FFFA28E5C0810076EA37 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A853FFF928E5C0810076EA37 /* KakaoSDKAuth */; };
+		A853FFFC28E5C0810076EA37 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = A853FFFB28E5C0810076EA37 /* KakaoSDKCommon */; };
+		A853FFFE28E5C0810076EA37 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = A853FFFD28E5C0810076EA37 /* KakaoSDKUser */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,7 @@
 		A853FFF228E5B3280076EA37 /* OchleRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OchleRelease.entitlements; sourceTree = "<group>"; };
 		A853FFF328E5B3C00076EA37 /* OchleDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OchleDebug.entitlements; sourceTree = "<group>"; };
 		A853FFF428E5B6EE0076EA37 /* LoginHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginHostingViewController.swift; sourceTree = "<group>"; };
+		A853FFFF28E5ED820076EA37 /* KakaoLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +40,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A853FFFC28E5C0810076EA37 /* KakaoSDKCommon in Frameworks */,
+				A853FFFA28E5C0810076EA37 /* KakaoSDKAuth in Frameworks */,
+				A853FFFE28E5C0810076EA37 /* KakaoSDKUser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,18 +68,27 @@
 		A8433CCA28E44FC500185B47 /* Ochle */ = {
 			isa = PBXGroup;
 			children = (
-				A853FFF328E5B3C00076EA37 /* OchleDebug.entitlements */,
-				A853FFF228E5B3280076EA37 /* OchleRelease.entitlements */,
+				A853FFF628E5BE740076EA37 /* View */,
 				A8433CCB28E44FC500185B47 /* AppDelegate.swift */,
 				A8433CCD28E44FC500185B47 /* SceneDelegate.swift */,
 				A853FFF428E5B6EE0076EA37 /* LoginHostingViewController.swift */,
-				A8433CDF28E4519D00185B47 /* LoginView.swift */,
-				A8433CD128E44FC500185B47 /* Main.storyboard */,
+				A853FFF328E5B3C00076EA37 /* OchleDebug.entitlements */,
+				A853FFF228E5B3280076EA37 /* OchleRelease.entitlements */,
 				A8433CD428E44FC600185B47 /* Assets.xcassets */,
-				A8433CD628E44FC600185B47 /* LaunchScreen.storyboard */,
 				A8433CD928E44FC600185B47 /* Info.plist */,
 			);
 			path = Ochle;
+			sourceTree = "<group>";
+		};
+		A853FFF628E5BE740076EA37 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A8433CDF28E4519D00185B47 /* LoginView.swift */,
+				A853FFFF28E5ED820076EA37 /* KakaoLoginView.swift */,
+				A8433CD128E44FC500185B47 /* Main.storyboard */,
+				A8433CD628E44FC600185B47 /* LaunchScreen.storyboard */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -90,6 +107,11 @@
 			dependencies = (
 			);
 			name = Ochle;
+			packageProductDependencies = (
+				A853FFF928E5C0810076EA37 /* KakaoSDKAuth */,
+				A853FFFB28E5C0810076EA37 /* KakaoSDKCommon */,
+				A853FFFD28E5C0810076EA37 /* KakaoSDKUser */,
+			);
 			productName = Ochle;
 			productReference = A8433CC828E44FC500185B47 /* Ochle.app */;
 			productType = "com.apple.product-type.application";
@@ -118,6 +140,9 @@
 				Base,
 			);
 			mainGroup = A8433CBF28E44FC500185B47;
+			packageReferences = (
+				A853FFF828E5C0810076EA37 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+			);
 			productRefGroup = A8433CC928E44FC500185B47 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -147,6 +172,7 @@
 			files = (
 				A8433CCC28E44FC500185B47 /* AppDelegate.swift in Sources */,
 				A8433CE028E4519D00185B47 /* LoginView.swift in Sources */,
+				A853000028E5ED820076EA37 /* KakaoLoginView.swift in Sources */,
 				A853FFF528E5B6EE0076EA37 /* LoginHostingViewController.swift in Sources */,
 				A8433CCE28E44FC500185B47 /* SceneDelegate.swift in Sources */,
 			);
@@ -368,6 +394,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A853FFF828E5C0810076EA37 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A853FFF928E5C0810076EA37 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A853FFF828E5C0810076EA37 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		A853FFFB28E5C0810076EA37 /* KakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A853FFF828E5C0810076EA37 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCommon;
+		};
+		A853FFFD28E5C0810076EA37 /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A853FFF828E5C0810076EA37 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A8433CC028E44FC500185B47 /* Project object */;
 }

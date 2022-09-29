@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AuthenticationServices
+import KakaoSDKAuth
 
 
 enum GreetingTextOptions: String {
@@ -17,34 +18,39 @@ enum GreetingTextOptions: String {
 struct LoginView: View {
     private let mainLogoTitle: String
     private let url: URL
+    private let defualtURL: String = "http://www.google.com"
     
     init(mainLogoTitle: String, receptionURL: URL?) {
         self.mainLogoTitle = mainLogoTitle
         if let url = receptionURL {
             self.url = url
         } else {
-            self.url = URL(string: "http://www.google.com")!
+            self.url = URL(string: defualtURL)!
         }
     }
-
     
     var body: some View {
-        VStack(alignment: .center, spacing: 15) {
+        VStack(alignment: .center) {
             Image(mainLogoTitle)
                 .resizable()
                 .scaledToFit()
-                .aspectRatio(16.0 / 11.0, contentMode: .fit)
-            
-            HStack{
+                .aspectRatio(CGSize(width: 1, height: 1), contentMode: .fit)
+                .padding(.horizontal, 30)
+                .padding(.bottom, 10)
+
+            HStack(spacing: 3) {
                 Text(GreetingTextOptions.todaysClimbing.rawValue)
                     .font(.title)
                     .bold()
                 
                 Text(GreetingTextOptions.timeToStart.rawValue)
                     .font(.title)
-            }.padding(.horizontal, 15)
+            }
+            .padding(.bottom, 11.0)
             
-            
+            KakaoLoginView()
+                .aspectRatio(CGSize(width: 7, height: 1) , contentMode: .fit)
+                    .padding(.bottom, 11)
             
             SignInWithAppleButton(.continue) { request in
                 request.requestedScopes = [.email, .fullName]
@@ -54,7 +60,6 @@ struct LoginView: View {
                     switch auth.credential {
                     case let credential as ASAuthorizationAppleIDCredential:
                         let userId = credential.user
-                        
                         let email = credential.email
                         let fullName = credential.fullName
                        
@@ -64,18 +69,16 @@ struct LoginView: View {
                 case .failure(let error):
                     print(error)
                 }
-                
             }
-            .aspectRatio(60.0 / 9.0 ,contentMode: .fit)
-                .padding(.horizontal, 35)
+            .aspectRatio(CGSize(width: 7, height: 1) , contentMode: .fit)
+                .padding(.bottom, 32)
                 .cornerRadius(5)
-            
+                
             Link("문의하기", destination: url)
                 .font(.body)
                 .bold()
                 .foregroundColor(.black)
-                .padding(.vertical, 32)
-        }
+        }.padding(.horizontal, 35)
 
     }
 }
