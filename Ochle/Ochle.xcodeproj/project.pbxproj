@@ -14,6 +14,7 @@
 		A8433CD828E44FC600185B47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8433CD628E44FC600185B47 /* LaunchScreen.storyboard */; };
 		A8433CE028E4519D00185B47 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8433CDF28E4519D00185B47 /* LoginView.swift */; };
 		A853000028E5ED820076EA37 /* KakaoLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A853FFFF28E5ED820076EA37 /* KakaoLoginView.swift */; };
+		A853000228E6F9550076EA37 /* LoginSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A853000128E6F9550076EA37 /* LoginSuccessView.swift */; };
 		A853FFF528E5B6EE0076EA37 /* LoginHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A853FFF428E5B6EE0076EA37 /* LoginHostingViewController.swift */; };
 		A853FFFA28E5C0810076EA37 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A853FFF928E5C0810076EA37 /* KakaoSDKAuth */; };
 		A853FFFC28E5C0810076EA37 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = A853FFFB28E5C0810076EA37 /* KakaoSDKCommon */; };
@@ -29,6 +30,7 @@
 		A8433CD728E44FC600185B47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A8433CD928E44FC600185B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8433CDF28E4519D00185B47 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A853000128E6F9550076EA37 /* LoginSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSuccessView.swift; sourceTree = "<group>"; };
 		A853FFF228E5B3280076EA37 /* OchleRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OchleRelease.entitlements; sourceTree = "<group>"; };
 		A853FFF328E5B3C00076EA37 /* OchleDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OchleDebug.entitlements; sourceTree = "<group>"; };
 		A853FFF428E5B6EE0076EA37 /* LoginHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginHostingViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				A853FFFF28E5ED820076EA37 /* KakaoLoginView.swift */,
 				A8433CD128E44FC500185B47 /* Main.storyboard */,
 				A8433CD628E44FC600185B47 /* LaunchScreen.storyboard */,
+				A853000128E6F9550076EA37 /* LoginSuccessView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -172,6 +175,7 @@
 			files = (
 				A8433CCC28E44FC500185B47 /* AppDelegate.swift in Sources */,
 				A8433CE028E4519D00185B47 /* LoginView.swift in Sources */,
+				A853000228E6F9550076EA37 /* LoginSuccessView.swift in Sources */,
 				A853000028E5ED820076EA37 /* KakaoLoginView.swift in Sources */,
 				A853FFF528E5B6EE0076EA37 /* LoginHostingViewController.swift in Sources */,
 				A8433CCE28E44FC500185B47 /* SceneDelegate.swift in Sources */,

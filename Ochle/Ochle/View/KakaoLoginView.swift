@@ -9,6 +9,8 @@ import SwiftUI
 import KakaoSDKUser
 
 struct KakaoLoginView: View {
+    @State var isLogedIn: Bool = false
+    
     var body: some View {
         Button {
             if (UserApi.isKakaoTalkLoginAvailable()) {
