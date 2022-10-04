@@ -9,31 +9,21 @@ import SwiftUI
 import AuthenticationServices
 import KakaoSDKAuth
 
-
 enum GreetingTextOptions: String {
     case todaysClimbing = "오늘의 클라이밍"
     case timeToStart = "시작할 시간!"
 }
 
-struct MainView: View {
-    @State var isLoggedIn: Bool = false
-    var body: some View {
-        if self.isLoggedIn {
-            LoginSuccessView()
-        } else {
-            LoginView(mainLogoTitle: "main logo", receptionURL: URL(string: ""))
-        }
-    }
-}
-
 struct LoginView: View {
+    @State var isLoggedIn: Bool = false
+    
     private let mainLogoTitle: String
     private let url: URL
     private let defualtURL: String = "http://www.google.com"
-
+    
     private let usePolicy = "[서비스 이용약관](https://www.google.com)"
     private let privatePolicy = "[서비스 이용약관](https://www.google.com)"
-
+    
     init(mainLogoTitle: String, receptionURL: URL?) {
         self.mainLogoTitle = mainLogoTitle
         if let url = receptionURL {
@@ -67,13 +57,13 @@ struct LoginView: View {
                 .aspectRatio(CGSize(width: 7, height: 1),
                              contentMode: .fit)
                 .padding(.bottom, 11)
-                .onTapGesture
             
             SignInWithAppleButton(.continue) { request in
                 request.requestedScopes = [.email, .fullName]
             } onCompletion: { result in
                 switch result {
                 case .success(let auth):
+                    self.isLoggedIn = true
                     switch auth.credential {
                     case let credential as ASAuthorizationAppleIDCredential:
                         let userId = credential.user
@@ -102,18 +92,15 @@ struct LoginView: View {
                 + Text(.init(self.usePolicy))
                     .underline()
                 + Text(" 및 ")
-                 + Text(.init(self.privatePolicy))
+                + Text(.init(self.privatePolicy))
                     .underline()
-                 + Text("에 \n 동의하는 것으로 간주합니다. ")
+                + Text("에 \n 동의하는 것으로 간주합니다. ")
             }
             .font(.caption)
             .foregroundColor(.black)
             .accentColor(.black)
             .multilineTextAlignment(.center)
-
-
         }.padding(.horizontal, 35)
-        
     }
 }
 
