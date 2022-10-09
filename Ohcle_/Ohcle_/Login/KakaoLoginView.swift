@@ -8,16 +8,21 @@
 import SwiftUI
 import KakaoSDKUser
 
-struct KakaoLoginView: View {    
+struct KakaoLoginView: View {
+    @StateObject var kakaoLoginSetting = LoginSetting()
+    
     var body: some View {
         Button {
             if (UserApi.isKakaoTalkLoginAvailable()) {
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                self.kakaoLoginSetting.isLoggedIn = true
                     print(oauthToken)
                     print(error)
                 }
             } else {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                    self.kakaoLoginSetting.isLoggedIn = true
+
                     print(oauthToken)
                 print(error)
                 }

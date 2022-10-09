@@ -8,6 +8,7 @@
 import SwiftUI
 import AuthenticationServices
 import KakaoSDKAuth
+import KakaoSDKUser
 
 enum GreetingTextOptions: String {
     case todaysClimbing = "오늘의 클라이밍"
@@ -49,7 +50,7 @@ struct LoginView: View {
                 .fontWeight(.bold)
             +
             Text(GreetingTextOptions.timeToStart.rawValue)
-                
+            
         }.minimumScaleFactor(0.5)
             .font(.title)
             .lineLimit(1)
@@ -82,10 +83,31 @@ struct LoginView: View {
                 showMainGreetings()
                     .multilineTextAlignment(.center)
                 
-                KakaoLoginView()
-                    .aspectRatio(CGSize(width: 7, height: 1),
-                                 contentMode: .fit)
-                    .padding(.bottom, 11)
+                Button {
+                    if (UserApi.isKakaoTalkLoginAvailable()) {
+                        UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                            self.loginSetting.isLoggedIn = true
+                            print(oauthToken)
+                            print(error)
+                        }
+                    } else {
+                        UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                            self.loginSetting.isLoggedIn = true
+                            
+                            print(oauthToken)
+                            print(error)
+                        }
+                    }
+                } label : {
+                    Image("kakao_login_medium_wide_Anna")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width : UIScreen.main.bounds.width * 0.9)
+                }
+                
+                .aspectRatio(CGSize(width: 7, height: 1),
+                             contentMode: .fit)
+                .padding(.bottom, 11)
                 
                 SignInWithAppleButton(.continue) { request in
                     request.requestedScopes = [.email, .fullName]
