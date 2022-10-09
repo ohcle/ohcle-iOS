@@ -9,15 +9,12 @@ import SwiftUI
 
 @main
 struct Ohcle_App: App {
-    private let loginView = LoginView(mainLogoTitle: "main logo", receptionURL: URL(string: ""))
-
+    private let loginView = LoginView(mainLogoTitle: "main logo",
+                                      receptionURL: URL(string: ""))
+    
     var body: some Scene {
         WindowGroup {
-            if loginView.isLoggedIn {
-                loginView
-            } else {
-                LoginSuccessView()
-            }
+           loginView
         }
     }
 }

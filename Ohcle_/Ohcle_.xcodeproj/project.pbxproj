@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */; };
-		A859A63028EC3E1500F217F3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A62F28EC3E1500F217F3 /* ContentView.swift */; };
 		A859A63228EC3E1600F217F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A859A63128EC3E1600F217F3 /* Assets.xcassets */; };
 		A859A63528EC3E1600F217F3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A859A63428EC3E1600F217F3 /* Preview Assets.xcassets */; };
 		A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */; };
@@ -17,20 +16,19 @@
 		A859A64328EC3EB300F217F3 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64228EC3EB300F217F3 /* KakaoSDKAuth */; };
 		A859A64528EC3EB300F217F3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64428EC3EB300F217F3 /* KakaoSDKCommon */; };
 		A859A64728EC3EB300F217F3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64628EC3EB300F217F3 /* KakaoSDKUser */; };
-		A859A64A28EC3F8A00F217F3 /* AppleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A64928EC3F8A00F217F3 /* AppleLoginButton.swift */; };
+		A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A859A62A28EC3E1500F217F3 /* Ohcle_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ohcle_.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ohcle_App.swift; sourceTree = "<group>"; };
-		A859A62F28EC3E1500F217F3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A859A63128EC3E1600F217F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A859A63428EC3E1600F217F3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginView.swift; sourceTree = "<group>"; };
 		A859A63D28EC3E6500F217F3 /* LoginSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSuccessView.swift; sourceTree = "<group>"; };
 		A859A63F28EC3E7A00F217F3 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		A859A64928EC3F8A00F217F3 /* AppleLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginButton.swift; sourceTree = "<group>"; };
 		A859A64B28EC457700F217F3 /* Ohcle_.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ohcle_.entitlements; sourceTree = "<group>"; };
+		A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSetting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,13 +65,9 @@
 			isa = PBXGroup;
 			children = (
 				A859A64B28EC457700F217F3 /* Ohcle_.entitlements */,
-				A859A64828EC3F6000F217F3 /* AppleLogin */,
 				A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */,
-				A859A62F28EC3E1500F217F3 /* ContentView.swift */,
-				A859A63F28EC3E7A00F217F3 /* LoginView.swift */,
-				A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */,
-				A859A63D28EC3E6500F217F3 /* LoginSuccessView.swift */,
 				A859A63128EC3E1600F217F3 /* Assets.xcassets */,
+				A859A64E28F27A2600F217F3 /* Login */,
 				A859A63328EC3E1600F217F3 /* Preview Content */,
 			);
 			path = Ohcle_;
@@ -87,12 +81,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		A859A64828EC3F6000F217F3 /* AppleLogin */ = {
+		A859A64E28F27A2600F217F3 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				A859A64928EC3F8A00F217F3 /* AppleLoginButton.swift */,
+				A859A63F28EC3E7A00F217F3 /* LoginView.swift */,
+				A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */,
+				A859A63D28EC3E6500F217F3 /* LoginSuccessView.swift */,
+				A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */,
 			);
-			path = AppleLogin;
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,9 +170,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A859A64A28EC3F8A00F217F3 /* AppleLoginButton.swift in Sources */,
-				A859A63028EC3E1500F217F3 /* ContentView.swift in Sources */,
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
+				A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */,
 				A859A63E28EC3E6500F217F3 /* LoginSuccessView.swift in Sources */,
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,

@@ -23,7 +23,7 @@ struct KakaoLoginView: View {
                 }
             }
         } label : {
-            Image("kakao_login_medium_wide")
+            Image("kakao_login_medium_wide_Anna")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width : UIScreen.main.bounds.width * 0.9)
