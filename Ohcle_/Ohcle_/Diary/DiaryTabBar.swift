@@ -11,11 +11,17 @@ struct DiaryTabBar: View {
     @State private var commonSize = CGSize()
     
     var body: some View {
+        
         TabView {
-            Calender()
-                .tabItem {
-                    Image("tabItem_plus")
-                }
+            ZStack {
+                Color.init("DiaryBackgroundColor")
+                    .ignoresSafeArea(.all)
+                Calender()
+            }
+            .tabItem {
+                Image("tabItem_plus")
+            }
+            
             Text("두번째")
                 .tabItem {
                     Image("tabItem_home")

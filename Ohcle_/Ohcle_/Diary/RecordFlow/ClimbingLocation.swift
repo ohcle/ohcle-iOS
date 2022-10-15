@@ -12,35 +12,38 @@ struct ClimbingLocation: View {
     @State var commonSize = CGSize()
     
     var body: some View {
-        VStack {
-            (Text("어디서")
+        ZStack {
+//            Color.green
+//                .ignoresSafeArea(.all)
+            Color.init("DiaryBackgroundColor")
+                .ignoresSafeArea(.all)
+            VStack {
+                (Text("어디서")
                     .bold()
-                +
-                Text(" 클라이밍 하셨어요?"))
-            .font(.title)
-            .readSize { textSize in
-                commonSize = textSize
-            }
-            .padding(.bottom, commonSize.height * 0.8)
-                        
-            ZStack {
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    //.backgroundStyle(.bar)
-                    .fill(.bar)
-                    .frame(width: commonSize.width,
-                           height: commonSize.height * 1.2)
-                HStack {
-                    Image("locationSearchBarIcon")
-                    TextField("장소를 입력해 주세요",  text: $searchText)
-                    
+                 +
+                 Text(" 클라이밍 하셨어요?"))
+                .font(.title)
+                .readSize { textSize in
+                    commonSize = textSize
                 }
-                .padding(.leading, 13)
+                .padding(.bottom, commonSize.height * 0.7)
                 
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray, lineWidth: 2)
+                        .background(.white)
+                        .frame(width: commonSize.width,
+                               height: commonSize.height * 1.5)
+                    HStack {
+                        Image("locationSearchBarIcon")
+                        TextField("장소를 입력해 주세요",  text: $searchText)
+                    }
+                    .padding(.leading, commonSize.width * 0.2)
+                }
+                .frame(width: commonSize.width * 0.9,
+                       height: commonSize.height)
             }
-            .frame(width: commonSize.width * 0.9,
-                   height: commonSize.height)
         }
-        
     }
 }
 
