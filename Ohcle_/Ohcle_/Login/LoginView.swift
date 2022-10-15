@@ -101,8 +101,8 @@ struct LoginView: View {
                 } label : {
                     Image("kakao_login_medium_wide_Anna")
                         .resizable()
+                        .frame(minWidth: UIScreen.main.bounds.width * 0.82, minHeight: UIScreen.main.bounds.height * 0.054)
                         .aspectRatio(contentMode: .fit)
-                        .frame(width : UIScreen.main.bounds.width * 0.9)
                 }
                 
                 .aspectRatio(CGSize(width: 7, height: 1),
