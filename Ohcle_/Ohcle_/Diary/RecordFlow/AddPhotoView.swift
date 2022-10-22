@@ -27,9 +27,10 @@ struct AddPhotoView: View {
             .font(.title)
             .padding()
             
-            Image("add-climbing-photo")
-                .resizable()
-                .frame(width: self.titleSize.width / titleImageWidthRatio, height: self.titleSize.height * (titleImageHeighRatio))
+            AddPhotoButton(imageName: "add-climbing-photo",
+                           width: self.titleSize.width / titleImageWidthRatio,
+                           height: self.titleSize.height * (titleImageHeighRatio),
+                           selectedPhotos: [], data: nil)
         }
     }
 }

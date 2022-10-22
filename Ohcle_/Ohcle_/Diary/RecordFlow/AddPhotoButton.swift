@@ -19,18 +19,20 @@ struct AddPhotoButton: View {
     
     var body: some View {
         VStack {
-            if let data = self.data,
-               let selectedImage = UIImage(data: data) {
-                Image(uiImage: selectedImage)
-            }
-            
             PhotosPicker(selection: $selectedPhotos,
                          maxSelectionCount: maxSelectionCount,
                          matching: .images) {
-                Image(imageName)
-                    .resizable()
-                    .frame(width: self.width, height: self.height)
                 
+                if let data = self.data,
+                   let selectedImage = UIImage(data: data) {
+                    Image(uiImage: selectedImage)
+                        .resizable()
+                        .frame(width: self.width, height: self.height)
+                } else {
+                    Image(imageName)
+                        .resizable()
+                        .frame(width: self.width, height: self.height)
+                }
             }.onChange(of: selectedPhotos) { photos in
                 guard let item = self.selectedPhotos.first else {
                     return
