@@ -10,6 +10,10 @@ import SwiftUI
 
 struct Calender: View {
     @State private var date = Date()
+    @State private var pickerWidth: CGFloat = 0
+    @State private var pickerHeight: CGFloat = 0
+
+    
     
     var body: some View {
         ZStack {
@@ -21,6 +25,10 @@ struct Calender: View {
                     "", selection: $date,
                     displayedComponents: [.date]
                 )
+                .readSize(onChange: { size in
+                    self.pickerWidth = size.width
+                    self.pickerHeight = size.height
+                })
                 .labelsHidden()
                 .datePickerStyle(.wheel)
                 .environment(\.locale, Locale(identifier: "ko"))
