@@ -12,8 +12,6 @@ struct Calender: View {
     @State private var date = Date()
     @State private var pickerWidth: CGFloat = 0
     @State private var pickerHeight: CGFloat = 0
-
-    
     
     var body: some View {
         ZStack {
