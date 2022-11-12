@@ -31,9 +31,14 @@ struct TextView: UIViewRepresentable {
 }
 
 struct MemoView: View {
+    enum MemoState {
+        case edit
+        case new
+    }
+    
     @State var typedText: String = "fklflflfl"
     @State var placeHodler = "오늘의 클라이밍은 어땠나요?"
-    // @State private var isStartTyping: Bool = false
+    @State private var memoState: MemoState = .new
     
     @State var textStyle = UIFont.TextStyle.body
     
