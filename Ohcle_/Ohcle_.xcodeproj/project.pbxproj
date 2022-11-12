@@ -30,6 +30,9 @@
 		A86A596828F2A1F100C500E1 /* Calender.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86A596728F2A1F100C500E1 /* Calender.swift */; };
 		A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA060290D49C5000F87A8 /* MemoView.swift */; };
 		A88BA063290D5AF2000F87A8 /* DiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA062290D5AF2000F87A8 /* DiaryListView.swift */; };
+		A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E3291F6BE40013A74F /* DiaryList.swift */; };
+		A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E7291F74700013A74F /* AddNewDiary.swift */; };
+		A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +58,9 @@
 		A86A596728F2A1F100C500E1 /* Calender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calender.swift; sourceTree = "<group>"; };
 		A88BA060290D49C5000F87A8 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
 		A88BA062290D5AF2000F87A8 /* DiaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListView.swift; sourceTree = "<group>"; };
+		A8CBB2E3291F6BE40013A74F /* DiaryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryList.swift; sourceTree = "<group>"; };
+		A8CBB2E7291F74700013A74F /* AddNewDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDiary.swift; sourceTree = "<group>"; };
+		A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +90,9 @@
 				A817166729038134005B1268 /* ScoreStar.swift */,
 				A88BA060290D49C5000F87A8 /* MemoView.swift */,
 				A88BA062290D5AF2000F87A8 /* DiaryListView.swift */,
+				A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */,
+				A8CBB2E3291F6BE40013A74F /* DiaryList.swift */,
+				A8CBB2E7291F74700013A74F /* AddNewDiary.swift */,
 			);
 			path = RecordFlow;
 			sourceTree = "<group>";
@@ -237,9 +246,12 @@
 				A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */,
 				A88BA063290D5AF2000F87A8 /* DiaryListView.swift in Sources */,
 				A80B452828FA5A8D00343BB4 /* ClimbingLocation.swift in Sources */,
+				A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */,
+				A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */,
 				A80B452A28FA70A200343BB4 /* Level.swift in Sources */,
 				A80B452628FA555200343BB4 /* OchleColor.swift in Sources */,
 				A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */,
+				A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */,
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,
 				A86A596828F2A1F100C500E1 /* Calender.swift in Sources */,

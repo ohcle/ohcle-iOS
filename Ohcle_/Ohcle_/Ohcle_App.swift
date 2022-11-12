@@ -8,18 +8,33 @@
 import SwiftUI
 import KakaoSDKCommon
 
+
+
+class ViewSizeManager {
+    private init() { }
+    
+    static let shared = ViewSizeManager()
+    private(set) var size: CGSize = CGSize(width: 0, height: 0)
+    
+    func updateViewSize(_ cgSize: CGSize) {
+        ViewSizeManager.shared.size = cgSize
+    }
+}
+
+var cgsize: CGSize = CGSize()
+
 @main
 struct Ohcle_App: App {
     private let loginView = LoginView(mainLogoTitle: "main logo",
                                       receptionURL: URL(string: ""))
     init() {
-          // Kakao SDK 초기화
-          KakaoSDK.initSDK(appKey: "e78a0ba0d7372b5370db8c893fd2d881")
-      }
+        // Kakao SDK 초기화
+        KakaoSDK.initSDK(appKey: "e78a0ba0d7372b5370db8c893fd2d881")
+    }
     
     var body: some Scene {
         WindowGroup {
-           loginView
+            loginView
         }
     }
 }

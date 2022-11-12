@@ -15,6 +15,8 @@ enum GreetingTextOptions: String {
     case timeToStart = "시작할 시간!"
 }
 
+
+
 struct LoginView: View {
     @StateObject var loginSetting = LoginSetting()
     
