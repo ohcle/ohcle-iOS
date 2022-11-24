@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "kakao_login_medium_wide_Anna.png",
+      "filename" : "mypage-alarm.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "kakao_login_medium_wide_Anna @2x.png",
+      "filename" : "mypage-alarm@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "kakao_login_medium_wide_Anna @3x.png",
+      "filename" : "mypage-alarm@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

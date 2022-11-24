@@ -55,7 +55,7 @@ struct DiaryListView: View {
                         }
 
                         HStack {
-                            Text("레벨")                                .foregroundColor(.gray)
+                            Text("레벨")    .foregroundColor(.gray)
 
                             Circle()
                                 .fill(.red)

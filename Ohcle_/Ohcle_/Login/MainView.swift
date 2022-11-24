@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct LoginSuccessView: View {
+struct MainView: View {
     var body: some View {
         Text("성공!")
     }
 }
 
-struct LoginSuccessView_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginSuccessView()
+        MainView()
     }
 }

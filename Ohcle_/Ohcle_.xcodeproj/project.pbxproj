@@ -17,11 +17,12 @@
 		A817166829038134005B1268 /* ScoreStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166729038134005B1268 /* ScoreStar.swift */; };
 		A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166B290386AE005B1268 /* AddPhotoView.swift */; };
 		A817166E29038ACB005B1268 /* AddPhotoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166D29038ACB005B1268 /* AddPhotoButton.swift */; };
+		A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8335B68292F7BFA0006899D /* AppleLoginView.swift */; };
 		A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */; };
 		A859A63228EC3E1600F217F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A859A63128EC3E1600F217F3 /* Assets.xcassets */; };
 		A859A63528EC3E1600F217F3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A859A63428EC3E1600F217F3 /* Preview Assets.xcassets */; };
 		A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */; };
-		A859A63E28EC3E6500F217F3 /* LoginSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A63D28EC3E6500F217F3 /* LoginSuccessView.swift */; };
+		A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A63D28EC3E6500F217F3 /* MainView.swift */; };
 		A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A63F28EC3E7A00F217F3 /* LoginView.swift */; };
 		A859A64328EC3EB300F217F3 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64228EC3EB300F217F3 /* KakaoSDKAuth */; };
 		A859A64528EC3EB300F217F3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64428EC3EB300F217F3 /* KakaoSDKCommon */; };
@@ -33,6 +34,9 @@
 		A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E3291F6BE40013A74F /* DiaryList.swift */; };
 		A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E7291F74700013A74F /* AddNewDiary.swift */; };
 		A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */; };
+		A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2EE291F89A00013A74F /* MyPageView.swift */; };
+		A8CBB2F1291F96570013A74F /* MyPageLogoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F0291F96570013A74F /* MyPageLogoutView.swift */; };
+		A8CBB2F3291F973E0013A74F /* OhcleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F2291F973E0013A74F /* OhcleButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,12 +50,13 @@
 		A817166729038134005B1268 /* ScoreStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStar.swift; sourceTree = "<group>"; };
 		A817166B290386AE005B1268 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
 		A817166D29038ACB005B1268 /* AddPhotoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoButton.swift; sourceTree = "<group>"; };
+		A8335B68292F7BFA0006899D /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
 		A859A62A28EC3E1500F217F3 /* Ohcle_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ohcle_.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ohcle_App.swift; sourceTree = "<group>"; };
 		A859A63128EC3E1600F217F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A859A63428EC3E1600F217F3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginView.swift; sourceTree = "<group>"; };
-		A859A63D28EC3E6500F217F3 /* LoginSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSuccessView.swift; sourceTree = "<group>"; };
+		A859A63D28EC3E6500F217F3 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		A859A63F28EC3E7A00F217F3 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A859A64B28EC457700F217F3 /* Ohcle_.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ohcle_.entitlements; sourceTree = "<group>"; };
 		A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSetting.swift; sourceTree = "<group>"; };
@@ -61,6 +66,9 @@
 		A8CBB2E3291F6BE40013A74F /* DiaryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryList.swift; sourceTree = "<group>"; };
 		A8CBB2E7291F74700013A74F /* AddNewDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDiary.swift; sourceTree = "<group>"; };
 		A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryHeader.swift; sourceTree = "<group>"; };
+		A8CBB2EE291F89A00013A74F /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		A8CBB2F0291F96570013A74F /* MyPageLogoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageLogoutView.swift; sourceTree = "<group>"; };
+		A8CBB2F2291F973E0013A74F /* OhcleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OhcleButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +88,7 @@
 		A80B452B28FA7CAB00343BB4 /* RecordFlow */ = {
 			isa = PBXGroup;
 			children = (
+				A80B452128FA4D3B00343BB4 /* DiaryTabBar.swift */,
 				A80B452C28FA7CDD00343BB4 /* RecordNavigationView.swift */,
 				A86A596728F2A1F100C500E1 /* Calender.swift */,
 				A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */,
@@ -90,8 +99,8 @@
 				A817166729038134005B1268 /* ScoreStar.swift */,
 				A88BA060290D49C5000F87A8 /* MemoView.swift */,
 				A88BA062290D5AF2000F87A8 /* DiaryListView.swift */,
-				A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */,
 				A8CBB2E3291F6BE40013A74F /* DiaryList.swift */,
+				A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */,
 				A8CBB2E7291F74700013A74F /* AddNewDiary.swift */,
 			);
 			path = RecordFlow;
@@ -120,8 +129,10 @@
 				A859A64B28EC457700F217F3 /* Ohcle_.entitlements */,
 				A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */,
 				A859A63128EC3E1600F217F3 /* Assets.xcassets */,
-				A86A596628F2A1BE00C500E1 /* Diary */,
+				A8CBB2F2291F973E0013A74F /* OhcleButton.swift */,
 				A859A64E28F27A2600F217F3 /* Login */,
+				A8CBB2EB291F80360013A74F /* UserSetting */,
+				A86A596628F2A1BE00C500E1 /* Diary */,
 				A859A63328EC3E1600F217F3 /* Preview Content */,
 				A80B452528FA555200343BB4 /* OchleColor.swift */,
 			);
@@ -140,8 +151,9 @@
 			isa = PBXGroup;
 			children = (
 				A859A63F28EC3E7A00F217F3 /* LoginView.swift */,
+				A8335B68292F7BFA0006899D /* AppleLoginView.swift */,
 				A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */,
-				A859A63D28EC3E6500F217F3 /* LoginSuccessView.swift */,
+				A859A63D28EC3E6500F217F3 /* MainView.swift */,
 				A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */,
 			);
 			path = Login;
@@ -150,10 +162,18 @@
 		A86A596628F2A1BE00C500E1 /* Diary */ = {
 			isa = PBXGroup;
 			children = (
-				A80B452128FA4D3B00343BB4 /* DiaryTabBar.swift */,
 				A80B452B28FA7CAB00343BB4 /* RecordFlow */,
 			);
 			path = Diary;
+			sourceTree = "<group>";
+		};
+		A8CBB2EB291F80360013A74F /* UserSetting */ = {
+			isa = PBXGroup;
+			children = (
+				A8CBB2EE291F89A00013A74F /* MyPageView.swift */,
+				A8CBB2F0291F96570013A74F /* MyPageLogoutView.swift */,
+			);
+			path = UserSetting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,10 +260,14 @@
 				A80B452228FA4D3B00343BB4 /* DiaryTabBar.swift in Sources */,
 				A80B452D28FA7CDD00343BB4 /* RecordNavigationView.swift in Sources */,
 				A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */,
+				A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */,
 				A817166829038134005B1268 /* ScoreStar.swift in Sources */,
 				A817166629038013005B1268 /* ClimbingScore.swift in Sources */,
-				A859A63E28EC3E6500F217F3 /* LoginSuccessView.swift in Sources */,
+				A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */,
+				A8CBB2F1291F96570013A74F /* MyPageLogoutView.swift in Sources */,
 				A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */,
+				A8CBB2F3291F973E0013A74F /* OhcleButton.swift in Sources */,
+				A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */,
 				A88BA063290D5AF2000F87A8 /* DiaryListView.swift in Sources */,
 				A80B452828FA5A8D00343BB4 /* ClimbingLocation.swift in Sources */,
 				A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */,

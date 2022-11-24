@@ -26,7 +26,6 @@ struct ClimbingScore: View {
                 ScoreStar()
             }
         }
-       
     }
 }
 

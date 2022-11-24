@@ -32,7 +32,6 @@ struct DiaryList: View {
                 Text("2번")
             }
         }
-        
     }
 }
 

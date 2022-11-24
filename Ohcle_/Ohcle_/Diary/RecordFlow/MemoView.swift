@@ -96,7 +96,6 @@ struct MemoView: View {
                         .bold()
                         .zIndex(10)
                         .offset(x: 0, y: -216)
-
                     
                     Rectangle()
                         .size(width: 330, height: 1)
@@ -110,7 +109,7 @@ struct MemoView: View {
                 Button() {
                     
                 } label: {
-                    Text("수정하기")
+                    Text("저장하기")
                         .fontWeight(.bold)
                         .font(.title3)
                         .padding()
@@ -125,7 +124,6 @@ struct MemoView: View {
         }
         
     }
-    
 }
 
 struct MemoView_Previews: PreviewProvider {

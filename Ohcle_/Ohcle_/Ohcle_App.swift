@@ -25,8 +25,6 @@ var cgsize: CGSize = CGSize()
 
 @main
 struct Ohcle_App: App {
-    private let loginView = LoginView(mainLogoTitle: "main logo",
-                                      receptionURL: URL(string: ""))
     init() {
         // Kakao SDK 초기화
         KakaoSDK.initSDK(appKey: "e78a0ba0d7372b5370db8c893fd2d881")
@@ -34,7 +32,8 @@ struct Ohcle_App: App {
     
     var body: some Scene {
         WindowGroup {
-            loginView
+            LoginView(mainLogoTitle: "main logo",
+                      receptionURL: URL(string: "")).environmentObject(LoginSetting())
         }
     }
 }
