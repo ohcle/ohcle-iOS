@@ -32,7 +32,7 @@ struct LoginView: View {
             self.url = URL(string: defualtURL)!
         }
     }
-    
+        
     var body: some View {
         if self.loginSetting.isLoggedIn {
             MainView()

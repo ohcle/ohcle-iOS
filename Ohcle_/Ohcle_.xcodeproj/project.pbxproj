@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A80B452228FA4D3B00343BB4 /* DiaryTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452128FA4D3B00343BB4 /* DiaryTabBar.swift */; };
 		A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452328FA50DE00343BB4 /* ReadViewSize.swift */; };
 		A80B452628FA555200343BB4 /* OchleColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452528FA555200343BB4 /* OchleColor.swift */; };
 		A80B452828FA5A8D00343BB4 /* ClimbingLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */; };
 		A80B452A28FA70A200343BB4 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452928FA70A200343BB4 /* Level.swift */; };
-		A80B452D28FA7CDD00343BB4 /* RecordNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452C28FA7CDD00343BB4 /* RecordNavigationView.swift */; };
 		A817166629038013005B1268 /* ClimbingScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166529038013005B1268 /* ClimbingScore.swift */; };
 		A817166829038134005B1268 /* ScoreStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166729038134005B1268 /* ScoreStar.swift */; };
 		A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166B290386AE005B1268 /* AddPhotoView.swift */; };
 		A817166E29038ACB005B1268 /* AddPhotoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166D29038ACB005B1268 /* AddPhotoButton.swift */; };
+		A83276462931C781000BF0A9 /* OhcleTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83276452931C781000BF0A9 /* OhcleTabView.swift */; };
+		A83276502933865B000BF0A9 /* AppleLogin_Ohcle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A832764F2933865B000BF0A9 /* AppleLogin_Ohcle.swift */; };
 		A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8335B68292F7BFA0006899D /* AppleLoginView.swift */; };
 		A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */; };
 		A859A63228EC3E1600F217F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A859A63128EC3E1600F217F3 /* Assets.xcassets */; };
@@ -40,16 +40,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A80B452128FA4D3B00343BB4 /* DiaryTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTabBar.swift; sourceTree = "<group>"; };
 		A80B452328FA50DE00343BB4 /* ReadViewSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadViewSize.swift; sourceTree = "<group>"; };
 		A80B452528FA555200343BB4 /* OchleColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OchleColor.swift; sourceTree = "<group>"; };
 		A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingLocation.swift; sourceTree = "<group>"; };
 		A80B452928FA70A200343BB4 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
-		A80B452C28FA7CDD00343BB4 /* RecordNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordNavigationView.swift; sourceTree = "<group>"; };
 		A817166529038013005B1268 /* ClimbingScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingScore.swift; sourceTree = "<group>"; };
 		A817166729038134005B1268 /* ScoreStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStar.swift; sourceTree = "<group>"; };
 		A817166B290386AE005B1268 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
 		A817166D29038ACB005B1268 /* AddPhotoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoButton.swift; sourceTree = "<group>"; };
+		A83276452931C781000BF0A9 /* OhcleTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OhcleTabView.swift; sourceTree = "<group>"; };
+		A832764F2933865B000BF0A9 /* AppleLogin_Ohcle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLogin_Ohcle.swift; sourceTree = "<group>"; };
 		A8335B68292F7BFA0006899D /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
 		A859A62A28EC3E1500F217F3 /* Ohcle_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ohcle_.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ohcle_App.swift; sourceTree = "<group>"; };
@@ -88,8 +88,6 @@
 		A80B452B28FA7CAB00343BB4 /* RecordFlow */ = {
 			isa = PBXGroup;
 			children = (
-				A80B452128FA4D3B00343BB4 /* DiaryTabBar.swift */,
-				A80B452C28FA7CDD00343BB4 /* RecordNavigationView.swift */,
 				A86A596728F2A1F100C500E1 /* Calender.swift */,
 				A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */,
 				A80B452928FA70A200343BB4 /* Level.swift */,
@@ -153,7 +151,9 @@
 				A859A63F28EC3E7A00F217F3 /* LoginView.swift */,
 				A8335B68292F7BFA0006899D /* AppleLoginView.swift */,
 				A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */,
+				A832764F2933865B000BF0A9 /* AppleLogin_Ohcle.swift */,
 				A859A63D28EC3E6500F217F3 /* MainView.swift */,
+				A83276452931C781000BF0A9 /* OhcleTabView.swift */,
 				A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */,
 			);
 			path = Login;
@@ -257,8 +257,8 @@
 				A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */,
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
 				A817166E29038ACB005B1268 /* AddPhotoButton.swift in Sources */,
-				A80B452228FA4D3B00343BB4 /* DiaryTabBar.swift in Sources */,
-				A80B452D28FA7CDD00343BB4 /* RecordNavigationView.swift in Sources */,
+				A83276502933865B000BF0A9 /* AppleLogin_Ohcle.swift in Sources */,
+				A83276462931C781000BF0A9 /* OhcleTabView.swift in Sources */,
 				A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */,
 				A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */,
 				A817166829038134005B1268 /* ScoreStar.swift in Sources */,

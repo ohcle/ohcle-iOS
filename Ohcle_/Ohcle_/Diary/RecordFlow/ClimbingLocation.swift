@@ -10,11 +10,10 @@ import SwiftUI
 struct ClimbingLocation: View {
     @State private var searchText = ""
     @State var commonSize = CGSize()
+    @State private var isLocateChanged: Bool = false
     
     var body: some View {
         ZStack {
-//            Color.green
-//                .ignoresSafeArea(.all)
             Color.init("DiaryBackgroundColor")
                 .ignoresSafeArea(.all)
             VStack {
@@ -36,7 +35,8 @@ struct ClimbingLocation: View {
                                height: commonSize.height * 1.5)
                     HStack {
                         Image("locationSearchBarIcon")
-                        TextField("장소를 입력해 주세요",  text: $searchText)
+                        TextField("장소를 입력해 주세요",
+                                  text: $searchText)
                     }
                     .padding(.leading, commonSize.width * 0.2)
                 }
@@ -47,9 +47,9 @@ struct ClimbingLocation: View {
     }
 }
 
-
-
 struct ClimbingLocation_Preview: PreviewProvider {
+    @State var path = NavigationPath()
+
     static var previews: some View {
         ClimbingLocation()
     }
