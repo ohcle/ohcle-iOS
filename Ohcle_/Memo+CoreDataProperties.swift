@@ -1,5 +1,5 @@
 //
-//  Entity+CoreDataProperties.swift
+//  Memo+CoreDataProperties.swift
 //  Ohcle_
 //
 //  Created by Do Yi Lee on 2022/12/04.
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension Entity {
+extension Memo {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Entity> {
-        return NSFetchRequest<Entity>(entityName: "Entity")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Memo> {
+        return NSFetchRequest<Memo>(entityName: "Memo")
     }
 
     @NSManaged public var date: String?
@@ -24,6 +24,6 @@ extension Entity {
 
 }
 
-extension Entity : Identifiable {
+extension Memo : Identifiable {
 
 }

@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct TextView: UIViewRepresentable {
-    
     @Binding var text: String
     @Binding var textStyle: UIFont.TextStyle
-    
     
     func makeUIView(context: Context) -> UITextView {
         let textView = UITextView()
@@ -39,8 +37,9 @@ struct MemoView: View {
     @State var typedText: String = "fklflflfl"
     @State var placeHodler = "오늘의 클라이밍은 어땠나요?"
     @State private var memoState: MemoState = .new
-    
     @State var textStyle = UIFont.TextStyle.body
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
     
     private let currentDate: String = {
         let currentDate = Date()
@@ -107,6 +106,7 @@ struct MemoView: View {
                 }
                 
                 Button() {
+                    //Save Data to CoreData Storage
                     
                 } label: {
                     Text("저장하기")
@@ -122,7 +122,6 @@ struct MemoView: View {
             .padding(.leading, 30)
             .padding(.trailing, 30)
         }
-        
     }
 }
 

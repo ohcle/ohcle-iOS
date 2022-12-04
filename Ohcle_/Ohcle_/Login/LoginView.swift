@@ -81,7 +81,6 @@ struct LoginView: View {
     }
     
     private func showMainGreetings() -> some View {
-        return
         ZStack {
             Text(GreetingTextOptions.todaysClimbing.rawValue + " ")
                 .fontWeight(.bold)

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var path = NavigationPath()
+    @StateObject var pageState: MyPageType = MyPageType.init()
     
     var body: some View {
         TabView {
@@ -20,35 +20,44 @@ struct MainView: View {
                 Image("tabItem_home")
             }
             
-            NavigationStack(path: $path) {
-                NavigationLink {
-//                    ClimbingLocation(path: $path)
-                } label: {
-                   
+            NavigationStack {
+                switch pageState.pageType {
+                case .calender :
+                    Calender()
+                        .environmentObject(pageState)
+                case .location :
+                    ClimbingLocation()
+                        .environmentObject(pageState)
+                case .score:
+                    ClimbingScore()
+                        .environmentObject(pageState)
+                case .level:
+                    Level()
+                        .environmentObject(pageState)
+                case .review:
+                    MemoView()
+                        .environmentObject(pageState)
                 }
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button("이전") {
-                            if path.count != .zero {
-                                self.path.removeLast()
-                            }
-                        }.foregroundColor(.black)
-                    }
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        HStack {
-                            Spacer()
-                            Text("다음")
-                                .foregroundColor(.black)
-                                .font(.title3)
-                            Image(systemName: "paperplane")
-                                .padding(.trailing, 10)
-                        }                    }
-                }
-                Spacer()
-                Calender()
-                Spacer()
             }
+//            NavigationStack(path: $pathState.path) {
+//
+
+//                Calender(path: $pathState.path, nextPageType: .init())
+//                    .toolbar {
+//                        ToolbarItem(placement: .navigationBarTrailing) {
+//                            NavigationLink {
+//                                ClimbingLocation(path: $pathState.path)
+//                            } label: {
+//                                Text("다음")
+//                                    .font(.title3)
+//                                Image(systemName: "paperplane")
+//                                    .padding(.trailing, 10)
+//                            }
+//                            .foregroundColor(.black)
+//                        }
+//                    }
+//            }
+          
             .tabItem {
                 Image("tabItem_plus")
             }
@@ -59,6 +68,7 @@ struct MainView: View {
         }.background(Color.white)
     }
 }
+
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {

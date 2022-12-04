@@ -11,7 +11,8 @@ struct ClimbingLocation: View {
     @State private var searchText = ""
     @State var commonSize = CGSize()
     @State private var isLocateChanged: Bool = false
-    
+    @EnvironmentObject var nextPageType: MyPageType
+
     var body: some View {
         ZStack {
             Color.init("DiaryBackgroundColor")
@@ -37,6 +38,9 @@ struct ClimbingLocation: View {
                         Image("locationSearchBarIcon")
                         TextField("장소를 입력해 주세요",
                                   text: $searchText)
+                        .onTapGesture {
+                            nextPageType.pageType = .level
+                        }
                     }
                     .padding(.leading, commonSize.width * 0.2)
                 }
@@ -48,7 +52,7 @@ struct ClimbingLocation: View {
 }
 
 struct ClimbingLocation_Preview: PreviewProvider {
-    @State var path = NavigationPath()
+    @State static var path = NavigationPath()
 
     static var previews: some View {
         ClimbingLocation()

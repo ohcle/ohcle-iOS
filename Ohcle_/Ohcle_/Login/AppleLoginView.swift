@@ -16,11 +16,11 @@ struct AppleLoginView: View {
             request.requestedScopes = [.email, .fullName]
         } onCompletion: { result in
             handleAppleLoginResult(result)
-            retrieveToken()
+            createToken()
         }
     }
     
-    private func retrieveToken() {
+    private func createToken() {
         guard let url = URL(string: "https://ohcle.net/v1/account/apple/signin") else {
             return
         }
@@ -38,7 +38,6 @@ struct AppleLoginView: View {
                     if let requestedData = data {
                         let decodedData = try JSONDecoder().decode(LoginResultModel.self, from: requestedData)
                         print(decodedData.userToken)
-
                     }
                 } catch {
                     print(error)

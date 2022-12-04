@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ClimbingScore: View {
     private let scoreLange = (0...4)
-    
+    @EnvironmentObject var nextPage: MyPageType
+
     var body: some View {
         VStack {
             (Text("오늘 클라이밍의 ")
@@ -25,6 +26,9 @@ struct ClimbingScore: View {
                 ScoreStar()
                 ScoreStar()
             }
+        }
+        .onTapGesture {
+            nextPage.pageType = .review
         }
     }
 }

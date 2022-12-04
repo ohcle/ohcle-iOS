@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddPhotoView: View {
    @State private var titleSize = CGSize()
+    @EnvironmentObject var nextPage: MyPageType
     private let titleImageHeighRatio = CGFloat(80/22)
     private let titleImageWidthRatio = CGFloat(268/80)
 
@@ -31,6 +32,9 @@ struct AddPhotoView: View {
                            width: self.titleSize.width / titleImageWidthRatio,
                            height: self.titleSize.height * (titleImageHeighRatio),
                            selectedPhotos: [], data: nil)
+            .onTapGesture {
+                nextPage.pageType = .review
+            }
         }
     }
 }

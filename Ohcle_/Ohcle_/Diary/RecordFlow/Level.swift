@@ -26,6 +26,8 @@ struct LevelCircle: View {
 
 struct Level: View {
     @State private var commonSize: CGSize = CGSize()
+    @EnvironmentObject var nextPage: MyPageType
+    
     private let firstLowcolors: [Color] = [.red, .orange, .yellow, .green, .blue]
     private let secondLowColors: [Color] = [Color.init("holder-darkblue"), .purple, .black, Color.init("holder-lightgray"), Color.init("holder-darkgray")]
     
@@ -41,6 +43,9 @@ struct Level: View {
                 
                 LevelCircle(colors: self.firstLowcolors)
                 LevelCircle(colors: self.secondLowColors)
+            }
+            .onTapGesture {
+                nextPage.pageType = .score
             }
             .frame(width: geometry.size.width,
                    height: geometry.size.height/4)

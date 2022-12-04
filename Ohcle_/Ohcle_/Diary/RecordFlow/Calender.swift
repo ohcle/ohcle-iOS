@@ -7,10 +7,23 @@
 
 import SwiftUI
 
+enum NewMemoPageType {
+    case calender
+    case location
+    case score
+    case level
+    case review
+}
+
+class MyPageType: ObservableObject {
+    @Published var pageType: NewMemoPageType = .calender
+}
+
 struct Calender: View {
     @State private var date = Date()
     @State private var pickerWidth: CGFloat = 0
     @State private var pickerHeight: CGFloat = 0
+    @EnvironmentObject var nextPageType: MyPageType
     
     var body: some View {
         VStack{
@@ -24,6 +37,7 @@ struct Calender: View {
             .onChange(of: date, perform: { newValue in
                 //Save Date Info
                 //Inform changing
+                self.nextPageType.pageType = .location
             })
             .readSize(onChange: { size in
                 self.pickerWidth = size.width
@@ -37,7 +51,8 @@ struct Calender: View {
 }
 
 struct Calender_Previews: PreviewProvider {
+    @State static var path = NavigationPath()
     static var previews: some View {
-        Calender()
+        Calender(nextPageType: .init())
     }
 }
