@@ -46,7 +46,6 @@ struct Level: View {
                    height: geometry.size.height/4)
             .padding(.top, geometry.size.height / 3)
         }
-       
     }
 }
 

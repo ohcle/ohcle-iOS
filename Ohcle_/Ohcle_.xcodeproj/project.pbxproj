@@ -28,6 +28,10 @@
 		A859A64528EC3EB300F217F3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64428EC3EB300F217F3 /* KakaoSDKCommon */; };
 		A859A64728EC3EB300F217F3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64628EC3EB300F217F3 /* KakaoSDKUser */; };
 		A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */; };
+		A866B4F9293C6CAB001E182F /* climingMemoList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A866B4F7293C6CAB001E182F /* climingMemoList.xcdatamodeld */; };
+		A866B4FC293C6E2A001E182F /* Entity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A866B4FA293C6E2A001E182F /* Entity+CoreDataClass.swift */; };
+		A866B4FD293C6E2A001E182F /* Entity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A866B4FB293C6E2A001E182F /* Entity+CoreDataProperties.swift */; };
+		A866B4FF293C6EB4001E182F /* PersistantContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A866B4FE293C6EB4001E182F /* PersistantContainer.swift */; };
 		A86A596828F2A1F100C500E1 /* Calender.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86A596728F2A1F100C500E1 /* Calender.swift */; };
 		A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA060290D49C5000F87A8 /* MemoView.swift */; };
 		A88BA063290D5AF2000F87A8 /* DiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA062290D5AF2000F87A8 /* DiaryListView.swift */; };
@@ -60,6 +64,10 @@
 		A859A63F28EC3E7A00F217F3 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A859A64B28EC457700F217F3 /* Ohcle_.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ohcle_.entitlements; sourceTree = "<group>"; };
 		A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSetting.swift; sourceTree = "<group>"; };
+		A866B4F8293C6CAB001E182F /* climingMemoList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = climingMemoList.xcdatamodel; sourceTree = "<group>"; };
+		A866B4FA293C6E2A001E182F /* Entity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A866B4FB293C6E2A001E182F /* Entity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A866B4FE293C6EB4001E182F /* PersistantContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistantContainer.swift; sourceTree = "<group>"; };
 		A86A596728F2A1F100C500E1 /* Calender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calender.swift; sourceTree = "<group>"; };
 		A88BA060290D49C5000F87A8 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
 		A88BA062290D5AF2000F87A8 /* DiaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListView.swift; sourceTree = "<group>"; };
@@ -88,6 +96,7 @@
 		A80B452B28FA7CAB00343BB4 /* RecordFlow */ = {
 			isa = PBXGroup;
 			children = (
+				A866B4F7293C6CAB001E182F /* climingMemoList.xcdatamodeld */,
 				A86A596728F2A1F100C500E1 /* Calender.swift */,
 				A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */,
 				A80B452928FA70A200343BB4 /* Level.swift */,
@@ -107,6 +116,9 @@
 		A859A62128EC3E1500F217F3 = {
 			isa = PBXGroup;
 			children = (
+				A866B4FA293C6E2A001E182F /* Entity+CoreDataClass.swift */,
+				A866B4FB293C6E2A001E182F /* Entity+CoreDataProperties.swift */,
+				A866B4FE293C6EB4001E182F /* PersistantContainer.swift */,
 				A859A62C28EC3E1500F217F3 /* Ohcle_ */,
 				A859A62B28EC3E1500F217F3 /* Products */,
 			);
@@ -255,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */,
+				A866B4F9293C6CAB001E182F /* climingMemoList.xcdatamodeld in Sources */,
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
 				A817166E29038ACB005B1268 /* AddPhotoButton.swift in Sources */,
 				A83276502933865B000BF0A9 /* AppleLogin_Ohcle.swift in Sources */,
@@ -263,13 +276,16 @@
 				A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */,
 				A817166829038134005B1268 /* ScoreStar.swift in Sources */,
 				A817166629038013005B1268 /* ClimbingScore.swift in Sources */,
+				A866B4FD293C6E2A001E182F /* Entity+CoreDataProperties.swift in Sources */,
 				A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */,
+				A866B4FF293C6EB4001E182F /* PersistantContainer.swift in Sources */,
 				A8CBB2F1291F96570013A74F /* MyPageLogoutView.swift in Sources */,
 				A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */,
 				A8CBB2F3291F973E0013A74F /* OhcleButton.swift in Sources */,
 				A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */,
 				A88BA063290D5AF2000F87A8 /* DiaryListView.swift in Sources */,
 				A80B452828FA5A8D00343BB4 /* ClimbingLocation.swift in Sources */,
+				A866B4FC293C6E2A001E182F /* Entity+CoreDataClass.swift in Sources */,
 				A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */,
 				A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */,
 				A80B452A28FA70A200343BB4 /* Level.swift in Sources */,
@@ -510,6 +526,19 @@
 			productName = KakaoSDKUser;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		A866B4F7293C6CAB001E182F /* climingMemoList.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A866B4F8293C6CAB001E182F /* climingMemoList.xcdatamodel */,
+			);
+			currentVersion = A866B4F8293C6CAB001E182F /* climingMemoList.xcdatamodel */;
+			path = climingMemoList.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A859A62228EC3E1500F217F3 /* Project object */;
 }

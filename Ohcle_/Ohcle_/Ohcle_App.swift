@@ -29,23 +29,14 @@ struct Ohcle_App: App {
         // Kakao SDK 초기화
         KakaoSDK.initSDK(appKey: "e78a0ba0d7372b5370db8c893fd2d881")
     }
+    let persistenceController = PersistenceController.shared
+
     
     var body: some Scene {
         WindowGroup {
             LoginView(mainLogoTitle: "main logo",
                       receptionURL: URL(string: "")).environmentObject(LoginSetting())
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
-
-//
-//  var body: some Scene {
-//      WindowGroup {
-//          // onOpenURL()을 사용해 커스텀 URL 스킴 처리
-//          ContentView().onOpenURL(perform: { url in
-//              if (AuthApi.isKakaoTalkLoginUrl(url)) {
-//                  AuthController.handleOpenUrl(url: url)
-//              }
-//          })
-//      }
-//  }
