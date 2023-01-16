@@ -28,7 +28,11 @@ struct ClimbingScore: View {
             }
         }
         .onTapGesture {
-            nextPage.pageType = .review
+            Debouncer(delay: 0.5).run {
+                withAnimation {
+                    nextPage.type = .photo
+                }
+            }
         }
     }
 }

@@ -11,12 +11,13 @@ enum NewMemoPageType {
     case calender
     case location
     case score
+    case photo
     case level
-    case review
+    case memo
 }
 
 class MyPageType: ObservableObject {
-    @Published var pageType: NewMemoPageType = .calender
+    @Published var type: NewMemoPageType = .calender
 }
 
 struct Calender: View {
@@ -35,9 +36,11 @@ struct Calender: View {
                 displayedComponents: [.date]
             )
             .onChange(of: date, perform: { newValue in
-                //Save Date Info
-                //Inform changing
-                self.nextPageType.pageType = .location
+                Debouncer(delay: 0.5).run {
+                    withAnimation {
+                        self.nextPageType.type = .location
+                    }
+                }
             })
             .readSize(onChange: { size in
                 self.pickerWidth = size.width

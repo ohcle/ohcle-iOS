@@ -8,55 +8,50 @@
 import SwiftUI
 import PhotosUI
 
+
 struct AddPhotoButton: View {
     let imageName: String
-    let width: CGFloat
-    let height: CGFloat
-    let maxSelectionCount: Int = 1
+    let selectedImageWidth: CGFloat
+    let selectedImgeHieght: CGFloat
+    private let maxSelectionCount: Int = 1
     
-    @State var selectedPhotos: [PhotosPickerItem] = []
-    @State var data: Data?
+    @State private var selectedPhotos: [PhotosPickerItem] = []
+    @State private var data: Data?
+    @Binding var isSelected: Bool
     
     var body: some View {
         VStack {
-            PhotosPicker(selection: $selectedPhotos,
-                         maxSelectionCount: maxSelectionCount,
-                         matching: .images) {
-                
-                if let data = self.data,
-                   let selectedImage = UIImage(data: data) {
-                    Image(uiImage: selectedImage)
-                        .resizable()
-                        .frame(width: self.width, height: self.height)
-                } else {
-                    Image(imageName)
-                        .resizable()
-                        .frame(width: self.width, height: self.height)
-                }
-            }.onChange(of: selectedPhotos) { photos in
-                guard let item = self.selectedPhotos.first else {
-                    return
-                }
-                
-                item.loadTransferable(type: Data.self) { result in
-                    switch result {
-                    case .success(let data):
-                        if let data = data {
-                            self.data = data
+            Button {
+            } label: {
+                PhotosPicker(selection: $selectedPhotos,
+                             maxSelectionCount: maxSelectionCount,
+                             matching: .images) {
+                    if let data = self.data,
+                       let selectedImage = UIImage(data: data) {
+                        Image(uiImage: selectedImage)
+                            .resizable()
+                            .frame(width: self.selectedImageWidth, height: self.selectedImgeHieght)
+                    } else {
+                        Image(imageName)
+                    }
+                }.onChange(of: selectedPhotos) { photos in
+                    self.isSelected.toggle()
+
+                    guard let item = self.selectedPhotos.first else {
+                        return
+                    }                    
+                    item.loadTransferable(type: Data.self) { result in
+                        switch result {
+                        case .success(let data):
+                            if let data = data {
+                                self.data = data
+                            }
+                        case .failure(let failure):
+                            print(failure)
                         }
-                    case .failure(let failure):
-                        print(failure)
                     }
                 }
             }
         }
-    }
-}
-
-struct AddPhotoButton_Previews: PreviewProvider {
-    static var previews: some View {
-        AddPhotoButton(imageName: "add-climbing-photo",
-                       width: CGFloat(80),
-                       height: CGFloat(80))
     }
 }

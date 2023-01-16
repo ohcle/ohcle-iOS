@@ -10,7 +10,8 @@ import SwiftUI
 struct TextView: UIViewRepresentable {
     @Binding var text: String
     @Binding var textStyle: UIFont.TextStyle
-    
+    @EnvironmentObject var nextPage: MyPageType
+
     func makeUIView(context: Context) -> UITextView {
         let textView = UITextView()
         

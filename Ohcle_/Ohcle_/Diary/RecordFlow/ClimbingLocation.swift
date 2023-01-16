@@ -6,6 +6,18 @@
 //
 
 import SwiftUI
+import CoreLocation
+
+struct IdentifiableSpace: Identifiable {
+    let id: UUID
+    let location: CLLocationCoordinate2D
+    
+    init(id: UUID, lat: Double, long: Double) {
+        self.id = id
+        let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        self.location = location
+    }
+}
 
 struct ClimbingLocation: View {
     @State private var searchText = ""
@@ -39,7 +51,11 @@ struct ClimbingLocation: View {
                         TextField("장소를 입력해 주세요",
                                   text: $searchText)
                         .onTapGesture {
-                            nextPageType.pageType = .level
+                            Debouncer(delay: 0.5).run {
+                                withAnimation {
+                                    nextPageType.type = .level
+                                }
+                            }
                         }
                     }
                     .padding(.leading, commonSize.width * 0.2)

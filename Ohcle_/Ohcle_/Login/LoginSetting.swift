@@ -8,7 +8,7 @@
 import SwiftUI
 
 final class LoginSetting: ObservableObject {
-    @Published var isLoggedIn: Bool = false
+    @Published var isLoggedIn: Bool = true
     
     func login() {
         self.isLoggedIn = true

@@ -8,18 +8,20 @@
 import SwiftUI
 
 struct AddPhotoView: View {
-   @State private var titleSize = CGSize()
+    @State private var titleSize = CGSize()
     @EnvironmentObject var nextPage: MyPageType
-    private let titleImageHeighRatio = CGFloat(80/22)
-    private let titleImageWidthRatio = CGFloat(268/80)
-
+    @State private var isImageSelected: Bool = false
+    
+    private let titleImageHeighRatio = CGFloat(7)
+    private let titleImageWidthRatio = CGFloat(0.8)
+    
     var body: some View {
         VStack {
             (Text("오늘을 ")
              +
              Text("기록할 사진")
                 .bold()
-            +
+             +
              Text("이 있나요?")
             )
             .readSize(onChange: { size in
@@ -29,11 +31,15 @@ struct AddPhotoView: View {
             .padding()
             
             AddPhotoButton(imageName: "add-climbing-photo",
-                           width: self.titleSize.width / titleImageWidthRatio,
-                           height: self.titleSize.height * (titleImageHeighRatio),
-                           selectedPhotos: [], data: nil)
-            .onTapGesture {
-                nextPage.pageType = .review
+                           selectedImageWidth: self.titleSize.width * titleImageWidthRatio,
+                           selectedImgeHieght : self.titleSize.height * titleImageHeighRatio,
+                           isSelected: $isImageSelected)
+            .onChange(of: self.isImageSelected) { newValue in
+                Debouncer(delay: 0.8).run {
+                    withAnimation {
+                        nextPage.type = .memo
+                    }
+                }
             }
         }
     }
@@ -44,3 +50,4 @@ struct AddPhotoView_Previews: PreviewProvider {
         AddPhotoView()
     }
 }
+

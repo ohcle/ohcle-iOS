@@ -45,7 +45,11 @@ struct Level: View {
                 LevelCircle(colors: self.secondLowColors)
             }
             .onTapGesture {
-                nextPage.pageType = .score
+                Debouncer(delay: 0.5).run {
+                    withAnimation {
+                        nextPage.type = .score
+                    }
+                }
             }
             .frame(width: geometry.size.width,
                    height: geometry.size.height/4)
