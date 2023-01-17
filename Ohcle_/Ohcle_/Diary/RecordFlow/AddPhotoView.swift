@@ -35,7 +35,7 @@ struct AddPhotoView: View {
                            selectedImgeHieght : self.titleSize.height * titleImageHeighRatio,
                            isSelected: $isImageSelected)
             .onChange(of: self.isImageSelected) { newValue in
-                Debouncer(delay: 1.0).run {
+                Debouncer(delay: 0.5).run {
                     withAnimation {
                         nextPage.type = .memo
                     }

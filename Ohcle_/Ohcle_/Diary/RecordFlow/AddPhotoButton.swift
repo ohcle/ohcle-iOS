@@ -35,7 +35,9 @@ struct AddPhotoButton: View {
                         Image(imageName)
                     }
                 }.onChange(of: selectedPhotos) { photos in
-                    self.isSelected.toggle()
+                            Debouncer(delay: 0.3).run {
+                                self.isSelected.toggle()
+                            }
 
                     guard let item = self.selectedPhotos.first else {
                         return

@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ClimbingScore: View {
-    @State private var finalScore: Int = 3
+    @State private var finalScore: Int = 0
     @EnvironmentObject var nextPage: MyPageType
-
+    
     var body: some View {
         VStack(spacing: 30) {
             (Text("오늘 클라이밍의 ")
@@ -22,15 +22,17 @@ struct ClimbingScore: View {
             HStack {
                 ScoreStar(rating: $finalScore)
                     .font(.system(size: 43))
+                
             }
-        }
-        .onTapGesture {
-            Debouncer(delay: 0.5).run {
-                withAnimation {
-                    nextPage.type = .photo
+            .onChange(of: finalScore) { newValue in
+                Debouncer(delay: 0.5).run {
+                    withAnimation {
+                        nextPage.type = .photo
+                    }
                 }
             }
         }
+        
     }
 }
 
