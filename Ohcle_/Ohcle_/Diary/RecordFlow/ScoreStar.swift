@@ -9,22 +9,33 @@ import SwiftUI
 
 struct ScoreStar: View {
     @State private var isTouched: Bool = false
+    @Binding var rating: Int
+    
+    private let maxRating = 5
+    
+    private let offImage = Image(systemName: "star.fill")
+    private let onImage = Image(systemName: "star.fill")
+    
+    private let offColor = Color.black
+    private let onColor = Color("scoreStarColor")
     
     var body: some View {
-        Button {
-            self.isTouched.toggle()
-        } label: {
-            if self.isTouched {
-                Image("score-star")
-            } else {
-                Image("score-emptystar")
+        HStack{
+            ForEach(1..<maxRating + 1, id:\.self) { number in
+                Image(systemName: "star.fill")
+                    .foregroundColor(number > rating ? offColor : onColor)
+                    .onTapGesture {
+                        rating = number
+                    }
             }
         }
     }
-}
-
-struct ScoreStar_Previews: PreviewProvider {
-    static var previews: some View {
-        ScoreStar()
+    
+    private func image(for number: Int) -> Image {
+        if number > rating {
+            return offImage
+        } else {
+            return onImage
+        }
     }
 }

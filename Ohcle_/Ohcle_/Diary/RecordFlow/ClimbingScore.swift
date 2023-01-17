@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ClimbingScore: View {
-    private let scoreLange = (0...4)
+    @State private var finalScore: Int = 3
     @EnvironmentObject var nextPage: MyPageType
 
     var body: some View {
-        VStack {
+        VStack(spacing: 30) {
             (Text("오늘 클라이밍의 ")
              +
              Text("점수")
@@ -20,11 +20,8 @@ struct ClimbingScore: View {
             .font(.title)
             
             HStack {
-                ScoreStar()
-                ScoreStar()
-                ScoreStar()
-                ScoreStar()
-                ScoreStar()
+                ScoreStar(rating: $finalScore)
+                    .font(.system(size: 43))
             }
         }
         .onTapGesture {

@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct DiaryListView: View {
-    private let currentDate: String = {
-        let currentDate = Date()
-        let formatter = DateFormatter()
-        
-        formatter.timeStyle = .none
-        formatter.dateStyle = .medium
-        formatter.locale = Locale(identifier: "ko")
-        formatter.setLocalizedDateFormatFromTemplate("yyyy MMMM")
-        return formatter.string(from: currentDate)
-    }()
+public let currentDate: String = {
+    let currentDate = Date()
+    let formatter = DateFormatter()
     
+    formatter.timeStyle = .none
+    formatter.dateStyle = .medium
+    formatter.locale = Locale(identifier: "ko")
+    formatter.setLocalizedDateFormatFromTemplate("yyyy MMMM")
+    return formatter.string(from: currentDate)
+}()
+
+struct DiaryListView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
