@@ -15,7 +15,6 @@
 		A817166829038134005B1268 /* ScoreStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166729038134005B1268 /* ScoreStar.swift */; };
 		A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166B290386AE005B1268 /* AddPhotoView.swift */; };
 		A817166E29038ACB005B1268 /* AddPhotoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166D29038ACB005B1268 /* AddPhotoButton.swift */; };
-		A83276462931C781000BF0A9 /* OhcleTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83276452931C781000BF0A9 /* OhcleTabView.swift */; };
 		A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8335B68292F7BFA0006899D /* AppleLoginView.swift */; };
 		A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */; };
 		A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */; };
@@ -54,7 +53,6 @@
 		A817166729038134005B1268 /* ScoreStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStar.swift; sourceTree = "<group>"; };
 		A817166B290386AE005B1268 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
 		A817166D29038ACB005B1268 /* AddPhotoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoButton.swift; sourceTree = "<group>"; };
-		A83276452931C781000BF0A9 /* OhcleTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OhcleTabView.swift; sourceTree = "<group>"; };
 		A8335B68292F7BFA0006899D /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
 		A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewGridItem.swift; sourceTree = "<group>"; };
 		A859A62A28EC3E1500F217F3 /* Ohcle_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ohcle_.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,7 +169,6 @@
 				A866B508293CC5C5001E182F /* LoginResultModel.swift */,
 				A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */,
 				A859A63D28EC3E6500F217F3 /* MainView.swift */,
-				A83276452931C781000BF0A9 /* OhcleTabView.swift */,
 				A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */,
 			);
 			path = Login;
@@ -279,7 +276,6 @@
 				A866B4F9293C6CAB001E182F /* climingMemoList.xcdatamodeld in Sources */,
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
 				A817166E29038ACB005B1268 /* AddPhotoButton.swift in Sources */,
-				A83276462931C781000BF0A9 /* OhcleTabView.swift in Sources */,
 				A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */,
 				A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */,
 				A817166829038134005B1268 /* ScoreStar.swift in Sources */,

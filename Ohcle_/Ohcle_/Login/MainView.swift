@@ -59,6 +59,7 @@ struct MainView: View {
             ZStack {
                 Color.init("DiaryBackgroundColor")
                     .ignoresSafeArea(.all)
+                DiaryList()
             }
             .tabItem {
                 Image("tabItem_home")
@@ -98,7 +99,7 @@ struct MainView: View {
                 Image("tabItem_plus")
             }
             
-            Text("세번째")
+            MyPageView()
                 .tabItem {
                     Image("tabItem_self")
                 }

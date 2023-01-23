@@ -8,8 +8,6 @@
 import SwiftUI
 import KakaoSDKCommon
 
-
-
 class ViewSizeManager {
     private init() { }
     

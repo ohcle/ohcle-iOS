@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+extension UIScreen{
+   static let screenWidth = UIScreen.main.bounds.size.width
+   static let screenHeight = UIScreen.main.bounds.size.height
+   static let screenSize = UIScreen.main.bounds.size
+}
+
 struct DiaryListViewGridItem: View {
     @State private var gridSize: CGSize?
     
@@ -26,33 +32,34 @@ struct DiaryListViewGridItem: View {
     }
     
     var body: some View {
-        HStack(spacing: 10) {
-            self.placeHoldeImage
-                .resizable()
-                .frame(width: self.gridSize?.width, height: self.gridSize?.height)
-            Grid(alignment: .leading, verticalSpacing: 7) {
-                GridRow {
-                    Text("날짜: ")
-                    Text(self.date)
+            HStack(spacing: 10) {
+
+                self.placeHoldeImage
+                    .resizable()
+                    .frame(width: UIScreen.screenSize.width * 2/6, height: UIScreen.screenSize.width * 2/6)
+                Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 7) {
+                    GridRow {
+                        Text("날짜: ")
+                        Text(self.date)
+                    }
+                    GridRow {
+                        Text("장소: ")
+                        Text(self.location)
+                    }
+                    GridRow {
+                        Text("레벨: ")
+                        Text(self.level)
+                    }
+                    GridRow {
+                        Text("점수: ")
+                        Text(self.score)
+                    }
                 }
-                GridRow {
-                    Text("장소: ")
-                    Text(self.location)
-                }
-                GridRow {
-                    Text("레벨: ")
-                    Text(self.level)
-                }
-                GridRow {
-                    Text("점수: ")
-                    Text(self.score)
+                .font(.title3)
+                .readSize { size in
+                    self.gridSize = size
                 }
             }
-            .font(.title3)
-            .readSize { size in
-                self.gridSize = size
-            }
-        }
     }
 }
 

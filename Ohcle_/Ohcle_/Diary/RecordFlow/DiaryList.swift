@@ -17,7 +17,7 @@ struct RecordedMemo: Hashable {
 }
 
 struct DiaryList: View {
-    private let listSpacing: CGFloat = 20
+    private let listSpacing: CGFloat = 30
     let memos: [RecordedMemo] = [
         RecordedMemo(date: "2022.01.22", location: "더클 양재", level: "빨강", score: "4.5", image: "main-logo", id: UUID()),
         RecordedMemo(date: "2022.01.23", location: "더클 연남", level: "노랑", score: "2.0", image: "main-logo", id: UUID()),
@@ -26,23 +26,12 @@ struct DiaryList: View {
     ]
         
     private let column = [
-        GridItem(.flexible())
+        GridItem(.flexible(minimum: 250))
     ]
 
     var body: some View {
-        VStack {
-            HStack {
-                Text(currentDate)
-                    .font(.title)
-                    .padding(.bottom, 10)
-                Image(systemName: "arrow")
-            }
-            Divider()
-                .frame(minHeight: 1)
-                .overlay(Color.black)
-                .padding(.leading, 20)
-                .padding(.trailing, 20)
-            
+        VStack(spacing: listSpacing) {
+            DiaryHeader()
             ScrollView(.vertical) {
                 LazyVGrid(columns: column,
                           alignment: .leading,

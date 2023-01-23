@@ -10,8 +10,10 @@ import SwiftUI
 struct AddNewDiary: View {
     @State private var imageSize = CGSize()
     var body: some View {
-        ZStack{
+        VStack{
             DiaryHeader()
+            Spacer()
+            
             Group {
                 Image("add-diary")
                     .readSize { size in
@@ -19,9 +21,10 @@ struct AddNewDiary: View {
                     }
                 Text("아직 기록이 없어요! \n +버튼을 눌러 기록해주세요")
                     .multilineTextAlignment(.center)
-                    .offset(CGSize(width: 0, height: self.imageSize.height + 10))
                     .foregroundColor(.gray)
-            }.offset(CGSize(width: 0, height: -self.imageSize.height * 2))
+            }
+            
+            Spacer()
         }
     }
 }
