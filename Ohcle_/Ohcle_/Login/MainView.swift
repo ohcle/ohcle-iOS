@@ -81,9 +81,10 @@ struct MainView: View {
                                 case .photo:
                                     pageState.type = .memo
                                 case .memo:
-                                    pageState.type = .calender
+                                    break
                                 }
                             } label: {
+                                
                                 Text("다음")
                                     .font(.title3)
                                 Image(systemName: "paperplane")

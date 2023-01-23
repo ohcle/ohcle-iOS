@@ -30,16 +30,15 @@ struct TextView: UIViewRepresentable {
 }
 
 struct MemoView: View {
-    @State var typedText: String = "끝내줌"
-    @State var placeHodler = "오늘의 클라이밍은 어땠나요?"
+    @State private var typedText: String = "Ya~~~"
     @State private var memoState: MemoState = .save
-    @State var textStyle = UIFont.TextStyle.body
+    @State private var textStyle = UIFont.TextStyle.body
     
-    @State private var locationLetterSize: CGSize = CGSize()
     private let finalScoreNumber: Int = 4
     private let mapImageName: String = "map"
     private let climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
     private let scoreNubmer: Int = 3
+    private let memoBackgroundColor = Color("DiaryBackgroundColor")
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
@@ -56,7 +55,7 @@ struct MemoView: View {
                 Text(climbingLocationPlaceHolder)
                     .font(.body)
                     .foregroundColor(.gray)
-                    
+                
             }
             .padding(.bottom, -5)
             
@@ -64,44 +63,42 @@ struct MemoView: View {
                 ScoreStar(rating: .constant(finalScoreNumber))
             }
             
-            ZStack(alignment: .leading) {
+            VStack(alignment: .leading) {
                 Text("MEMO")
                     .font(.title)
                     .bold()
-                    .zIndex(10)
-                    .offset(x: 0, y: -216)
+                    .padding(.top, 10)
                 
-                Rectangle()
-                    .size(width: 330, height: 1)
-                    .offset(x: 0, y: 70)
+                Divider()
+                    .frame(minHeight: 2)
+                    .overlay(Color.black)
+                    .padding(.top, -10)
                 
-                TextView(text: $typedText,
-                         textStyle: $textStyle)
-                .offset(x: 0, y: 80)
+                TextEditor(text: $typedText)
+                    .foregroundColor(Color.black)
+                    .lineSpacing(5)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .border(Color.gray, width: 1)
+                    .background(memoBackgroundColor)
             }
             
-            Button() {
-                //Save Data to CoreData Storage
-                
-            } label: {
-                Text("저장하기")
-                    .fontWeight(.bold)
-                    .font(.title3)
-                    .padding()
-                    .background(Color("editButton"))
-                    .cornerRadius(8)
-                    .foregroundColor(.white)
+            Spacer()
+            HStack {
+                Spacer()
+                MemoButton()
+                Spacer()
             }
+            Spacer()
         }
         .padding(.leading, 30)
         .padding(.trailing, 30)
+        .onAppear() {
+            UITextView.appearance().backgroundColor = .clear
+        }
     }
-    //}
 }
 
 struct MemoView_Previews: PreviewProvider {
-    @State var example2 = "dd"
-    
     static var previews: some View {
         MemoView()
     }

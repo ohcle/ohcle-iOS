@@ -16,20 +16,18 @@ struct MemoButton: View {
     @State private var title: String = MemoState.save.rawValue
     private let memoButtonColor: String = "editButton"
     private let memoButtonRadius: CGFloat = 8.0
-
+    
     var body: some View {
-        GeometryReader { geometry in
-            Button {
-                
-            } label: {
-                Text(title)
-                    .fontWeight(.bold)
-                    .font(.title3)
-                    .padding()
-                    .background(Color(memoButtonColor))
-                    .cornerRadius(memoButtonRadius)
-                    .foregroundColor(.white)
-            }
+        Button {
+            
+        } label: {
+            Text(title)
+                .fontWeight(.bold)
+                .font(.title3)
+                .padding()
+                .background(Color(memoButtonColor))
+                .cornerRadius(memoButtonRadius)
+                .foregroundColor(.white)
         }
     }
     

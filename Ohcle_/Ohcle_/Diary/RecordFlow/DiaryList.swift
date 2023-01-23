@@ -7,25 +7,60 @@
 
 import SwiftUI
 
+struct RecordedMemo: Hashable {
+    let date: String
+    let location:String
+    let level: String
+    let score: String
+    let image: String
+    let id: UUID
+}
+
 struct DiaryList: View {
-    let colums : [GridItem] = [
-        GridItem(.fixed(50), spacing: nil, alignment: nil),
-        GridItem(.fixed(100), spacing: nil, alignment: nil)
+    private let listSpacing: CGFloat = 20
+    let memos: [RecordedMemo] = [
+        RecordedMemo(date: "2022.01.22", location: "더클 양재", level: "빨강", score: "4.5", image: "main-logo", id: UUID()),
+        RecordedMemo(date: "2022.01.23", location: "더클 연남", level: "노랑", score: "2.0", image: "main-logo", id: UUID()),
+        RecordedMemo(date: "2022.01.23", location: "더클 서울대", level: "노랑", score: "2.0", image: "main-logo", id: UUID()),
+        RecordedMemo(date: "2022.01.23", location: "더클 수원", level: "노랑", score: "2.0", image: "main-logo", id: UUID())
     ]
-    
+        
+    private let column = [
+        GridItem(.flexible())
+    ]
+
     var body: some View {
-        GeometryReader { geometry in
-            DiaryHeader()
-            ScrollView {
-                LazyVGrid(columns: colums) {
-                    
+        VStack {
+            HStack {
+                Text(currentDate)
+                    .font(.title)
+                    .padding(.bottom, 10)
+                Image(systemName: "arrow")
+            }
+            Divider()
+                .frame(minHeight: 1)
+                .overlay(Color.black)
+                .padding(.leading, 20)
+                .padding(.trailing, 20)
+            
+            ScrollView(.vertical) {
+                LazyVGrid(columns: column,
+                          alignment: .leading,
+                          spacing: listSpacing) {
+                    ForEach(memos, id: \.self) { memo in
+                        DiaryListViewGridItem(date: memo.date,
+                                              location: memo.location,
+                                              level: memo.level,
+                                              score: memo.score,
+                                              memoImageName: memo.image)
+                        .padding(.leading, 30)
+                    }
                 }
             }
         }
     }
 }
-
-struct DiaryList_Previews: PreviewProvider {
+struct example_Previews: PreviewProvider {
     static var previews: some View {
         DiaryList()
     }
