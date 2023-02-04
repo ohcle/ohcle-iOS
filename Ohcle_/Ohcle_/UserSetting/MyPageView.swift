@@ -16,7 +16,7 @@ struct MyPageSetting: Identifiable {
 struct MyPageViewRow: View {
     let settingList: MyPageSetting
     var body: some View {
-        HStack(alignment: .center) {
+        HStack {
             Image(settingList.iconImageString)
                 .padding(.trailing, 10)
             Text(settingList.title)
@@ -39,11 +39,19 @@ struct MyPageView: View {
     ]
     
     var body: some View {
-        List(myPageSettingList) {
-            MyPageViewRow(settingList: $0)
-                .listRowSeparator(.hidden)
+        let gridItem: [GridItem] = [
+            GridItem(.flexible())
+        ]
+        
+        ScrollView {
+            LazyVGrid(columns: gridItem,alignment: .leading) {
+                ForEach(myPageSettingList) { list in
+                    MyPageViewRow(settingList: list)
+                }
+            }
+            .padding(.leading, 30)
+            .padding(.top, 30)
         }
-        .listStyle(.plain)
     }
 }
 

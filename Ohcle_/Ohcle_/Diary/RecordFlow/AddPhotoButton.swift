@@ -35,7 +35,7 @@ struct AddPhotoButton: View {
                         Image(imageName)
                     }
                 }.onChange(of: selectedPhotos) { photos in
-                            Debouncer(delay: 0.3).run {
+                            Debouncer(delay: 0.5).run {
                                 self.isSelected.toggle()
                             }
 

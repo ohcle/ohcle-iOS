@@ -5,29 +5,20 @@
 //  Created by Do Yi Lee on 2022/10/29.
 //
 
+/*
+ 
+ 1. 메모에 기록홀더 색
+ 2. 홀더를 랜덤으로 보여줄것이냐 -> 선만보이도록????
+ -> 홀더모양(선) -> 선안을 초록색으로 채우는 -> 하루정도 한 번 시도
+ 3. 모양별로 색을 다 가져오기 -> 모양 : 최소 7개 -> 70개 -> `490kb`
+ 
+ --
+ 4. 이후 버전에서 할 일 : 아이클라우드 동기화, 자주가는 장소 태그 하기
+ */
+
+
 import SwiftUI
 
-struct TextView: UIViewRepresentable {
-    @Binding var text: String
-    @Binding var textStyle: UIFont.TextStyle
-    @EnvironmentObject var nextPage: MyPageType
-    
-    func makeUIView(context: Context) -> UITextView {
-        let textView = UITextView()
-        
-        textView.font = UIFont.preferredFont(forTextStyle: textStyle)
-        textView.autocapitalizationType = .sentences
-        textView.isSelectable = true
-        textView.isUserInteractionEnabled = true
-        
-        return textView
-    }
-    
-    func updateUIView(_ uiView: UITextView, context: Context) {
-        uiView.text = text
-        uiView.font = UIFont.preferredFont(forTextStyle: textStyle)
-    }
-}
 
 struct MemoView: View {
     @State private var typedText: String = "Ya~~~"
@@ -74,12 +65,18 @@ struct MemoView: View {
                     .overlay(Color.black)
                     .padding(.top, -10)
                 
+                HStack {
+                    Spacer()
+                    Image("main_logo")
+                    Spacer()
+                }
+                
                 TextEditor(text: $typedText)
+                    .scrollContentBackground(.hidden)
+                    .background(memoBackgroundColor)
                     .foregroundColor(Color.black)
                     .lineSpacing(5)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .border(Color.gray, width: 1)
-                    .background(memoBackgroundColor)
             }
             
             Spacer()

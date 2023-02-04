@@ -34,6 +34,9 @@
 		A866B509293CC5C5001E182F /* LoginResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A866B508293CC5C5001E182F /* LoginResultModel.swift */; };
 		A86A596828F2A1F100C500E1 /* Calender.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86A596728F2A1F100C500E1 /* Calender.swift */; };
 		A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B249297E5B5A00704688 /* CurrentDate.swift */; };
+		A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B24B297E779700704688 /* CalenderHolderGridView.swift */; };
+		A875B24F297EAC3A00704688 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B24E297EAC3A00704688 /* CalenderView.swift */; };
+		A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */; };
 		A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA060290D49C5000F87A8 /* MemoView.swift */; };
 		A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EF9B3294A1A390018BDFD /* Debouncer.swift */; };
 		A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E3291F6BE40013A74F /* DiaryList.swift */; };
@@ -71,6 +74,9 @@
 		A866B508293CC5C5001E182F /* LoginResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResultModel.swift; sourceTree = "<group>"; };
 		A86A596728F2A1F100C500E1 /* Calender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calender.swift; sourceTree = "<group>"; };
 		A875B249297E5B5A00704688 /* CurrentDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDate.swift; sourceTree = "<group>"; };
+		A875B24B297E779700704688 /* CalenderHolderGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CalenderHolderGridView.swift; path = Ohcle_/MainView/CalenderHolderGridView.swift; sourceTree = SOURCE_ROOT; };
+		A875B24E297EAC3A00704688 /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
+		A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenManager.swift; sourceTree = "<group>"; };
 		A88BA060290D49C5000F87A8 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
 		A89EF9B3294A1A390018BDFD /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		A8CBB2E3291F6BE40013A74F /* DiaryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryList.swift; sourceTree = "<group>"; };
@@ -144,6 +150,7 @@
 				A859A64B28EC457700F217F3 /* Ohcle_.entitlements */,
 				A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */,
 				A859A63128EC3E1600F217F3 /* Assets.xcassets */,
+				A875B24D297E7C2200704688 /* MainView */,
 				A859A64E28F27A2600F217F3 /* Login */,
 				A8CBB2EB291F80360013A74F /* UserSetting */,
 				A86A596628F2A1BE00C500E1 /* Diary */,
@@ -165,10 +172,10 @@
 			isa = PBXGroup;
 			children = (
 				A859A63F28EC3E7A00F217F3 /* LoginView.swift */,
+				A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */,
 				A8335B68292F7BFA0006899D /* AppleLoginView.swift */,
 				A866B508293CC5C5001E182F /* LoginResultModel.swift */,
 				A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */,
-				A859A63D28EC3E6500F217F3 /* MainView.swift */,
 				A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */,
 			);
 			path = Login;
@@ -180,6 +187,16 @@
 				A80B452B28FA7CAB00343BB4 /* RecordFlow */,
 			);
 			path = Diary;
+			sourceTree = "<group>";
+		};
+		A875B24D297E7C2200704688 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				A859A63D28EC3E6500F217F3 /* MainView.swift */,
+				A875B24B297E779700704688 /* CalenderHolderGridView.swift */,
+				A875B24E297EAC3A00704688 /* CalenderView.swift */,
+			);
+			path = MainView;
 			sourceTree = "<group>";
 		};
 		A8CBB2EB291F80360013A74F /* UserSetting */ = {
@@ -275,7 +292,9 @@
 				A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */,
 				A866B4F9293C6CAB001E182F /* climingMemoList.xcdatamodeld in Sources */,
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
+				A875B24F297EAC3A00704688 /* CalenderView.swift in Sources */,
 				A817166E29038ACB005B1268 /* AddPhotoButton.swift in Sources */,
+				A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */,
 				A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */,
 				A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */,
 				A817166829038134005B1268 /* ScoreStar.swift in Sources */,
@@ -299,6 +318,7 @@
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,
 				A86A596828F2A1F100C500E1 /* Calender.swift in Sources */,
+				A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

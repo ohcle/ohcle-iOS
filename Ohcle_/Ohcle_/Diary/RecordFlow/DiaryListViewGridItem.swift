@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension UIScreen{
+extension UIScreen {
    static let screenWidth = UIScreen.main.bounds.size.width
    static let screenHeight = UIScreen.main.bounds.size.height
    static let screenSize = UIScreen.main.bounds.size
@@ -33,10 +33,9 @@ struct DiaryListViewGridItem: View {
     
     var body: some View {
             HStack(spacing: 10) {
-
                 self.placeHoldeImage
                     .resizable()
-                    .frame(width: UIScreen.screenSize.width * 2/6, height: UIScreen.screenSize.width * 2/6)
+                    .frame(width: UIScreen.screenSize.width * 2/7, height: UIScreen.screenSize.width * 2/7)
                 Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 7) {
                     GridRow {
                         Text("날짜: ")

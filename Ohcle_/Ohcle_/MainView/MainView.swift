@@ -56,45 +56,22 @@ struct MainView: View {
     
     var body: some View {
         TabView {
-            ZStack {
-                Color.init("DiaryBackgroundColor")
-                    .ignoresSafeArea(.all)
+            TabView {
+                CalenderView()
                 DiaryList()
             }
+            .tabViewStyle(.page)
+            .indexViewStyle(.page(backgroundDisplayMode: .never))
             .tabItem {
                 Image("tabItem_home")
             }
             
-            NavigationStack {
+            NavigationView {
                 RecordView(currentPageState: pageState)
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                                switch pageState.type {
-                                case .calender :
-                                    pageState.type = .location
-                                case .location :
-                                    pageState.type = .level
-                                case .score:
-                                    pageState.type = .photo
-                                case .level:
-                                    pageState.type = .score
-                                case .photo:
-                                    pageState.type = .memo
-                                case .memo:
-                                    break
-                                }
-                            } label: {
-                                
-                                Text("다음")
-                                    .font(.title3)
-                                Image(systemName: "paperplane")
-                                    .padding(.trailing, 10)
-                            }
-                            .foregroundColor(.black)
-                        }
-                    }
             }
+//            .toolbar(content: {
+//                <#code#>
+//            })
             .tabItem {
                 Image("tabItem_plus")
             }
@@ -103,7 +80,8 @@ struct MainView: View {
                 .tabItem {
                     Image("tabItem_self")
                 }
-        }.background(Color.white)
+        }
+        .background(Color.white)
     }
 }
 
@@ -113,3 +91,32 @@ struct MainView_Previews: PreviewProvider {
         MainView()
     }
 }
+
+//RecordView(currentPageState: pageState)
+//    .toolbar {
+//        ToolbarItem(placement: .navigationBarTrailing) {
+//            Button {
+//                switch pageState.type {
+//                case .calender :
+//                    pageState.type = .location
+//                case .location :
+//                    pageState.type = .level
+//                case .score:
+//                    pageState.type = .photo
+//                case .level:
+//                    pageState.type = .score
+//                case .photo:
+//                    pageState.type = .memo
+//                case .memo:
+//                    break
+//                }
+//            } label: {
+//
+//                Text("다음")
+//                    .font(.title3)
+//                Image(systemName: "paperplane")
+//                    .padding(.trailing, 10)
+//            }
+//            .foregroundColor(.black)
+//        }
+//    }
