@@ -8,11 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452328FA50DE00343BB4 /* ReadViewSize.swift */; };
-		A80B452628FA555200343BB4 /* OchleColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452528FA555200343BB4 /* OchleColor.swift */; };
 		A80B452828FA5A8D00343BB4 /* ClimbingLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */; };
 		A80B452A28FA70A200343BB4 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452928FA70A200343BB4 /* Level.swift */; };
 		A817166629038013005B1268 /* ClimbingScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166529038013005B1268 /* ClimbingScore.swift */; };
-		A817166829038134005B1268 /* ScoreStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166729038134005B1268 /* ScoreStar.swift */; };
 		A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166B290386AE005B1268 /* AddPhotoView.swift */; };
 		A817166E29038ACB005B1268 /* AddPhotoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166D29038ACB005B1268 /* AddPhotoButton.swift */; };
 		A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8335B68292F7BFA0006899D /* AppleLoginView.swift */; };
@@ -37,6 +35,11 @@
 		A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B24B297E779700704688 /* CalenderHolderGridView.swift */; };
 		A875B24F297EAC3A00704688 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B24E297EAC3A00704688 /* CalenderView.swift */; };
 		A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */; };
+		A887D5F529A20D0100C0A75D /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D5F429A20D0100C0A75D /* URLs.swift */; };
+		A887D5F729A20D0F00C0A75D /* ScoreStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D5F629A20D0F00C0A75D /* ScoreStar.swift */; };
+		A887D5FB29A20D3100C0A75D /* OchleColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D5FA29A20D3100C0A75D /* OchleColor.swift */; };
+		A887D5FE29A20D9000C0A75D /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D5FC29A20D9000C0A75D /* NextButton.swift */; };
+		A887D60129A20D9800C0A75D /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D60029A20D9800C0A75D /* Networking.swift */; };
 		A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA060290D49C5000F87A8 /* MemoView.swift */; };
 		A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EF9B3294A1A390018BDFD /* Debouncer.swift */; };
 		A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E3291F6BE40013A74F /* DiaryList.swift */; };
@@ -49,11 +52,9 @@
 
 /* Begin PBXFileReference section */
 		A80B452328FA50DE00343BB4 /* ReadViewSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadViewSize.swift; sourceTree = "<group>"; };
-		A80B452528FA555200343BB4 /* OchleColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OchleColor.swift; sourceTree = "<group>"; };
 		A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingLocation.swift; sourceTree = "<group>"; };
 		A80B452928FA70A200343BB4 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		A817166529038013005B1268 /* ClimbingScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingScore.swift; sourceTree = "<group>"; };
-		A817166729038134005B1268 /* ScoreStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStar.swift; sourceTree = "<group>"; };
 		A817166B290386AE005B1268 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
 		A817166D29038ACB005B1268 /* AddPhotoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoButton.swift; sourceTree = "<group>"; };
 		A8335B68292F7BFA0006899D /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
@@ -77,6 +78,11 @@
 		A875B24B297E779700704688 /* CalenderHolderGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CalenderHolderGridView.swift; path = Ohcle_/MainView/CalenderHolderGridView.swift; sourceTree = SOURCE_ROOT; };
 		A875B24E297EAC3A00704688 /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
 		A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenManager.swift; sourceTree = "<group>"; };
+		A887D5F429A20D0100C0A75D /* URLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLs.swift; path = "../../../../../Desktop/항목을 포함하는 새로운 폴더/URLs.swift"; sourceTree = "<group>"; };
+		A887D5F629A20D0F00C0A75D /* ScoreStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoreStar.swift; path = "../../../../../../Desktop/항목을 포함하는 새로운 폴더/ScoreStar.swift"; sourceTree = "<group>"; };
+		A887D5FA29A20D3100C0A75D /* OchleColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OchleColor.swift; path = "../../../../../../Desktop/항목을 포함하는 새로운 폴더/OchleColor.swift"; sourceTree = "<group>"; };
+		A887D5FC29A20D9000C0A75D /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NextButton.swift; path = "../../../../../../Desktop/항목을 포함하는 새로운 폴더/NextButton.swift"; sourceTree = "<group>"; };
+		A887D60029A20D9800C0A75D /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		A88BA060290D49C5000F87A8 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
 		A89EF9B3294A1A390018BDFD /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		A8CBB2E3291F6BE40013A74F /* DiaryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryList.swift; sourceTree = "<group>"; };
@@ -109,10 +115,11 @@
 				A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */,
 				A80B452928FA70A200343BB4 /* Level.swift */,
 				A817166529038013005B1268 /* ClimbingScore.swift */,
-				A817166729038134005B1268 /* ScoreStar.swift */,
 				A817166B290386AE005B1268 /* AddPhotoView.swift */,
+				A887D5FA29A20D3100C0A75D /* OchleColor.swift */,
 				A817166D29038ACB005B1268 /* AddPhotoButton.swift */,
 				A88BA060290D49C5000F87A8 /* MemoView.swift */,
+				A887D5F629A20D0F00C0A75D /* ScoreStar.swift */,
 				A875B249297E5B5A00704688 /* CurrentDate.swift */,
 				A8CBB2F2291F973E0013A74F /* MemoButton.swift */,
 				A8CBB2E3291F6BE40013A74F /* DiaryList.swift */,
@@ -120,6 +127,7 @@
 				A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */,
 				A8CBB2E7291F74700013A74F /* AddNewDiary.swift */,
 				A89EF9B3294A1A390018BDFD /* Debouncer.swift */,
+				A887D5FC29A20D9000C0A75D /* NextButton.swift */,
 			);
 			path = RecordFlow;
 			sourceTree = "<group>";
@@ -155,7 +163,6 @@
 				A8CBB2EB291F80360013A74F /* UserSetting */,
 				A86A596628F2A1BE00C500E1 /* Diary */,
 				A859A63328EC3E1600F217F3 /* Preview Content */,
-				A80B452528FA555200343BB4 /* OchleColor.swift */,
 			);
 			path = Ohcle_;
 			sourceTree = "<group>";
@@ -171,11 +178,13 @@
 		A859A64E28F27A2600F217F3 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				A887D60029A20D9800C0A75D /* Networking.swift */,
+				A887D5F429A20D0100C0A75D /* URLs.swift */,
 				A859A63F28EC3E7A00F217F3 /* LoginView.swift */,
 				A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */,
 				A8335B68292F7BFA0006899D /* AppleLoginView.swift */,
-				A866B508293CC5C5001E182F /* LoginResultModel.swift */,
 				A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */,
+				A866B508293CC5C5001E182F /* LoginResultModel.swift */,
 				A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */,
 			);
 			path = Login;
@@ -286,9 +295,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A887D5F729A20D0F00C0A75D /* ScoreStar.swift in Sources */,
 				A866B503293C7379001E182F /* Memo+CoreDataProperties.swift in Sources */,
 				A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */,
 				A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */,
+				A887D5F529A20D0100C0A75D /* URLs.swift in Sources */,
 				A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */,
 				A866B4F9293C6CAB001E182F /* climingMemoList.xcdatamodeld in Sources */,
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
@@ -297,13 +308,13 @@
 				A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */,
 				A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */,
 				A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */,
-				A817166829038134005B1268 /* ScoreStar.swift in Sources */,
 				A866B509293CC5C5001E182F /* LoginResultModel.swift in Sources */,
 				A817166629038013005B1268 /* ClimbingScore.swift in Sources */,
 				A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */,
 				A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */,
 				A866B4FF293C6EB4001E182F /* PersistantContainer.swift in Sources */,
 				A8CBB2F1291F96570013A74F /* MyPageLogoutView.swift in Sources */,
+				A887D60129A20D9800C0A75D /* Networking.swift in Sources */,
 				A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */,
 				A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */,
 				A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */,
@@ -312,10 +323,11 @@
 				A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */,
 				A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */,
 				A80B452A28FA70A200343BB4 /* Level.swift in Sources */,
-				A80B452628FA555200343BB4 /* OchleColor.swift in Sources */,
 				A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */,
 				A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */,
+				A887D5FE29A20D9000C0A75D /* NextButton.swift in Sources */,
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,
+				A887D5FB29A20D3100C0A75D /* OchleColor.swift in Sources */,
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,
 				A86A596828F2A1F100C500E1 /* Calender.swift in Sources */,
 				A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */,

@@ -14,6 +14,7 @@ enum NewMemoPageType {
     case photo
     case level
     case memo
+    case edit
 }
 
 class MyPageType: ObservableObject {

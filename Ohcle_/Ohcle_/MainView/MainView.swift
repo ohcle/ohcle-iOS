@@ -28,6 +28,9 @@ struct RecordView: View {
             AddPhotoView().environmentObject(currentPageState)
         case .memo:
             MemoView().environmentObject(currentPageState)
+        case .edit:
+            MemoView()
+                .environmentObject(currentPageState)
         }
     }
 }
@@ -69,9 +72,6 @@ struct MainView: View {
             NavigationView {
                 RecordView(currentPageState: pageState)
             }
-//            .toolbar(content: {
-//                <#code#>
-//            })
             .tabItem {
                 Image("tabItem_plus")
             }
@@ -91,32 +91,3 @@ struct MainView_Previews: PreviewProvider {
         MainView()
     }
 }
-
-//RecordView(currentPageState: pageState)
-//    .toolbar {
-//        ToolbarItem(placement: .navigationBarTrailing) {
-//            Button {
-//                switch pageState.type {
-//                case .calender :
-//                    pageState.type = .location
-//                case .location :
-//                    pageState.type = .level
-//                case .score:
-//                    pageState.type = .photo
-//                case .level:
-//                    pageState.type = .score
-//                case .photo:
-//                    pageState.type = .memo
-//                case .memo:
-//                    break
-//                }
-//            } label: {
-//
-//                Text("다음")
-//                    .font(.title3)
-//                Image(systemName: "paperplane")
-//                    .padding(.trailing, 10)
-//            }
-//            .foregroundColor(.black)
-//        }
-//    }
