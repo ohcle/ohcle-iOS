@@ -29,8 +29,7 @@ struct RecordView: View {
         case .memo:
             MemoView().environmentObject(currentPageState)
         case .edit:
-            MemoView()
-                .environmentObject(currentPageState)
+            MemoView().environmentObject(currentPageState)
         }
     }
 }
