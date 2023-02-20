@@ -12,7 +12,7 @@ struct DiaryHeader: View {
     var body: some View {
         VStack {
             HStack {
-                Text(currentDate)
+                Text(OhcleDate.currentDate)
                     .font(.title)
                     .padding(.bottom, 10)
                 Image(systemName: "arrow")

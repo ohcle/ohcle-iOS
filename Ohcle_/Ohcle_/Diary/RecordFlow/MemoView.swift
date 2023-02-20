@@ -38,7 +38,7 @@ struct MemoView: View {
                 .frame(width: 30, height: 30)
                 .padding(.top, 5)
             
-            Text("\(currentDate)")
+            Text("\(OhcleDate.currentDate)")
                 .font(.title)
             
             HStack(spacing: 5) {

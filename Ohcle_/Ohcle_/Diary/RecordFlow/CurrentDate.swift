@@ -7,13 +7,47 @@
 
 import Foundation
 
-public let currentDate: String = {
-    let currentDate = Date()
-    let formatter = DateFormatter()
+class OhcleDate {
+    private let formatter: DateFormatter = {
+        let date = Date()
+        let formatter = DateFormatter()
+        
+        formatter.timeStyle = .none
+        formatter.dateStyle = .medium
+        formatter.locale = Locale(identifier: "ko")
+        formatter.setLocalizedDateFormatFromTemplate("yyyy MMMM")
+        return formatter
+    }()
     
-    formatter.timeStyle = .none
-    formatter.dateStyle = .medium
-    formatter.locale = Locale(identifier: "ko")
-    formatter.setLocalizedDateFormatFromTemplate("yyyy MMMM")
-    return formatter.string(from: currentDate)
-}()
+    static let currentDate: String = {
+        let date = Date()
+        let formatter = DateFormatter()
+        
+        formatter.timeStyle = .none
+        formatter.dateStyle = .medium
+        formatter.locale = Locale(identifier: "ko")
+        formatter.setLocalizedDateFormatFromTemplate("yyyy MMMM")
+        
+        return formatter.string(from: date)
+    }()
+
+    static let currentMonth: Int? = {
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.month], from: date)
+        let month = components.month
+        
+        return month
+    }()
+    
+    static let currentYear: String? = {
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year], from: date)
+        let year = components.year
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .ordinal
+        return numberFormatter.string(from: NSNumber(nonretainedObject: year))
+    }()
+}
