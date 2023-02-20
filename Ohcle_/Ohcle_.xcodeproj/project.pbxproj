@@ -37,10 +37,9 @@
 		A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */; };
 		A887D5F529A20D0100C0A75D /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D5F429A20D0100C0A75D /* URLs.swift */; };
 		A887D5F729A20D0F00C0A75D /* ScoreStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D5F629A20D0F00C0A75D /* ScoreStar.swift */; };
-		A887D5FB29A20D3100C0A75D /* OchleColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D5FA29A20D3100C0A75D /* OchleColor.swift */; };
-		A887D5FE29A20D9000C0A75D /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D5FC29A20D9000C0A75D /* NextButton.swift */; };
 		A887D60129A20D9800C0A75D /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D60029A20D9800C0A75D /* Networking.swift */; };
 		A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA060290D49C5000F87A8 /* MemoView.swift */; };
+		A89E181E29A389A900F27045 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89E181D29A389A900F27045 /* NextButton.swift */; };
 		A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EF9B3294A1A390018BDFD /* Debouncer.swift */; };
 		A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E3291F6BE40013A74F /* DiaryList.swift */; };
 		A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E7291F74700013A74F /* AddNewDiary.swift */; };
@@ -80,10 +79,9 @@
 		A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenManager.swift; sourceTree = "<group>"; };
 		A887D5F429A20D0100C0A75D /* URLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLs.swift; path = "../../../../../Desktop/항목을 포함하는 새로운 폴더/URLs.swift"; sourceTree = "<group>"; };
 		A887D5F629A20D0F00C0A75D /* ScoreStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoreStar.swift; path = "../../../../../../Desktop/항목을 포함하는 새로운 폴더/ScoreStar.swift"; sourceTree = "<group>"; };
-		A887D5FA29A20D3100C0A75D /* OchleColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OchleColor.swift; path = "../../../../../../Desktop/항목을 포함하는 새로운 폴더/OchleColor.swift"; sourceTree = "<group>"; };
-		A887D5FC29A20D9000C0A75D /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NextButton.swift; path = "../../../../../../Desktop/항목을 포함하는 새로운 폴더/NextButton.swift"; sourceTree = "<group>"; };
 		A887D60029A20D9800C0A75D /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		A88BA060290D49C5000F87A8 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
+		A89E181D29A389A900F27045 /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		A89EF9B3294A1A390018BDFD /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		A8CBB2E3291F6BE40013A74F /* DiaryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryList.swift; sourceTree = "<group>"; };
 		A8CBB2E7291F74700013A74F /* AddNewDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDiary.swift; sourceTree = "<group>"; };
@@ -110,24 +108,18 @@
 		A80B452B28FA7CAB00343BB4 /* RecordFlow */ = {
 			isa = PBXGroup;
 			children = (
-				A866B4F7293C6CAB001E182F /* climingMemoList.xcdatamodeld */,
+				A89E182129A38A1900F27045 /* Common */,
+				A89E181F29A389B500F27045 /* Buttons */,
+				A89E182029A389E100F27045 /* DiaryList */,
 				A86A596728F2A1F100C500E1 /* Calender.swift */,
 				A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */,
 				A80B452928FA70A200343BB4 /* Level.swift */,
+				A887D5F629A20D0F00C0A75D /* ScoreStar.swift */,
 				A817166529038013005B1268 /* ClimbingScore.swift */,
 				A817166B290386AE005B1268 /* AddPhotoView.swift */,
 				A817166D29038ACB005B1268 /* AddPhotoButton.swift */,
 				A88BA060290D49C5000F87A8 /* MemoView.swift */,
-				A887D5F629A20D0F00C0A75D /* ScoreStar.swift */,
-				A8CBB2E3291F6BE40013A74F /* DiaryList.swift */,
-				A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */,
-				A8CBB2E7291F74700013A74F /* AddNewDiary.swift */,
-				A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */,
-				A8CBB2F2291F973E0013A74F /* MemoButton.swift */,
-				A875B249297E5B5A00704688 /* CurrentDate.swift */,
-				A887D5FA29A20D3100C0A75D /* OchleColor.swift */,
-				A887D5FC29A20D9000C0A75D /* NextButton.swift */,
-				A89EF9B3294A1A390018BDFD /* Debouncer.swift */,
+				A866B4F7293C6CAB001E182F /* climingMemoList.xcdatamodeld */,
 			);
 			path = RecordFlow;
 			sourceTree = "<group>";
@@ -206,6 +198,35 @@
 				A875B24E297EAC3A00704688 /* CalenderView.swift */,
 			);
 			path = MainView;
+			sourceTree = "<group>";
+		};
+		A89E181F29A389B500F27045 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				A8CBB2F2291F973E0013A74F /* MemoButton.swift */,
+				A89E181D29A389A900F27045 /* NextButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		A89E182029A389E100F27045 /* DiaryList */ = {
+			isa = PBXGroup;
+			children = (
+				A8CBB2E3291F6BE40013A74F /* DiaryList.swift */,
+				A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */,
+				A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */,
+				A8CBB2E7291F74700013A74F /* AddNewDiary.swift */,
+			);
+			path = DiaryList;
+			sourceTree = "<group>";
+		};
+		A89E182129A38A1900F27045 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A875B249297E5B5A00704688 /* CurrentDate.swift */,
+				A89EF9B3294A1A390018BDFD /* Debouncer.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		A8CBB2EB291F80360013A74F /* UserSetting */ = {
@@ -311,6 +332,7 @@
 				A866B509293CC5C5001E182F /* LoginResultModel.swift in Sources */,
 				A817166629038013005B1268 /* ClimbingScore.swift in Sources */,
 				A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */,
+				A89E181E29A389A900F27045 /* NextButton.swift in Sources */,
 				A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */,
 				A866B4FF293C6EB4001E182F /* PersistantContainer.swift in Sources */,
 				A8CBB2F1291F96570013A74F /* MyPageLogoutView.swift in Sources */,
@@ -325,9 +347,7 @@
 				A80B452A28FA70A200343BB4 /* Level.swift in Sources */,
 				A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */,
 				A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */,
-				A887D5FE29A20D9000C0A75D /* NextButton.swift in Sources */,
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,
-				A887D5FB29A20D3100C0A75D /* OchleColor.swift in Sources */,
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,
 				A86A596828F2A1F100C500E1 /* Calender.swift in Sources */,
 				A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */,
