@@ -116,18 +116,18 @@
 				A80B452928FA70A200343BB4 /* Level.swift */,
 				A817166529038013005B1268 /* ClimbingScore.swift */,
 				A817166B290386AE005B1268 /* AddPhotoView.swift */,
-				A887D5FA29A20D3100C0A75D /* OchleColor.swift */,
 				A817166D29038ACB005B1268 /* AddPhotoButton.swift */,
 				A88BA060290D49C5000F87A8 /* MemoView.swift */,
 				A887D5F629A20D0F00C0A75D /* ScoreStar.swift */,
-				A875B249297E5B5A00704688 /* CurrentDate.swift */,
-				A8CBB2F2291F973E0013A74F /* MemoButton.swift */,
 				A8CBB2E3291F6BE40013A74F /* DiaryList.swift */,
 				A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */,
-				A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */,
 				A8CBB2E7291F74700013A74F /* AddNewDiary.swift */,
-				A89EF9B3294A1A390018BDFD /* Debouncer.swift */,
+				A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */,
+				A8CBB2F2291F973E0013A74F /* MemoButton.swift */,
+				A875B249297E5B5A00704688 /* CurrentDate.swift */,
+				A887D5FA29A20D3100C0A75D /* OchleColor.swift */,
 				A887D5FC29A20D9000C0A75D /* NextButton.swift */,
+				A89EF9B3294A1A390018BDFD /* Debouncer.swift */,
 			);
 			path = RecordFlow;
 			sourceTree = "<group>";

@@ -31,6 +31,9 @@ struct Level: View {
     private let firstLowcolors: [Color] = [.red, .orange, .yellow, .green, .blue]
     private let secondLowColors: [Color] = [Color.init("holder-darkblue"), .purple, .black, Color.init("holder-lightgray"), Color.init("holder-darkgray")]
     
+    private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
+                                                             width: UIScreen.screenWidth/1.2,
+                                                             height: UIScreen.screenHeight/15)
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center) {
@@ -44,16 +47,14 @@ struct Level: View {
                 LevelCircle(colors: self.firstLowcolors)
                 LevelCircle(colors: self.secondLowColors)
             }
-            .onTapGesture {
-                Debouncer(delay: 0.5).run {
-                    withAnimation {
-                        nextPage.type = .score
-                    }
-                }
-            }
+            .overlay(
+                self.nextButton
+                    .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
+            )
             .frame(width: geometry.size.width,
                    height: geometry.size.height/4)
             .padding(.top, geometry.size.height / 3)
+ 
         }
     }
 }

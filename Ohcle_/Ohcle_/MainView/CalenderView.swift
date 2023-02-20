@@ -19,8 +19,9 @@ struct CalenderView: View {
             Text("\(OhcleDate.currentYear ?? "2023")")
                 .foregroundColor(.gray)
             Text("\(OhcleDate.currentMonth ?? 0)")
-                .font(.title)
+                .font(.system(size: 60))
                 
+ 
             VStack(spacing: 0) {
                 ForEach(0...4, id:\.self) { _ in
                     HStack(spacing: 0) {

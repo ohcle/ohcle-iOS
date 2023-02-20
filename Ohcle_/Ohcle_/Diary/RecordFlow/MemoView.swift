@@ -30,7 +30,7 @@ struct MemoView: View {
     private let climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
     private let scoreNubmer: Int = 3
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             Circle()
@@ -87,6 +87,7 @@ struct MemoView: View {
             }
             Spacer()
         }
+
         .padding(.leading, 30)
         .padding(.trailing, 30)
         .onAppear() {

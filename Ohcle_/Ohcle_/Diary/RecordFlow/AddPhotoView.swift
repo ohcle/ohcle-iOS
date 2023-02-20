@@ -14,7 +14,9 @@ struct AddPhotoView: View {
     
     private let titleImageHeighRatio = CGFloat(7)
     private let titleImageWidthRatio = CGFloat(0.8)
-    
+    private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
+                                                             width: UIScreen.screenWidth/1.2,
+                                                             height: UIScreen.screenHeight/15)
     var body: some View {
         VStack {
             (Text("오늘을 ")
@@ -34,14 +36,13 @@ struct AddPhotoView: View {
                            selectedImageWidth: self.titleSize.width * titleImageWidthRatio,
                            selectedImgeHieght : self.titleSize.height * titleImageHeighRatio,
                            isSelected: $isImageSelected)
-            .onChange(of: self.isImageSelected) { newValue in
-                Debouncer(delay: 0.5).run {
-                    withAnimation {
-                        nextPage.type = .memo
-                    }
-                }
-            }
+           
         }
+        .overlay(
+            self.nextButton
+                .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
+        )
+        
     }
 }
 
