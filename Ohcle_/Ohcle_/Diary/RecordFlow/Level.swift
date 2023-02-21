@@ -17,6 +17,7 @@ struct LevelCircle: View {
                     Circle()
                         .fill(colors[$0])
                         .frame(width: geometry.size.width / 6.5)
+                        
                 }
                 Spacer()
             }
@@ -45,7 +46,15 @@ struct Level: View {
                 .font(.title)
                 
                 LevelCircle(colors: self.firstLowcolors)
+                    .onTapGesture {
+                        self.nextButton.userEvent.inform()
+                    }
+                
                 LevelCircle(colors: self.secondLowColors)
+                    .onTapGesture {
+                        self.nextButton.userEvent.inform()
+
+                    }
             }
             .overlay(
                 self.nextButton

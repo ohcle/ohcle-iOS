@@ -50,16 +50,16 @@ struct NextPageButton: View {
             self.currentPageType.type = .location
         case .location:
             self.currentPageType.type = .level
-        case .score:
-            self.currentPageType.type = .score
-        case .photo:
-            self.currentPageType.type = .photo
         case .level:
+            self.currentPageType.type = .score
+        case .score:
+            self.currentPageType.type = .photo
+        case .photo:
             self.currentPageType.type = .memo
         case .memo:
-            self.currentPageType.type = .edit
-        case .edit:
-            self.currentPageType.type = .edit
+            self.currentPageType.type = .done
+        case .`done`:
+            self.currentPageType.type = .`done`
         }
     }
 }

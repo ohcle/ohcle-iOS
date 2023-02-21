@@ -28,7 +28,7 @@ struct RecordView: View {
             AddPhotoView().environmentObject(currentPageState)
         case .memo:
             MemoView().environmentObject(currentPageState)
-        case .edit:
+        case .done:
             MemoView().environmentObject(currentPageState)
         }
     }

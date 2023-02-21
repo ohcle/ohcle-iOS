@@ -24,7 +24,9 @@ struct MemoButton: View {
     
     var body: some View {
         Button {
-            
+            Task {
+                try await requestSave()
+            }
         } label: {
             Text(title)
                 .fontWeight(.bold)

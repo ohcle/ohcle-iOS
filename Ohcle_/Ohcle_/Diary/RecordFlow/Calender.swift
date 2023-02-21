@@ -14,7 +14,7 @@ enum NewMemoPageType {
     case photo
     case level
     case memo
-    case edit
+    case done
 }
 
 class MyPageType: ObservableObject {
@@ -57,7 +57,6 @@ struct Calender: View {
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
         
         )
-        
     }
 }
 

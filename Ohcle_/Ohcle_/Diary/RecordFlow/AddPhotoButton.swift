@@ -41,7 +41,7 @@ struct AddPhotoButton: View {
 
                     guard let item = self.selectedPhotos.first else {
                         return
-                    }                    
+                    }
                     item.loadTransferable(type: Data.self) { result in
                         switch result {
                         case .success(let data):

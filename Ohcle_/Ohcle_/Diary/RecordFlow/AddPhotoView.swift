@@ -38,6 +38,7 @@ struct AddPhotoView: View {
                            isSelected: $isImageSelected)
            
         }
+
         .overlay(
             self.nextButton
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
