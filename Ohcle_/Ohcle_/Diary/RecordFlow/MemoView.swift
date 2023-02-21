@@ -21,11 +21,11 @@ import SwiftUI
 
 
 struct MemoView: View {
-    @State private var typedText: String = DiarySaver.shared.temporaryMemo
+    @State private var typedText: String = DiaryManager.shared.temporaryMemo
     @State private var memoState: MemoState = .save
     @State private var textStyle = UIFont.TextStyle.body
     
-    private let finalScoreNumber: Int = DiarySaver.shared.temporaryScore
+    private let finalScoreNumber: Int = DiaryManager.shared.temporaryScore
     private let mapImageName: String = "map"
     private let climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
@@ -65,7 +65,7 @@ struct MemoView: View {
                 
                 HStack {
                     Spacer()
-                    DiarySaver.shared.temporaryPhoto
+                    DiaryManager.shared.temporaryPhoto
                     Spacer()
                 }
                 

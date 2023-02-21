@@ -41,7 +41,7 @@
 		A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA060290D49C5000F87A8 /* MemoView.swift */; };
 		A89E181E29A389A900F27045 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89E181D29A389A900F27045 /* NextButton.swift */; };
 		A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EF9B3294A1A390018BDFD /* Debouncer.swift */; };
-		A8A812E829A39E5E00E7C6A2 /* DiarySaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812E729A39E5E00E7C6A2 /* DiarySaver.swift */; };
+		A8A812E829A39E5E00E7C6A2 /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812E729A39E5E00E7C6A2 /* DiaryManager.swift */; };
 		A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E3291F6BE40013A74F /* DiaryList.swift */; };
 		A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E7291F74700013A74F /* AddNewDiary.swift */; };
 		A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */; };
@@ -84,7 +84,7 @@
 		A88BA060290D49C5000F87A8 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
 		A89E181D29A389A900F27045 /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		A89EF9B3294A1A390018BDFD /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
-		A8A812E729A39E5E00E7C6A2 /* DiarySaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySaver.swift; sourceTree = "<group>"; };
+		A8A812E729A39E5E00E7C6A2 /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
 		A8CBB2E3291F6BE40013A74F /* DiaryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryList.swift; sourceTree = "<group>"; };
 		A8CBB2E7291F74700013A74F /* AddNewDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDiary.swift; sourceTree = "<group>"; };
 		A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryHeader.swift; sourceTree = "<group>"; };
@@ -235,7 +235,7 @@
 		A8A812E629A39E3400E7C6A2 /* MemoData */ = {
 			isa = PBXGroup;
 			children = (
-				A8A812E729A39E5E00E7C6A2 /* DiarySaver.swift */,
+				A8A812E729A39E5E00E7C6A2 /* DiaryManager.swift */,
 			);
 			path = MemoData;
 			sourceTree = "<group>";
@@ -352,7 +352,7 @@
 				A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */,
 				A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */,
 				A866B502293C7379001E182F /* Memo+CoreDataClass.swift in Sources */,
-				A8A812E829A39E5E00E7C6A2 /* DiarySaver.swift in Sources */,
+				A8A812E829A39E5E00E7C6A2 /* DiaryManager.swift in Sources */,
 				A80B452828FA5A8D00343BB4 /* ClimbingLocation.swift in Sources */,
 				A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */,
 				A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */,

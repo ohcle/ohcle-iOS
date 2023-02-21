@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-final class DiarySaver {
+final class DiaryManager {
     private init() { }
     
-    static let shared = DiarySaver()
+    static let shared = DiaryManager()
     private let temporaryDiary: TemporaryDiary = TemporaryDiary()
     
     private class TemporaryDiary {
