@@ -27,9 +27,9 @@ struct Ohcle_App: App {
         // Kakao SDK 초기화
         KakaoSDK.initSDK(appKey: "e78a0ba0d7372b5370db8c893fd2d881")
     }
-    let persistenceController = PersistenceController.shared
-
     
+    @StateObject private var persistenceController = DataController()
+
     var body: some Scene {
         WindowGroup {
             LoginView(mainLogoTitle: "main logo",

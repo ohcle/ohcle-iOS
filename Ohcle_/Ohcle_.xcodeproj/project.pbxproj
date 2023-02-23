@@ -38,6 +38,8 @@
 		A89E181E29A389A900F27045 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89E181D29A389A900F27045 /* NextButton.swift */; };
 		A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EF9B3294A1A390018BDFD /* Debouncer.swift */; };
 		A8A812E829A39E5E00E7C6A2 /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812E729A39E5E00E7C6A2 /* DiaryManager.swift */; };
+		A8A812EB29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A8A812E929A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld */; };
+		A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812EC29A73EE900E7C6A2 /* DataController.swift */; };
 		A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E3291F6BE40013A74F /* DiaryList.swift */; };
 		A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E7291F74700013A74F /* AddNewDiary.swift */; };
 		A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */; };
@@ -77,6 +79,8 @@
 		A89E181D29A389A900F27045 /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		A89EF9B3294A1A390018BDFD /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		A8A812E729A39E5E00E7C6A2 /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
+		A8A812EA29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TemporaryDiary.xcdatamodel; sourceTree = "<group>"; };
+		A8A812EC29A73EE900E7C6A2 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		A8CBB2E3291F6BE40013A74F /* DiaryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryList.swift; sourceTree = "<group>"; };
 		A8CBB2E7291F74700013A74F /* AddNewDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDiary.swift; sourceTree = "<group>"; };
 		A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryHeader.swift; sourceTree = "<group>"; };
@@ -140,6 +144,8 @@
 				A80B452328FA50DE00343BB4 /* ReadViewSize.swift */,
 				A859A64B28EC457700F217F3 /* Ohcle_.entitlements */,
 				A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */,
+				A8A812E929A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld */,
+				A8A812EC29A73EE900E7C6A2 /* DataController.swift */,
 				A859A63128EC3E1600F217F3 /* Assets.xcassets */,
 				A875B24D297E7C2200704688 /* MainView */,
 				A859A64E28F27A2600F217F3 /* Login */,
@@ -322,6 +328,7 @@
 				A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */,
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
 				A875B24F297EAC3A00704688 /* CalenderView.swift in Sources */,
+				A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */,
 				A817166E29038ACB005B1268 /* AddPhotoButton.swift in Sources */,
 				A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */,
 				A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */,
@@ -346,6 +353,7 @@
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,
 				A86A596828F2A1F100C500E1 /* Calender.swift in Sources */,
+				A8A812EB29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld in Sources */,
 				A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -578,6 +586,19 @@
 			productName = KakaoSDKUser;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		A8A812E929A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A8A812EA29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodel */,
+			);
+			currentVersion = A8A812EA29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodel */;
+			path = TemporaryDiary.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A859A62228EC3E1500F217F3 /* Project object */;
 }

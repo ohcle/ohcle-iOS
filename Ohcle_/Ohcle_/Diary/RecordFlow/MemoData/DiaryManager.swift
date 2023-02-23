@@ -17,7 +17,7 @@ final class DiaryManager {
         var date: String = OhcleDate.currentDate
         var level: Color = .blue
         var score: Int = 3
-        var photo: Image = Image("main_logo")
+        var photo: String = "main_logo"
         var memo: String = "즐거운 클라이밍"
     }
     
@@ -33,7 +33,7 @@ final class DiaryManager {
         return self.temporaryDiary.score
     }
     
-    var temporaryPhoto: Image {
+    var temporaryPhotoAddress: String {
         return self.temporaryDiary.photo
     }
     
@@ -53,8 +53,8 @@ final class DiaryManager {
         self.temporaryDiary.score = score
     }
     
-    func savePhoto(_ photo: Image) {
-        self.temporaryDiary.photo = photo
+    func savePhoto(_ address: String) {
+        self.temporaryDiary.photo = address
     }
     
     func save(_ memo: String) {

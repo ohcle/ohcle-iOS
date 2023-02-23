@@ -65,7 +65,8 @@ struct MemoView: View {
                 
                 HStack {
                     Spacer()
-                    DiaryManager.shared.temporaryPhoto
+                    Image(
+                    DiaryManager.shared.temporaryPhotoAddress)
                     Spacer()
                 }
                 
