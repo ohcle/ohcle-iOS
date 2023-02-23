@@ -39,6 +39,7 @@ struct ClimbingLocation: View {
             }
             .padding(.bottom, commonSize.height * 0.7)
             
+            
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.gray, lineWidth: 2)
@@ -64,6 +65,7 @@ struct ClimbingLocation: View {
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
         )
     }
+    
 }
 
 struct ClimbingLocation_Preview: PreviewProvider {
