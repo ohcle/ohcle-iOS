@@ -12,7 +12,6 @@
 		A80B452A28FA70A200343BB4 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452928FA70A200343BB4 /* Level.swift */; };
 		A817166629038013005B1268 /* ClimbingScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166529038013005B1268 /* ClimbingScore.swift */; };
 		A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166B290386AE005B1268 /* AddPhotoView.swift */; };
-		A817166E29038ACB005B1268 /* AddPhotoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166D29038ACB005B1268 /* AddPhotoButton.swift */; };
 		A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8335B68292F7BFA0006899D /* AppleLoginView.swift */; };
 		A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */; };
 		A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */; };
@@ -25,10 +24,6 @@
 		A859A64528EC3EB300F217F3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64428EC3EB300F217F3 /* KakaoSDKCommon */; };
 		A859A64728EC3EB300F217F3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64628EC3EB300F217F3 /* KakaoSDKUser */; };
 		A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */; };
-		A866B4F9293C6CAB001E182F /* climingMemoList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A866B4F7293C6CAB001E182F /* climingMemoList.xcdatamodeld */; };
-		A866B4FF293C6EB4001E182F /* PersistantContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A866B4FE293C6EB4001E182F /* PersistantContainer.swift */; };
-		A866B502293C7379001E182F /* Memo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A866B500293C7379001E182F /* Memo+CoreDataClass.swift */; };
-		A866B503293C7379001E182F /* Memo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A866B501293C7379001E182F /* Memo+CoreDataProperties.swift */; };
 		A866B509293CC5C5001E182F /* LoginResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A866B508293CC5C5001E182F /* LoginResultModel.swift */; };
 		A86A596828F2A1F100C500E1 /* Calender.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86A596728F2A1F100C500E1 /* Calender.swift */; };
 		A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B249297E5B5A00704688 /* CurrentDate.swift */; };
@@ -37,11 +32,14 @@
 		A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */; };
 		A887D5F529A20D0100C0A75D /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D5F429A20D0100C0A75D /* URLs.swift */; };
 		A887D5F729A20D0F00C0A75D /* ScoreStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D5F629A20D0F00C0A75D /* ScoreStar.swift */; };
-		A887D5FB29A20D3100C0A75D /* OchleColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D5FA29A20D3100C0A75D /* OchleColor.swift */; };
-		A887D5FE29A20D9000C0A75D /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D5FC29A20D9000C0A75D /* NextButton.swift */; };
 		A887D60129A20D9800C0A75D /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D60029A20D9800C0A75D /* Networking.swift */; };
 		A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA060290D49C5000F87A8 /* MemoView.swift */; };
+		A89E181E29A389A900F27045 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89E181D29A389A900F27045 /* NextButton.swift */; };
 		A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EF9B3294A1A390018BDFD /* Debouncer.swift */; };
+		A8A2C2CE29AF131D005C1B13 /* ClimbingPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A2C2CD29AF131D005C1B13 /* ClimbingPhotoPicker.swift */; };
+		A8A812EB29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A8A812E929A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld */; };
+		A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812EC29A73EE900E7C6A2 /* DataController.swift */; };
+		A8A812F129A74EF900E7C6A2 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812F029A74EF900E7C6A2 /* Test.swift */; };
 		A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E3291F6BE40013A74F /* DiaryList.swift */; };
 		A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E7291F74700013A74F /* AddNewDiary.swift */; };
 		A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */; };
@@ -56,7 +54,6 @@
 		A80B452928FA70A200343BB4 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		A817166529038013005B1268 /* ClimbingScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingScore.swift; sourceTree = "<group>"; };
 		A817166B290386AE005B1268 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
-		A817166D29038ACB005B1268 /* AddPhotoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoButton.swift; sourceTree = "<group>"; };
 		A8335B68292F7BFA0006899D /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
 		A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewGridItem.swift; sourceTree = "<group>"; };
 		A859A62A28EC3E1500F217F3 /* Ohcle_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ohcle_.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,10 +65,6 @@
 		A859A63F28EC3E7A00F217F3 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A859A64B28EC457700F217F3 /* Ohcle_.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ohcle_.entitlements; sourceTree = "<group>"; };
 		A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSetting.swift; sourceTree = "<group>"; };
-		A866B4F8293C6CAB001E182F /* climingMemoList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = climingMemoList.xcdatamodel; sourceTree = "<group>"; };
-		A866B4FE293C6EB4001E182F /* PersistantContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistantContainer.swift; sourceTree = "<group>"; };
-		A866B500293C7379001E182F /* Memo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memo+CoreDataClass.swift"; sourceTree = "<group>"; };
-		A866B501293C7379001E182F /* Memo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A866B508293CC5C5001E182F /* LoginResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResultModel.swift; sourceTree = "<group>"; };
 		A86A596728F2A1F100C500E1 /* Calender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calender.swift; sourceTree = "<group>"; };
 		A875B249297E5B5A00704688 /* CurrentDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDate.swift; sourceTree = "<group>"; };
@@ -80,11 +73,14 @@
 		A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenManager.swift; sourceTree = "<group>"; };
 		A887D5F429A20D0100C0A75D /* URLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLs.swift; path = "../../../../../Desktop/항목을 포함하는 새로운 폴더/URLs.swift"; sourceTree = "<group>"; };
 		A887D5F629A20D0F00C0A75D /* ScoreStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoreStar.swift; path = "../../../../../../Desktop/항목을 포함하는 새로운 폴더/ScoreStar.swift"; sourceTree = "<group>"; };
-		A887D5FA29A20D3100C0A75D /* OchleColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OchleColor.swift; path = "../../../../../../Desktop/항목을 포함하는 새로운 폴더/OchleColor.swift"; sourceTree = "<group>"; };
-		A887D5FC29A20D9000C0A75D /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NextButton.swift; path = "../../../../../../Desktop/항목을 포함하는 새로운 폴더/NextButton.swift"; sourceTree = "<group>"; };
 		A887D60029A20D9800C0A75D /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		A88BA060290D49C5000F87A8 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
+		A89E181D29A389A900F27045 /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		A89EF9B3294A1A390018BDFD /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
+		A8A2C2CD29AF131D005C1B13 /* ClimbingPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingPhotoPicker.swift; sourceTree = "<group>"; };
+		A8A812EA29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TemporaryDiary.xcdatamodel; sourceTree = "<group>"; };
+		A8A812EC29A73EE900E7C6A2 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		A8A812F029A74EF900E7C6A2 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		A8CBB2E3291F6BE40013A74F /* DiaryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryList.swift; sourceTree = "<group>"; };
 		A8CBB2E7291F74700013A74F /* AddNewDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDiary.swift; sourceTree = "<group>"; };
 		A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryHeader.swift; sourceTree = "<group>"; };
@@ -110,24 +106,17 @@
 		A80B452B28FA7CAB00343BB4 /* RecordFlow */ = {
 			isa = PBXGroup;
 			children = (
-				A866B4F7293C6CAB001E182F /* climingMemoList.xcdatamodeld */,
+				A89E182129A38A1900F27045 /* Common */,
+				A89E181F29A389B500F27045 /* Buttons */,
+				A89E182029A389E100F27045 /* DiaryList */,
 				A86A596728F2A1F100C500E1 /* Calender.swift */,
 				A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */,
 				A80B452928FA70A200343BB4 /* Level.swift */,
 				A817166529038013005B1268 /* ClimbingScore.swift */,
-				A817166B290386AE005B1268 /* AddPhotoView.swift */,
-				A817166D29038ACB005B1268 /* AddPhotoButton.swift */,
-				A88BA060290D49C5000F87A8 /* MemoView.swift */,
 				A887D5F629A20D0F00C0A75D /* ScoreStar.swift */,
-				A8CBB2E3291F6BE40013A74F /* DiaryList.swift */,
-				A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */,
-				A8CBB2E7291F74700013A74F /* AddNewDiary.swift */,
-				A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */,
-				A8CBB2F2291F973E0013A74F /* MemoButton.swift */,
-				A875B249297E5B5A00704688 /* CurrentDate.swift */,
-				A887D5FA29A20D3100C0A75D /* OchleColor.swift */,
-				A887D5FC29A20D9000C0A75D /* NextButton.swift */,
-				A89EF9B3294A1A390018BDFD /* Debouncer.swift */,
+				A817166B290386AE005B1268 /* AddPhotoView.swift */,
+				A8A2C2CD29AF131D005C1B13 /* ClimbingPhotoPicker.swift */,
+				A88BA060290D49C5000F87A8 /* MemoView.swift */,
 			);
 			path = RecordFlow;
 			sourceTree = "<group>";
@@ -135,9 +124,6 @@
 		A859A62128EC3E1500F217F3 = {
 			isa = PBXGroup;
 			children = (
-				A866B500293C7379001E182F /* Memo+CoreDataClass.swift */,
-				A866B501293C7379001E182F /* Memo+CoreDataProperties.swift */,
-				A866B4FE293C6EB4001E182F /* PersistantContainer.swift */,
 				A859A62C28EC3E1500F217F3 /* Ohcle_ */,
 				A859A62B28EC3E1500F217F3 /* Products */,
 			);
@@ -157,6 +143,7 @@
 				A80B452328FA50DE00343BB4 /* ReadViewSize.swift */,
 				A859A64B28EC457700F217F3 /* Ohcle_.entitlements */,
 				A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */,
+				A8A812E929A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld */,
 				A859A63128EC3E1600F217F3 /* Assets.xcassets */,
 				A875B24D297E7C2200704688 /* MainView */,
 				A859A64E28F27A2600F217F3 /* Login */,
@@ -181,6 +168,7 @@
 				A887D60029A20D9800C0A75D /* Networking.swift */,
 				A887D5F429A20D0100C0A75D /* URLs.swift */,
 				A859A63F28EC3E7A00F217F3 /* LoginView.swift */,
+				A8A812F029A74EF900E7C6A2 /* Test.swift */,
 				A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */,
 				A8335B68292F7BFA0006899D /* AppleLoginView.swift */,
 				A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */,
@@ -193,6 +181,7 @@
 		A86A596628F2A1BE00C500E1 /* Diary */ = {
 			isa = PBXGroup;
 			children = (
+				A8A2C2CC29AEECF1005C1B13 /* DataManage */,
 				A80B452B28FA7CAB00343BB4 /* RecordFlow */,
 			);
 			path = Diary;
@@ -206,6 +195,43 @@
 				A875B24E297EAC3A00704688 /* CalenderView.swift */,
 			);
 			path = MainView;
+			sourceTree = "<group>";
+		};
+		A89E181F29A389B500F27045 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				A8CBB2F2291F973E0013A74F /* MemoButton.swift */,
+				A89E181D29A389A900F27045 /* NextButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		A89E182029A389E100F27045 /* DiaryList */ = {
+			isa = PBXGroup;
+			children = (
+				A8CBB2E3291F6BE40013A74F /* DiaryList.swift */,
+				A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */,
+				A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */,
+				A8CBB2E7291F74700013A74F /* AddNewDiary.swift */,
+			);
+			path = DiaryList;
+			sourceTree = "<group>";
+		};
+		A89E182129A38A1900F27045 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A875B249297E5B5A00704688 /* CurrentDate.swift */,
+				A89EF9B3294A1A390018BDFD /* Debouncer.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		A8A2C2CC29AEECF1005C1B13 /* DataManage */ = {
+			isa = PBXGroup;
+			children = (
+				A8A812EC29A73EE900E7C6A2 /* DataController.swift */,
+			);
+			path = DataManage;
 			sourceTree = "<group>";
 		};
 		A8CBB2EB291F80360013A74F /* UserSetting */ = {
@@ -296,40 +322,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				A887D5F729A20D0F00C0A75D /* ScoreStar.swift in Sources */,
-				A866B503293C7379001E182F /* Memo+CoreDataProperties.swift in Sources */,
 				A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */,
 				A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */,
 				A887D5F529A20D0100C0A75D /* URLs.swift in Sources */,
 				A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */,
-				A866B4F9293C6CAB001E182F /* climingMemoList.xcdatamodeld in Sources */,
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
 				A875B24F297EAC3A00704688 /* CalenderView.swift in Sources */,
-				A817166E29038ACB005B1268 /* AddPhotoButton.swift in Sources */,
+				A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */,
+				A8A2C2CE29AF131D005C1B13 /* ClimbingPhotoPicker.swift in Sources */,
 				A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */,
 				A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */,
 				A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */,
 				A866B509293CC5C5001E182F /* LoginResultModel.swift in Sources */,
 				A817166629038013005B1268 /* ClimbingScore.swift in Sources */,
 				A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */,
+				A89E181E29A389A900F27045 /* NextButton.swift in Sources */,
 				A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */,
-				A866B4FF293C6EB4001E182F /* PersistantContainer.swift in Sources */,
+				A8A812F129A74EF900E7C6A2 /* Test.swift in Sources */,
 				A8CBB2F1291F96570013A74F /* MyPageLogoutView.swift in Sources */,
 				A887D60129A20D9800C0A75D /* Networking.swift in Sources */,
 				A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */,
 				A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */,
 				A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */,
-				A866B502293C7379001E182F /* Memo+CoreDataClass.swift in Sources */,
 				A80B452828FA5A8D00343BB4 /* ClimbingLocation.swift in Sources */,
 				A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */,
 				A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */,
 				A80B452A28FA70A200343BB4 /* Level.swift in Sources */,
 				A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */,
 				A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */,
-				A887D5FE29A20D9000C0A75D /* NextButton.swift in Sources */,
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,
-				A887D5FB29A20D3100C0A75D /* OchleColor.swift in Sources */,
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,
 				A86A596828F2A1F100C500E1 /* Calender.swift in Sources */,
+				A8A812EB29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld in Sources */,
 				A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,13 +588,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		A866B4F7293C6CAB001E182F /* climingMemoList.xcdatamodeld */ = {
+		A8A812E929A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				A866B4F8293C6CAB001E182F /* climingMemoList.xcdatamodel */,
+				A8A812EA29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodel */,
 			);
-			currentVersion = A866B4F8293C6CAB001E182F /* climingMemoList.xcdatamodel */;
-			path = climingMemoList.xcdatamodeld;
+			currentVersion = A8A812EA29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodel */;
+			path = TemporaryDiary.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

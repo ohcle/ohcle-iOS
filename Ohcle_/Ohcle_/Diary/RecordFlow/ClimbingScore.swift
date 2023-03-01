@@ -23,18 +23,16 @@ struct ClimbingScore: View {
             .font(.title)
             
             HStack {
-                ScoreStar(rating: $finalScore)
+                ScoreStar(rating: $finalScore,
+                          inform: self.nextButton.userEvent.inform)
                     .font(.system(size: 43))
-                
             }
-            .onChange(of: finalScore) { newValue in
-                Debouncer(delay: 0.5).run {
-                    withAnimation {
-                        nextPage.type = .photo
-                    }
-                }
+
+            .onDisappear {
+                DataController.shared.saveTemporaryScore(Int16(self.finalScore))
             }
         }
+        .padding(.bottom, UIScreen.screenHeight/8)
         .overlay(
             self.nextButton
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))

@@ -6,14 +6,15 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct AddPhotoView: View {
-    @State private var titleSize = CGSize()
-    @EnvironmentObject var nextPage: MyPageType
-    @State private var isImageSelected: Bool = false
+    @ObservedObject var picker = ClimbingImagePicker()
     
     private let titleImageHeighRatio = CGFloat(7)
     private let titleImageWidthRatio = CGFloat(0.8)
+    
+    
     private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
                                                              width: UIScreen.screenWidth/1.2,
                                                              height: UIScreen.screenHeight/15)
@@ -26,17 +27,20 @@ struct AddPhotoView: View {
              +
              Text("이 있나요?")
             )
-            .readSize(onChange: { size in
-                self.titleSize = size
-            })
             .font(.title)
-            .padding()
+            .padding(.bottom, 20)
             
-            AddPhotoButton(imageName: "add-climbing-photo",
-                           selectedImageWidth: self.titleSize.width * titleImageWidthRatio,
-                           selectedImgeHieght : self.titleSize.height * titleImageHeighRatio,
-                           isSelected: $isImageSelected)
-           
+            PhotosPicker(selection: $picker.imageSelection, matching: .any(of: [.images, .not(.livePhotos)])) {
+                if let image = picker.image {
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .padding(.all, 10)
+                } else {
+                    Image("add-climbing-photo")
+                        .padding(.top, 10)
+                }
+            }
         }
         .overlay(
             self.nextButton
@@ -52,3 +56,10 @@ struct AddPhotoView_Previews: PreviewProvider {
     }
 }
 
+
+extension PhotosPicker {
+    init(selection: Binding<PhotosPickerItem?>, matching filter: PHPickerFilter? = nil, preferredItemEncoding: PhotosPickerItem.EncodingDisambiguationPolicy = .automatic, @ViewBuilder label: () -> Label, closure: () -> ()) {
+        self.init(selection: selection, label: label)
+        closure()
+    }
+}

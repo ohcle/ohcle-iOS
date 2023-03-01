@@ -21,7 +21,7 @@ struct IdentifiableSpace: Identifiable {
 
 struct ClimbingLocation: View {
     @State private var searchText = ""
-    @State var commonSize = CGSize()
+    @State private var commonSize = CGSize()
     @State private var isLocateChanged: Bool = false
     @EnvironmentObject var nextPageType: MyPageType
     private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
@@ -39,6 +39,7 @@ struct ClimbingLocation: View {
             }
             .padding(.bottom, commonSize.height * 0.7)
             
+            
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.gray, lineWidth: 2)
@@ -49,17 +50,25 @@ struct ClimbingLocation: View {
                     Image("locationSearchBarIcon")
                     TextField("장소를 입력해 주세요",
                               text: $searchText)
+                    .onTapGesture {
+                        self.nextButton.userEvent.inform()
+                    }
                 }
                 .padding(.leading, commonSize.width * 0.2)
             }
             .frame(width: commonSize.width * 0.9,
                    height: commonSize.height)
+            
+        }
+        .onDisappear {
+            let locationString = self.searchText
         }
         .overlay(
             self.nextButton
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
         )
     }
+    
 }
 
 struct ClimbingLocation_Preview: PreviewProvider {

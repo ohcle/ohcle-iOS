@@ -14,7 +14,7 @@ enum NewMemoPageType {
     case photo
     case level
     case memo
-    case edit
+    case done
 }
 
 class MyPageType: ObservableObject {
@@ -31,7 +31,7 @@ struct Calender: View {
                                                              height: UIScreen.screenHeight/15)
     
     init() {
-        self.nextButton.userEvent.inform()
+
     }
     
     var body: some View {
@@ -52,12 +52,19 @@ struct Calender: View {
             .datePickerStyle(.wheel)
             .environment(\.locale, Locale(identifier: "ko"))
         }
+        .onDisappear {
+            
+            let dateString = OhcleDate().diaryDateFormatter.string(from: self.date)
+//            let dateString = self.date.description
+            DataController.shared.saveTemporaryDate(dateString)
+        }
+        .onAppear {
+            self.nextButton.userEvent.inform()
+        }
         .overlay(
             self.nextButton
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
-        
         )
-        
     }
 }
 
