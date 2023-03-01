@@ -18,11 +18,16 @@ enum GreetingTextOptions: String {
 struct LoginView: View {
     @EnvironmentObject var loginSetting: LoginSetting
     @State private var appleLoginViewSize: CGSize = CGSize()
+        
+    @FetchRequest(sortDescriptors: []) var diary: FetchedResults<Diary>
+    @Environment(\.managedObjectContext) var moc
+
     private let mainLogoTitle: String
     private let url: URL
     private let defualtURL: String = "http://www.google.com"
     private let usePolicy = "[서비스 이용약관](https://www.google.com)"
     private let privatePolicy = "[서비스 이용약관](https://www.google.com)"
+
     
     init(mainLogoTitle: String, receptionURL: URL?) {
         self.mainLogoTitle = mainLogoTitle
