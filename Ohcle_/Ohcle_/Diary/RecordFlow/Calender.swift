@@ -31,7 +31,7 @@ struct Calender: View {
                                                              height: UIScreen.screenHeight/15)
     
     init() {
-        self.nextButton.userEvent.inform()
+
     }
     
     var body: some View {
@@ -53,8 +53,13 @@ struct Calender: View {
             .environment(\.locale, Locale(identifier: "ko"))
         }
         .onDisappear {
-            let dateString = self.date.toString()
+            
+            let dateString = OhcleDate().diaryDateFormatter.string(from: self.date)
+//            let dateString = self.date.description
             DataController.shared.saveTemporaryDate(dateString)
+        }
+        .onAppear {
+            self.nextButton.userEvent.inform()
         }
         .overlay(
             self.nextButton

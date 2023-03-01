@@ -63,11 +63,38 @@ class DataController: ObservableObject {
     private struct TemporaryDiary {
         var date: String = "💜"
         var level: String = "💜"
-        var score: Int16 = 3
+        var score: Int16 = 0
         var photo: Data = Data()
         var memo: String = "💜"
     }
    
+    var temDate: String {
+        get {
+            self.temporaryDiary.date
+        }
+    }
+    
+    var temLevel: String {
+        get {
+            self.temporaryDiary.level
+        }
+    }
+    var temScore: Int16 {
+        get {
+            self.temporaryDiary.score
+        }
+    }
+    var temPhoto: Data  {
+        get {
+            self.temporaryDiary.photo
+        }
+    }
+    var temMemo: String {
+        get {
+            self.temporaryDiary.memo
+        }
+    }
+    
     func saveTemporaryDate(_ date: String) {
         self.temporaryDiary.date = date
     }

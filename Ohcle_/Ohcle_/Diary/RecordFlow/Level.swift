@@ -38,7 +38,7 @@ struct Level: View {
                         self.nextButton.userEvent.inform()
                     } label: {
                         Circle()
-                        .fill(colors[index])
+                            .fill(colors[index])
                     }
                 }
             }
@@ -46,7 +46,7 @@ struct Level: View {
             .padding(.trailing, 20)
         }
         .onDisappear {
-            let levelString = self.selectedColor.description
+            let levelString = self.selectedColor.climbingLevelName
             DataController.shared.saveTemporaryLevel(levelString)
         }
         .padding(.bottom, UIScreen.screenHeight/8)
@@ -60,5 +60,61 @@ struct Level: View {
 struct Level_Previews: PreviewProvider {
     static var previews: some View {
         Level()
+    }
+}
+
+extension Color {
+    var climbingLevelName: String {
+        switch self {
+        case .red:
+            return "red"
+        case .orange:
+            return "orange"
+        case .yellow:
+            return "yellow"
+        case .green:
+            return "green"
+        case .blue:
+            return "blue"
+        case Color("holder-darkblue"):
+            return "holder-darkblue"
+        case .purple:
+            return "purple"
+        case .black:
+            return "black"
+        case Color("holder-lightgray"):
+            return "holder-lightgray"
+        case Color("holder-darkgray"):
+            return "holder-darkgray"
+        default:
+            return "Level Color Error"
+        }
+    }
+    
+   static func convert(from climbingLevelName: String) -> Color {
+        switch climbingLevelName {
+        case "red" :
+            return Color(.red)
+        case "orange":
+            return Color(.orange)
+        case "yellow" :
+            return Color(.yellow)
+        case "green" :
+            return  Color(.green)
+        case "holder-darkblue"  :
+            return Color("holder-darkblue")
+        case "blue":
+            return Color(.blue)
+        case "purple" :
+            return Color(.purple)
+        case  "black" :
+            return Color(.black)
+        case "holder-lightgray" :
+            return  Color("holder-lightgray")
+        case "holder-darkgray" :
+            return Color("holder-darkgray")
+        default:
+            return Color(.cyan)
+        }
     }
 }

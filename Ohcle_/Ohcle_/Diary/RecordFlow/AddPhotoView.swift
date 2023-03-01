@@ -9,7 +9,6 @@ import SwiftUI
 import PhotosUI
 
 struct AddPhotoView: View {
-    @EnvironmentObject var nextPage: MyPageType
     @ObservedObject var picker = ClimbingImagePicker()
     
     private let titleImageHeighRatio = CGFloat(7)
@@ -41,12 +40,7 @@ struct AddPhotoView: View {
                     Image("add-climbing-photo")
                         .padding(.top, 10)
                 }
-            } closure: {
-                if let image = picker.image {
-                    self.nextButton.userEvent.inform()
-                }
             }
-            
         }
         .overlay(
             self.nextButton

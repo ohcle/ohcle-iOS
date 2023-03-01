@@ -8,7 +8,18 @@
 import Foundation
 
 class OhcleDate {
-    private let formatter: DateFormatter = {
+    let diaryDateFormatter: DateFormatter = {
+        let date = Date()
+        let formatter = DateFormatter()
+        
+        formatter.timeStyle = .none
+        formatter.dateStyle = .medium
+        formatter.locale = Locale(identifier: "ko")
+        formatter.setLocalizedDateFormatFromTemplate("yyyy MMMM dd")
+        return formatter
+    }()
+    
+    let formatter: DateFormatter = {
         let date = Date()
         let formatter = DateFormatter()
         

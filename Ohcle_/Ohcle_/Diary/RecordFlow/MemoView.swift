@@ -5,39 +5,26 @@
 //  Created by Do Yi Lee on 2022/10/29.
 //
 
-/*
- 
- 1. 메모에 기록홀더 색
- 2. 홀더를 랜덤으로 보여줄것이냐 -> 선만보이도록????
- -> 홀더모양(선) -> 선안을 초록색으로 채우는 -> 하루정도 한 번 시도
- 3. 모양별로 색을 다 가져오기 -> 모양 : 최소 7개 -> 70개 -> `490kb`
- 
- --
- 4. 이후 버전에서 할 일 : 아이클라우드 동기화, 자주가는 장소 태그 하기
- */
-
-
 import SwiftUI
 
 
 struct MemoView: View {
     @State private var typedText: String = ""
-    @State private var memoState: MemoState = .save
-    @State private var textStyle = UIFont.TextStyle.body
-    
-//    private let finalScoreNumber: Int = DiaryManager.shared.temporaryScore
     private let mapImageName: String = "map"
+    
     private let climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
-
+    
+    private let color = Color.convert(from: DataController.shared.temLevel)
+    private let date = DataController.shared.temDate
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             Circle()
-                .fill(.red)
+                .fill(color)
                 .frame(width: 30, height: 30)
                 .padding(.top, 5)
             
-            Text("\(OhcleDate.currentDate)")
+            Text("\(date)")
                 .font(.title)
             
             HStack(spacing: 5) {
@@ -49,7 +36,7 @@ struct MemoView: View {
             .padding(.bottom, -5)
             
             HStack() {
-//                ScoreStar(rating: .constant(finalScoreNumber))
+                ScoreStar(rating: .constant(Int(DataController.shared.temScore)))
             }
             
             VStack(alignment: .leading) {
@@ -65,8 +52,9 @@ struct MemoView: View {
                 
                 HStack {
                     Spacer()
-//                    Image(
-//                    DiaryManager.shared.temporaryPhotoAddress)
+                    Image(uiImage: UIImage(data: DataController.shared.temPhoto) ?? UIImage())
+                        .resizable()
+                        .scaledToFit()
                     Spacer()
                 }
                 

@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-final class UserEvent: ObservableObject {
+@MainActor final class UserEvent: ObservableObject {
     @Published var isUserEventHappend: Bool = false
     
     func inform() {
-        self.isUserEventHappend = true
+            self.isUserEventHappend = true
     }
 }
 

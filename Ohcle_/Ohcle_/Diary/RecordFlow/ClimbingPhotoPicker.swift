@@ -20,16 +20,14 @@ class ClimbingImagePicker: ObservableObject {
         }
     }
     
-    func loadTrnasferable(from imageSelection: PhotosPickerItem?) async throws {
+    @MainActor func loadTrnasferable(from imageSelection: PhotosPickerItem?) async throws {
         do {
             if let data = try await imageSelection?.loadTransferable(type: Data.self) {
                 let uiImage = UIImage(data: data) ?? UIImage()
                 let image = Image(uiImage: uiImage)
                 self.image = image
-                
-                Task {
-                    DataController.shared.saveTemporaryPhotoData(data)
-                }
+
+                DataController.shared.saveTemporaryPhotoData(data)
             }
         } catch {
             self.image = nil
