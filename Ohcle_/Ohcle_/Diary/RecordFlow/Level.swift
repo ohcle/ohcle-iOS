@@ -29,10 +29,16 @@ struct Level: View {
                 .bold()
              + Text("이었나요?"))
             .font(.title)
+            .padding(.bottom, 20)
+            
             LazyVGrid(columns: self.columns) {
-                ForEach(0..<self.colors.count) {
-                    Circle()
-                        .fill(colors[$0])
+                ForEach(0..<self.colors.count) { index in
+                    Button {
+                        self.selectedColor = colors[index]
+                    } label: {
+                        Circle()
+                        .fill(colors[index])
+                    }
                 }
             }
             .padding(.leading, 20)

@@ -21,7 +21,7 @@ struct IdentifiableSpace: Identifiable {
 
 struct ClimbingLocation: View {
     @State private var searchText = ""
-    @State var commonSize = CGSize()
+    @State private var commonSize = CGSize()
     @State private var isLocateChanged: Bool = false
     @EnvironmentObject var nextPageType: MyPageType
     private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
@@ -62,7 +62,6 @@ struct ClimbingLocation: View {
         }
         .onDisappear {
             let locationString = self.searchText
-//            DataController.shared.savetem
         }
         .overlay(
             self.nextButton
