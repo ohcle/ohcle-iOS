@@ -10,11 +10,25 @@ import CoreData
 
 class DataController: ObservableObject {
     let container = NSPersistentContainer(name: "TemporaryDiary")
+    static let shared = DataController()
     
-    init() {
+    private init() {
         container.loadPersistentStores { description, error in
             if let error = error {
                 print("Core Data failed to load: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func saveContext() {
+        let context = self.container.viewContext
+        
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let saveError = error as NSError
+                print("Context Saving Error: \(saveError.localizedDescription)")
             }
         }
     }
@@ -26,16 +40,31 @@ class DataController: ObservableObject {
         diary.lavel = self.temporaryDiary.level
         diary.photoAddress = self.temporaryDiary.photo
         diary.memo = self.temporaryDiary.memo
+        
+        self.saveContext()
     }
+    
+//    func updateDiary(_ context: NSManagedObjectContext) {
+//        self.saveDiary(context)
+//        self.saveContext()
+//    }
+//
+//    func deleteDiary() {
+//        self.saveContext()
+//    }
+//
+//    func readDiary() -> Diary {
+//
+//    }
     
     private var temporaryDiary = TemporaryDiary()
     
     private struct TemporaryDiary {
-        var date: String = OhcleDate.currentDate
-        var level: String = ""
+        var date: String = "💜"
+        var level: String = "💜"
         var score: Int16 = 3
-        var photo: String = "main_logo"
-        var memo: String = "즐거운 클라이밍"
+        var photo: String = "💜"
+        var memo: String = "💜"
     }
    
     func saveTemporaryDate(_ date: String) {

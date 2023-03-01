@@ -60,6 +60,10 @@ struct ClimbingLocation: View {
                    height: commonSize.height)
             
         }
+        .onDisappear {
+            let locationString = self.searchText
+//            DataController.shared.savetem
+        }
         .overlay(
             self.nextButton
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))

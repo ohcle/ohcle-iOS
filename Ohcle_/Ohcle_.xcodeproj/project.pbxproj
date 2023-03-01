@@ -106,7 +106,6 @@
 		A80B452B28FA7CAB00343BB4 /* RecordFlow */ = {
 			isa = PBXGroup;
 			children = (
-				A8A812E629A39E3400E7C6A2 /* MemoData */,
 				A89E182129A38A1900F27045 /* Common */,
 				A89E181F29A389B500F27045 /* Buttons */,
 				A89E182029A389E100F27045 /* DiaryList */,
@@ -233,13 +232,6 @@
 				A8A812EC29A73EE900E7C6A2 /* DataController.swift */,
 			);
 			path = DataManage;
-			sourceTree = "<group>";
-		};
-		A8A812E629A39E3400E7C6A2 /* MemoData */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MemoData;
 			sourceTree = "<group>";
 		};
 		A8CBB2EB291F80360013A74F /* UserSetting */ = {

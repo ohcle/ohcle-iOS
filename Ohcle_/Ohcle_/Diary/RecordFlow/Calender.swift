@@ -25,8 +25,6 @@ struct Calender: View {
     @State private var date = Date()
     @State private var pickerWidth: CGFloat = 0
     @State private var pickerHeight: CGFloat = 0
-    @FetchRequest(sortDescriptors: []) var diary: FetchedResults<Diary>
-    @Environment(\.managedObjectContext) var moc
     
     private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
                                                      width: UIScreen.screenWidth/1.2,
@@ -54,10 +52,13 @@ struct Calender: View {
             .datePickerStyle(.wheel)
             .environment(\.locale, Locale(identifier: "ko"))
         }
+        .onDisappear {
+            let dateString = self.date.toString()
+            DataController.shared.saveTemporaryDate(dateString)
+        }
         .overlay(
             self.nextButton
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
-        
         )
     }
 }

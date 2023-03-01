@@ -28,7 +28,7 @@ struct Ohcle_App: App {
         KakaoSDK.initSDK(appKey: "e78a0ba0d7372b5370db8c893fd2d881")
     }
     
-    @StateObject private var persistenceController = DataController()
+    @StateObject private var persistenceController = DataController.shared
 
     var body: some Scene {
         WindowGroup {
