@@ -29,11 +29,7 @@ struct Calender: View {
     private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
                                                      width: UIScreen.screenWidth/1.2,
                                                              height: UIScreen.screenHeight/15)
-    
-    init() {
 
-    }
-    
     var body: some View {
         VStack {
             Text("기록하고 싶은 날")
@@ -53,9 +49,7 @@ struct Calender: View {
             .environment(\.locale, Locale(identifier: "ko"))
         }
         .onDisappear {
-            
             let dateString = OhcleDate().diaryDateFormatter.string(from: self.date)
-//            let dateString = self.date.description
             DataController.shared.saveTemporaryDate(dateString)
         }
         .onAppear {

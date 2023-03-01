@@ -11,13 +11,14 @@ import SwiftUI
 struct MemoView: View {
     @State private var typedText: String = ""
     private let mapImageName: String = "map"
-    
     private let climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
     
     private let color = Color.convert(from: DataController.shared.temLevel)
     private let date = DataController.shared.temDate
     
+    @Environment(\.managedObjectContext) var managedObjectContext
+
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             Circle()
@@ -72,6 +73,8 @@ struct MemoView: View {
                 Spacer()
                 MemoButton() {
                     DataController.shared.saveTemporaryMemo(typedText)
+                    
+                    DataController.shared.saveDiary(managedObjectContext)
                 }
 
                 Spacer()

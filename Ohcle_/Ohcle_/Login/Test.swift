@@ -20,7 +20,7 @@ struct Test: View {
             let chosenLastName = lastNames.randomElement()!
 //            let student = Student(context: moc)
             let diary = Diary(context: moc)
-            diary.id = UUID()
+//            diary.id = UUID()
             diary.memo = "\(chosenFirstName) \(chosenLastName)"
             try? moc.save()
 

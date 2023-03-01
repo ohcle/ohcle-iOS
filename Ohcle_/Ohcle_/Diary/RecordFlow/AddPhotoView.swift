@@ -46,7 +46,6 @@ struct AddPhotoView: View {
             self.nextButton
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
         )
-        
     }
 }
 

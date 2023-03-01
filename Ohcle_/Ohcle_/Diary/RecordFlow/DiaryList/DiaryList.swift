@@ -28,7 +28,9 @@ struct DiaryList: View {
     private let column = [
         GridItem(.flexible(minimum: 250))
     ]
-
+    
+    @FetchRequest(entity: Diary.entity(), sortDescriptors: []) var diaries: FetchedResults<Diary>
+    
     var body: some View {
         VStack(spacing: listSpacing) {
             DiaryHeader()
@@ -36,12 +38,11 @@ struct DiaryList: View {
                 LazyVGrid(columns: column,
                           alignment: .leading,
                           spacing: listSpacing) {
-                    ForEach(memos, id: \.self) { memo in
-                        DiaryListViewGridItem(date: memo.date,
-                                              location: memo.location,
-                                              level: memo.level,
-                                              score: memo.score,
-                                              memoImageName: memo.image)
+                    ForEach(diaries, id: \.self) { diary in
+                        DiaryListViewGridItem(date: diary.date, location:
+                                                "", levelColorName: diary.lavel ??
+                                              "", score: diary.score, memoImageName: diary.photo)
+
                         .padding(.leading, 30)
                     }
                 }
