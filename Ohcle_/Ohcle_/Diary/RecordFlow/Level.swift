@@ -35,6 +35,7 @@ struct Level: View {
                 ForEach(0..<self.colors.count) { index in
                     Button {
                         self.selectedColor = colors[index]
+                        self.nextButton.userEvent.inform()
                     } label: {
                         Circle()
                         .fill(colors[index])

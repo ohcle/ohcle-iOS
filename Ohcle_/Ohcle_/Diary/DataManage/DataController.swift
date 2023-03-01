@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 class DataController: ObservableObject {
     let container = NSPersistentContainer(name: "TemporaryDiary")
@@ -38,7 +39,7 @@ class DataController: ObservableObject {
         diary.date = self.temporaryDiary.date
         diary.score = self.temporaryDiary.score
         diary.lavel = self.temporaryDiary.level
-        diary.photoAddress = self.temporaryDiary.photo
+        diary.photo = self.temporaryDiary.photo
         diary.memo = self.temporaryDiary.memo
         
         self.saveContext()
@@ -63,7 +64,7 @@ class DataController: ObservableObject {
         var date: String = "💜"
         var level: String = "💜"
         var score: Int16 = 3
-        var photo: String = "💜"
+        var photo: Data = Data()
         var memo: String = "💜"
     }
    
@@ -79,8 +80,8 @@ class DataController: ObservableObject {
         self.temporaryDiary.score = score
     }
     
-    func saveTemporaryPhoto(_ address: String) {
-        self.temporaryDiary.photo = address
+    func saveTemporaryPhotoData(_ imageData: Data) {
+        self.temporaryDiary.photo = imageData
     }
     
     func saveTemporaryMemo(_ memo: String) {
