@@ -17,6 +17,7 @@ struct MemoView: View {
     
     private let color = Color.convert(from: DataController.shared.temLevel)
     private let date = DataController.shared.temDate
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             Circle()
@@ -69,7 +70,10 @@ struct MemoView: View {
             Spacer()
             HStack {
                 Spacer()
-                MemoButton()
+                MemoButton() {
+                    DataController.shared.saveTemporaryMemo(typedText)
+                }
+
                 Spacer()
             }
             Spacer()
