@@ -64,7 +64,7 @@ struct DiaryListViewGridItem: View {
                         .foregroundColor(.gray)
                     Circle()
                         .foregroundColor(self.levelColor)
-                        .frame(width: 10, height: 10)
+                        .frame(width: 18)
                 }
                 
                 HStack {
