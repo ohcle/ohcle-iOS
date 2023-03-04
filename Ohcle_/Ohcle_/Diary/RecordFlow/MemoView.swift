@@ -76,7 +76,11 @@ struct MemoView: View {
                 Spacer()
                 MemoButton() {
                     if let diary = diary {
-                        DataController.shared.saveTemporaryMemo(typedText)
+                        diary.memo = typedText
+//DataController.shared.saveTemporaryDate(diary.date ?? "error")
+//                        DataController.shared.saveTemporaryScore(diary.score)
+//                        DataController.shared.saveTemporaryLevel(diary.level ?? "")
+//                        DataController.shared.saveTemporaryMemo(diary.memo ?? "error")
                         DataController.shared.updateDiary(diary)
                     } else {
                         DataController.shared.saveTemporaryMemo(typedText)

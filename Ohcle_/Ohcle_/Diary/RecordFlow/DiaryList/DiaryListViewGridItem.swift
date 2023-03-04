@@ -13,8 +13,6 @@ extension UIScreen {
     static let screenSize = UIScreen.main.bounds.size
 }
 
-//DiaryListViewGridItem(date: diary.date, location: "더미 로케이션", level: diary.lavel, score: diary.score, memoImageName: diary.photo)
-
 struct DiaryListViewGridItem: View {
     private let placeHoldeImage = Image("main_logo")
     

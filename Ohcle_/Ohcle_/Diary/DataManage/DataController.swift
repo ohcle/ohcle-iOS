@@ -46,12 +46,13 @@ class DataController: ObservableObject {
     }
     
     func updateDiary(_ diary: Diary) {
-        diary.date = self.temporaryDiary.date
-        diary.score = self.temporaryDiary.score
-        diary.level = self.temporaryDiary.level
-        diary.photo = self.temporaryDiary.photo
-        diary.memo = self.temporaryDiary.memo
+//        diary.date = self.temporaryDiary.date
+//        diary.score = self.temporaryDiary.score
+//        diary.level = self.temporaryDiary.level
+//        diary.photo = self.temporaryDiary.photo
+//        diary.memo = self.temporaryDiary.memo
         self.saveContext()
+        clearTemDiary()
     }
     
     func clearTemDiary() {
