@@ -16,21 +16,21 @@ extension UIScreen {
 //DiaryListViewGridItem(date: diary.date, location: "더미 로케이션", level: diary.lavel, score: diary.score, memoImageName: diary.photo)
 
 struct DiaryListViewGridItem: View {
-    @State private var gridSize: CGSize?
-    
     private let placeHoldeImage = Image("main_logo")
+    
+    @State private var scoreNumber = 3
+    
     private let date: String?
     private let location: String?
-    private let level: String?
-    private let score: Int16?
+    private let levelColor: Color
     private let memoImageData: Data?
     
     init(date: String?, location: String?,
-         levelColorName: String?, score: Int16?, memoImageData: Data?) {
+         levelColorName: String, score: Int16?, memoImageData: Data?) {
         self.date = date
         self.location = location
-        self.level = levelColorName
-        self.score = score
+        self.levelColor = Color.convert(from: levelColorName)
+        self.scoreNumber = Int(score ?? .zero)
         self.memoImageData = memoImageData
     }
     
@@ -43,39 +43,50 @@ struct DiaryListViewGridItem: View {
         }
     }
     
+    let rows = [GridItem(.fixed(20)), GridItem(.fixed(80))]
     var body: some View {
         HStack(spacing: 10) {
             self.generateMemoImage()
                 .resizable()
                 .frame(width: UIScreen.screenSize.width * 2/7, height: UIScreen.screenSize.width * 2/7)
-            Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 7) {
-                GridRow {
-                    Text("날짜: ")
-                    Text(self.date ??  OhcleDate.currentDate)
+            LazyVStack(alignment: .leading, spacing: 13) {
+                Text("날짜  ")
+                    .foregroundColor(.gray)
+                + Text(self.date ?? OhcleDate.currentDate)
+                
+                Text("장소  ")
+                    .foregroundColor(.gray)
+                +
+                Text(self.location ?? "오클 클라이밍")
+                
+                HStack {
+                    Text("레벨 ")
+                        .foregroundColor(.gray)
+                    Circle()
+                        .foregroundColor(self.levelColor)
+                        .frame(width: 10, height: 10)
                 }
-                GridRow {
-                    Text("장소: ")
-                    Text(self.location ?? "오클 클라이밍")
+                
+                HStack {
+                    Text("점수")
+                        .foregroundColor(.gray)
+                    ScoreStar(rating: $scoreNumber)
+                        .allowsHitTesting(false)
+                        .padding(.bottom, 3)
                 }
-                GridRow {
-                    Text("레벨: ")
-                    Text(self.level ?? "무지개")
-                }
-                GridRow {
-                    Text("점수: ")
-                    Text("\(self.score ?? .zero)")
-                }
-            }
-            .font(.title3)
-            .readSize { size in
-                self.gridSize = size
             }
         }
     }
 }
 
-//struct DiaryListCell_Previews: PreviewProvider {
-//    static var previews: some View {
-////        DiaryListViewGridItem(date: "ddd", location: "ddd", level: "black", score: "5", memoImageName: "main-logo")
-//    }
-//}
+struct DiaryListCell_Previews: PreviewProvider {
+    static private let mocDate = "2023년 3월 10일"
+    static private let mocLocation = "오클 클라이밍"
+    static private let mocColorName = "gray"
+    static private let mocScore: Int16 = 3
+    static private let mocImageData = Data()
+    
+    static var previews: some View {
+        DiaryListViewGridItem(date: mocDate, location: mocLocation, levelColorName: mocColorName, score: mocScore, memoImageData: mocImageData)
+    }
+}
