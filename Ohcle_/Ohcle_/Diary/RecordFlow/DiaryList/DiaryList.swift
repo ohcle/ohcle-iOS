@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct RecordedMemo: Hashable {
-    let date: String
-    let location:String
-    let level: String
-    let score: Int16
-    let imageData: Data
+struct RecordedMemo {
+    let date: String?
+    let location:String?
+    let level: String?
+    let score: Int16?
+    let imageData: Data?
+    let memo: String?
 }
 
 struct DiaryList: View {
@@ -25,7 +26,8 @@ struct DiaryList: View {
     @FetchRequest(entity: Diary.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \Diary.date, ascending: false)]) var diaries: FetchedResults<Diary>
     @State private var isPresented: Bool = false
-    
+    @State private var isEdited: Bool = true
+
     var body: some View {
         VStack(spacing: listSpacing) {
             DiaryHeader()
@@ -34,11 +36,24 @@ struct DiaryList: View {
                           alignment: .leading,
                           spacing: listSpacing) {
                     ForEach(diaries, id: \.self) { diary in
+
                         DiaryListViewGridItem(date: diary.date, location:
-                                                "", levelColorName: diary.lavel ?? "gray", score: diary.score, memoImageData: diary.photo)
+                                                "", levelColorName: diary.level ?? "gray", score: diary.score, memoImageData: diary.photo)
                         .sheet(isPresented: $isPresented, content: {
-                            MemoView()
+                            //MemoView()
+                            //1. datacontroller 의 tem 을 바꾸기
+                            //2. 해당 데이터를 tem에 있는 것들로 바꾸기
+                        
+                            MemoView(diary: diary)
                         })
+                        .onTapGesture {
+                            self.isPresented.toggle()
+                            DataController.shared.saveTemporaryDate(diary.date ?? "")
+                            DataController.shared.saveTemporaryLevel(diary.level ?? "")
+                            DataController.shared.saveTemporaryScore(diary.score)
+                            DataController.shared.saveTemporaryPhotoData(diary.photo ?? Data())
+                            DataController.shared.saveTemporaryMemo(diary.memo ?? "")
+                        }
                         .padding(.leading, 30)
                     }
                 }

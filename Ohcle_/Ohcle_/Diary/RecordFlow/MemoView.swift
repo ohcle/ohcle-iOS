@@ -11,15 +11,17 @@ import SwiftUI
 struct MemoView: View {
     private let mapImageName: String = "map"
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
+    
     @EnvironmentObject var currentPageType: MyPageType
-
-    @State private var typedText: String = ""
-    private let climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
-    private let color = Color.convert(from: DataController.shared.temLevel)
-    private let date = DataController.shared.temDate
-        
     @Environment(\.managedObjectContext) var managedObjectContext
 
+    @State private var typedText: String =  DataController.shared.temMemo
+    @State private var climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
+    @State private var color = Color.convert(from: DataController.shared.temLevel)
+    @State private var date = DataController.shared.temDate
+    @State private var score = DataController.shared.temScore
+    @State var diary: Diary?
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             Circle()
@@ -39,7 +41,7 @@ struct MemoView: View {
             .padding(.bottom, -5)
             
             HStack() {
-                ScoreStar(rating: .constant(Int(DataController.shared.temScore)))
+                ScoreStar(rating: .constant(Int(score)))
             }
             
             VStack(alignment: .leading) {
@@ -73,10 +75,15 @@ struct MemoView: View {
             HStack {
                 Spacer()
                 MemoButton() {
-                    DataController.shared.saveTemporaryMemo(typedText)
-                    
-                    DataController.shared.saveDiary(managedObjectContext)
-                    currentPageType.type = .done
+                    if let diary = diary {
+                        DataController.shared.saveTemporaryMemo(typedText)
+                        DataController.shared.updateDiary(diary)
+                    } else {
+                        DataController.shared.saveTemporaryMemo(typedText)
+                        DataController.shared.saveDiary(managedObjectContext)
+                        currentPageType.type = .done
+                        DataController.shared.clearTemDiary()
+                    }
                 }
 
                 Spacer()
@@ -93,6 +100,8 @@ struct MemoView: View {
 }
 
 struct MemoView_Previews: PreviewProvider {
+    static let mocRecorded = RecordedMemo(date: "dd", location: "dd", level: "Ddd", score: 2, imageData: Data(), memo: "ddd")
+    @State static var isEdited: Bool = false
     static var previews: some View {
         MemoView()
     }

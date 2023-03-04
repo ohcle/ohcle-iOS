@@ -38,36 +38,44 @@ class DataController: ObservableObject {
         let diary = Diary(context: context)
         diary.date = self.temporaryDiary.date
         diary.score = self.temporaryDiary.score
-        diary.lavel = self.temporaryDiary.level
+        diary.level = self.temporaryDiary.level
         diary.photo = self.temporaryDiary.photo
         diary.memo = self.temporaryDiary.memo
         
         self.saveContext()
     }
     
-//    func updateDiary(_ context: NSManagedObjectContext) {
-//        self.saveDiary(context)
-//        self.saveContext()
-//    }
-//
-//    func deleteDiary() {
-//        self.saveContext()
-//    }
-//
-//    func readDiary() -> Diary {
-//
-//    }
+    func updateDiary(_ diary: Diary) {
+        diary.date = self.temporaryDiary.date
+        diary.score = self.temporaryDiary.score
+        diary.level = self.temporaryDiary.level
+        diary.photo = self.temporaryDiary.photo
+        diary.memo = self.temporaryDiary.memo
+        self.saveContext()
+    }
     
+    func clearTemDiary() {
+        self.temporaryDiary.date = ""
+        self.temporaryDiary.score = Int16(0)
+        self.temporaryDiary.level = ""
+        self.temporaryDiary.photo = Data()
+        self.temporaryDiary.memo = ""
+    }
+
     private var temporaryDiary = TemporaryDiary()
     
-    private struct TemporaryDiary {
+    struct TemporaryDiary {
         var date: String = "💜"
         var level: String = "💜"
         var score: Int16 = 0
         var photo: Data = Data()
         var memo: String = "💜"
     }
-   
+    
+    func deliverTemDiary(_ diary: TemporaryDiary) {
+        self.temporaryDiary = diary
+    }
+    
     var temDate: String {
         get {
             self.temporaryDiary.date

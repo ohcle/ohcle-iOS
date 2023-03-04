@@ -10,6 +10,7 @@ import SwiftUI
 struct RecordView: View {
     @ObservedObject var currentPageState: MyPageType
     @Binding var selectedPage: Int
+    @State var isEdited: Bool = false
     
     var body: some View {
         switch currentPageState.type {
