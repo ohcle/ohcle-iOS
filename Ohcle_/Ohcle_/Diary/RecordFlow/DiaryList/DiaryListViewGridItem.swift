@@ -23,20 +23,29 @@ struct DiaryListViewGridItem: View {
     private let location: String?
     private let level: String?
     private let score: Int16?
-    private let memoImageName: Data?
+    private let memoImageData: Data?
     
-        init(date: String?, location: String?,
-             levelColorName: String?, score: Int16?, memoImageName: Data?) {
-            self.date = date
-            self.location = location
-            self.level = levelColorName
-            self.score = score
-            self.memoImageName = memoImageName
+    init(date: String?, location: String?,
+         levelColorName: String?, score: Int16?, memoImageData: Data?) {
+        self.date = date
+        self.location = location
+        self.level = levelColorName
+        self.score = score
+        self.memoImageData = memoImageData
+    }
+    
+    
+    private func generateMemoImage() -> Image {
+        if let data = self.memoImageData {
+            return Image(uiImage: UIImage(data: data) ?? UIImage())
+        } else {
+           return self.placeHoldeImage
         }
+    }
     
     var body: some View {
         HStack(spacing: 10) {
-            self.placeHoldeImage
+            self.generateMemoImage()
                 .resizable()
                 .frame(width: UIScreen.screenSize.width * 2/7, height: UIScreen.screenSize.width * 2/7)
             Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 7) {

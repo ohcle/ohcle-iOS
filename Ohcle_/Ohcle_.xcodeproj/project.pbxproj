@@ -39,7 +39,6 @@
 		A8A2C2CE29AF131D005C1B13 /* ClimbingPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A2C2CD29AF131D005C1B13 /* ClimbingPhotoPicker.swift */; };
 		A8A812EB29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A8A812E929A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld */; };
 		A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812EC29A73EE900E7C6A2 /* DataController.swift */; };
-		A8A812F129A74EF900E7C6A2 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812F029A74EF900E7C6A2 /* Test.swift */; };
 		A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E3291F6BE40013A74F /* DiaryList.swift */; };
 		A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E7291F74700013A74F /* AddNewDiary.swift */; };
 		A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */; };
@@ -80,7 +79,6 @@
 		A8A2C2CD29AF131D005C1B13 /* ClimbingPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingPhotoPicker.swift; sourceTree = "<group>"; };
 		A8A812EA29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TemporaryDiary.xcdatamodel; sourceTree = "<group>"; };
 		A8A812EC29A73EE900E7C6A2 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		A8A812F029A74EF900E7C6A2 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		A8CBB2E3291F6BE40013A74F /* DiaryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryList.swift; sourceTree = "<group>"; };
 		A8CBB2E7291F74700013A74F /* AddNewDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDiary.swift; sourceTree = "<group>"; };
 		A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryHeader.swift; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 				A887D60029A20D9800C0A75D /* Networking.swift */,
 				A887D5F429A20D0100C0A75D /* URLs.swift */,
 				A859A63F28EC3E7A00F217F3 /* LoginView.swift */,
-				A8A812F029A74EF900E7C6A2 /* Test.swift */,
 				A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */,
 				A8335B68292F7BFA0006899D /* AppleLoginView.swift */,
 				A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */,
@@ -191,8 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				A859A63D28EC3E6500F217F3 /* MainView.swift */,
-				A875B24B297E779700704688 /* CalenderHolderGridView.swift */,
 				A875B24E297EAC3A00704688 /* CalenderView.swift */,
+				A875B24B297E779700704688 /* CalenderHolderGridView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -338,7 +335,6 @@
 				A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */,
 				A89E181E29A389A900F27045 /* NextButton.swift in Sources */,
 				A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */,
-				A8A812F129A74EF900E7C6A2 /* Test.swift in Sources */,
 				A8CBB2F1291F96570013A74F /* MyPageLogoutView.swift in Sources */,
 				A887D60129A20D9800C0A75D /* Networking.swift in Sources */,
 				A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */,

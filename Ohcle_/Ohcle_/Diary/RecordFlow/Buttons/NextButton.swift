@@ -59,7 +59,7 @@ struct NextPageButton: View {
         case .memo:
             self.currentPageType.type = .done
         case .`done`:
-            self.currentPageType.type = .`done`
+            self.currentPageType.type = .calender
         }
     }
 }

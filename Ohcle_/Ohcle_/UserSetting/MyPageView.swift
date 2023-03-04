@@ -25,6 +25,7 @@ struct MyPageViewRow: View {
 }
 
 struct MyPageView: View {
+    //서비스 공지링크 : https://stirring-heart-712.notion.site/50fa7a8de5a54b47b007786c3a1a0c8c
     let myPageSettingList: [MyPageSetting] = [
         MyPageSetting(title: "계정\n annamong@gmail.com", iconImageString: "mypage-profile-placeholder"),
         MyPageSetting(title: "", iconImageString: ""),

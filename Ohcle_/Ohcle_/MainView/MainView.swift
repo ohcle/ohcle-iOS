@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RecordView: View {
     @ObservedObject var currentPageState: MyPageType
+    @Binding var selectedPage: Int
     
     var body: some View {
         switch currentPageState.type {
@@ -29,16 +30,19 @@ struct RecordView: View {
         case .memo:
             MemoView().environmentObject(currentPageState)
         case .done:
-            MemoView().environmentObject(currentPageState)
+            Calender()
+                .environmentObject(currentPageState)
         }
     }
 }
 
 struct MainView: View {
     @StateObject var pageState: MyPageType = MyPageType.init()
-    
+    @State private var selectedPage = 0
+
     var body: some View {
         TabView {
+            //1
             TabView {
                 CalenderView()
                 DiaryList()
@@ -49,13 +53,15 @@ struct MainView: View {
                 Image("tabItem_home")
             }
             
+            //2
             NavigationView {
-                RecordView(currentPageState: pageState)
+                RecordView(currentPageState: pageState, selectedPage: $selectedPage)
             }
             .tabItem {
                 Image("tabItem_plus")
             }
             
+            //3
             MyPageView()
                 .tabItem {
                     Image("tabItem_self")
