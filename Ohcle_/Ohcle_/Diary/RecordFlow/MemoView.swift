@@ -27,7 +27,7 @@ struct MemoView: View {
             Circle()
                 .fill(color)
                 .frame(width: 30, height: 30)
-                .padding(.top, 5)
+                .padding(.top, 20)
             
             Text("\(date)")
                 .font(.title)

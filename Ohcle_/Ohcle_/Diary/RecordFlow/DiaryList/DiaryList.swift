@@ -40,10 +40,6 @@ struct DiaryList: View {
                         DiaryListViewGridItem(date: diary.date, location:
                                                 "", levelColorName: diary.level ?? "gray", score: diary.score, memoImageData: diary.photo)
                         .sheet(isPresented: $isPresented, content: {
-                            //MemoView()
-                            //1. datacontroller 의 tem 을 바꾸기
-                            //2. 해당 데이터를 tem에 있는 것들로 바꾸기
-                        
                             MemoView(diary: diary)
                         })
                         .onTapGesture {
