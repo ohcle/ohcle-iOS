@@ -22,7 +22,8 @@ struct DiaryList: View {
         GridItem(.flexible(minimum: 250))
     ]
     
-    @FetchRequest(entity: Diary.entity(), sortDescriptors: []) var diaries: FetchedResults<Diary>
+    @FetchRequest(entity: Diary.entity(),
+                  sortDescriptors: [NSSortDescriptor(keyPath: \Diary.date, ascending: false)]) var diaries: FetchedResults<Diary>
     @State private var isPresented: Bool = false
     
     var body: some View {
