@@ -10,7 +10,6 @@ import SwiftUI
 struct MyPageLogoutView: View {
     var body: some View {
         GeometryReader { geometry in
-
             VStack(alignment: .center, spacing: 20) {
                 Image("mypage-logout-placeholder")
                 

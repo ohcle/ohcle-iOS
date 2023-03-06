@@ -15,11 +15,14 @@ struct MemoView: View {
     @EnvironmentObject var currentPageType: MyPageType
     @Environment(\.managedObjectContext) var managedObjectContext
 
-    @State private var typedText: String =  DataController.shared.temMemo
     @State private var climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
+    
+    @State private var typedText: String =  DataController.shared.temMemo
     @State private var color = Color.convert(from: DataController.shared.temLevel)
     @State private var date = DataController.shared.temDate
     @State private var score = DataController.shared.temScore
+    
+    
     @State var diary: Diary?
     
     var body: some View {
@@ -69,6 +72,9 @@ struct MemoView: View {
                     .foregroundColor(Color.black)
                     .lineSpacing(5)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onChange(of: typedText) { newValue in
+                        self.diary?.memo = typedText
+                    }
             }
             
             Spacer()
@@ -76,11 +82,6 @@ struct MemoView: View {
                 Spacer()
                 MemoButton() {
                     if let diary = diary {
-                        diary.memo = typedText
-//DataController.shared.saveTemporaryDate(diary.date ?? "error")
-//                        DataController.shared.saveTemporaryScore(diary.score)
-//                        DataController.shared.saveTemporaryLevel(diary.level ?? "")
-//                        DataController.shared.saveTemporaryMemo(diary.memo ?? "error")
                         DataController.shared.updateDiary(diary)
                     } else {
                         DataController.shared.saveTemporaryMemo(typedText)

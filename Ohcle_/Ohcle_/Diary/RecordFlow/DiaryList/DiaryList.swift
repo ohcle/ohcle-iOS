@@ -25,9 +25,11 @@ struct DiaryList: View {
     
     @FetchRequest(entity: Diary.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \Diary.date, ascending: false)]) var diaries: FetchedResults<Diary>
+    
     @State private var isPresented: Bool = false
     @State private var isEdited: Bool = true
-
+    @State var selectedDiaryIndex: Int = .zero
+    
     var body: some View {
         VStack(spacing: listSpacing) {
             DiaryHeader()
@@ -35,15 +37,14 @@ struct DiaryList: View {
                 LazyVGrid(columns: column,
                           alignment: .leading,
                           spacing: listSpacing) {
-                    ForEach(diaries, id: \.self) { diary in
-
+                    ForEach(diaries.indices) { index in
+                        let diary = diaries[index]
                         DiaryListViewGridItem(date: diary.date, location:
                                                 "", levelColorName: diary.level ?? "gray", score: diary.score, memoImageData: diary.photo)
-                        .sheet(isPresented: $isPresented, content: {
-                            MemoView(diary: diary)
-                        })
                         .onTapGesture {
                             self.isPresented.toggle()
+                            self.selectedDiaryIndex = index
+                            
                             DataController.shared.saveTemporaryDate(diary.date ?? "")
                             DataController.shared.saveTemporaryLevel(diary.level ?? "")
                             DataController.shared.saveTemporaryScore(diary.score)
@@ -52,6 +53,9 @@ struct DiaryList: View {
                         }
                         .padding(.leading, 30)
                     }
+                    .sheet(isPresented: $isPresented, content: {
+                         MemoView(diary: diaries[selectedDiaryIndex])
+                    })
                 }
             }
         }
@@ -60,6 +64,6 @@ struct DiaryList: View {
 
 struct example_Previews: PreviewProvider {
     static var previews: some View {
-        DiaryList()
+        DiaryList(selectedDiaryIndex: 1)
     }
 }

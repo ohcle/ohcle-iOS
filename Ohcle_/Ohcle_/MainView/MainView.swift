@@ -49,7 +49,7 @@ struct MainView: View {
                 DiaryList()
             }
             .tabViewStyle(.page)
-            .indexViewStyle(.page(backgroundDisplayMode: .never))
+            .indexViewStyle(.page(backgroundDisplayMode: .always))
             .tabItem {
                 Image("tabItem_home")
             }

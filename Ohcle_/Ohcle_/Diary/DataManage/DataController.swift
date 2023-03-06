@@ -46,11 +46,6 @@ class DataController: ObservableObject {
     }
     
     func updateDiary(_ diary: Diary) {
-//        diary.date = self.temporaryDiary.date
-//        diary.score = self.temporaryDiary.score
-//        diary.level = self.temporaryDiary.level
-//        diary.photo = self.temporaryDiary.photo
-//        diary.memo = self.temporaryDiary.memo
         self.saveContext()
         clearTemDiary()
     }
@@ -70,7 +65,7 @@ class DataController: ObservableObject {
         var level: String = "💜"
         var score: Int16 = 0
         var photo: Data = Data()
-        var memo: String = "💜"
+        var memo: String = "공백형태로 시작하도록"
     }
     
     func deliverTemDiary(_ diary: TemporaryDiary) {
