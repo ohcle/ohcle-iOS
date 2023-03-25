@@ -22,7 +22,6 @@ struct MemoView: View {
     @State private var date = DataController.shared.temDate
     @State private var score = DataController.shared.temScore
     
-    
     @State var diary: Diary?
     
     var body: some View {

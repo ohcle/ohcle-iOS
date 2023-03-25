@@ -61,11 +61,11 @@ class DataController: ObservableObject {
     private var temporaryDiary = TemporaryDiary()
     
     struct TemporaryDiary {
-        var date: String = "💜"
-        var level: String = "💜"
+        var date: String = "TemporaryDiary_Date"
+        var level: String = "TemporaryDiary_Level"
         var score: Int16 = 0
         var photo: Data = Data()
-        var memo: String = "공백형태로 시작하도록"
+        var memo: String = "TemporaryDiary"
     }
     
     func deliverTemDiary(_ diary: TemporaryDiary) {

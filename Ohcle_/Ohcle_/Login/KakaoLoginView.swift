@@ -8,6 +8,8 @@
 import SwiftUI
 import KakaoSDKUser
 
+var kakaoToken = ""
+
 struct KakaoLoginView: View {
     @EnvironmentObject var kakaoLoginSetting: LoginSetting
     

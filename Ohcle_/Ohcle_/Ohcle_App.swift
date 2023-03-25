@@ -7,25 +7,37 @@
 
 import SwiftUI
 import KakaoSDKCommon
+import KakaoSDKAuth
+import KakaoSDKUser
 
-class ViewSizeManager {
-    private init() { }
-    
-    static let shared = ViewSizeManager()
-    private(set) var size: CGSize = CGSize(width: 0, height: 0)
-    
-    func updateViewSize(_ cgSize: CGSize) {
-        ViewSizeManager.shared.size = cgSize
-    }
-}
-
-var cgsize: CGSize = CGSize()
 
 @main
 struct Ohcle_App: App {
     init() {
         // Kakao SDK 초기화
         KakaoSDK.initSDK(appKey: "e78a0ba0d7372b5370db8c893fd2d881")
+        
+        if(AuthApi.hasToken()) {
+            UserApi.shared.accessTokenInfo { info, error in
+                if let error = error {
+                    if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() ==  true {
+                        
+                    } else {
+                        print("Unknown Kakao Login Error")
+                    }
+                } else {
+                    UserApi.shared.me { user, error in
+                       // user.
+                    }
+//                    let kakaoTokenData = UserTokenManager.shared.read(account: .kakao, service: .login)
+//                    let tokenString = String(decoding: kakaoTokenData ?? Data(), as: UTF8.self)
+//                    print(tokenString)
+                    // token validation
+                }
+            }
+        } else {
+            // login
+        }
     }
     
     @StateObject private var persistenceController = DataController.shared
@@ -35,6 +47,12 @@ struct Ohcle_App: App {
             LoginView(mainLogoTitle: "main logo",
                       receptionURL: URL(string: "")).environmentObject(LoginSetting())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onOpenURL { url in
+                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                        _ =  AuthController.handleOpenUrl(url: url)
+                    }
+                }
         }
     }
 }
+

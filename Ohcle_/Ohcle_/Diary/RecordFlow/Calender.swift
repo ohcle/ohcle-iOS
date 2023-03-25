@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum NewMemoPageType {
+enum MemoPageType {
     case calender
     case location
     case score
@@ -18,7 +18,7 @@ enum NewMemoPageType {
 }
 
 class MyPageType: ObservableObject {
-    @Published var type: NewMemoPageType = .calender
+    @Published var type: MemoPageType = .calender
 }
 
 struct Calender: View {
