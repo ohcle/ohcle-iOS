@@ -88,6 +88,7 @@ struct MemoView: View {
                         DataController.shared.saveDiary(managedObjectContext)
                         currentPageType.type = .done
                         DataController.shared.clearTemDiary()
+                        
                     }
                 }
 
@@ -105,12 +106,9 @@ struct MemoView: View {
 }
 
 struct MemoView_Previews: PreviewProvider {
-    static let mocRecorded = RecordedMemo(date: "dd", location: "dd", level: "Ddd", score: 2, imageData: Data(), memo: "ddd")
+    static let mocRecorded = RecordedMemo(id:0,date: "dd", location: "dd", level: "Ddd", score: 2, imageData: Data(), memo: "ddd")
     @State static var isEdited: Bool = false
     static var previews: some View {
         MemoView()
     }
 }
-
-
-
