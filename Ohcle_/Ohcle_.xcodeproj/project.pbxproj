@@ -44,7 +44,6 @@
 		A8CBB2F1291F96570013A74F /* MyPageLogoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F0291F96570013A74F /* MyPageLogoutView.swift */; };
 		A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F2291F973E0013A74F /* MemoButton.swift */; };
 		FEB9423D29D5F45300AE3D1F /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */; };
-		FEC5601429DAFEDF00CA24FE /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC5601329DAFEDF00CA24FE /* UIColor+Extension.swift */; };
 		FED3211329D02C1600115539 /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED3211229D02C1600115539 /* URLs.swift */; };
 		FED3211529D02C3A00115539 /* ScoreStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED3211429D02C3A00115539 /* ScoreStar.swift */; };
 /* End PBXBuildFile section */
@@ -86,7 +85,6 @@
 		A8CBB2F0291F96570013A74F /* MyPageLogoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageLogoutView.swift; sourceTree = "<group>"; };
 		A8CBB2F2291F973E0013A74F /* MemoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoButton.swift; sourceTree = "<group>"; };
 		FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = SOURCE_ROOT; };
-		FEC5601329DAFEDF00CA24FE /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		FED3211229D02C1600115539 /* URLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		FED3211429D02C3A00115539 /* ScoreStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,7 +141,6 @@
 		A859A62C28EC3E1500F217F3 /* Ohcle_ */ = {
 			isa = PBXGroup;
 			children = (
-				FEC5601529DB018A00CA24FE /* Util */,
 				A80B452328FA50DE00343BB4 /* ReadViewSize.swift */,
 				A859A64B28EC457700F217F3 /* Ohcle_.entitlements */,
 				A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */,
@@ -246,22 +243,6 @@
 			path = UserSetting;
 			sourceTree = "<group>";
 		};
-		FEC5601529DB018A00CA24FE /* Util */ = {
-			isa = PBXGroup;
-			children = (
-				FEC5601629DB019C00CA24FE /* Extension */,
-			);
-			path = Util;
-			sourceTree = "<group>";
-		};
-		FEC5601629DB019C00CA24FE /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				FEC5601329DAFEDF00CA24FE /* UIColor+Extension.swift */,
-			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -343,7 +324,6 @@
 				A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */,
 				A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */,
 				FEB9423D29D5F45300AE3D1F /* OnBoardingView.swift in Sources */,
-				FEC5601429DAFEDF00CA24FE /* UIColor+Extension.swift in Sources */,
 				FED3211329D02C1600115539 /* URLs.swift in Sources */,
 				A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */,
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,

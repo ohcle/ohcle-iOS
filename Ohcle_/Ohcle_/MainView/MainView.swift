@@ -43,10 +43,9 @@ struct MainView: View {
     @State private var selectedPage = 0
 
     init() {
-        UIPageControl.appearance().currentPageIndicatorTintColor =  UIColor("FF9900")
-        UIPageControl.appearance().pageIndicatorTintColor = UIColor("262626")
+        UIPageControl.appearance().currentPageIndicatorTintColor =  UIColor(named: "HomeCurIndicatorColor")
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor(named: "HomeIndicatorColor")
         UIPageControl.appearance().isUserInteractionEnabled = false
-        
     }
 
     var body: some View {
