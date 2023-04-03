@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct RecordView: View {
     @ObservedObject var currentPageState: MyPageType
@@ -40,6 +41,11 @@ struct RecordView: View {
 struct MainView: View {
     @StateObject var pageState: MyPageType = MyPageType.init()
     @State private var selectedPage = 0
+
+    init() {
+        UIPageControl.appearance().currentPageIndicatorTintColor =  UIColor("FF9900")
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor("262626")
+    }
 
     var body: some View {
         TabView {
