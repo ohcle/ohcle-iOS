@@ -37,68 +37,86 @@ class DiaryModel: ObservableObject {
             recoredMemos.append(recorededEle)
         }
     }
-
+    
+    func count() -> Int {
+        return recoredMemos.count
+    }
+    
     
 }
 
 struct DiaryList: View {
     private let listSpacing: CGFloat = 30
-
+    
     private let column = [
         GridItem(.flexible(minimum: 250))
     ]
     
     // Fetch Data from CoreData
-//    @FetchRequest(entity: Diary.entity(),
-//                  sortDescriptors: [NSSortDescriptor(keyPath: \Diary.date, ascending: false)]) var diaries: FetchedResults<Diary>
+    //    @FetchRequest(entity: Diary.entity(),
+    //                  sortDescriptors: [NSSortDescriptor(keyPath: \Diary.date, ascending: false)]) var diaries: FetchedResults<Diary>
     @ObservedObject var diaryModel = DiaryModel()
     
     @State private var isPresented: Bool = false
     @State private var isEdited: Bool = true
     @State var selectedDiaryIndex: Int = .zero
     
-
+    
+    
     var body: some View {
         VStack(spacing: listSpacing) {
             DiaryHeader()
-            ScrollView(.vertical) {
+            ZStack {
                 
-                    LazyVGrid(columns: column,
-                              alignment: .leading,
-                              spacing: listSpacing) {
-                        ForEach(diaryModel.recoredMemos) { recoredMemo in
-                            
-                            DiaryListViewGridItem(date: recoredMemo.date, location: " ", levelColorName: recoredMemo.level ?? "gray", score: recoredMemo.score, memoImageData: recoredMemo.imageData)
-                            
-                            
-                        }
+                if diaryModel.count() == 0 {
+                    // DefaultImageView
+                    VStack {
+                        Image("DiaryListDefault")
+                            .padding(.top, 100)
+                        Spacer()
+                  
+                    }
+                } else {
+                    // DiaryList
+                    ScrollView(.vertical) {
                         
-                    } // End Of LazyVGrid
-                    
-                
-//                LazyVGrid(columns: column,
-//                          alignment: .leading,
-//                          spacing: listSpacing) {
-//                    ForEach(diaries.indices) { index in
-//                        let diary = diaries[index]
-//                        DiaryListViewGridItem(date: diary.date, location:
-//                                                "", levelColorName: diary.level ?? "gray", score: diary.score, memoImageData: diary.photo)
-//                        .onTapGesture {
-//                            self.isPresented.toggle()
-//                            self.selectedDiaryIndex = index
-//
-//                            DataController.shared.saveTemporaryDate(diary.date ?? "")
-//                            DataController.shared.saveTemporaryLevel(diary.level ?? "")
-//                            DataController.shared.saveTemporaryScore(diary.score)
-//                            DataController.shared.saveTemporaryPhotoData(diary.photo ?? Data())
-//                            DataController.shared.saveTemporaryMemo(diary.memo ?? "")
-//                        }
-//                        .padding(.leading, 30)
-//                    }
-//                    .sheet(isPresented: $isPresented, content: {
-//                         MemoView(diary: diaries[selectedDiaryIndex])
-//                    })
-//                }
+                        LazyVGrid(columns: column,
+                                  alignment: .leading,
+                                  spacing: listSpacing) {
+                            ForEach(diaryModel.recoredMemos) { recoredMemo in
+                                
+                                DiaryListViewGridItem(date: recoredMemo.date, location: " ", levelColorName: recoredMemo.level ?? "gray", score: recoredMemo.score, memoImageData: recoredMemo.imageData)
+                                
+                                
+                            }
+                            
+                        } // End Of LazyVGrid
+                        
+                    }
+                }
+                //                LazyVGrid(columns: column,
+                //                          alignment: .leading,
+                //                          spacing: listSpacing) {
+                //                    ForEach(diaries.indices) { index in
+                //                        let diary = diaries[index]
+                //                        DiaryListViewGridItem(date: diary.date, location:
+                //                                                "", levelColorName: diary.level ?? "gray", score: diary.score, memoImageData: diary.photo)
+                //                        .onTapGesture {
+                //                            self.isPresented.toggle()
+                //                            self.selectedDiaryIndex = index
+                //
+                //                            DataController.shared.saveTemporaryDate(diary.date ?? "")
+                //                            DataController.shared.saveTemporaryLevel(diary.level ?? "")
+                //                            DataController.shared.saveTemporaryScore(diary.score)
+                //                            DataController.shared.saveTemporaryPhotoData(diary.photo ?? Data())
+                //                            DataController.shared.saveTemporaryMemo(diary.memo ?? "")
+                //                        }
+                //                        .padding(.leading, 30)
+                //                    }
+                //                    .sheet(isPresented: $isPresented, content: {
+                //                         MemoView(diary: diaries[selectedDiaryIndex])
+                //                    })
+                //                }
             }
         }
     }
