@@ -15,7 +15,7 @@ func getAccessTokenURL(_ url: URLs) -> URL {
     return url
 }
 
-enum URLs: String {
-    case kakaoLogin = "http://ec2-3-37-182-202.ap-northeast-2.compute.amazonaws.com/v1/account/kakao/signin"
-    case appleLogin = "http://ec2-3-37-182-202.ap-northeast-2.compute.amazonaws.com/v1/account/apple/signin"
-}
+//enum URLs: String {
+//    case kakaoLogin = "http://ec2-3-37-182-202.ap-northeast-2.compute.amazonaws.com/v1/account/kakao/signin"
+//    case appleLogin = "http://ec2-3-37-182-202.ap-northeast-2.compute.amazonaws.com/v1/account/apple/signin"
+//}
