@@ -21,6 +21,7 @@ struct MemoView: View {
     @State private var color = Color.convert(from: DataController.shared.temLevel)
     @State private var date = DataController.shared.temDate
     @State private var score = DataController.shared.temScore
+    @State private var photoData = DataController.shared.temPhoto
     
     @State var diary: Diary?
     
@@ -57,12 +58,14 @@ struct MemoView: View {
                     .overlay(Color.black)
                     .padding(.top, -10)
                 
-                HStack {
-                    Spacer()
-                    Image(uiImage: UIImage(data: DataController.shared.temPhoto) ?? UIImage())
-                        .resizable()
-                        .scaledToFit()
-                    Spacer()
+                if photoData.isEmpty == false {
+                    HStack {
+                        Spacer()
+                        Image(uiImage: UIImage(data: DataController.shared.temPhoto) ?? UIImage())
+                            .resizable()
+                            .scaledToFit()
+                        Spacer()
+                    }
                 }
                 
                 TextEditor(text: $typedText)
