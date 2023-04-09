@@ -41,17 +41,31 @@ struct Ohcle_App: App {
     }
     
     @StateObject private var persistenceController = DataController.shared
-
+    @State var didSeeOnBoarding: Bool = UserDefaults.standard.bool(forKey: "didSeeOnBoarding")
+    
     var body: some Scene {
         WindowGroup {
-            LoginView(mainLogoTitle: "main logo",
-                      receptionURL: URL(string: "")).environmentObject(LoginSetting())
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .onOpenURL { url in
-                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
-                        _ =  AuthController.handleOpenUrl(url: url)
+            ZStack {
+                LoginView(mainLogoTitle: "main logo",
+                          receptionURL: URL(string: "")).environmentObject(LoginSetting())
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .onOpenURL { url in
+                        if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                            _ =  AuthController.handleOpenUrl(url: url)
+                        }
+                    }
+                
+                if !didSeeOnBoarding {
+                    OnBoardingView {
+                        didSeeOnBoarding = true
+                        UserDefaults.standard.set(true, forKey: "didSeeOnBoarding")
+                        
+                        #if DEBUG // 지속적으로 OnBoarding 화면 확인을 위함
+                        UserDefaults.standard.set(false, forKey: "didSeeOnBoarding")
+                        #endif
                     }
                 }
+            }
         }
     }
 }
