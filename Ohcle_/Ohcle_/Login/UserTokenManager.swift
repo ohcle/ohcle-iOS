@@ -34,7 +34,7 @@ final class UserTokenManager {
     func save(token: Data, account: Account, service: Service) {
         let query = [kSecValueData: token,
                          kSecClass: kSecClassGenericPassword,
-                   kSecAttrService: service,
+                   kSecAttrService: service.rawValue,
                    kSecAttrAccount: account.rawValue] as CFDictionary
         
         let status = SecItemAdd(query, nil)

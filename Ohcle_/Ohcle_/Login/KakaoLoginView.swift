@@ -7,27 +7,68 @@
 
 import SwiftUI
 import KakaoSDKUser
+import KakaoSDKAuth
+import KakaoSDKCommon
 
 var kakaoToken = ""
 
 struct KakaoLoginView: View {
     @EnvironmentObject var kakaoLoginSetting: LoginSetting
     
+    private func defineKakaoLoginError(_ error: Error) {
+        if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true  {
+            print("Known KakaoLogin Error : \(error)")
+        }
+        else {
+            print("Unknown KakaoLogin Error : \(error)")
+        }
+    }
+    
+    private func checkAndRefreshToken() {
+        UserApi.shared.accessTokenInfo { (tokenInfo, error) in
+            if let error = error {
+                defineKakaoLoginError(error)
+            }
+            else {
+                
+            }
+        }
+    }
+    
     var body: some View {
         Button {
+            
+            //MARK: - 카카오톡 토큰 여부 확인
+            if AuthApi.hasToken() {
+                checkAndRefreshToken()
+            }
+            else {
+                //로그인 필요
+            }
+            
+            
+            //MARK: - 카카오톡 실행 여부 확인
             if (UserApi.isKakaoTalkLoginAvailable()) {
                 UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                     toggleLoginSetting(oauthToken)
                 }
             } else {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                    toggleLoginSetting(oauthToken)
                     let toeknErrorMessage = ""
                     let accessToken: String = oauthToken?.accessToken ?? toeknErrorMessage
                     Task {
-                        let data = try await fetchTokenData(kakaAccessToken: accessToken)
-                        UserTokenManager.shared.save(token: data, account: .kakao, service: .login)
+                        do {
+                            try await fetchTokenData(kakaAccessToken: accessToken)
+                        } catch {
+                            print(error)
+                        }
+
                     }
+            
+//                    let test = "test"
+//                    let testData = test.data(using: .utf8) ?? Data()
+//                    UserTokenManager.shared.save(token: testData, account: .kakao, service: .login)
+                    toggleLoginSetting(oauthToken)
                 }
             }
         } label : {
@@ -61,7 +102,10 @@ struct KakaoLoginView: View {
            response.statusCode != 200 {
             print("reponse Code is :\(response.statusCode)")
         }
-       
+        
+        UserTokenManager.shared.save(token: data, account: .kakao, service: .login)
+        
         return data
     }
+    
 }
