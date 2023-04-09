@@ -35,7 +35,7 @@ struct DiaryListViewGridItem: View {
     
     private func generateMemoImage() -> Image {
         if let data = self.memoImageData {
-            return Image(uiImage: UIImage(data: data) ?? UIImage())
+            return Image(uiImage: UIImage(data: data) ?? UIImage(named: "main_logo") ?? UIImage())
         } else {
            return self.placeHoldeImage
         }

@@ -18,6 +18,7 @@ enum GreetingTextOptions: String {
 struct LoginView: View {
     @EnvironmentObject var loginSetting: LoginSetting
     @State private var appleLoginViewSize: CGSize = CGSize()
+    @State var didSeeOnBoarding: Bool = UserDefaults.standard.bool(forKey: "didSeeOnBoarding")
         
     @FetchRequest(sortDescriptors: []) var diary: FetchedResults<Diary>
     @Environment(\.managedObjectContext) var moc
@@ -40,7 +41,24 @@ struct LoginView: View {
         
     var body: some View {
         if self.loginSetting.isLoggedIn {
-            MainView()
+            
+            ZStack {
+                MainView()
+                if !didSeeOnBoarding {
+                    OnBoardingView {
+                        didSeeOnBoarding = true
+                        UserDefaults.standard.set(true, forKey: "didSeeOnBoarding")
+                        
+                        #if DEBUG // 지속적으로 OnBoarding 화면 확인을 위함
+                        UserDefaults.standard.set(false, forKey: "didSeeOnBoarding")
+                        #endif
+                    }
+
+                }
+            }
+            
+            
+            
         } else {
             VStack(alignment: .center) {
                 createMainLogo()

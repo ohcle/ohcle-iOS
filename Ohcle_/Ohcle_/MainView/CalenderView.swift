@@ -13,6 +13,8 @@ struct CalenderView: View {
     var body: some View {
         
         VStack {
+            UpperBar()
+
             Text("클라이밍 히스토리")
                 .font(.title)
                 .padding(.bottom, 10)
@@ -35,6 +37,8 @@ struct CalenderView: View {
                     }
                 }
             }
+            
+            Spacer()
         }
         
         
@@ -46,6 +50,34 @@ struct CalenderView: View {
         } else {
             return HolderLocatedType.small
         }
+    }
+}
+
+
+struct UpperBar: View {
+    var body: some View {
+        
+        HStack {
+            
+            Button {
+                // Refresh Action
+                
+            } label: {
+                Image("MainRefresh")
+            }
+            
+            Spacer()
+
+            Button {
+                // Refresh Action
+                
+            } label: {
+                Image("MainShare")
+            }
+            
+        }
+        .padding(.horizontal)
+        
     }
 }
 
