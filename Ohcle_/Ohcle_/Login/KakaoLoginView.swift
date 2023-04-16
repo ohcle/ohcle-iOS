@@ -49,11 +49,11 @@ struct KakaoLoginView: View {
             }
             
             //MARK: - 카카오톡 실행 여부 확인
-            if (UserApi.isKakaoTalkLoginAvailable()) {
-                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                    toggleLoginSetting(oauthToken)
-                }
-            } else {
+//            if (UserApi.isKakaoTalkLoginAvailable()) {
+//                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+//                    toggleLoginSetting(oauthToken)
+//                }
+//            } else {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
                     let toeknErrorMessage = ""
                     let accessToken: String = oauthToken?.accessToken ?? toeknErrorMessage
@@ -68,27 +68,14 @@ struct KakaoLoginView: View {
                         }
 
                     }
-            
-//                    let test = "test"
-//                    let testData = test.data(using: .utf8) ?? Data()
-//                    UserTokenManager.shared.save(token: testData, account: .kakao, service: .login)
-                    toggleLoginSetting(oauthToken)
                 }
-            }
+//            }
         } label : {
             Image("kakao_login_medium_wide_Anna")
                 .resizable()
                 .frame(width : UIScreen.main.bounds.width * 0.813)
                 .aspectRatio(CGSize(width: 7, height: 1.1),
                              contentMode: .fit)
-        }
-    }
-    
-    private func toggleLoginSetting(_ oauthToken: Codable?) {
-        if oauthToken == nil {
-            self.kakaoLoginSetting.isLoggedIn = false
-        } else {
-            self.kakaoLoginSetting.isLoggedIn = true
         }
     }
     

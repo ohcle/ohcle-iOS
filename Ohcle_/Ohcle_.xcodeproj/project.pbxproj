@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A80A481B29EBC31B00F3F186 /* CalenderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80A481A29EBC31B00F3F186 /* CalenderModel.swift */; };
+		A80A482329EBC3EA00F3F186 /* CalenderViewMockData.json in Resources */ = {isa = PBXBuildFile; fileRef = A80A482229EBC3EA00F3F186 /* CalenderViewMockData.json */; };
 		A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452328FA50DE00343BB4 /* ReadViewSize.swift */; };
 		A80B452828FA5A8D00343BB4 /* ClimbingLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */; };
 		A80B452A28FA70A200343BB4 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452928FA70A200343BB4 /* Level.swift */; };
@@ -49,6 +51,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A80A481A29EBC31B00F3F186 /* CalenderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderModel.swift; sourceTree = "<group>"; };
+		A80A482229EBC3EA00F3F186 /* CalenderViewMockData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CalenderViewMockData.json; sourceTree = "<group>"; };
 		A80B452328FA50DE00343BB4 /* ReadViewSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadViewSize.swift; sourceTree = "<group>"; };
 		A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingLocation.swift; sourceTree = "<group>"; };
 		A80B452928FA70A200343BB4 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
@@ -190,8 +194,10 @@
 			children = (
 				A859A63D28EC3E6500F217F3 /* MainView.swift */,
 				A875B24E297EAC3A00704688 /* CalenderView.swift */,
+				A80A481A29EBC31B00F3F186 /* CalenderModel.swift */,
 				A875B24B297E779700704688 /* CalenderHolderGridView.swift */,
 				A8AB86BB29E2821700F5410F /* SplashView.swift */,
+				A80A482229EBC3EA00F3F186 /* CalenderViewMockData.json */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -311,6 +317,7 @@
 			files = (
 				A859A63528EC3E1600F217F3 /* Preview Assets.xcassets in Resources */,
 				A859A63228EC3E1600F217F3 /* Assets.xcassets in Resources */,
+				A80A482329EBC3EA00F3F186 /* CalenderViewMockData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +356,7 @@
 				A80B452A28FA70A200343BB4 /* Level.swift in Sources */,
 				A8AB86BE29E28F3800F5410F /* UserAlarmSettingView.swift in Sources */,
 				A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */,
+				A80A481B29EBC31B00F3F186 /* CalenderModel.swift in Sources */,
 				A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */,
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,

@@ -1,0 +1,35 @@
+/* 
+  CalenderViewMockData.json
+  Ohcle_
+
+  Created by Do Yi Lee on 2023/04/16.
+  
+*/
+
+[
+    {
+        "id": 1,
+        "where": {
+            "name": "test",
+            "address": "address",
+            "latitude": 37.13, // float
+            "longitude": 127.234 // float
+        },
+        "when": "2023-04-12",
+        "level": 1, // int
+        "score": 4.6 // float
+    },
+    {
+        "id": 2,
+        "where": {
+            "name": "test",
+            "address": "address",
+            "latitude": 37.13,
+            "longitude": 127.234
+        },
+        "when": "2023-04-12",
+        "level": 1,
+        "score": 4.6
+    },
+]
+
