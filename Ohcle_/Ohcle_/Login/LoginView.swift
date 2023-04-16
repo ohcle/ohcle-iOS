@@ -16,7 +16,9 @@ enum GreetingTextOptions: String {
 }
 
 struct LoginView: View {
-    @EnvironmentObject var loginSetting: LoginSetting
+//    @EnvironmentObject var loginSetting: LoginSetting
+    @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
+
     @State private var appleLoginViewSize: CGSize = CGSize()
         
     @FetchRequest(sortDescriptors: []) var diary: FetchedResults<Diary>
@@ -39,7 +41,7 @@ struct LoginView: View {
     }
         
     var body: some View {
-        if self.loginSetting.isLoggedIn {
+        if isLoggedIn {
             MainView()
         } else {
             VStack(alignment: .center) {

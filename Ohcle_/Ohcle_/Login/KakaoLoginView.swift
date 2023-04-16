@@ -14,7 +14,7 @@ var kakaoToken = ""
 
 struct KakaoLoginView: View {
     @EnvironmentObject var kakaoLoginSetting: LoginSetting
-    
+   
     private func defineKakaoLoginError(_ error: Error) {
         if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true  {
             print("Known KakaoLogin Error : \(error)")
@@ -35,6 +35,8 @@ struct KakaoLoginView: View {
         }
     }
     
+    @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
+
     var body: some View {
         Button {
             
@@ -45,7 +47,6 @@ struct KakaoLoginView: View {
             else {
                 //로그인 필요
             }
-            
             
             //MARK: - 카카오톡 실행 여부 확인
             if (UserApi.isKakaoTalkLoginAvailable()) {
@@ -58,7 +59,10 @@ struct KakaoLoginView: View {
                     let accessToken: String = oauthToken?.accessToken ?? toeknErrorMessage
                     Task {
                         do {
-                            try await fetchTokenData(kakaAccessToken: accessToken)
+                            let isSucceded = try await fetchTokenData(kakaAccessToken: accessToken)
+                            if isSucceded {
+                                self.isLoggedIn = true
+                            }
                         } catch {
                             print(error)
                         }
@@ -88,7 +92,7 @@ struct KakaoLoginView: View {
         }
     }
     
-    private func fetchTokenData(kakaAccessToken: String) async throws -> Data {
+    private func fetchTokenData(kakaAccessToken: String) async throws -> Bool {
         let url = getAccessTokenURL(.kakaoLogin)
         let parameters: [String: Any] = ["access_token": kakaAccessToken]
         var request = try URLRequest(url: url, method: .post)
@@ -103,9 +107,18 @@ struct KakaoLoginView: View {
             print("reponse Code is :\(response.statusCode)")
         }
         
-        UserTokenManager.shared.save(token: data, account: .kakao, service: .login)
-        
-        return data
+        do {
+//            let decodedData = try JSONDecoder().decode(LoginResultModel.self, from: data)
+            let mockData: [String: Any] = ["isNewbie": true,
+                                           "token": "test"]
+            UserTokenManager.shared.save(token: mockData["token"] as? String ?? "", account: .kakao, service: .login)
+            return true
+            
+        } catch {
+            print(error)
+            return false
+
+        }
     }
     
 }
