@@ -119,3 +119,17 @@ class DataController: ObservableObject {
         self.temporaryDiary.memo = memo
     }
 }
+
+extension DataController {
+    func fetch() -> [Diary] {
+        let fetchRequest: NSFetchRequest<Diary> = Diary.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        
+        do {
+            return try container.viewContext.fetch(fetchRequest)
+        } catch {
+            print("fetch Diary error:\(error)")
+            return []
+        }
+    }
+}

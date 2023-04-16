@@ -47,7 +47,8 @@
 		A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2EE291F89A00013A74F /* MyPageView.swift */; };
 		A8CBB2F1291F96570013A74F /* MyPageUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F0291F96570013A74F /* MyPageUserInfoView.swift */; };
 		A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F2291F973E0013A74F /* MemoButton.swift */; };
-		A8DF84F729D9C18500C575E3 /* ScoreStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8DF84F629D9C18500C575E3 /* ScoreStar.swift */; };
+		FEB9423D29D5F45300AE3D1F /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */; };
+		FED3211529D02C3A00115539 /* ScoreStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED3211429D02C3A00115539 /* ScoreStar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,7 +91,8 @@
 		A8CBB2EE291F89A00013A74F /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		A8CBB2F0291F96570013A74F /* MyPageUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUserInfoView.swift; sourceTree = "<group>"; };
 		A8CBB2F2291F973E0013A74F /* MemoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoButton.swift; sourceTree = "<group>"; };
-		A8DF84F629D9C18500C575E3 /* ScoreStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStar.swift; sourceTree = "<group>"; };
+		FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OnBoardingView.swift; path = Ohcle_/OnBoardingView.swift; sourceTree = SOURCE_ROOT; };
+		FED3211429D02C3A00115539 /* ScoreStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,8 +117,8 @@
 				A89E182029A389E100F27045 /* DiaryList */,
 				A86A596728F2A1F100C500E1 /* Calender.swift */,
 				A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */,
-				A8DF84F629D9C18500C575E3 /* ScoreStar.swift */,
 				A80B452928FA70A200343BB4 /* Level.swift */,
+				FED3211429D02C3A00115539 /* ScoreStar.swift */,
 				A817166529038013005B1268 /* ClimbingScore.swift */,
 				A817166B290386AE005B1268 /* AddPhotoView.swift */,
 				A8A2C2CD29AF131D005C1B13 /* ClimbingPhotoPicker.swift */,
@@ -149,6 +151,7 @@
 				A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */,
 				A8A812E929A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld */,
 				A859A63128EC3E1600F217F3 /* Assets.xcassets */,
+				FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */,
 				A875B24D297E7C2200704688 /* MainView */,
 				A859A64E28F27A2600F217F3 /* Login */,
 				A8CBB2EB291F80360013A74F /* UserSetting */,
@@ -330,18 +333,19 @@
 			files = (
 				A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */,
 				A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */,
+				FEB9423D29D5F45300AE3D1F /* OnBoardingView.swift in Sources */,
 				A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */,
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
 				A875B24F297EAC3A00704688 /* CalenderView.swift in Sources */,
 				A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */,
 				A8A2C2CE29AF131D005C1B13 /* ClimbingPhotoPicker.swift in Sources */,
 				A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */,
+				FED3211529D02C3A00115539 /* ScoreStar.swift in Sources */,
 				A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */,
 				A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */,
 				A866B509293CC5C5001E182F /* LoginResultModel.swift in Sources */,
 				A817166629038013005B1268 /* ClimbingScore.swift in Sources */,
 				A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */,
-				A8DF84F729D9C18500C575E3 /* ScoreStar.swift in Sources */,
 				A89E181E29A389A900F27045 /* NextButton.swift in Sources */,
 				A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */,
 				A8CBB2F1291F96570013A74F /* MyPageUserInfoView.swift in Sources */,

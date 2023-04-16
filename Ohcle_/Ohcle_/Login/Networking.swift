@@ -16,7 +16,6 @@ func getAccessTokenURL(_ url: URLs) -> URL {
 }
 
 enum URLs: String {
-    
     case kakaoLogin = "https://api-gw.todayclimbing.com/v1/signin/kakao"
     case appleLogin = "https://api-gw.todayclimbing.com/v1/signin/apple"
 }
