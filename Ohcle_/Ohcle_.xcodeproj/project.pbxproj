@@ -194,10 +194,10 @@
 			children = (
 				A859A63D28EC3E6500F217F3 /* MainView.swift */,
 				A875B24E297EAC3A00704688 /* CalenderView.swift */,
+				A80A482229EBC3EA00F3F186 /* CalenderViewMockData.json */,
 				A80A481A29EBC31B00F3F186 /* CalenderModel.swift */,
 				A875B24B297E779700704688 /* CalenderHolderGridView.swift */,
 				A8AB86BB29E2821700F5410F /* SplashView.swift */,
-				A80A482229EBC3EA00F3F186 /* CalenderViewMockData.json */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
