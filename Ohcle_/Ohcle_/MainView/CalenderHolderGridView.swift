@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum HolderLocatedType {
+enum HolderLocatedType: CaseIterable {
     case big
     case small
     
@@ -21,27 +21,74 @@ enum HolderLocatedType {
     }
 }
 
-struct HolderType {
-    let color: Color
-    let date : String
-    let holderShape : HolderShape
+enum HolderColorNumber: String {
+    case red = "1"
+    case orange = "2"
+    case yellow = "3"
+    case green = "4"
+    case blue = "5"
+    case indigo = "6"
+    case purple = "7"
+    case black = "8"
+    case white = "9"
+    case gray = "10"
+    case nonSelected = "11"
 }
 
-enum HolderShape: String {
-    case red_1 = "calender_holder_red_1"
-    case red_2 = "calender_holder_red_2"
-    case red_3 = "calender_holder_red_3"
+struct HolderType {
+    let holder: Image
+    let holderShape : String?
+    
+    init(holderColor: HolderColorNumber, _ holderShape: HolderShapeAssetNumber?) {
+        let divider = "-"
+        let colorName = holderColor.rawValue
+        let holderShape = HolderShapeAssetNumber.allCases.randomElement() ?? .five
+        let holderTypeAssetName = holderShape.rawValue
+        let assetName = holderTypeAssetName + divider + colorName
+        self.holderShape = holderShape.rawValue
+        self.holder = Image(assetName)
+    }
+    
+    
+    init(holderColor: HolderColorNumber, holderShape: HolderShapeAssetNumber) {
+        let holderTypeAssetName = holderShape.rawValue
+        let divider = "-"
+        let colorName = holderColor.rawValue
+        let assetName = holderTypeAssetName + divider + colorName
+        self.holderShape = holderShape.rawValue
+        self.holder = Image(assetName)
+    }
+    
+    enum HolderShapeAssetNumber: String, CaseIterable {
+        case one = "1"
+        case two = "2"
+        case three = "3"
+        case four = "4"
+        case five = "5"
+        case six = "6"
+        case nine = "9"
+        case thirteen = "13"
+        case twentyOne = "21"
+        case twentyTwo = "22"
+        case twentyThree = "23"
+        case twentyFive = "25"
+    }
 }
 
 struct CalenderHolderGridView: View {
-    @Binding var isClimbedDate: Bool
-
-    let holderLocatedType: HolderLocatedType
-    let holderType: HolderType
+    let isClimbedDate: Bool
+    
+    private let holderLocatedType: HolderLocatedType = .allCases.randomElement() ?? .big
+    let holderType: HolderType?
     private let backgroundColor = Color("holder_background")
     private let widthHeightRatio: CGFloat = 5/4
     private let widthRatio: CGFloat = 2/16
-
+    
+    init(isClimbedDate: Bool = false, holderType: HolderType?) {
+        self.isClimbedDate = isClimbedDate
+        self.holderType = holderType
+    }
+    
     var body: some View {
         ZStack {
             Rectangle()
@@ -49,7 +96,7 @@ struct CalenderHolderGridView: View {
                 .frame(width: UIScreen.screenWidth * widthRatio, height: UIScreen.screenWidth * widthRatio * widthHeightRatio)
             Image(self.holderLocatedType.typeImageString)
             if self.isClimbedDate {
-                Image("calender_holder_red_1")
+                self.holderType?.holder
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: UIScreen.screenWidth * widthRatio * (4/5))
@@ -57,10 +104,4 @@ struct CalenderHolderGridView: View {
         }
     }
 }
-//
-//struct ClimbingClander_Previews: PreviewProvider {
-//    @State var test: Bool = true
-//    static var previews: some View {
-//        CalenderHolderGridView(holderLocatedType: .big, holderType: HolderType(color: .blue, date: "2222", holderShape: HolderShape.red_1), isClimbed: test)
-//    }
-//}
+

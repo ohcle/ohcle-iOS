@@ -6,6 +6,85 @@
 //
 
 import Foundation
+import SwiftUI
+
+@propertyWrapper
+struct UserToken<Value> {
+    enum Account: String {
+        case kakao
+        case apple
+    }
+    
+    enum Service: String {
+        case login
+    }
+        
+    private func handleError(status: OSStatus) {
+        if status != errSecSuccess {
+            print("Error: \(status)")
+        }
+    }
+    
+    var token: Value
+    var defaultToken: Value
+    var account: Account
+    var service: Service
+    
+    var wrappedValue: Value {
+        get  {
+            read(account: account, service: service) ?? defaultToken
+        }
+        
+        set {
+            save(token: token, account: account, service: service)
+        }
+    }
+    
+    private func save(token: Value, account: Account, service: Service) {
+        let query = [kSecValueData: token,
+                         kSecClass: kSecClassGenericPassword,
+                   kSecAttrService: service.rawValue,
+                   kSecAttrAccount: account.rawValue] as CFDictionary
+        
+        let status = SecItemAdd(query, nil)
+                
+        switch status {
+        case errSecDuplicateItem:
+            updateToken(token, account: account, service: service)
+        default:
+            handleError(status: status)
+        }
+    }
+    
+    private func updateToken(_ token: Value, account: Account, service: Service) {
+        let query = [kSecAttrService: service.rawValue,
+                     kSecAttrAccount: account.rawValue,
+                           kSecClass: kSecClassGenericPassword] as CFDictionary
+        
+        let attibutesToUpdate = [kSecValueData: token] as CFDictionary
+        
+        SecItemUpdate(query, attibutesToUpdate)
+    }
+    
+    private func read(account: Account, service: Service) -> Value? {
+        let query = [kSecAttrService: service.rawValue,
+                     kSecAttrAccount: account.rawValue,
+                           kSecClass: kSecClassGenericPassword,
+                      kSecReturnData: true] as CFDictionary
+        
+        var result: AnyObject?
+        SecItemCopyMatching(query, &result)
+        
+        if let result = result as? OSStatus {
+            handleError(status: result)
+        }
+        
+        let data = result as? Value
+        
+        return data
+    }
+    
+}
 
 final class UserTokenManager {
     enum Account: String {
@@ -31,10 +110,10 @@ final class UserTokenManager {
     ///let tokenWhichYouWantToSave = "ohcleTokenOhcleToken"
     ///let tokenData = Data(tokenWhichYouWantToSave.utf8)
     ///save(token: tokenData, account: "access-token", service: "Ochle")
-    func save(token: Data, account: Account, service: Service) {
+    func save(token: String, account: Account, service: Service) {
         let query = [kSecValueData: token,
                          kSecClass: kSecClassGenericPassword,
-                   kSecAttrService: service,
+                   kSecAttrService: service.rawValue,
                    kSecAttrAccount: account.rawValue] as CFDictionary
         
         let status = SecItemAdd(query, nil)
@@ -47,7 +126,7 @@ final class UserTokenManager {
         }
     }
     
-    func updateToken(_ data: Data, account: Account, service: Service) {
+    func updateToken(_ data: String, account: Account, service: Service) {
         let query = [kSecAttrService: service.rawValue,
                      kSecAttrAccount: account.rawValue,
                            kSecClass: kSecClassGenericPassword] as CFDictionary

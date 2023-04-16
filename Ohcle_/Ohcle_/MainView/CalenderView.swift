@@ -7,11 +7,41 @@
 
 import SwiftUI
 
+extension Collection {
+    subscript (safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
+
 struct CalenderView: View {
     @State private var dummy: Bool = false
-
-    var body: some View {
+    
+    private var mockData: [CalenderViewModel] {
+        let emptyArray: [CalenderViewModel] = []
+        let decoder = JSONDecoder()
         
+        guard let path = Bundle.main.path(forResource: "CalenderViewMockData", ofType: "json") else {
+            return emptyArray
+        }
+        
+        guard let jsonString = try? String(contentsOfFile: path) else {
+            return emptyArray
+        }
+        
+        guard let data = jsonString.data(using: .utf8) else {
+            return emptyArray
+        }
+        
+        do {
+            let mockData = try decoder.decode([CalenderViewModel].self, from: data)
+            return mockData
+        } catch {
+            print(error)
+            return emptyArray
+        }
+    }
+    
+    var body: some View {
         VStack {
             UpperBar()
 
@@ -22,17 +52,21 @@ struct CalenderView: View {
                 .foregroundColor(.gray)
             Text("\(OhcleDate.currentMonth ?? 0)")
                 .font(.system(size: 60))
-                
- 
+            
             VStack(spacing: 0) {
-                ForEach(0...4, id:\.self) { _ in
+                let data = divideWeekData()
+                ForEach(1...5, id:\.self) { week in
                     HStack(spacing: 0) {
-                        ForEach(1...7, id: \.self) { _ in
-                            let randomNumber: Int = (0...1).randomElement()!
-                            CalenderHolderGridView(isClimbedDate: $dummy,
-                                                   holderLocatedType: generateRandomHolderBackground(randomNumber),
-                                                   holderType: .init(color: .gray,
-                                                                     date: "ddddd", holderShape: .red_1))
+                        ForEach(0...6, id: \.self) { day in
+                            if (data[week]?[safe: day]) == nil {
+                                CalenderHolderGridView(holderType: nil)
+                            } else {
+                                let level = data[week]?[day].level ?? 11
+                                
+                                let holderColor: HolderColorNumber = HolderColorNumber(rawValue: "\(level)") ?? .red
+                                let holderType = HolderType(holderColor: holderColor, nil)
+                                CalenderHolderGridView(isClimbedDate: true, holderType: holderType)
+                            }
                         }
                     }
                 }
@@ -40,8 +74,31 @@ struct CalenderView: View {
             
             Spacer()
         }
+    }
+    
+    private func divideWeekData() -> [Int: [CalenderViewModel]] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier:
+                                        "kr")
         
+        let calendar = Calendar.current
+        var dividedData: [Int: [CalenderViewModel]] = [:]
         
+        self.mockData.map { data in
+            let dateString = data.when
+            let date = dateFormatter.date(from: dateString)
+            
+            let weekOfMonth = calendar.component(.weekOfMonth, from: date ?? Date())
+            if (dividedData[weekOfMonth]) != nil {
+                dividedData[weekOfMonth]?.append(data)
+            } else {
+                dividedData.updateValue([data], forKey: weekOfMonth)
+            }
+        }
+        
+        print(dividedData)
+        return dividedData
     }
     
     private func generateRandomHolderBackground(_ typeNumber: Int) -> HolderLocatedType {

@@ -16,7 +16,8 @@ enum GreetingTextOptions: String {
 }
 
 struct LoginView: View {
-    @EnvironmentObject var loginSetting: LoginSetting
+    @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
+
     @State private var appleLoginViewSize: CGSize = CGSize()
 
         
@@ -40,15 +41,8 @@ struct LoginView: View {
     }
         
     var body: some View {
-        if self.loginSetting.isLoggedIn {
-            
-            ZStack {
-                MainView()
-
-            }
-            
-            
-            
+        if isLoggedIn {
+            MainView()
         } else {
             VStack(alignment: .center) {
                 createMainLogo()

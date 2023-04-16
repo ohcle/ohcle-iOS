@@ -20,7 +20,7 @@ struct AppleLoginView: View {
             let loginResult = filterAppleLoginResult(result)
             Task {
                 let data = try await fetchTokenData(loginResult)
-                UserTokenManager.shared.save(token: data, account: .apple, service: .login)
+//                UserTokenManager.shared.save(token: data, account: .apple, service: .login)
             }
         }
         .alert("Apple Login Error", isPresented: $isLoginError) {
