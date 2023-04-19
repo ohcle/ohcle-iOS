@@ -100,11 +100,9 @@ struct KakaoLoginView: View {
                                            "token": "test"]
             UserTokenManager.shared.save(token: mockData["token"] as? String ?? "", account: .kakao, service: .login)
             return true
-            
         } catch {
             print(error)
             return false
-
         }
     }
     

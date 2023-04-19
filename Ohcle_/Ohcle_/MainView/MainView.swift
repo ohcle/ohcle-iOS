@@ -50,7 +50,6 @@ struct MainView: View {
 
     var body: some View {
         TabView {
-            //1
             TabView {
                 CalenderView()
                 DiaryList()
@@ -61,7 +60,6 @@ struct MainView: View {
                 Image("tabItem_home")
             }
             
-            //2
             NavigationView {
                 RecordView(currentPageState: pageState, selectedPage: $selectedPage)
             }
@@ -69,13 +67,12 @@ struct MainView: View {
                 Image("tabItem_plus")
             }
             
-            //3
             MyPageView()
                 .tabItem {
                     Image("tabItem_self")
                 }
         }
-        .background(Color.white)
+
     }
 }
 

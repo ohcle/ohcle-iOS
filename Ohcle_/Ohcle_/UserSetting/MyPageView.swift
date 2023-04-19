@@ -85,8 +85,6 @@ struct MyPageView: View {
                 MyPageRowLinkView(settingList: myPageSettingList[3])
                 MyPageRowLinkView(settingList: myPageSettingList[4])
                 MyPageRowLinkView(settingList: myPageSettingList[5])
-                
-                   
             }
         }
     }

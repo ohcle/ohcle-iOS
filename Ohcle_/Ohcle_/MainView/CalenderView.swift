@@ -14,8 +14,6 @@ extension Collection {
 }
 
 struct CalenderView: View {
-    @State private var dummy: Bool = false
-    
     private var mockData: [CalenderViewModel] {
         let emptyArray: [CalenderViewModel] = []
         let decoder = JSONDecoder()
@@ -43,7 +41,7 @@ struct CalenderView: View {
     
     var body: some View {
         VStack {
-            UpperBar()
+//            UpperBar()
 
             Text("클라이밍 히스토리")
                 .font(.title)
@@ -71,8 +69,6 @@ struct CalenderView: View {
                     }
                 }
             }
-            
-            Spacer()
         }
     }
     
@@ -127,14 +123,12 @@ struct UpperBar: View {
 
             Button {
                 // Refresh Action
-                
             } label: {
                 Image("MainShare")
             }
             
         }
         .padding(.horizontal)
-        
     }
 }
 
