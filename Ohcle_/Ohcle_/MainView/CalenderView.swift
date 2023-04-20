@@ -13,7 +13,19 @@ extension Collection {
     }
 }
 
+class CalenderData: ObservableObject {
+    @Published var year: String = "2024"
+    @Published var month: String = "04"
+    @Published var isClimbingMemoAdded: Bool = false
+    @Published var data: [Int: [CalenderViewModel]] = [:]
+
+}
+
 struct CalenderView: View {
+    private var year: String = "2024"
+    private var month: String = "04"
+    @ObservedObject var calenderData: CalenderData = CalenderData()
+    
     private var mockData: [CalenderViewModel] {
         let emptyArray: [CalenderViewModel] = []
         let decoder = JSONDecoder()
@@ -39,10 +51,11 @@ struct CalenderView: View {
         }
     }
     
+    
     var body: some View {
         VStack {
-//            UpperBar()
-
+            UpperBar()
+            Spacer()
             Text("클라이밍 히스토리")
                 .font(.title)
                 .padding(.bottom, 10)
@@ -77,7 +90,6 @@ struct CalenderView: View {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier:
                                         "kr")
-        
         let calendar = Calendar.current
         var dividedData: [Int: [CalenderViewModel]] = [:]
         
@@ -91,10 +103,10 @@ struct CalenderView: View {
             } else {
                 dividedData.updateValue([data], forKey: weekOfMonth)
             }
+            return dividedData
         }
         
-        print(dividedData)
-        return dividedData
+        return [:]
     }
     
     private func generateRandomHolderBackground(_ typeNumber: Int) -> HolderLocatedType {
@@ -106,27 +118,21 @@ struct CalenderView: View {
     }
 }
 
-
 struct UpperBar: View {
     var body: some View {
-        
         HStack {
-            
             Button {
-                // Refresh Action
                 
             } label: {
                 Image("MainRefresh")
             }
             
             Spacer()
-
+            
             Button {
-                // Refresh Action
             } label: {
                 Image("MainShare")
             }
-            
         }
         .padding(.horizontal)
     }

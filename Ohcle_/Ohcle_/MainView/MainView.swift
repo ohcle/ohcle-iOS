@@ -72,7 +72,6 @@ struct MainView: View {
                     Image("tabItem_self")
                 }
         }
-
     }
 }
 
