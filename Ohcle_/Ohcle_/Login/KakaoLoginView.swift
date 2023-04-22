@@ -13,7 +13,10 @@ import KakaoSDKCommon
 struct KakaoLoginView: View {
     @EnvironmentObject var kakaoLoginSetting: LoginSetting
     @AppStorage("userID") private var userID = ""
-    
+    @AppStorage("userImage") private var userImage: Data = Data()
+
+    @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
+
     private func defineKakaoLoginError(_ error: Error) {
         if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true  {
             print("Known KakaoLogin Error : \(error)")
@@ -33,8 +36,6 @@ struct KakaoLoginView: View {
             }
         }
     }
-    
-    @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
     
     var body: some View {
         Button {
@@ -56,8 +57,16 @@ struct KakaoLoginView: View {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
                     
                     UserApi.shared.me { user, error in
-                        self.userID = user?.properties?["nickname"] ?? "오클"
-                        print(self.userID)
+                        DispatchQueue.global().async {
+                            self.userID = user?.properties?["nickname"] ?? "오클"
+                            print(self.userID)
+                            
+                            if let urlString = user?.properties?["profile_image"],
+                               let url =  URL(string: urlString),
+                               let imageData = try? Data(contentsOf: url) {
+                                self.userImage = imageData
+                            }
+                        }
                     }
                     
                     let toeknErrorMessage = ""

@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import KakaoSDKUser
 
 struct MyPageUserInfoView: View {
     @EnvironmentObject var loginSetting: LoginSetting
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
+    
     private var userName: String {
         let userDefaults = UserDefaults.standard.object(forKey: "userID")
         if let nickName = userDefaults as? String {
@@ -39,6 +41,16 @@ struct MyPageUserInfoView: View {
                         self.isLoggedIn = false
                     }
                   
+                
+                    UserApi.shared.unlink {(error) in
+                        if let error = error {
+                            print(error)
+                        }
+                        else {
+                            print("unlink() success.")
+                        }
+                    }
+                
                 } label: {
                     Text("로그아웃")
                         .font(.body)

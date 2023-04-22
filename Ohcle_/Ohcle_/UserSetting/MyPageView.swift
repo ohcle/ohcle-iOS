@@ -61,6 +61,17 @@ struct MyPageView: View {
             return "ohcle"
         }
     }()
+    
+    private let userImage: Image = {
+        let userDefaults = UserDefaults.standard.object(forKey: "userImage")
+        if let userImageData = userDefaults as? Data,
+           let userUIImage = UIImage(data: userImageData) {
+            let image = Image(uiImage: userUIImage)
+            return image
+        } else {
+            return Image("mypage-profile-placeholder")
+        }
+    }()
    
     private let myPageSettingList: [MyPageSetting] = [
         MyPageSetting(type: .userAlarm, title: "알림",
@@ -80,7 +91,11 @@ struct MyPageView: View {
                     MyPageUserInfoView()
                         
                 } label: {
-                    MyPageViewRow(settingList:  MyPageSetting(type: .userInfo, title: "계정\n \(userName)", iconImageString: "mypage-profile-placeholder"))
+                    HStack {
+                        userImage
+                            .padding(.trailing, 10)
+                        Text("계정\n \(userName)")
+                    }
                 }
                 
                 NavigationLink {
