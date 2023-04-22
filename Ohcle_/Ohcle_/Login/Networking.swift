@@ -21,13 +21,13 @@ enum URLs: String {
     case kakaoLogin = "https://api-gw.todayclimbing.com/v1/signin/kakao"
     case appleLogin = "https://api-gw.todayclimbing.com/v1/signin/apple"
     
-    static func generateMonthRecordURLString(year: String, day: String,
+    static func generateMonthRecordURLString(year: String, month: String,
                                        baseURL: URLs = .baseURL) -> String {
-        return baseURL.rawValue + "v1/climbing/?view=list&month=\(year)-\(day)"
+        return baseURL.rawValue + "v1/climbing/?view=list&month=\(year)-\(month)"
     }
 }
 
-func fetchData(urlString: String, method: HTTPMethod) async -> Data {
+func fetchData(urlString: String, method: HTTPMethod) async throws -> Data {
     guard let url = URL(string: urlString) else {
         return Data()
     }
@@ -39,6 +39,7 @@ func fetchData(urlString: String, method: HTTPMethod) async -> Data {
             response.statusCode != 200 {
             print(response.statusCode)
         }
+        print(data)
         return data
     } catch {
         print(error)
