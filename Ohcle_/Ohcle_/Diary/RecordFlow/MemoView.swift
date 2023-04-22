@@ -89,6 +89,8 @@ struct MemoView: View {
                         DataController.shared.saveTemporaryMemo(typedText)
                         DataController.shared.saveDiary(managedObjectContext)
                         currentPageType.type = .done
+                        currentPageType.type = .calender
+                        self.saveDiaryToServer(DataController.shared.temDate, DataController.shared.temScore, DataController.shared.temLevel, DataController.shared.temPhoto, DataController.shared.temMemo)
                         DataController.shared.clearTemDiary()
                         
                     }
@@ -105,6 +107,67 @@ struct MemoView: View {
             UITextView.appearance().backgroundColor = .clear
         }
     }
+}
+
+
+extension MemoView {
+    func getLevel(_ levelStr: String) -> Int {
+        let levelDict = ["red"              : 1
+                         ,"orange"          : 2
+                         ,"yellow"          : 3
+                         ,"green"           : 4
+                         ,"holder-darkblue" : 5
+                         ,"blue"            : 6
+                         ,"purple"          : 7
+                         ,"black"           : 8
+                         ,"holder-lightgray": 9
+                         ,"holder-darkgray" : 10
+        ]
+        return levelDict[levelStr] ?? 0
+    }
+    
+    func saveDiaryToServer(_ date: String, _ score: Int16, _ level: String, _ photo: Data, _ memo: String ) {
+         
+        let urlStr = "https://api-gw.todayclimbing.com/" +  "v1/climbing/"
+        guard let url = URL(string: urlStr) else {
+            print("Fail to InitURL")
+            return
+        }
+        var request = URLRequest(url: url)
+        let parameters = ["where": ["name": "test"
+                                   ,"address": "address"
+                                   ,"latitude":37.13
+                                   ,"longitude":127.234
+                                   ]
+                          ,"when":date
+                          ,"level": self.getLevel(level)
+                          ,"score":score
+                          ,"memo":memo
+                          
+                        ] as [String : Any]
+        
+        
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let data = data, let response = response as? HTTPURLResponse {
+                print("Status code: \(response.statusCode)")
+                print("Response data: \(String(data: data, encoding: .utf8) ?? "")")
+                
+            }
+        }
+        task.resume()
+        
+    }
+
 }
 
 struct MemoView_Previews: PreviewProvider {

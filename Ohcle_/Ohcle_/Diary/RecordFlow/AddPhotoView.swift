@@ -116,6 +116,9 @@ struct GalleryPickerView: UIViewControllerRepresentable {
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
                 parent.selectedImage = image
+                guard let imgData = image.pngData() else { return }
+                print("\( imgData.count / (1024*1024)) MB")
+                DataController.shared.saveTemporaryPhotoData(imgData)
             }
             parent.isPresented = false
         }
