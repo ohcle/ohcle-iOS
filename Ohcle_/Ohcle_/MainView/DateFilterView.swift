@@ -43,7 +43,7 @@ struct DateFilterView: View {
             LazyVGrid(columns: [GridItem(), GridItem(), GridItem(), GridItem()], alignment: .center, spacing: CGFloat(20)) {
                 ForEach(monthData, id: \.self) { month in
                     CircleDate(title: month,
-                               color: .gray, touchedColor: .orange) {
+                               color: Color("holder_background"), touchedColor: .orange) {
                         self.isSelected = true
 
                         withAnimation {

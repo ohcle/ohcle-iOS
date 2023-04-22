@@ -14,11 +14,13 @@ extension Collection {
     }
 }
 
+typealias DividedMonthDataType = [Int: [Int: CalenderViewModel]]
+
 class CalenderData: ObservableObject {
     @Published var year: String = "2023"
     @Published var month: String = "03"
     @Published var isClimbingMemoAdded: Bool = false
-    @Published var data: [Int: [CalenderViewModel]] = [:]
+    @Published var data: DividedMonthDataType = [:]
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -65,27 +67,44 @@ class CalenderData: ObservableObject {
         }
     }
     
-    private func divideWeekData2(_ data: [CalenderViewModel]) -> [Int: [CalenderViewModel]] {
+    private func getDayOfWeek(dateString: String) -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier: "kr")
+        let date = dateFormatter.date(from: dateString) ?? Date()
+        
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.weekday], from: date)
+        guard let weekday = components.weekday else {
+            return .zero
+            
+        }
+        
+        return weekday
+    }
+    
+    private func divideWeekData2(_ data: [CalenderViewModel]) -> DividedMonthDataType {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier:
                                         "kr")
-        let calendar = Calendar.current
-        var dividedData: [Int: [CalenderViewModel]] = [:]
+        let calendar = Calendar(identifier: .gregorian)
+        var dividedData: DividedMonthDataType = [1: [:], 2: [:], 3: [:], 4: [:], 5: [:]]
         
         print(data)
         data.map { data in
             let dateString = data.when
-            let date = dateFormatter.date(from: dateString)
+            let date = dateFormatter.date(from: dateString) ?? Date()
             
-            let weekOfMonth = calendar.component(.weekOfMonth, from: date ?? Date())
-            if (dividedData[weekOfMonth]) != nil {
-                dividedData[weekOfMonth]?.append(data)
-            } else {
-                dividedData.updateValue([data], forKey: weekOfMonth)
-            }
+            let weekOfMonth = calendar.component(.weekOfMonth, from: date) // 주차 1,2,3,4,5
+            let dayOfWeek = getDayOfWeek(dateString: dateString)
+            // 1,2,3,4,5,6,7 일요일 부터
+            print(weekOfMonth, dayOfWeek, dateString)
+
+            dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
         }
         
+        print(dividedData)
         return dividedData
     }
 }
@@ -96,21 +115,6 @@ struct CalenderView: View {
     
     @ObservedObject var calenderData: CalenderData = CalenderData()
     
-    private func fetchCalenderData() async {
-        do {
-            let fetchedData = try await fetchData(urlString: URLs.generateMonthRecordURLString(year: self.calenderData.year, month: self.calenderData.month), method: .get)
-            print(fetchedData)
-            let decoded = try JSONDecoder().decode([CalenderViewModel].self, from: fetchedData)
-            print(decoded)
-            
-            let divided = divideWeekData2(decoded)
-            
-            self.calenderData.data = divided
-        } catch {
-            print(error)
-        }
-    }
-    
     var body: some View {
         ZStack {
             VStack {
@@ -120,41 +124,37 @@ struct CalenderView: View {
                     .padding(.bottom, 10)
                 
                 Button {
-                    self.isDismissed.toggle()
+                    self.isDismissed = false
                 } label: {
-                    Text("\(self.calenderData.year)")
-                        .foregroundColor(.gray)
-                }
-                
-                Button {
-                    self.isDismissed.toggle()
-                } label: {
-                    Text("\(self.calenderData.month)")
-                        .font(.system(size: 50))
-                        .foregroundColor(.black)
+                    VStack {
+                        Text("\(self.calenderData.year)")
+                            .foregroundColor(.gray)
+                        Text("\(self.calenderData.month)")
+                            .font(.system(size: 50))
+                            .foregroundColor(.black)
+                    }
                 }
                 
                 VStack(spacing: 0) {
                     let data = self.calenderData.data
                     ForEach(1...5, id:\.self) { week in
                         HStack(spacing: 0) {
-                            ForEach(0...6, id: \.self) { day in
-                                if (data[week]?[safe: day]) == nil {
-                                    CalenderHolderGridView(holderType: nil)
-                                } else {
-                                    let level = data[week]?[day].level ?? 11
-                                    
+                            ForEach(1...7, id: \.self) { date in
+                                if (data[week]?[date] != nil) {
+                                    let level = data[week]?[date]?.level ?? 11
+
                                     let holderColor: HolderColorNumber = HolderColorNumber(rawValue: "\(level)") ?? .red
+                                    
                                     let holderType = HolderType(holderColor: holderColor, nil)
+                                    
                                     CalenderHolderGridView(isClimbedDate: true, holderType: holderType)
+                                } else {
+                                    CalenderHolderGridView(holderType: nil)
                                 }
                             }
                         }
                     }
                 }
-            }
-            .task {
-                await fetchCalenderData()
             }
             
             if !self.isDismissed {
@@ -166,31 +166,9 @@ struct CalenderView: View {
                 }
             }
         }
+
     }
     
-    private func divideWeekData2(_ data: [CalenderViewModel]) -> [Int: [CalenderViewModel]] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.locale = Locale(identifier:
-                                        "kr")
-        let calendar = Calendar.current
-        var dividedData: [Int: [CalenderViewModel]] = [:]
-        
-        print(data)
-        data.map { data in
-            let dateString = data.when
-            let date = dateFormatter.date(from: dateString)
-            
-            let weekOfMonth = calendar.component(.weekOfMonth, from: date ?? Date())
-            if (dividedData[weekOfMonth]) != nil {
-                dividedData[weekOfMonth]?.append(data)
-            } else {
-                dividedData.updateValue([data], forKey: weekOfMonth)
-            }
-        }
-        
-        return dividedData
-    }
     
     private func generateRandomHolderBackground(_ typeNumber: Int) -> HolderLocatedType {
         if typeNumber == .zero {
