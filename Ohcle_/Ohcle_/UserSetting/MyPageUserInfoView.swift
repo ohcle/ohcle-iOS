@@ -11,20 +11,18 @@ import KakaoSDKUser
 struct MyPageUserInfoView: View {
     @EnvironmentObject var loginSetting: LoginSetting
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-    
-    private var userName: String {
-        let userDefaults = UserDefaults.standard.object(forKey: "userID")
-        if let nickName = userDefaults as? String {
-            return nickName
-        } else {
-            return "ohcle"
-        }
-    }
+    let thumbnailImage: Image
+    let userName: String
     
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 20) {
-                Image("mypage-logout-placeholder")
+                Spacer()
+                //                Image("mypage-logout-placeholder")
+                thumbnailImage
+                    .resizable()
+                    .frame(width: 200, height: 200)
+                    .clipShape(Circle())
                 
                 (Text("계정\n")
                     .foregroundColor(.gray)
@@ -33,24 +31,11 @@ struct MyPageUserInfoView: View {
                     .foregroundColor(.black)
                 )
                 .multilineTextAlignment(.center)
-
                 
                 Button {
                     withAnimation {
-                        //self.loginSetting.isLoggedIn = false
                         self.isLoggedIn = false
                     }
-                  
-                
-                    UserApi.shared.unlink {(error) in
-                        if let error = error {
-                            print(error)
-                        }
-                        else {
-                            print("unlink() success.")
-                        }
-                    }
-                
                 } label: {
                     Text("로그아웃")
                         .font(.body)
@@ -64,24 +49,35 @@ struct MyPageUserInfoView: View {
                 .padding(.bottom, 76)
                 
                 Button {
-                    
+                    withAnimation {
+                        self.isLoggedIn = false
+                    }
+                    DispatchQueue.global().async {
+                        UserApi.shared.unlink {(error) in
+                            if let error = error {
+                                print(error)
+                            }
+                            else {
+                                print("unlink() success.")
+                            }
+                        }
+                    }
                 } label: {
                     Text("탈퇴하기")
                         .foregroundColor(.black)
                 }
-                
+                Spacer()
             }.padding()
-
-        }
-        .onAppear {
-            
         }
     }
 }
 
 
 struct MyPageLogoutView_Previews: PreviewProvider {
+    static var image: Image = Image("")
+    static var name: String = ""
+    
     static var previews: some View {
-        MyPageUserInfoView()
+        MyPageUserInfoView(thumbnailImage: image, userName: name)
     }
 }

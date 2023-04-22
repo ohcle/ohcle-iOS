@@ -44,7 +44,7 @@ struct MyPageRowLinkView: View {
             if let url = URL(string: settingList.type.rawValue) {
                 Link(settingList.title, destination: url)
                     .foregroundColor(.black)
-                    
+                
             } else {
                 Text(settingList.title)
             }
@@ -72,7 +72,7 @@ struct MyPageView: View {
             return Image("mypage-profile-placeholder")
         }
     }()
-   
+    
     private let myPageSettingList: [MyPageSetting] = [
         MyPageSetting(type: .userAlarm, title: "알림",
                       iconImageString: "mypage-alarm"),
@@ -88,13 +88,15 @@ struct MyPageView: View {
         NavigationStack {
             List {
                 NavigationLink {
-                    MyPageUserInfoView()
-                        
+                    MyPageUserInfoView(thumbnailImage: userImage, userName: userName)
+                    
                 } label: {
                     HStack {
                         userImage
-                            .padding(.trailing, 10)
-                        Text("계정\n \(userName)")
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                        Text("계정\n\(userName)")
                     }
                 }
                 

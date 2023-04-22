@@ -96,9 +96,9 @@ class CalenderData: ObservableObject {
             let dateString = data.when
             let date = dateFormatter.date(from: dateString) ?? Date()
             
-            let weekOfMonth = calendar.component(.weekOfMonth, from: date) // 주차 1,2,3,4,5
+            let weekOfMonth = calendar.component(.weekOfMonth, from: date)
             let dayOfWeek = getDayOfWeek(dateString: dateString)
-            // 1,2,3,4,5,6,7 일요일 부터
+            
             print(weekOfMonth, dayOfWeek, dateString)
 
             dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
@@ -119,6 +119,7 @@ struct CalenderView: View {
         ZStack {
             VStack {
                 UpperBar()
+                Spacer()
                 Text("클라이밍 히스토리")
                     .font(.title)
                     .padding(.bottom, 10)
@@ -155,6 +156,7 @@ struct CalenderView: View {
                         }
                     }
                 }
+                Spacer()
             }
             
             if !self.isDismissed {
@@ -166,10 +168,8 @@ struct CalenderView: View {
                 }
             }
         }
-
     }
-    
-    
+        
     private func generateRandomHolderBackground(_ typeNumber: Int) -> HolderLocatedType {
         if typeNumber == .zero {
             return HolderLocatedType.big
@@ -189,11 +189,6 @@ struct UpperBar: View {
             }
             
             Spacer()
-            
-            Button {
-            } label: {
-                Image("MainShare")
-            }
         }
         .padding(.horizontal)
     }
