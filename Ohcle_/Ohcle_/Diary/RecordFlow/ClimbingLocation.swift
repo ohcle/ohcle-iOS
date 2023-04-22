@@ -41,11 +41,15 @@ struct ClimbingLocation: View {
             
             
             ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.gray, lineWidth: 2)
-                    .background(.white)
-                    .frame(width: commonSize.width,
-                           height: commonSize.height * 1.5)
+                if #available(iOS 15.0, *) {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray, lineWidth: 2)
+                        .background(.white)
+                        .frame(width: commonSize.width,
+                               height: commonSize.height * 1.5)
+                } else {
+                    // Fallback on earlier versions
+                }
                 HStack {
                     Image("locationSearchBarIcon")
                     TextField("장소를 입력해 주세요",
@@ -72,8 +76,6 @@ struct ClimbingLocation: View {
 }
 
 struct ClimbingLocation_Preview: PreviewProvider {
-    @State static var path = NavigationPath()
-    
     static var previews: some View {
         ClimbingLocation()
     }

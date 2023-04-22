@@ -17,6 +17,7 @@ enum GreetingTextOptions: String {
 
 struct LoginView: View {
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
+        
     @State private var appleLoginViewSize: CGSize = CGSize()
         
     @FetchRequest(sortDescriptors: []) var diary: FetchedResults<Diary>

@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 
+@available(iOS 16.0, *)
 struct AddPhotoView: View {
     @ObservedObject var picker = ClimbingImagePicker()
     
@@ -30,16 +31,20 @@ struct AddPhotoView: View {
             .font(.title)
             .padding(.bottom, 20)
             
-            PhotosPicker(selection: $picker.imageSelection, matching: .any(of: [.images, .not(.livePhotos)])) {
-                if let image = picker.image {
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .padding(.all, 10)
-                } else {
-                    Image("add-climbing-photo")
-                        .padding(.top, 10)
+            if #available(iOS 15.0, *) {
+                PhotosPicker(selection: $picker.imageSelection, matching: .any(of: [.images, .not(.livePhotos)])) {
+                    if let image = picker.image {
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.all, 10)
+                    } else {
+                        Image("add-climbing-photo")
+                            .padding(.top, 10)
+                    }
                 }
+            } else {
+                // Fallback on earlier versions
             }
         }
         .overlay(
@@ -51,11 +56,16 @@ struct AddPhotoView: View {
 
 struct AddPhotoView_Previews: PreviewProvider {
     static var previews: some View {
-        AddPhotoView()
+        if #available(iOS 16.0, *) {
+            AddPhotoView()
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
 
 
+@available(iOS 16.0, *)
 extension PhotosPicker {
     init(selection: Binding<PhotosPickerItem?>, matching filter: PHPickerFilter? = nil, preferredItemEncoding: PhotosPickerItem.EncodingDisambiguationPolicy = .automatic, @ViewBuilder label: () -> Label, closure: () -> ()) {
         self.init(selection: selection, label: label)

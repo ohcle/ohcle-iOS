@@ -10,11 +10,10 @@ import KakaoSDKUser
 import KakaoSDKAuth
 import KakaoSDKCommon
 
-var kakaoToken = ""
-
 struct KakaoLoginView: View {
     @EnvironmentObject var kakaoLoginSetting: LoginSetting
-   
+    @AppStorage("userID") private var userID = ""
+    
     private func defineKakaoLoginError(_ error: Error) {
         if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true  {
             print("Known KakaoLogin Error : \(error)")
@@ -36,7 +35,7 @@ struct KakaoLoginView: View {
     }
     
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-
+    
     var body: some View {
         Button {
             
@@ -49,12 +48,18 @@ struct KakaoLoginView: View {
             }
             
             //MARK: - 카카오톡 실행 여부 확인
-//            if (UserApi.isKakaoTalkLoginAvailable()) {
-//                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-//                    toggleLoginSetting(oauthToken)
-//                }
-//            } else {
+            if (UserApi.isKakaoTalkLoginAvailable()) {
+                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                    
+                }
+            } else {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                    
+                    UserApi.shared.me { user, error in
+                        self.userID = user?.properties?["nickname"] ?? "오클"
+                        print(self.userID)
+                    }
+                    
                     let toeknErrorMessage = ""
                     let accessToken: String = oauthToken?.accessToken ?? toeknErrorMessage
                     Task {
@@ -66,10 +71,9 @@ struct KakaoLoginView: View {
                         } catch {
                             print(error)
                         }
-
                     }
                 }
-//            }
+            }
         } label : {
             Image("kakao_login_medium_wide_Anna")
                 .resizable()

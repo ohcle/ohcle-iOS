@@ -53,9 +53,16 @@ struct MyPageRowLinkView: View {
 }
 
 struct MyPageView: View {
-    //서비스 공지링크 : https://stirring-heart-712.notion.site/50fa7a8de5a54b47b007786c3a1a0c8c
+    private let userName: String = {
+        let userDefaults = UserDefaults.standard.object(forKey: "userID")
+        if let nickName = userDefaults as? String {
+            return nickName
+        } else {
+            return "ohcle"
+        }
+    }()
+   
     private let myPageSettingList: [MyPageSetting] = [
-        MyPageSetting(type: .userInfo, title: "계정\n annamong@gmail.com", iconImageString: "mypage-profile-placeholder"),
         MyPageSetting(type: .userAlarm, title: "알림",
                       iconImageString: "mypage-alarm"),
         MyPageSetting(type: .serviceNotification, title: "서비스 공지",
@@ -71,20 +78,21 @@ struct MyPageView: View {
             List {
                 NavigationLink {
                     MyPageUserInfoView()
+                        
                 } label: {
-                    MyPageViewRow(settingList: myPageSettingList[0])
+                    MyPageViewRow(settingList:  MyPageSetting(type: .userInfo, title: "계정\n \(userName)", iconImageString: "mypage-profile-placeholder"))
                 }
                 
                 NavigationLink {
                     UserAlarmSettingView()
                 } label: {
-                    MyPageViewRow(settingList: myPageSettingList[1])
+                    MyPageViewRow(settingList: myPageSettingList[0])
                 }
                 
+                MyPageRowLinkView(settingList: myPageSettingList[1])
                 MyPageRowLinkView(settingList: myPageSettingList[2])
                 MyPageRowLinkView(settingList: myPageSettingList[3])
                 MyPageRowLinkView(settingList: myPageSettingList[4])
-                MyPageRowLinkView(settingList: myPageSettingList[5])
             }
         }
     }

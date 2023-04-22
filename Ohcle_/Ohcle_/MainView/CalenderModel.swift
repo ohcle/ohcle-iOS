@@ -10,7 +10,6 @@ import Foundation
 struct CalenderViewModel: Decodable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-//        hasher.combine(name)
     }
     
     static func ==(lhs: CalenderViewModel, rhs: CalenderViewModel) -> Bool {
@@ -25,7 +24,7 @@ struct CalenderViewModel: Decodable, Hashable {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case `where` // Use backticks to escape the reserved keyword "where"
+        case `where`
         case when
         case level
         case score

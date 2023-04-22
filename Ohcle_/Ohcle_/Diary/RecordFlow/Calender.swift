@@ -63,6 +63,7 @@ struct Calender: View {
 }
 
 struct Calender_Previews: PreviewProvider {
+    @available(iOS 16.0, *)
     @State static var path = NavigationPath()
     static var previews: some View {
         Calender()

@@ -9,7 +9,7 @@ import SwiftUI
 
 final class LoginSetting: ObservableObject {
     @Published var isLoggedIn: Bool = false
-    
+
     func login() {
         self.isLoggedIn = true
     }

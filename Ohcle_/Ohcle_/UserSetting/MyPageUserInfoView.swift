@@ -10,6 +10,14 @@ import SwiftUI
 struct MyPageUserInfoView: View {
     @EnvironmentObject var loginSetting: LoginSetting
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
+    private var userName: String {
+        let userDefaults = UserDefaults.standard.object(forKey: "userID")
+        if let nickName = userDefaults as? String {
+            return nickName
+        } else {
+            return "ohcle"
+        }
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -19,7 +27,7 @@ struct MyPageUserInfoView: View {
                 (Text("계정\n")
                     .foregroundColor(.gray)
                  +
-                    Text("annamong@gmail.com")
+                 Text(String(userName))
                     .foregroundColor(.black)
                 )
                 .multilineTextAlignment(.center)
@@ -51,6 +59,9 @@ struct MyPageUserInfoView: View {
                 }
                 
             }.padding()
+
+        }
+        .onAppear {
             
         }
     }
