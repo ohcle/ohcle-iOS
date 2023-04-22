@@ -30,7 +30,6 @@ struct OnBoardingView: View {
         ,Image("OnBoarding03")
         ,Image("OnBoarding04")
     ]
-
     
     var body: some View {
         ZStack {
@@ -42,11 +41,8 @@ struct OnBoardingView: View {
                     }
                 }
             
-            
             VStack {
-                    
                     upperViews[curPage]
-                    
                     HStack {
                         ForEach(0..<4) { index in
                             Circle()

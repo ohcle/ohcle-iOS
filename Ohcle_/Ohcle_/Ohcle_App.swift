@@ -20,12 +20,9 @@ struct Ohcle_App: App {
     
     @StateObject private var persistenceController = DataController.shared
     @State var didSeeOnBoarding: Bool = UserDefaults.standard.bool(forKey: "didSeeOnBoarding")
-    @State private var isLoaded: Bool = false
     
     var body: some Scene {
         WindowGroup {
-            Group {
-                if isLoaded {
             ZStack {
                 LoginView(mainLogoTitle: "main logo",
                           receptionURL: URL(string: "")).environmentObject(LoginSetting())
@@ -47,15 +44,7 @@ struct Ohcle_App: App {
                     }
                 }
             }
-                }
-                else {
-                     SplashView()
-                }
-
-            }
-            .onAppear {
-                // Simulate loading time
-                isLoaded = true
-            }
+        }
+    }
 }
 

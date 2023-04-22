@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 func getAccessTokenURL(_ url: URLs) -> URL {
     guard let url = URL(string: url.rawValue) else {
@@ -15,7 +16,33 @@ func getAccessTokenURL(_ url: URLs) -> URL {
     return url
 }
 
-//enum URLs: String {
-//    case kakaoLogin = "http://ec2-3-37-182-202.ap-northeast-2.compute.amazonaws.com/v1/account/kakao/signin"
-//    case appleLogin = "http://ec2-3-37-182-202.ap-northeast-2.compute.amazonaws.com/v1/account/apple/signin"
-//}
+enum URLs: String {
+    case baseURL = "https://api-gw.todayclimbing.com/"
+    case kakaoLogin = "https://api-gw.todayclimbing.com/v1/signin/kakao"
+    case appleLogin = "https://api-gw.todayclimbing.com/v1/signin/apple"
+    
+    static func generateMonthRecordURLString(year: String, month: String,
+                                       baseURL: URLs = .baseURL) -> String {
+        return baseURL.rawValue + "v1/climbing/?view=list&month=\(year)-\(month)"
+    }
+}
+
+func fetchData(urlString: String, method: HTTPMethod) async throws -> Data {
+    guard let url = URL(string: urlString) else {
+        return Data()
+    }
+    
+    do {
+        let request = try URLRequest(url: url, method: method)
+        let (data, response) = try await URLSession.shared.data(for: request)
+        if let response = response as? HTTPURLResponse,
+            response.statusCode != 200 {
+            print(response.statusCode)
+        }
+        print(data)
+        return data
+    } catch {
+        print(error)
+        return Data()
+    }
+}

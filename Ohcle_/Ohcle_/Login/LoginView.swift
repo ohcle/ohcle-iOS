@@ -17,9 +17,7 @@ enum GreetingTextOptions: String {
 
 struct LoginView: View {
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-
     @State private var appleLoginViewSize: CGSize = CGSize()
-
         
     @FetchRequest(sortDescriptors: []) var diary: FetchedResults<Diary>
     @Environment(\.managedObjectContext) var moc
@@ -29,7 +27,6 @@ struct LoginView: View {
     private let defualtURL: String = "http://www.google.com"
     private let usePolicy = "[서비스 이용약관](https://www.google.com)"
     private let privatePolicy = "[서비스 이용약관](https://www.google.com)"
-
     
     init(mainLogoTitle: String, receptionURL: URL?) {
         self.mainLogoTitle = mainLogoTitle

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MyPageUserInfoView: View {
     @EnvironmentObject var loginSetting: LoginSetting
-
+    @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
+    
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 20) {
@@ -26,7 +27,8 @@ struct MyPageUserInfoView: View {
                 
                 Button {
                     withAnimation {
-                        self.loginSetting.isLoggedIn = false
+                        //self.loginSetting.isLoggedIn = false
+                        self.isLoggedIn = false
                     }
                   
                 } label: {

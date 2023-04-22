@@ -13,48 +13,52 @@ extension Collection {
     }
 }
 
+class CalenderData: ObservableObject {
+    @Published var year: String = "2023"
+    @Published var month: String = "03"
+    @Published var isClimbingMemoAdded: Bool = false
+    @Published var data: [Int: [CalenderViewModel]] = [:]
+}
+
 struct CalenderView: View {
-    @State private var dummy: Bool = false
+    private var year: String = "2023"
+    private var month: String = "03"
     
-    private var mockData: [CalenderViewModel] {
-        let emptyArray: [CalenderViewModel] = []
-        let decoder = JSONDecoder()
-        
-        guard let path = Bundle.main.path(forResource: "CalenderViewMockData", ofType: "json") else {
-            return emptyArray
-        }
-        
-        guard let jsonString = try? String(contentsOfFile: path) else {
-            return emptyArray
-        }
-        
-        guard let data = jsonString.data(using: .utf8) else {
-            return emptyArray
-        }
-        
-        do {
-            let mockData = try decoder.decode([CalenderViewModel].self, from: data)
-            return mockData
-        } catch {
-            print(error)
-            return emptyArray
-        }
-    }
+    @State private var isTouched: Bool = false
+    
+    @ObservedObject var calenderData: CalenderData = CalenderData()
     
     var body: some View {
         VStack {
-            UpperBar()
-
+            //            UpperBar()
+            //            Spacer()
             Text("클라이밍 히스토리")
                 .font(.title)
                 .padding(.bottom, 10)
-            Text("\(OhcleDate.currentYear ?? "2023")")
-                .foregroundColor(.gray)
-            Text("\(OhcleDate.currentMonth ?? 0)")
-                .font(.system(size: 60))
+            
+            Button {
+                self.isTouched.toggle()
+            } label: {
+                Text("\(OhcleDate.currentYear ?? "2023")")
+                    .foregroundColor(.gray)
+            }
+            
+            Button {
+                self.isTouched.toggle()
+            } label: {
+                Text("\(OhcleDate.currentMonth ?? 0)")
+                    .font(.system(size: 60))
+                    .foregroundColor(.black)
+            }
+            .overlay {
+                if isTouched {
+                    DateFilterView(currentYear: 2023)
+                }
+            }
+            .backgroundStyle(Color.black)
             
             VStack(spacing: 0) {
-                let data = divideWeekData()
+                let data = self.calenderData.data
                 ForEach(1...5, id:\.self) { week in
                     HStack(spacing: 0) {
                         ForEach(0...6, id: \.self) { day in
@@ -72,20 +76,33 @@ struct CalenderView: View {
                 }
             }
             
-            Spacer()
+        }
+        .task {
+            do {
+                let fetchedData = try await fetchData(urlString: URLs.generateMonthRecordURLString(year: self.calenderData.year, month: self.calenderData.month), method: .get)
+                print(fetchedData)
+                let decoded = try JSONDecoder().decode([CalenderViewModel].self, from: fetchedData)
+                print(decoded)
+                
+                let divided = divideWeekData2(decoded)
+                
+                self.calenderData.data = divided
+            } catch {
+                print(error)
+            }
         }
     }
     
-    private func divideWeekData() -> [Int: [CalenderViewModel]] {
+    private func divideWeekData2(_ data: [CalenderViewModel]) -> [Int: [CalenderViewModel]] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier:
                                         "kr")
-        
         let calendar = Calendar.current
         var dividedData: [Int: [CalenderViewModel]] = [:]
         
-        self.mockData.map { data in
+        print(data)
+        data.map { data in
             let dateString = data.when
             let date = dateFormatter.date(from: dateString)
             
@@ -97,7 +114,6 @@ struct CalenderView: View {
             }
         }
         
-        print(dividedData)
         return dividedData
     }
     
@@ -110,31 +126,23 @@ struct CalenderView: View {
     }
 }
 
-
 struct UpperBar: View {
     var body: some View {
-        
         HStack {
-            
             Button {
-                // Refresh Action
                 
             } label: {
                 Image("MainRefresh")
             }
             
             Spacer()
-
+            
             Button {
-                // Refresh Action
-                
             } label: {
                 Image("MainShare")
             }
-            
         }
         .padding(.horizontal)
-        
     }
 }
 

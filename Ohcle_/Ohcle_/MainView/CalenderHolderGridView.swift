@@ -62,7 +62,6 @@ struct HolderType {
     enum HolderShapeAssetNumber: String, CaseIterable {
         case one = "1"
         case two = "2"
-        case three = "3"
         case four = "4"
         case five = "5"
         case six = "6"
@@ -77,9 +76,9 @@ struct HolderType {
 
 struct CalenderHolderGridView: View {
     let isClimbedDate: Bool
-    
-    private let holderLocatedType: HolderLocatedType = .allCases.randomElement() ?? .big
     let holderType: HolderType?
+
+    private let holderLocatedType: HolderLocatedType = .allCases.randomElement() ?? .big
     private let backgroundColor = Color("holder_background")
     private let widthHeightRatio: CGFloat = 5/4
     private let widthRatio: CGFloat = 2/16
