@@ -63,6 +63,13 @@ struct ClimbingLocation: View {
             }
             .frame(width: commonSize.width * 0.9,
                    height: commonSize.height)
+            .padding(.bottom, commonSize.height * 0.7)
+
+            
+            KakaoMapView()
+                .frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height / 2.5)
+            
+            Spacer()
             
         }
         .onDisappear {
@@ -75,6 +82,49 @@ struct ClimbingLocation: View {
     }
     
 }
+
+struct KakaoMapView: UIViewControllerRepresentable {
+    
+    func makeUIViewController(context: Context) -> KakaoMapViewController {
+        let vc = KakaoMapViewController()
+        vc.view.frame = UIScreen.main.bounds
+        vc.delegate = context.coordinator
+        return vc
+    }
+    
+    func updateUIViewController(_ uiViewController: KakaoMapViewController, context: Context) {
+        // No need to update the view controller
+    }
+    
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, KakaoMapViewDelegate {
+        func movedCenterPoint(_ mapView: MTMapView, mapCenterPoint: MTMapPoint) {
+            
+        }
+        
+        func tapMapView(_ mapView: MTMapView, mapPoint: MTMapPoint) {
+            
+        }
+        
+        func foundAddress(_ rGeoCoder: MTMapReverseGeoCoder, addressString: String) {
+            print(addressString)
+        }
+        
+        let parent: KakaoMapView
+
+        init(_ parent: KakaoMapView) {
+            self.parent = parent
+        }
+
+
+    }
+
+}
+
 
 struct ClimbingLocation_Preview: PreviewProvider {
     @State static var path = NavigationPath()
