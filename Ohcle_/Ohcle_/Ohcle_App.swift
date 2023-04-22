@@ -39,7 +39,7 @@ struct Ohcle_App: App {
                         UserDefaults.standard.set(true, forKey: "didSeeOnBoarding")
                         
                         #if DEBUG // 지속적으로 OnBoarding 화면 확인을 위함
-                        UserDefaults.standard.set(false, forKey: "didSeeOnBoarding")
+                        UserDefaults.standard.set(true, forKey: "didSeeOnBoarding")
                         #endif
                     }
                 }

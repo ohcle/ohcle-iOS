@@ -7,46 +7,39 @@
 
 import SwiftUI
 
-struct CircleDate<Content> : View {
+struct CircleDate : View {
+    @State var isTapped: Bool = false
+
     let title: String
     let color: Color
     let touchedColor: Color
-    let content: () -> Content
+    let content: () -> ()
     
-    init(title: String, color: Color,
-         touchedColor: Color,
-         content: @escaping () -> Content) {
-        self.title = title
-        self.color = color
-        self.touchedColor = touchedColor
-        self.content = content
-    }
-    
-    @State private var isPressed = false
-
     var body: some View {
         ZStack {
             Button {
                 content()
-                isPressed.toggle()
+                self.isTapped.toggle()
             } label: {
                 ZStack {
                     Circle()
-                        .foregroundColor(isPressed ? touchedColor : color)
+                        .foregroundColor(isTapped ? touchedColor : color)
                     Text(title)
                         .foregroundColor(.black)
                 }
             }
-            .tint(touchedColor)
+            
         }
     }
 }
 
 
 struct CircleDateView_Previews: PreviewProvider {
+    @State static var isPressed: Bool = true
+
     static var previews: some View {
-        CircleDate<Void>(title: "2023", color: .gray, touchedColor: Color.orange) {
+        CircleDate(isTapped: isPressed, title: "2023", color: .gray, touchedColor: .orange, content: {
             
-        }
+        })
     }
 }

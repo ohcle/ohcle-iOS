@@ -9,9 +9,14 @@ import SwiftUI
 
 struct DateFilterView: View {
     @State var currentYear: Int
-    @State var monthData: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+    @State var monthData: [String] = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+    @State var selectedMonth = ""
+    @Binding var isSelected: Bool
+    @Binding var isDismissed: Bool
     
-    private let defaultYear = "2030"
+    var calenderData: CalenderData
+    
+    private let defaultYear = "2023"
     private let numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
         numberFormatter.decimalSeparator = ""
@@ -37,19 +42,35 @@ struct DateFilterView: View {
             
             LazyVGrid(columns: [GridItem(), GridItem(), GridItem(), GridItem()], alignment: .center, spacing: CGFloat(20)) {
                 ForEach(monthData, id: \.self) { month in
-                    CircleDate(title: month, color: Color.gray, touchedColor: .orange) {
-                        
+                    CircleDate(title: month,
+                               color: .gray, touchedColor: .orange) {
+                        self.isSelected = true
+
+                        withAnimation {
+                            self.isDismissed = true
+                            self.selectedMonth = month
+                            self.calenderData.month = selectedMonth
+                            self.calenderData.year = "\(currentYear)"
+                        }
                     }
                 }
             }
             .padding(.all)
         }
         .padding(.all)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.gray, lineWidth: 0.5)
+        )
     }
 }
 
 struct DateFilterView_Previews: PreviewProvider {
+    @State static var isSelected = true
+    @State static var isdismissed = true
+    
+    @ObservedObject static var calenderData: CalenderData = CalenderData()
     static var previews: some View {
-        DateFilterView(currentYear: 2023)
+        DateFilterView(currentYear: 2023, isSelected: $isSelected, isDismissed: $isdismissed, calenderData: calenderData)
     }
 }

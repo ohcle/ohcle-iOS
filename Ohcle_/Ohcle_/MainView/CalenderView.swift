@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 extension Collection {
     subscript (safe index: Index) -> Element? {
@@ -18,12 +19,97 @@ class CalenderData: ObservableObject {
     @Published var month: String = "03"
     @Published var isClimbingMemoAdded: Bool = false
     @Published var data: [Int: [CalenderViewModel]] = [:]
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
+    init() {
+        $year.combineLatest($month)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] year, month in
+                self?.fetchCalenderData()
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func fetchCalenderData() {
+        guard let url = URL(string: URLs.generateMonthRecordURLString(year: self.year, month: self.month)) else {
+            return
+        }
+        
+        do {
+            let request = try URLRequest(url: url, method: .get)
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                
+                if let response = response as? HTTPURLResponse,
+                   response.statusCode != 200 {
+                    print(response.statusCode)
+                }
+                
+                if let data = data {
+                    do {
+                        let decoded = try JSONDecoder().decode([CalenderViewModel].self, from: data)
+                        let divided = self.divideWeekData2(decoded)
+                        
+                        DispatchQueue.main.async {
+                            self.data = divided
+                        }
+                    } catch {
+                        print(error)
+                    }
+                    
+                }
+            }.resume()
+            
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func divideWeekData2(_ data: [CalenderViewModel]) -> [Int: [CalenderViewModel]] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier:
+                                        "kr")
+        let calendar = Calendar.current
+        var dividedData: [Int: [CalenderViewModel]] = [:]
+        
+        print(data)
+        data.map { data in
+            let dateString = data.when
+            let date = dateFormatter.date(from: dateString)
+            
+            let weekOfMonth = calendar.component(.weekOfMonth, from: date ?? Date())
+            if (dividedData[weekOfMonth]) != nil {
+                dividedData[weekOfMonth]?.append(data)
+            } else {
+                dividedData.updateValue([data], forKey: weekOfMonth)
+            }
+        }
+        
+        return dividedData
+    }
 }
 
 struct CalenderView: View {
-    @State private var isTouched: Bool = false
+    @State private var isSelected: Bool = false
+    @State private var isDismissed: Bool = true
     
     @ObservedObject var calenderData: CalenderData = CalenderData()
+    
+    private func fetchCalenderData() async {
+        do {
+            let fetchedData = try await fetchData(urlString: URLs.generateMonthRecordURLString(year: self.calenderData.year, month: self.calenderData.month), method: .get)
+            print(fetchedData)
+            let decoded = try JSONDecoder().decode([CalenderViewModel].self, from: fetchedData)
+            print(decoded)
+            
+            let divided = divideWeekData2(decoded)
+            
+            self.calenderData.data = divided
+        } catch {
+            print(error)
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -34,17 +120,17 @@ struct CalenderView: View {
                     .padding(.bottom, 10)
                 
                 Button {
-                    self.isTouched.toggle()
+                    self.isDismissed.toggle()
                 } label: {
-                    Text("\(OhcleDate.currentYear ?? "2023")")
+                    Text("\(self.calenderData.year)")
                         .foregroundColor(.gray)
                 }
                 
                 Button {
-                    self.isTouched.toggle()
+                    self.isDismissed.toggle()
                 } label: {
-                    Text("\(OhcleDate.currentMonth ?? 0)")
-                        .font(.system(size: 60))
+                    Text("\(self.calenderData.month)")
+                        .font(.system(size: 50))
                         .foregroundColor(.black)
                 }
                 
@@ -66,28 +152,18 @@ struct CalenderView: View {
                         }
                     }
                 }
-                
             }
             .task {
-                do {
-                    let fetchedData = try await fetchData(urlString: URLs.generateMonthRecordURLString(year: self.calenderData.year, month: self.calenderData.month), method: .get)
-                    print(fetchedData)
-                    let decoded = try JSONDecoder().decode([CalenderViewModel].self, from: fetchedData)
-                    print(decoded)
-                    
-                    let divided = divideWeekData2(decoded)
-                    
-                    self.calenderData.data = divided
-                } catch {
-                    print(error)
-                }
+                await fetchCalenderData()
             }
             
-            if self.isTouched {
-                DateFilterView(currentYear: 2023)
-                    .frame(width: 250, height: 250, alignment: .center)
-                    .background(Color.white)
-                    .padding(.top, 20)
+            if !self.isDismissed {
+                withAnimation {
+                    DateFilterView(currentYear: 2023, isSelected: $isSelected, isDismissed: $isDismissed, calenderData: calenderData)
+                        .frame(width: 250, height: 250, alignment: .center)
+                        .background(Color.white)
+                        .padding(.top, 20)
+                }
             }
         }
     }
