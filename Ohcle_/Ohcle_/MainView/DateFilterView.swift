@@ -37,12 +37,14 @@ struct DateFilterView: View {
             
             LazyVGrid(columns: [GridItem(), GridItem(), GridItem(), GridItem()], alignment: .center, spacing: CGFloat(20)) {
                 ForEach(monthData, id: \.self) { month in
-                    CircleDate(title: month, color: Color.gray) {
+                    CircleDate(title: month, color: Color.gray, touchedColor: .orange) {
+                        
                     }
                 }
             }
             .padding(.all)
         }
+        .padding(.all)
     }
 }
 
