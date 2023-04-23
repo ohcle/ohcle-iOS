@@ -53,14 +53,7 @@ struct MyPageRowLinkView: View {
 }
 
 struct MyPageView: View {
-    @State private var userName: String = {
-        let userDefaults = UserDefaults.standard.object(forKey: "userID")
-        if let nickName = userDefaults as? String {
-            return nickName
-        } else {
-            return "ohcle"
-        }
-    }()
+    @State private var userName: String = ""
     
     @State private var userImage: Image = Image("mypage-profile-placeholder")
     
@@ -117,6 +110,15 @@ struct MyPageView: View {
             }
         }
         .task {
+            
+            let userDefaultsName = UserDefaults.standard.object(forKey: "userID")
+            if let nickName = userDefaultsName as? String {
+                self.userName = nickName
+
+            } else {
+                self.userName = "ohcle"
+            }
+            
             let userDefaults = UserDefaults.standard.object(forKey: "userImage")
             if let userImageString = userDefaults as? String,
                let url = URL(string: userImageString)

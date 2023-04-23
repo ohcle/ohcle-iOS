@@ -24,7 +24,7 @@ struct AppleLoginView: View {
 //            Task {
 //                let data = try await fetchTokenData(loginResult)
 //            }
-            self.isLoggedIn = true
+            
             
             if let userName = loginResult["last_name"] as? String {
                 self.userID = userName
@@ -81,10 +81,14 @@ struct AppleLoginView: View {
                 
                 let userInfo = AppleLoginUserInfo(first_name: firstName, last_name: lastName, email: email)
                 print(userInfo.parameter)
+                self.isLoggedIn = true
+
                 return userInfo.parameter
             }
 
         case .failure(let error):
+            self.isLoggedIn = false
+
             print("Apple Login Error. Error Message : \(error.localizedDescription)")
         }
         
