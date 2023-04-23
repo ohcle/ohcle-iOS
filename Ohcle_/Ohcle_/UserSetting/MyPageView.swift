@@ -100,17 +100,50 @@ struct MyPageView: View {
                     }
                 }
                 
-                NavigationLink {
-                    UserAlarmSettingView()
-                } label: {
-                    MyPageViewRow(settingList: myPageSettingList[0])
-                }
+                MyPageViewRow(settingList: myPageSettingList[0])
+                    .onTapGesture {
+                        openNotificationSettings()
+                    }
                 
                 MyPageRowLinkView(settingList: myPageSettingList[1])
+                    .onTapGesture {
+                        openURL("https://www.notion.so/c17bb0909b2e4631a927b23edc63355e?pvs=4")
+                    }
                 MyPageRowLinkView(settingList: myPageSettingList[2])
+                    .onTapGesture {
+                        openURL("https://www.notion.so/da12179df28d4010ac91e3d652bfd855?pvs=4")
+                    }
+                
                 MyPageRowLinkView(settingList: myPageSettingList[3])
+                    .onTapGesture {
+                        openURL("https://www.notion.so/e14abf614bfd407a9f7570ec67ebd2c0?pvs=4")
+                    }
+                
                 MyPageRowLinkView(settingList: myPageSettingList[4])
+                    .onTapGesture {
+                        openURL("")
+                    }
             }
+        }
+    }
+    
+    private func openNotificationSettings() {
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+        
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
+        }
+    }
+    
+    private func openURL(_ urlString: String) {
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
 }
@@ -121,3 +154,4 @@ struct MyPageView_Previews: PreviewProvider {
         MyPageView()
     }
 }
+

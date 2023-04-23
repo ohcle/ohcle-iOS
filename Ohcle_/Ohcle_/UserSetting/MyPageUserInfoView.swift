@@ -18,7 +18,6 @@ struct MyPageUserInfoView: View {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 20) {
                 Spacer()
-                //                Image("mypage-logout-placeholder")
                 thumbnailImage
                     .resizable()
                     .frame(width: 200, height: 200)
