@@ -41,6 +41,7 @@ struct RecordView: View {
 struct MainView: View {
     @StateObject var pageState: MyPageType = MyPageType.init()
     @State private var selectedPage = 0
+    var calenderData: CalenderData = CalenderData()
 
     init() {
         UIPageControl.appearance().currentPageIndicatorTintColor =  UIColor(named: "HomeCurIndicatorColor")
@@ -52,7 +53,9 @@ struct MainView: View {
         TabView {
             TabView {
                 CalenderView()
+                    .environmentObject(calenderData)
                 DiaryList()
+                    .environmentObject(calenderData)
             }
             .tabViewStyle(.page)
             .indexViewStyle(.page(backgroundDisplayMode: .always))

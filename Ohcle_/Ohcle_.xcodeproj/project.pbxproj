@@ -49,6 +49,7 @@
 		A8CBB2F1291F96570013A74F /* MyPageUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F0291F96570013A74F /* MyPageUserInfoView.swift */; };
 		A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F2291F973E0013A74F /* MemoButton.swift */; };
 		FEB9423D29D5F45300AE3D1F /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */; };
+		FEC6737329F5118F00189B93 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC6737229F5118F00189B93 /* Test.swift */; };
 		FED3211529D02C3A00115539 /* ScoreStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED3211429D02C3A00115539 /* ScoreStar.swift */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +95,7 @@
 		A8CBB2F0291F96570013A74F /* MyPageUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUserInfoView.swift; sourceTree = "<group>"; };
 		A8CBB2F2291F973E0013A74F /* MemoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoButton.swift; sourceTree = "<group>"; };
 		FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OnBoardingView.swift; path = Ohcle_/OnBoardingView.swift; sourceTree = SOURCE_ROOT; };
+		FEC6737229F5118F00189B93 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		FED3211429D02C3A00115539 /* ScoreStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +127,7 @@
 				A817166B290386AE005B1268 /* AddPhotoView.swift */,
 				A8A2C2CD29AF131D005C1B13 /* ClimbingPhotoPicker.swift */,
 				A88BA060290D49C5000F87A8 /* MemoView.swift */,
+				FEC6737229F5118F00189B93 /* Test.swift */,
 			);
 			path = RecordFlow;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				A8AB86BE29E28F3800F5410F /* UserAlarmSettingView.swift in Sources */,
 				A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */,
 				A80A481B29EBC31B00F3F186 /* CalenderModel.swift in Sources */,
+				FEC6737329F5118F00189B93 /* Test.swift in Sources */,
 				A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */,
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,
@@ -498,10 +502,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Ohcle_/Ohcle_.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Ohcle_/Preview Content\"";
-				DEVELOPMENT_TEAM = 7MJ69FU8BU;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = KL5WJHP8JY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -517,6 +523,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "todaysClimbing.Ohcle-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Provisioning_WFTI;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -530,10 +538,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Ohcle_/Ohcle_.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Ohcle_/Preview Content\"";
-				DEVELOPMENT_TEAM = 7MJ69FU8BU;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -549,6 +557,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "todaysClimbing.Ohcle-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

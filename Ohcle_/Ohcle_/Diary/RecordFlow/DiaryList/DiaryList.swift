@@ -52,9 +52,7 @@ struct DiaryList: View {
         GridItem(.flexible(minimum: 250))
     ]
     
-    // Fetch Data from CoreData
-    //    @FetchRequest(entity: Diary.entity(),
-    //                  sortDescriptors: [NSSortDescriptor(keyPath: \Diary.date, ascending: false)]) var diaries: FetchedResults<Diary>
+    @EnvironmentObject var calenderData: CalenderData 
     @ObservedObject var diaryModel = DiaryModel()
     
     @State private var isPresented: Bool = false
@@ -87,36 +85,13 @@ struct DiaryList: View {
                                 
                                 DiaryListViewGridItem(date: recoredMemo.date, location: " ", levelColorName: recoredMemo.level ?? "gray", score: recoredMemo.score, memoImageData: recoredMemo.imageData)
                                 
-                                
                             }
                             
                         } // End Of LazyVGrid
                         
                     }
                 }
-                //                LazyVGrid(columns: column,
-                //                          alignment: .leading,
-                //                          spacing: listSpacing) {
-                //                    ForEach(diaries.indices) { index in
-                //                        let diary = diaries[index]
-                //                        DiaryListViewGridItem(date: diary.date, location:
-                //                                                "", levelColorName: diary.level ?? "gray", score: diary.score, memoImageData: diary.photo)
-                //                        .onTapGesture {
-                //                            self.isPresented.toggle()
-                //                            self.selectedDiaryIndex = index
-                //
-                //                            DataController.shared.saveTemporaryDate(diary.date ?? "")
-                //                            DataController.shared.saveTemporaryLevel(diary.level ?? "")
-                //                            DataController.shared.saveTemporaryScore(diary.score)
-                //                            DataController.shared.saveTemporaryPhotoData(diary.photo ?? Data())
-                //                            DataController.shared.saveTemporaryMemo(diary.memo ?? "")
-                //                        }
-                //                        .padding(.leading, 30)
-                //                    }
-                //                    .sheet(isPresented: $isPresented, content: {
-                //                         MemoView(diary: diaries[selectedDiaryIndex])
-                //                    })
-                //                }
+                
             }
         }
     }
