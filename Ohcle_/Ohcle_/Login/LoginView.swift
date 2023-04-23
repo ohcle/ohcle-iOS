@@ -31,11 +31,8 @@ struct LoginView: View {
     
     init(mainLogoTitle: String, receptionURL: URL?) {
         self.mainLogoTitle = mainLogoTitle
-        if let url = receptionURL {
-            self.url = url
-        } else {
-            self.url = URL(string: defualtURL)!
-        }
+        let url = URL(string: "https://docs.google.com/forms/d/1D4pASSurP-_9jxaQDPaBZMz3hvIpEqKlqr-qIh4JnIs/edit")!
+        self.url = url
     }
         
     var body: some View {

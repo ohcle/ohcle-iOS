@@ -105,7 +105,7 @@ struct MyPageView: View {
                 
                 MyPageRowLinkView(settingList: myPageSettingList[4])
                     .onTapGesture {
-                        openURL("")
+                        openURL("https://docs.google.com/forms/d/1D4pASSurP-_9jxaQDPaBZMz3hvIpEqKlqr-qIh4JnIs/edit")
                     }
             }
         }
