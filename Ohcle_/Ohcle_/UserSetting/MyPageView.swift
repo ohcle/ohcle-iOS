@@ -53,7 +53,7 @@ struct MyPageRowLinkView: View {
 }
 
 struct MyPageView: View {
-    private let userName: String = {
+    @State private var userName: String = {
         let userDefaults = UserDefaults.standard.object(forKey: "userID")
         if let nickName = userDefaults as? String {
             return nickName
@@ -62,16 +62,7 @@ struct MyPageView: View {
         }
     }()
     
-    private let userImage: Image = {
-        let userDefaults = UserDefaults.standard.object(forKey: "userImage")
-        if let userImageData = userDefaults as? Data,
-           let userUIImage = UIImage(data: userImageData) {
-            let image = Image(uiImage: userUIImage)
-            return image
-        } else {
-            return Image("mypage-profile-placeholder")
-        }
-    }()
+    @State private var userImage: Image = Image("mypage-profile-placeholder")
     
     private let myPageSettingList: [MyPageSetting] = [
         MyPageSetting(type: .userAlarm, title: "알림",
@@ -88,7 +79,7 @@ struct MyPageView: View {
         NavigationStack {
             List {
                 NavigationLink {
-                    MyPageUserInfoView(thumbnailImage: userImage, userName: userName)
+                    MyPageUserInfoView(thumbnailImage: $userImage, userName: $userName)
                     
                 } label: {
                     HStack {
@@ -125,7 +116,31 @@ struct MyPageView: View {
                     }
             }
         }
+        .task {
+            let userDefaults = UserDefaults.standard.object(forKey: "userImage")
+            if let userImageString = userDefaults as? String,
+               let url = URL(string: userImageString)
+            {
+                do {
+                    guard let request = try? URLRequest(url: url, method: .get) else {
+                        self.userImage = Image("")
+
+                        return
+                    }
+                    URLSession.shared.dataTask(with: request) { data, response, error in
+                        let uiImage = UIImage(data: data ?? Data())
+                        let image = Image(uiImage: uiImage ?? UIImage())
+                        self.userImage = image
+                    }
+                    .resume()
+                    
+                } catch {
+                    print(error)
+                }
+            }
+        }
     }
+    
     
     private func openNotificationSettings() {
         guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {

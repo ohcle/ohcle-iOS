@@ -7,12 +7,13 @@
 
 import SwiftUI
 import KakaoSDKUser
+import AuthenticationServices
 
 struct MyPageUserInfoView: View {
     @EnvironmentObject var loginSetting: LoginSetting
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-    let thumbnailImage: Image
-    let userName: String
+    @Binding var thumbnailImage: Image
+    @Binding var userName: String
     
     var body: some View {
         GeometryReader { geometry in
@@ -48,19 +49,19 @@ struct MyPageUserInfoView: View {
                 .padding(.bottom, 76)
                 
                 Button {
-                    withAnimation {
-                        self.isLoggedIn = false
-                    }
-                    DispatchQueue.global().async {
-                        UserApi.shared.unlink {(error) in
-                            if let error = error {
-                                print(error)
-                            }
-                            else {
-                                print("unlink() success.")
+                    clearUserDefaults()
+                    UserApi.shared.unlink {(error) in
+                        if let error = error {
+                            print(error)
+                        }
+                        else {
+                            print("unlink() success.")
+                            withAnimation {
+                                self.isLoggedIn = false
+                                signOutUser()
                             }
                         }
-                    }
+                    }                    
                 } label: {
                     Text("탈퇴하기")
                         .foregroundColor(.black)
@@ -69,14 +70,29 @@ struct MyPageUserInfoView: View {
             }.padding()
         }
     }
-}
-
-
-struct MyPageLogoutView_Previews: PreviewProvider {
-    static var image: Image = Image("")
-    static var name: String = ""
     
-    static var previews: some View {
-        MyPageUserInfoView(thumbnailImage: image, userName: name)
+    private func clearUserDefaults() {
+        UserDefaults.standard.removeObject(forKey: "userImage")
+        UserDefaults.standard.removeObject(forKey: "userID")
+        UserDefaults.standard.removeObject(forKey: "didSeeOnBoarding")
+        UserDefaults.standard.removeObject(forKey: "isLoggedIn")
+    }
+    
+    func signOutUser() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedOperation = .operationLogout
+        
+        
     }
 }
+
+
+//struct MyPageLogoutView_Previews: PreviewProvider {
+//    static var image: Image = Image("")
+//    static var name: String = ""
+//    
+//    static var previews: some View {
+//        MyPageUserInfoView(thumbnailImage: image, userName: name)
+//    }
+//}

@@ -18,7 +18,7 @@ typealias DividedMonthDataType = [Int: [Int: CalenderViewModel]]
 
 class CalenderData: ObservableObject {
     @Published var year: String = "2023"
-    @Published var month: String = "03"
+    @Published var month: String = "04"
     @Published var isClimbingMemoAdded: Bool = false
     @Published var data: DividedMonthDataType = [:]
     
@@ -50,7 +50,7 @@ class CalenderData: ObservableObject {
                 if let data = data {
                     do {
                         let decoded = try JSONDecoder().decode([CalenderViewModel].self, from: data)
-                        let divided = self.divideWeekData2(decoded)
+                        let divided = self.divideWeekData(decoded)
                         
                         DispatchQueue.main.async {
                             self.data = divided
@@ -83,7 +83,7 @@ class CalenderData: ObservableObject {
         return weekday
     }
     
-    private func divideWeekData2(_ data: [CalenderViewModel]) -> DividedMonthDataType {
+    private func divideWeekData(_ data: [CalenderViewModel]) -> DividedMonthDataType {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier:

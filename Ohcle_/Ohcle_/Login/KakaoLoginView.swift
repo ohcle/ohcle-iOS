@@ -13,10 +13,10 @@ import KakaoSDKCommon
 struct KakaoLoginView: View {
     @EnvironmentObject var kakaoLoginSetting: LoginSetting
     @AppStorage("userID") private var userID = ""
-    @AppStorage("userImage") private var userImage: Data = Data()
-
+    @AppStorage("userImage") private var userImageString: String = ""
+    
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-
+    
     private func defineKakaoLoginError(_ error: Error) {
         if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true  {
             print("Known KakaoLogin Error : \(error)")
@@ -57,16 +57,11 @@ struct KakaoLoginView: View {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
                     
                     UserApi.shared.me { user, error in
-                        DispatchQueue.global().async {
-                            self.userID = user?.properties?["nickname"] ?? "오클"
-                            print(self.userID)
-                            
-                            if let urlString = user?.properties?["profile_image"],
-                               let url =  URL(string: urlString),
-                               let imageData = try? Data(contentsOf: url) {
-                                self.userImage = imageData
-                            }
-                        }
+                        self.userID = user?.properties?["nickname"] ?? "오클"
+                        print(self.userID)
+                        
+                        let urlString = user?.properties?["profile_image"] ?? ""
+                        self.userImageString = urlString
                     }
                     
                     let toeknErrorMessage = ""
@@ -108,7 +103,7 @@ struct KakaoLoginView: View {
         }
         
         do {
-//            let decodedData = try JSONDecoder().decode(LoginResultModel.self, from: data)
+            //            let decodedData = try JSONDecoder().decode(LoginResultModel.self, from: data)
             let mockData: [String: Any] = ["isNewbie": true,
                                            "token": "test"]
             UserTokenManager.shared.save(token: mockData["token"] as? String ?? "", account: .kakao, service: .login)
