@@ -24,11 +24,11 @@ struct OnBoardingView: View {
         AnyView(UpperView04())
     ]
     
-    let bottomImages:[AnyView] = [
-        AnyView(Image("OnBoarding01"))
-        ,AnyView(Image("OnBoarding02"))
-        ,AnyView(Image("OnBoarding03"))
-        ,AnyView(Image("OnBoarding04"))
+    let bottomImages:[Image] = [
+         Image("OnBoarding01")
+        ,Image("OnBoarding02")
+        ,Image("OnBoarding03")
+        ,Image("OnBoarding04")
     ]
     
     var body: some View {
@@ -60,6 +60,8 @@ struct OnBoardingView: View {
 
                     VStack {
                         bottomImages[curPage]
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
                         
                         if curPage+1 == pageCount {
 
@@ -220,8 +222,11 @@ struct UpperView04: View {
 
 
 
-//struct SwiftUIView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        OnBoardingView()
-//    }
-//}
+struct SwiftUIView_Previews: PreviewProvider {
+    static var previews: some View {
+        OnBoardingView(completeProcess: {
+            
+        })
+        .previewDevice("iPhone SE (3rd generation)")
+    }
+}

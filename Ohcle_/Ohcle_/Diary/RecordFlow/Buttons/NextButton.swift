@@ -30,17 +30,33 @@ struct NextPageButton: View {
     }
 
     var body: some View {
-        Button {
-            changePageType()
-        } label: {
-            Text(title)
-                .fontWeight(.bold)
-                .font(.title3)
-                .padding()
-                .frame(width: width, height: height)
-                .background(backgroundColor)
-                .cornerRadius(memoButtonRadius)
-                .foregroundColor(.white)
+        VStack {
+            
+            Button {
+                changePageType()
+            } label: {
+                Text("건너뛰기")
+                    .fontWeight(.bold)
+                    .font(.title3)
+                    .padding()
+                    .frame(width: width, height: height)
+                    .background(.white)
+                    .cornerRadius(memoButtonRadius)
+                    .foregroundColor(Color(red: 0x89/255, green: 0x89/255, blue: 0x89/255))
+            }
+            
+            Button {
+                changePageType()
+            } label: {
+                Text(title)
+                    .fontWeight(.bold)
+                    .font(.title3)
+                    .padding()
+                    .frame(width: width, height: height)
+                    .background(backgroundColor)
+                    .cornerRadius(memoButtonRadius)
+                    .foregroundColor(.white)
+            }
         }
     }
     

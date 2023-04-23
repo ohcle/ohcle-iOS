@@ -55,7 +55,7 @@ struct KakaoLoginView: View {
                 }
             } else {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                    
+                    print(oauthToken?.accessToken)
                     UserApi.shared.me { user, error in
                         self.userID = user?.properties?["nickname"] ?? "오클"
                         print(self.userID)

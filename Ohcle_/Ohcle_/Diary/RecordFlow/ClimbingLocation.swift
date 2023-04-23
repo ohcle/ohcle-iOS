@@ -54,8 +54,13 @@ struct ClimbingLocation: View {
                     Image("locationSearchBarIcon")
                     TextField("장소를 입력해 주세요",
                               text: $searchText)
-                    .onTapGesture {
-                        self.nextButton.userEvent.inform()
+//                    .onTapGesture {
+//                        self.nextButton.userEvent.inform()
+//                    }
+                    .onChange(of: searchText) { newValue in
+                        if !searchText.isEmpty {
+                            self.nextButton.userEvent.inform()
+                        }
                     }
                 }
                 .padding(.leading, commonSize.width * 0.2)
