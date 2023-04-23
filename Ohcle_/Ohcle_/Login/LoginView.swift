@@ -26,8 +26,8 @@ struct LoginView: View {
     private let mainLogoTitle: String
     private let url: URL
     private let defualtURL: String = "http://www.google.com"
-    private let usePolicy = "[서비스 이용약관](https://www.google.com)"
-    private let privatePolicy = "[서비스 이용약관](https://www.google.com)"
+    private let usePolicy = "[서비스 이용약관](https://www.notion.so/e14abf614bfd407a9f7570ec67ebd2c0?pvs=4)"
+    private let privatePolicy = "[개인정보 정책](https://www.notion.so/da12179df28d4010ac91e3d652bfd855?pvs=4)"
     
     init(mainLogoTitle: String, receptionURL: URL?) {
         self.mainLogoTitle = mainLogoTitle
