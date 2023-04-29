@@ -65,7 +65,7 @@ class DataController: ObservableObject {
         var level: String = "TemporaryDiary_Level"
         var score: Int16 = 0
         var photo: Data = Data()
-        var memo: String = "TemporaryDiary"
+        var memo: String = ""
     }
     
     func deliverTemDiary(_ diary: TemporaryDiary) {

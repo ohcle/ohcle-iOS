@@ -68,15 +68,27 @@ struct MemoView: View {
                     }
                 }
                 
-                TextEditor(text: $typedText)
-                    .scrollContentBackground(.hidden)
-                    .background(memoBackgroundColor)
-                    .foregroundColor(Color.black)
-                    .lineSpacing(5)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .onChange(of: typedText) { newValue in
-                        self.diary?.memo = typedText
+                ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
+
+                    TextEditor(text: $typedText)
+                        .scrollContentBackground(.hidden)
+                        .background(memoBackgroundColor)
+                        .foregroundColor(Color.black)
+                        .lineSpacing(5)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .onChange(of: typedText) { newValue in
+                            self.diary?.memo = typedText
+                        }
+                    
+                    if typedText.isEmpty {
+                        Text("오늘의 클라이밍은 어땠나요?")
+                            .foregroundColor(.gray)
+                            .lineSpacing(5)
+                            .padding(.top,10)
                     }
+
+                }
+
             }
             
             Spacer()
