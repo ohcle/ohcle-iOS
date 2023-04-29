@@ -86,6 +86,7 @@ struct MainView: View {
                                     prevPageInRecordView(pageState)
                                 } label: {
                                     Image(systemName: "chevron.backward")
+                                        .foregroundColor(.gray)
                                 }
                             }
                         }

@@ -37,15 +37,26 @@ struct AddPhotoView: View {
             
             
             if let image = selectedImage {
-                Image(uiImage: selectedImage ?? UIImage())
-                    .resizable()
-                    .scaledToFit()
-                    .padding(.all, 10)
-                    .onTapGesture {
-                        isShowingGalleryPicker = true
+                ZStack (alignment: Alignment(horizontal: .trailing, vertical: .top)) {
+                    
+                    Image(uiImage: selectedImage ?? UIImage())
+                        .resizable()
+                        .scaledToFit()
+                        .padding(.all, 10)
+                    
+                    Button {
+                        selectedImage = nil
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.black)
+                            .padding(.all, 10)
+                        
                     }
+                }
+                .frame(maxHeight: UIScreen.screenHeight/2)
             } else {
-                Image("add-climbing-photo")
+                
+                Image("add-climbing-photo2")
                     .padding(.top, 10)
                     .onTapGesture {
                         isShowingGalleryPicker = true
