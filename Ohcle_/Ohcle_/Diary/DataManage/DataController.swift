@@ -118,6 +118,10 @@ class DataController: ObservableObject {
     func saveTemporaryMemo(_ memo: String) {
         self.temporaryDiary.memo = memo
     }
+    
+    func clearTemporaryPhotoData() {
+        self.temporaryDiary.photo = Data()
+    }
 }
 
 extension DataController {

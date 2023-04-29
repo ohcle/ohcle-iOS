@@ -46,6 +46,7 @@ struct AddPhotoView: View {
                     
                     Button {
                         selectedImage = nil
+                        DataController.shared.clearTemporaryPhotoData()
                     } label: {
                         Image(systemName: "xmark")
                             .foregroundColor(.black)
