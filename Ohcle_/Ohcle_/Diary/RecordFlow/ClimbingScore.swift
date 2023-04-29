@@ -10,7 +10,7 @@ import SwiftUI
 struct ClimbingScore: View {
     @State private var finalScore: Int = 0
     @EnvironmentObject var nextPage: MyPageType
-    private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
+    private var nextButton: NextPageButton =  NextPageButton(title: "다음",
                                                              width: UIScreen.screenWidth/1.2,
                                                              height: UIScreen.screenHeight/15)
     

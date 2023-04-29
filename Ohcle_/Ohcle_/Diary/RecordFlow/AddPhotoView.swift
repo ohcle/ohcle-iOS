@@ -15,7 +15,7 @@ struct AddPhotoView: View {
     private let titleImageWidthRatio = CGFloat(0.8)
     
     
-    private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
+    private var nextButton: NextPageButton =  NextPageButton(title: "다음",
                                                              width: UIScreen.screenWidth/1.2,
                                                              height: UIScreen.screenHeight/15)
     
@@ -37,15 +37,26 @@ struct AddPhotoView: View {
             
             
             if let image = selectedImage {
-                Image(uiImage: selectedImage ?? UIImage())
-                    .resizable()
-                    .scaledToFit()
-                    .padding(.all, 10)
-                    .onTapGesture {
-                        isShowingGalleryPicker = true
+                ZStack (alignment: Alignment(horizontal: .trailing, vertical: .top)) {
+                    
+                    Image(uiImage: selectedImage ?? UIImage())
+                        .resizable()
+                        .scaledToFit()
+                        .padding(.all, 10)
+                    
+                    Button {
+                        selectedImage = nil
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.black)
+                            .padding(.all, 10)
+                        
                     }
+                }
+                .frame(maxHeight: UIScreen.screenHeight/2)
             } else {
-                Image("add-climbing-photo")
+                
+                Image("add-climbing-photo2")
                     .padding(.top, 10)
                     .onTapGesture {
                         isShowingGalleryPicker = true
@@ -116,7 +127,12 @@ struct GalleryPickerView: UIViewControllerRepresentable {
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
                 parent.selectedImage = image
-                guard let imgData = image.pngData() else { return }
+//                guard let imgData = image.pngData() else { return }
+                guard var imgData = image.jpegData(compressionQuality: 1.0) else { return }
+                print(imgData.count)
+                while (imgData.count > 3*1024*1024) { //이미지의 최대 크기 3MB로 제한
+                    imgData = image.jpegData(compressionQuality: 0.5) ?? Data()
+                }
                 print("\( imgData.count / (1024*1024)) MB")
                 DataController.shared.saveTemporaryPhotoData(imgData)
             }

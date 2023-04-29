@@ -24,7 +24,7 @@ struct ClimbingLocation: View {
     @State private var commonSize = CGSize()
     @State private var isLocateChanged: Bool = false
     @EnvironmentObject var nextPageType: MyPageType
-    private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
+    private var nextButton: NextPageButton =  NextPageButton(title: "다음",
                                                              width: UIScreen.screenWidth/1.2,
                                                              height: UIScreen.screenHeight/15)
     var body: some View {
@@ -38,6 +38,7 @@ struct ClimbingLocation: View {
                 commonSize = textSize
             }
             .padding(.bottom, commonSize.height * 0.7)
+       
             
             
             ZStack {
@@ -48,21 +49,32 @@ struct ClimbingLocation: View {
                            height: commonSize.height * 1.5)
                 HStack {
                     Image("locationSearchBarIcon")
-                    TextField("장소를 입력해 주세요",
-                              text: $searchText)
-//                    .onTapGesture {
-//                        self.nextButton.userEvent.inform()
-//                    }
-                    .onChange(of: searchText) { newValue in
-                        if !searchText.isEmpty {
-                            self.nextButton.userEvent.inform()
+                    NavigationLink {
+                        
+                        Text("Search Process")
+                        
+                    } label: {
+                        TextField("장소를 입력해 주세요",
+                                  text: $searchText)
+                        .onChange(of: searchText) { newValue in
+                            if !searchText.isEmpty {
+                                self.nextButton.userEvent.inform()
+                            }
                         }
                     }
+ 
                 }
                 .padding(.leading, commonSize.width * 0.2)
             }
             .frame(width: commonSize.width * 0.9,
                    height: commonSize.height)
+            .padding(.bottom, commonSize.height * 0.7)
+
+            
+            KakaoMapView()
+                .frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height / 2.5)
+            
+            Spacer()
             
         }
         .onDisappear {
@@ -75,6 +87,60 @@ struct ClimbingLocation: View {
     }
     
 }
+// MARK: SearchView
+struct SearchView: View {
+    @State private var searchText = ""
+    var body: some View {
+        Text(searchText)
+            .searchable(text: $searchText, prompt: "장소를 입력해주세요.")
+    }
+}
+
+
+
+// MARK: KakaoMapView
+struct KakaoMapView: UIViewControllerRepresentable {
+    
+    func makeUIViewController(context: Context) -> KakaoMapViewController {
+        let vc = KakaoMapViewController()
+        vc.view.frame = UIScreen.main.bounds
+        vc.delegate = context.coordinator
+        return vc
+    }
+    
+    func updateUIViewController(_ uiViewController: KakaoMapViewController, context: Context) {
+        // No need to update the view controller
+    }
+    
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, KakaoMapViewDelegate {
+        func movedCenterPoint(_ mapView: MTMapView, mapCenterPoint: MTMapPoint) {
+            
+        }
+        
+        func tapMapView(_ mapView: MTMapView, mapPoint: MTMapPoint) {
+            
+        }
+        
+        func foundAddress(_ rGeoCoder: MTMapReverseGeoCoder, addressString: String) {
+            print(addressString)
+        }
+        
+        let parent: KakaoMapView
+
+        init(_ parent: KakaoMapView) {
+            self.parent = parent
+        }
+
+
+    }
+
+}
+
 
 struct ClimbingLocation_Preview: PreviewProvider {
     @State static var path = NavigationPath()
