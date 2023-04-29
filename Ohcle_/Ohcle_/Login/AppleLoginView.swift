@@ -74,6 +74,7 @@ struct AppleLoginView: View {
         case .success(let auth):
             if let credential = auth.credential as? ASAuthorizationAppleIDCredential {
                 let user = credential.user
+                                
                 let firstName = credential.fullName?.familyName
                 let lastName = credential.fullName?.givenName
                 

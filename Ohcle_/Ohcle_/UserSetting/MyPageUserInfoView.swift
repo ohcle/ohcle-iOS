@@ -49,16 +49,17 @@ struct MyPageUserInfoView: View {
                 .padding(.bottom, 76)
                 
                 Button {
-                    clearUserDefaults()
                     UserApi.shared.unlink {(error) in
                         if let error = error {
                             print(error)
                         }
                         else {
                             print("unlink() success.")
+                            clearUserDefaults()
+                            signOutUser()
+
                             withAnimation {
                                 self.isLoggedIn = false
-                                signOutUser()
                             }
                         }
                     }                    
@@ -82,8 +83,6 @@ struct MyPageUserInfoView: View {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedOperation = .operationLogout
-        
-        
     }
 }
 

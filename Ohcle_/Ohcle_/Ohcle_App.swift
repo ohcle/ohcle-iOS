@@ -10,7 +10,6 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 
-
 @main
 struct Ohcle_App: App {
     init() {

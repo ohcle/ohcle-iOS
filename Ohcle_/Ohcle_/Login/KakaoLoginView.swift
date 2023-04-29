@@ -51,7 +51,27 @@ struct KakaoLoginView: View {
             //MARK: - 카카오톡 실행 여부 확인
             if (UserApi.isKakaoTalkLoginAvailable()) {
                 UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                    print(oauthToken?.accessToken)
+                    UserApi.shared.me { user, error in
+                        self.userID = user?.properties?["nickname"] ?? "오클"
+                        print(self.userID)
+                        
+                        let urlString = user?.properties?["profile_image"] ?? ""
+                        self.userImageString = urlString
+                    }
                     
+                    let toeknErrorMessage = ""
+                    let accessToken: String = oauthToken?.accessToken ?? toeknErrorMessage
+                    Task {
+                        do {
+                            let isSucceded = try await fetchTokenData(kakaAccessToken: accessToken)
+                            if isSucceded {
+                                self.isLoggedIn = true
+                            }
+                        } catch {
+                            print(error)
+                        }
+                    }
                 }
             } else {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in

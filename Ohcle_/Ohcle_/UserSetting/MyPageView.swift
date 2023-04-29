@@ -105,7 +105,7 @@ struct MyPageView: View {
                 
                 MyPageRowLinkView(settingList: myPageSettingList[4])
                     .onTapGesture {
-                        openURL("https://docs.google.com/forms/d/1D4pASSurP-_9jxaQDPaBZMz3hvIpEqKlqr-qIh4JnIs/edit")
+                        openURL("https://www.docs.google.com/forms/d/1D4pASSurP-_9jxaQDPaBZMz3hvIpEqKlqr-qIh4JnIs/edit")
                     }
             }
         }
@@ -114,21 +114,21 @@ struct MyPageView: View {
             let userDefaultsName = UserDefaults.standard.object(forKey: "userID")
             if let nickName = userDefaultsName as? String {
                 self.userName = nickName
-
+                
             } else {
                 self.userName = "ohcle"
             }
             
             let userDefaults = UserDefaults.standard.object(forKey: "userImage")
             if let userImageString = userDefaults as? String,
-               let url = URL(string: userImageString)
-            {
+               let url = URL(string: userImageString) {
                 do {
                     guard let request = try? URLRequest(url: url, method: .get) else {
                         self.userImage = Image("")
-
+                        
                         return
                     }
+                    
                     URLSession.shared.dataTask(with: request) { data, response, error in
                         let uiImage = UIImage(data: data ?? Data())
                         let image = Image(uiImage: uiImage ?? UIImage())
