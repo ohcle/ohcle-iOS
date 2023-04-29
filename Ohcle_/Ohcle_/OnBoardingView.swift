@@ -35,27 +35,11 @@ struct OnBoardingView: View {
         ZStack {
             Color.white
                 .edgesIgnoringSafeArea(.all)
-//                .onTapGesture {
-//                    if curPage + 1 < pageCount {
-//                        curPage = (curPage + 1) % pageCount
-//                    }
-//                }
-                .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
-                                    .onEnded({ value in
-                                        if value.translation.width < 0 {
-                                            // nextPage
-                                            if curPage + 1 < pageCount {
-                                                curPage = (curPage + 1) % pageCount
-                                            }
-                                        }
-
-                                        if value.translation.width > 0 {
-                                            // prevPage
-                                            if curPage  > 0 {
-                                                curPage = curPage - 1
-                                            }
-                                        }
-                                    }))
+                .onTapGesture {
+                    if curPage + 1 < pageCount {
+                        curPage = (curPage + 1) % pageCount
+                    }
+                }
             
             VStack {
                     upperViews[curPage]

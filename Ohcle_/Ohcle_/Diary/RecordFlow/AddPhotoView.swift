@@ -116,12 +116,7 @@ struct GalleryPickerView: UIViewControllerRepresentable {
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
                 parent.selectedImage = image
-//                guard let imgData = image.pngData() else { return }
-                guard var imgData = image.jpegData(compressionQuality: 1.0) else { return }
-                print(imgData.count)
-                while (imgData.count > 3*1024*1024) { //이미지의 최대 크기 3MB로 제한
-                    imgData = image.jpegData(compressionQuality: 0.5) ?? Data()
-                }
+                guard let imgData = image.pngData() else { return }
                 print("\( imgData.count / (1024*1024)) MB")
                 DataController.shared.saveTemporaryPhotoData(imgData)
             }

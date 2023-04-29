@@ -25,7 +25,8 @@ struct CalenderView: View {
     private var month: String = "03"
     
     @State private var isTouched: Bool = false
-    @EnvironmentObject var calenderData: CalenderData
+    
+    @ObservedObject var calenderData: CalenderData = CalenderData()
     
     var body: some View {
         VStack {
