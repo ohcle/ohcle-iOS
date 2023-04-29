@@ -31,22 +31,11 @@ struct NextPageButton: View {
 
     var body: some View {
         VStack {
-            
             Button {
-                changePageType()
-            } label: {
-                Text("건너뛰기")
-                    .fontWeight(.bold)
-                    .font(.title3)
-                    .padding()
-                    .frame(width: width, height: height)
-                    .background(.white)
-                    .cornerRadius(memoButtonRadius)
-                    .foregroundColor(Color(red: 0x89/255, green: 0x89/255, blue: 0x89/255))
-            }
-            
-            Button {
-                changePageType()
+                if userEvent.isUserEventHappend {
+                    changePageType()
+                }
+                
             } label: {
                 Text(title)
                     .fontWeight(.bold)
@@ -82,6 +71,6 @@ struct NextPageButton: View {
 
 struct NextButton_Previews: PreviewProvider {
     static var previews: some View {
-        NextPageButton(title: "다음 페이지로", width: 200, height: 200)
+        NextPageButton(title: "다음", width: 200, height: 200)
     }
 }

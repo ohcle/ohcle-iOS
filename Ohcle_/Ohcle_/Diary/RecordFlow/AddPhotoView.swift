@@ -15,7 +15,7 @@ struct AddPhotoView: View {
     private let titleImageWidthRatio = CGFloat(0.8)
     
     
-    private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
+    private var nextButton: NextPageButton =  NextPageButton(title: "다음",
                                                              width: UIScreen.screenWidth/1.2,
                                                              height: UIScreen.screenHeight/15)
     

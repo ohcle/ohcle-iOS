@@ -62,6 +62,34 @@ struct MainView: View {
             
             NavigationView {
                 RecordView(currentPageState: pageState, selectedPage: $selectedPage)
+                //                    .navigationTitle("Title")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        
+                        // Right Button
+                        ToolbarItem(placement:  .navigationBarTrailing) {
+                            if pageState.type != .memo && pageState.type != .done {
+                                Button {
+                                    nextPageInRecordView(pageState)
+                                } label: {
+                                    Text("건너뛰기")
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            
+                        }
+                        
+                        // Left Button
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            if pageState.type != .calender {
+                                Button {
+                                    prevPageInRecordView(pageState)
+                                } label: {
+                                    Image(systemName: "chevron.backward")
+                                }
+                            }
+                        }
+                    }
             }
             .tabItem {
                 Image("tabItem_plus")
@@ -71,6 +99,45 @@ struct MainView: View {
                 .tabItem {
                     Image("tabItem_self")
                 }
+        }
+    }
+    
+    
+    private func nextPageInRecordView(_ currentPageState: MyPageType) {
+        switch currentPageState.type {
+        case .calender:
+            currentPageState.type = .location
+        case .location:
+            currentPageState.type = .level
+        case .level:
+            currentPageState.type = .score
+        case .score:
+            currentPageState.type = .photo
+        case .photo:
+            currentPageState.type = .memo
+        case .memo:
+            return
+        case .`done`:
+            return
+        }
+        
+    }
+    private func prevPageInRecordView(_ currentPageState: MyPageType) {
+        switch currentPageState.type {
+        case .calender:
+            return
+        case .location:
+            currentPageState.type = .calender
+        case .level:
+            currentPageState.type = .location
+        case .score:
+            currentPageState.type = .level
+        case .photo:
+            currentPageState.type = .score
+        case .memo:
+            currentPageState.type = .photo
+        case .`done`:
+            currentPageState.type = .photo
         }
     }
 }

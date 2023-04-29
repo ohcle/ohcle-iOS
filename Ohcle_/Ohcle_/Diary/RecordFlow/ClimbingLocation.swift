@@ -24,7 +24,7 @@ struct ClimbingLocation: View {
     @State private var commonSize = CGSize()
     @State private var isLocateChanged: Bool = false
     @EnvironmentObject var nextPageType: MyPageType
-    private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
+    private var nextButton: NextPageButton =  NextPageButton(title: "다음",
                                                              width: UIScreen.screenWidth/1.2,
                                                              height: UIScreen.screenHeight/15)
     var body: some View {
@@ -38,6 +38,7 @@ struct ClimbingLocation: View {
                 commonSize = textSize
             }
             .padding(.bottom, commonSize.height * 0.7)
+       
             
             
             ZStack {
@@ -48,16 +49,20 @@ struct ClimbingLocation: View {
                            height: commonSize.height * 1.5)
                 HStack {
                     Image("locationSearchBarIcon")
-                    TextField("장소를 입력해 주세요",
-                              text: $searchText)
-//                    .onTapGesture {
-//                        self.nextButton.userEvent.inform()
-//                    }
-                    .onChange(of: searchText) { newValue in
-                        if !searchText.isEmpty {
-                            self.nextButton.userEvent.inform()
+                    NavigationLink {
+                        
+                        Text("Search Process")
+                        
+                    } label: {
+                        TextField("장소를 입력해 주세요",
+                                  text: $searchText)
+                        .onChange(of: searchText) { newValue in
+                            if !searchText.isEmpty {
+                                self.nextButton.userEvent.inform()
+                            }
                         }
                     }
+ 
                 }
                 .padding(.leading, commonSize.width * 0.2)
             }
@@ -82,7 +87,18 @@ struct ClimbingLocation: View {
     }
     
 }
+// MARK: SearchView
+struct SearchView: View {
+    @State private var searchText = ""
+    var body: some View {
+        Text(searchText)
+            .searchable(text: $searchText, prompt: "장소를 입력해주세요.")
+    }
+}
 
+
+
+// MARK: KakaoMapView
 struct KakaoMapView: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> KakaoMapViewController {
