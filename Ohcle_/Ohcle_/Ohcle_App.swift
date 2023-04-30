@@ -14,7 +14,7 @@ import KakaoSDKUser
 struct Ohcle_App: App {
     init() {
         /// Kakao SDK 초기화
-        KakaoSDK.initSDK(appKey: "e78a0ba0d7372b5370db8c893fd2d881")
+        KakaoSDK.initSDK(appKey: "b61a430c747ede3f63f1f02fba513526")
     }
     
     @StateObject private var persistenceController = DataController.shared
@@ -31,6 +31,8 @@ struct Ohcle_App: App {
                             _ =  AuthController.handleOpenUrl(url: url)
                         }
                     }
+                    .environment(\.colorScheme, .light)
+
                 
                 if !didSeeOnBoarding {
                     OnBoardingView {

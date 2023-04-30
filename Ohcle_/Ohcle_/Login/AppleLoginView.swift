@@ -10,6 +10,7 @@ import _AuthenticationServices_SwiftUI
 
 struct AppleLoginView: View {
     typealias AppleLoginReslutType = [String: Any]
+    
     @EnvironmentObject var loginSetting: LoginSetting
     @State private var isLoginError: Bool = false
     
@@ -21,11 +22,7 @@ struct AppleLoginView: View {
             request.requestedScopes = [.email, .fullName]
         } onCompletion: { result in
             let loginResult = filterAppleLoginResult(result)
-//            Task {
-//                let data = try await fetchTokenData(loginResult)
-//            }
-            
-            
+
             if let userName = loginResult["last_name"] as? String {
                 self.userID = userName
 

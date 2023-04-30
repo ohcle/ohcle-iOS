@@ -34,7 +34,7 @@ class CalenderData: ObservableObject {
     }
     
     private func fetchCalenderData() {
-        guard let url = URL(string: URLs.generateMonthRecordURLString(year: self.year, month: self.month)) else {
+        guard let url = URL(string: OhcleURLs.generateMonthRecordURLString(year: self.year, month: self.month)) else {
             return
         }
         

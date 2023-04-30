@@ -17,21 +17,17 @@ enum GreetingTextOptions: String {
 
 struct LoginView: View {
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-        
     @State private var appleLoginViewSize: CGSize = CGSize()
-        
-    @FetchRequest(sortDescriptors: []) var diary: FetchedResults<Diary>
-    @Environment(\.managedObjectContext) var moc
 
     private let mainLogoTitle: String
     private let url: URL
     private let defualtURL: String = "http://www.google.com"
-    private let usePolicy = "[서비스 이용약관](https://www.notion.so/e14abf614bfd407a9f7570ec67ebd2c0?pvs=4)"
-    private let privatePolicy = "[개인정보 정책](https://www.notion.so/da12179df28d4010ac91e3d652bfd855?pvs=4)"
+    private let usePolicy = "[서비스 이용약관](\(ExternalOhcleLinks.serviceInfomation)"
+    private let privatePolicy = "[개인정보 정책](\(ExternalOhcleLinks.personalInfoPolicy)"
     
     init(mainLogoTitle: String, receptionURL: URL?) {
         self.mainLogoTitle = mainLogoTitle
-        let url = URL(string: "https://docs.google.com/forms/d/1D4pASSurP-_9jxaQDPaBZMz3hvIpEqKlqr-qIh4JnIs/edit")!
+        let url = URL(string: ExternalOhcleLinks.customerSurport)!
         self.url = url
     }
         
@@ -43,6 +39,7 @@ struct LoginView: View {
                 createMainLogo()
                 showMainGreetings()
                     .multilineTextAlignment(.center)
+                
                 KakaoLoginView()
                     .padding(.bottom, 11)
 

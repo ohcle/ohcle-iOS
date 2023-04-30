@@ -21,7 +21,7 @@ struct MyPageUserInfoView: View {
                 Spacer()
                 thumbnailImage
                     .resizable()
-                    .frame(width: 200, height: 200)
+                    .frame(width: 170, height: 170)
                     .clipShape(Circle())
                 
                 (Text("계정\n")
@@ -87,11 +87,11 @@ struct MyPageUserInfoView: View {
 }
 
 
-//struct MyPageLogoutView_Previews: PreviewProvider {
-//    static var image: Image = Image("")
-//    static var name: String = ""
-//    
-//    static var previews: some View {
-//        MyPageUserInfoView(thumbnailImage: image, userName: name)
-//    }
-//}
+struct MyPageLogoutView_Previews: PreviewProvider {
+    @State static var image: Image = Image("mypage-profile-placeholder")
+    @State static var name: String = ""
+    
+    static var previews: some View {
+        MyPageUserInfoView(thumbnailImage: $image, userName: $name)
+    }
+}

@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-func getAccessTokenURL(_ url: URLs) -> URL {
+func getAccessTokenURL(_ url: OhcleURLs) -> URL {
     guard let url = URL(string: url.rawValue) else {
         return URL(string: "https://www.bing.com")!
     }
@@ -16,13 +16,13 @@ func getAccessTokenURL(_ url: URLs) -> URL {
     return url
 }
 
-enum URLs: String {
+enum OhcleURLs: String {
     case baseURL = "https://api-gw.todayclimbing.com/"
     case kakaoLogin = "https://api-gw.todayclimbing.com/v1/signin/kakao"
     case appleLogin = "https://api-gw.todayclimbing.com/v1/signin/apple"
     
     static func generateMonthRecordURLString(year: String, month: String,
-                                       baseURL: URLs = .baseURL) -> String {
+                                       baseURL: OhcleURLs = .baseURL) -> String {
         return baseURL.rawValue + "v1/climbing/?view=list&month=\(year)-\(month)"
     }
 }

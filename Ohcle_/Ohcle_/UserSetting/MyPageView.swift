@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct MyPageSetting: Identifiable {
-    
     enum PageType: String {
         case userInfo
         case userAlarm
-        case serviceNotification = "https://www.google.com"
-        case personalInfo = "https://www.google.com1"
-        case servicePolicy = "https://www.google.com2"
-        case customerService = "https://www.google.com3"
+        case serviceNotification
+        case personalInfo
+        case servicePolicy
+        case customerService
     }
     
     let id: UUID = UUID()
@@ -54,7 +53,6 @@ struct MyPageRowLinkView: View {
 
 struct MyPageView: View {
     @State private var userName: String = ""
-    
     @State private var userImage: Image = Image("mypage-profile-placeholder")
     
     private let myPageSettingList: [MyPageSetting] = [
@@ -67,7 +65,7 @@ struct MyPageView: View {
         MyPageSetting(type: .servicePolicy, title: "서비스이용", iconImageString: "mypage-use-service"),
         MyPageSetting(type: .customerService, title: "문의", iconImageString: "mypage-question")
     ]
-    
+     
     var body: some View {
         NavigationStack {
             List {
@@ -84,28 +82,23 @@ struct MyPageView: View {
                     }
                 }
                 
-                MyPageViewRow(settingList: myPageSettingList[0])
-                    .onTapGesture {
-                        openNotificationSettings()
-                    }
-                
                 MyPageRowLinkView(settingList: myPageSettingList[1])
                     .onTapGesture {
-                        openURL("https://www.notion.so/c17bb0909b2e4631a927b23edc63355e?pvs=4")
+                        openURL(ExternalOhcleLinks.serviceInfomation)
                     }
                 MyPageRowLinkView(settingList: myPageSettingList[2])
                     .onTapGesture {
-                        openURL("https://www.notion.so/da12179df28d4010ac91e3d652bfd855?pvs=4")
+                        openURL(ExternalOhcleLinks.personalInfoPolicy)
                     }
                 
                 MyPageRowLinkView(settingList: myPageSettingList[3])
                     .onTapGesture {
-                        openURL("https://www.notion.so/e14abf614bfd407a9f7570ec67ebd2c0?pvs=4")
+                        openURL(ExternalOhcleLinks.userServiceManual)
                     }
                 
                 MyPageRowLinkView(settingList: myPageSettingList[4])
                     .onTapGesture {
-                        openURL("https://www.docs.google.com/forms/d/1D4pASSurP-_9jxaQDPaBZMz3hvIpEqKlqr-qIh4JnIs/edit")
+                        openURL(ExternalOhcleLinks.customerSurport)
                     }
             }
         }
@@ -140,17 +133,6 @@ struct MyPageView: View {
                     print(error)
                 }
             }
-        }
-    }
-    
-    
-    private func openNotificationSettings() {
-        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-            return
-        }
-        
-        if UIApplication.shared.canOpenURL(settingsUrl) {
-            UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
         }
     }
     

@@ -41,6 +41,8 @@
 		A8A812EB29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A8A812E929A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld */; };
 		A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812EC29A73EE900E7C6A2 /* DataController.swift */; };
 		A8AB86BC29E2821700F5410F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AB86BB29E2821700F5410F /* SplashView.swift */; };
+		A8C0D69429FE459C00DEB477 /* ExternalLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C0D69329FE459C00DEB477 /* ExternalLinks.swift */; };
+		A8C0D69629FE475E00DEB477 /* Refactor_Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C0D69529FE475E00DEB477 /* Refactor_Networking.swift */; };
 		A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E3291F6BE40013A74F /* DiaryList.swift */; };
 		A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E7291F74700013A74F /* AddNewDiary.swift */; };
 		A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */; };
@@ -85,6 +87,9 @@
 		A8A812EA29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TemporaryDiary.xcdatamodel; sourceTree = "<group>"; };
 		A8A812EC29A73EE900E7C6A2 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		A8AB86BB29E2821700F5410F /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		A8C0D69229FCFC9500DEB477 /* Ohcle--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Ohcle--Info.plist"; sourceTree = SOURCE_ROOT; };
+		A8C0D69329FE459C00DEB477 /* ExternalLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLinks.swift; sourceTree = "<group>"; };
+		A8C0D69529FE475E00DEB477 /* Refactor_Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Refactor_Networking.swift; sourceTree = "<group>"; };
 		A8CBB2E3291F6BE40013A74F /* DiaryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryList.swift; sourceTree = "<group>"; };
 		A8CBB2E7291F74700013A74F /* AddNewDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDiary.swift; sourceTree = "<group>"; };
 		A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryHeader.swift; sourceTree = "<group>"; };
@@ -146,6 +151,7 @@
 		A859A62C28EC3E1500F217F3 /* Ohcle_ */ = {
 			isa = PBXGroup;
 			children = (
+				A8C0D69229FCFC9500DEB477 /* Ohcle--Info.plist */,
 				A80B452328FA50DE00343BB4 /* ReadViewSize.swift */,
 				A859A64B28EC457700F217F3 /* Ohcle_.entitlements */,
 				A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */,
@@ -173,10 +179,11 @@
 			isa = PBXGroup;
 			children = (
 				A887D60029A20D9800C0A75D /* Networking.swift */,
+				A8C0D69529FE475E00DEB477 /* Refactor_Networking.swift */,
 				A859A63F28EC3E7A00F217F3 /* LoginView.swift */,
 				A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */,
-				A8335B68292F7BFA0006899D /* AppleLoginView.swift */,
 				A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */,
+				A8335B68292F7BFA0006899D /* AppleLoginView.swift */,
 				A866B508293CC5C5001E182F /* LoginResultModel.swift */,
 				A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */,
 			);
@@ -248,6 +255,7 @@
 			children = (
 				A8CBB2EE291F89A00013A74F /* MyPageView.swift */,
 				A8CBB2F0291F96570013A74F /* MyPageUserInfoView.swift */,
+				A8C0D69329FE459C00DEB477 /* ExternalLinks.swift */,
 			);
 			path = UserSetting;
 			sourceTree = "<group>";
@@ -331,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */,
+				A8C0D69629FE475E00DEB477 /* Refactor_Networking.swift in Sources */,
 				A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */,
 				FEB9423D29D5F45300AE3D1F /* OnBoardingView.swift in Sources */,
 				A80A484329F3AEDE00F3F186 /* DateFilterView.swift in Sources */,
@@ -338,6 +347,7 @@
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
 				A875B24F297EAC3A00704688 /* CalenderView.swift in Sources */,
 				A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */,
+				A8C0D69429FE459C00DEB477 /* ExternalLinks.swift in Sources */,
 				A8A2C2CE29AF131D005C1B13 /* ClimbingPhotoPicker.swift in Sources */,
 				A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */,
 				FED3211529D02C3A00115539 /* ScoreStar.swift in Sources */,
@@ -500,6 +510,7 @@
 				DEVELOPMENT_TEAM = 7MJ69FU8BU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Ohcle--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -532,6 +543,7 @@
 				DEVELOPMENT_TEAM = 7MJ69FU8BU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Ohcle--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
