@@ -19,7 +19,6 @@ struct KakaoLoginView: View {
     
     var body: some View {
         Button {
-            
             //MARK: - 카카오톡 토큰 여부 확인
             if AuthApi.hasToken() {
                 checkAndRefreshToken()
@@ -46,7 +45,8 @@ struct KakaoLoginView: View {
                     
                     Task {
                         do {
-                            let isSucceded = try await isValidOhcleUser(kakaoAccessToken: accessToken, nickName: self.userNickName)
+                            let isSucceded = try await isValidOhcleUser(kakaoAccessToken: accessToken,
+                                                                        nickName: self.userNickName)
                             
                             if isSucceded {
                                 self.isLoggedIn = true
@@ -56,6 +56,7 @@ struct KakaoLoginView: View {
                         }
                     }
                 }
+                
             } else {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
                     print(oauthToken?.accessToken)
@@ -106,12 +107,12 @@ struct KakaoLoginView: View {
             }
         }
     }
-//
-//    private func saveUserKeychain(token: ) {
-//        let mockData: [String: Any] = ["isNewbie": true,
-//                                       "token": "test"]
-//        UserTokenManager.shared.save(token: decodedData["token"] as? String ?? "", account: .kakao, service: .login)
-//    }
+    
+    //    private func saveUserKeychain(token: ) {
+    //        let mockData: [String: Any] = ["isNewbie": true,
+    //                                       "token": "test"]
+    //        UserTokenManager.shared.save(token: decodedData["token"] as? String ?? "", account: .kakao, service: .login)
+    //    }
     
     private func isValidOhcleUser(kakaoAccessToken: String,
                                   nickName: String, gender: String? = nil) async throws -> Bool {
@@ -119,15 +120,20 @@ struct KakaoLoginView: View {
         let url = getAccessTokenURL(.kakaoLogin)
         var request = try URLRequest(url: url, method: .post)
         
-        request.setValue(kakaoAccessToken, forHTTPHeaderField: "id")
-        request.setValue(nickName, forHTTPHeaderField: "nickname")
+        request.setValue("232586", forHTTPHeaderField: "id")
+        request.setValue("Joy", forHTTPHeaderField: "nickname")
         request.setValue("", forHTTPHeaderField: "gender")
+        
+        let para = ["id": "232586", "nickname": "Joy", "gender": ""]
+        
+        let httpBody = try JSONSerialization.data(withJSONObject: para) ??  Data()
         
         let (data, response) = try await URLSession.shared.data(for: request)
         
         if let response = response as? HTTPURLResponse,
            response.statusCode != 200 {
             print("reponse Code is :\(response.statusCode)")
+            print(response.url, response.headers, response.allHeaderFields)
         }
         
 #if DEBUG
