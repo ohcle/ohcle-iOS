@@ -43,9 +43,7 @@ struct LoginView: View {
                 KakaoLoginView()
                     .padding(.bottom, 11)
 
-                AppleLoginView()
-                    .aspectRatio(CGSize(width: 7, height: 1.2),
-                                 contentMode: .fit)
+                NewAppleLoginView()
                     .padding(.bottom, 32)
                 
                 Link("문의하기", destination: url)
@@ -66,7 +64,8 @@ struct LoginView: View {
                     .font(.caption)
                     .multilineTextAlignment(.center)
                 
-            }.padding(.horizontal, 35)
+            }
+            .padding(.horizontal, 35)
         }
     }
     

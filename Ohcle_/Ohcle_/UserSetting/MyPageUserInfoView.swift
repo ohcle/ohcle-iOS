@@ -49,20 +49,9 @@ struct MyPageUserInfoView: View {
                 .padding(.bottom, 76)
                 
                 Button {
-                    UserApi.shared.unlink {(error) in
-                        if let error = error {
-                            print(error)
-                        }
-                        else {
-                            print("unlink() success.")
-                            clearUserDefaults()
-                            signOutUser()
-
-                            withAnimation {
-                                self.isLoggedIn = false
-                            }
-                        }
-                    }                    
+                    clearUserDefaults()
+                    signOutUser()
+                    signOutKakaoAccount()
                 } label: {
                     Text("탈퇴하기")
                         .foregroundColor(.black)
@@ -79,10 +68,26 @@ struct MyPageUserInfoView: View {
         UserDefaults.standard.removeObject(forKey: "isLoggedIn")
     }
     
-    func signOutUser() {
+    private func signOutUser() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedOperation = .operationLogout
+        withAnimation {
+            self.isLoggedIn = false
+        }
+    }
+    
+    private func signOutKakaoAccount() {
+        UserApi.shared.unlink {(error) in
+            if let error = error {
+                print(error)
+            } else {
+                print("unlink() success.")
+                withAnimation {
+                    self.isLoggedIn = false
+                }
+            }
+        }
     }
 }
 
