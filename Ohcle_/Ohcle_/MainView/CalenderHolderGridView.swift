@@ -38,23 +38,30 @@ enum HolderColorNumber: String {
 struct HolderType {
     let holder: Image
     let holderShape : String?
+    let holderID: Int
     
-    init(holderColor: HolderColorNumber, _ holderShape: HolderShapeAssetNumber?) {
+    init(holderID: Int = 10, holderColor: HolderColorNumber,
+         _ holderShape: HolderShapeAssetNumber?) {
         let divider = "-"
         let colorName = holderColor.rawValue
         let holderShape = HolderShapeAssetNumber.allCases.randomElement() ?? .five
         let holderTypeAssetName = holderShape.rawValue
         let assetName = holderTypeAssetName + divider + colorName
+        
+        self.holderID = holderID
         self.holderShape = holderShape.rawValue
         self.holder = Image(assetName)
     }
     
     
-    init(holderColor: HolderColorNumber, holderShape: HolderShapeAssetNumber) {
+    init(holderID: Int = 10, holderColor: HolderColorNumber,
+         holderShape: HolderShapeAssetNumber) {
         let holderTypeAssetName = holderShape.rawValue
         let divider = "-"
         let colorName = holderColor.rawValue
         let assetName = holderTypeAssetName + divider + colorName
+        
+        self.holderID = holderID
         self.holderShape = holderShape.rawValue
         self.holder = Image(assetName)
     }

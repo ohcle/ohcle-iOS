@@ -13,8 +13,8 @@ struct MemoView: View {
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
     
     @EnvironmentObject var currentPageType: MyPageType
-    @Environment(\.managedObjectContext) var managedObjectContext
 
+    @Binding var isModal: Bool
     @State private var climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
     
     @State private var typedText: String =  DataController.shared.temMemo
@@ -83,17 +83,17 @@ struct MemoView: View {
             HStack {
                 Spacer()
                 MemoButton() {
-                    if let diary = diary {
-                        DataController.shared.updateDiary(diary)
-                    } else {
-                        DataController.shared.saveTemporaryMemo(typedText)
-                        DataController.shared.saveDiary(managedObjectContext)
-                        currentPageType.type = .done
-                        currentPageType.type = .calender
-                        self.saveDiaryToServer(DataController.shared.temDate, DataController.shared.temScore, DataController.shared.temLevel, DataController.shared.temPhoto, DataController.shared.temMemo)
-                        DataController.shared.clearTemDiary()
-                        
-                    }
+//                    if let diary = diary {
+//                        DataController.shared.updateDiary(diary)
+//                    } else {
+//                        DataController.shared.saveTemporaryMemo(typedText)
+////                        DataController.shared.saveDiary(managedObjectContext)
+//                        currentPageType.type = .done
+//                        currentPageType.type = .calender
+//                        self.saveDiaryToServer(DataController.shared.temDate, DataController.shared.temScore, DataController.shared.temLevel, DataController.shared.temPhoto, DataController.shared.temMemo)
+//                        DataController.shared.clearTemDiary()
+//
+//                    }
                 }
 
                 Spacer()
@@ -172,8 +172,8 @@ extension MemoView {
 
 struct MemoView_Previews: PreviewProvider {
     static let mocRecorded = RecordedMemo(id:0,date: "dd", location: "dd", level: "Ddd", score: 2, imageData: Data(), memo: "ddd")
-    @State static var isEdited: Bool = false
+    @State static var isModal: Bool = false
     static var previews: some View {
-        MemoView()
+        MemoView(isModal: $isModal)
     }
 }

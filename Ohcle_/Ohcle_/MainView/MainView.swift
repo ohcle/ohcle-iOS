@@ -11,7 +11,7 @@ import UIKit
 struct RecordView: View {
     @ObservedObject var currentPageState: MyPageType
     @Binding var selectedPage: Int
-    @State var isEdited: Bool = false
+    @State var isModal: Bool = false
     
     var body: some View {
         switch currentPageState.type {
@@ -30,7 +30,7 @@ struct RecordView: View {
         case .photo:
             AddPhotoView().environmentObject(currentPageState)
         case .memo:
-            MemoView().environmentObject(currentPageState)
+            MemoView(isModal: $isModal).environmentObject(currentPageState)
         case .done:
             Calender()
                 .environmentObject(currentPageState)
@@ -51,7 +51,7 @@ struct MainView: View {
     var body: some View {
         TabView {
             TabView {
-                CalenderView()
+                RefacotCalenderView()
                 DiaryList()
             }
             .tabViewStyle(.page)

@@ -77,7 +77,6 @@ class CalenderData: ObservableObject {
         let components = calendar.dateComponents([.weekday], from: date)
         guard let weekday = components.weekday else {
             return .zero
-            
         }
         
         return weekday
@@ -120,42 +119,12 @@ struct CalenderView: View {
             VStack {
                 UpperBar()
                 Spacer()
-                Text("클라이밍 히스토리")
-                    .font(.title)
-                    .padding(.bottom, 10)
                 
-                Button {
+                CalenderMiddleView(yearString: self.calenderData.year, monthString: self.calenderData.month) {
                     self.isDismissed = false
-                } label: {
-                    VStack {
-                        Text("\(self.calenderData.year)")
-                            .foregroundColor(.gray)
-                        Text("\(self.calenderData.month)")
-                            .font(.system(size: 50))
-                            .foregroundColor(.black)
-                    }
                 }
                 
-                VStack(spacing: 0) {
-                    let data = self.calenderData.data
-                    ForEach(1...5, id:\.self) { week in
-                        HStack(spacing: 0) {
-                            ForEach(1...7, id: \.self) { date in
-                                if (data[week]?[date] != nil) {
-                                    let level = data[week]?[date]?.level ?? 11
-
-                                    let holderColor: HolderColorNumber = HolderColorNumber(rawValue: "\(level)") ?? .red
-                                    
-                                    let holderType = HolderType(holderColor: holderColor, nil)
-                                    
-                                    CalenderHolderGridView(isClimbedDate: true, holderType: holderType)
-                                } else {
-                                    CalenderHolderGridView(holderType: nil)
-                                }
-                            }
-                        }
-                    }
-                }
+                CalenderHolderView(calenderData: self.calenderData)
                 Spacer()
             }
             

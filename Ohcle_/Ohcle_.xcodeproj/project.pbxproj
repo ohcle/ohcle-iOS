@@ -15,6 +15,9 @@
 		A80B452A28FA70A200343BB4 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452928FA70A200343BB4 /* Level.swift */; };
 		A817166629038013005B1268 /* ClimbingScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166529038013005B1268 /* ClimbingScore.swift */; };
 		A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166B290386AE005B1268 /* AddPhotoView.swift */; };
+		A83132222A03BC160087A82C /* RefacotCalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83132212A03BC160087A82C /* RefacotCalenderView.swift */; };
+		A83132242A070B370087A82C /* NewMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83132232A070B370087A82C /* NewMemoView.swift */; };
+		A83132262A0730F80087A82C /* DetailDiaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83132252A0730F80087A82C /* DetailDiaryModel.swift */; };
 		A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8335B68292F7BFA0006899D /* AppleLoginView.swift */; };
 		A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */; };
 		A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */; };
@@ -62,6 +65,9 @@
 		A80B452928FA70A200343BB4 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		A817166529038013005B1268 /* ClimbingScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingScore.swift; sourceTree = "<group>"; };
 		A817166B290386AE005B1268 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
+		A83132212A03BC160087A82C /* RefacotCalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefacotCalenderView.swift; sourceTree = "<group>"; };
+		A83132232A070B370087A82C /* NewMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMemoView.swift; sourceTree = "<group>"; };
+		A83132252A0730F80087A82C /* DetailDiaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDiaryModel.swift; sourceTree = "<group>"; };
 		A8335B68292F7BFA0006899D /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
 		A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewGridItem.swift; sourceTree = "<group>"; };
 		A859A62A28EC3E1500F217F3 /* Ohcle_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ohcle_.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +134,7 @@
 				A817166B290386AE005B1268 /* AddPhotoView.swift */,
 				A8A2C2CD29AF131D005C1B13 /* ClimbingPhotoPicker.swift */,
 				A88BA060290D49C5000F87A8 /* MemoView.swift */,
+				A83132232A070B370087A82C /* NewMemoView.swift */,
 			);
 			path = RecordFlow;
 			sourceTree = "<group>";
@@ -204,11 +211,13 @@
 			children = (
 				A859A63D28EC3E6500F217F3 /* MainView.swift */,
 				A875B24E297EAC3A00704688 /* CalenderView.swift */,
+				A83132212A03BC160087A82C /* RefacotCalenderView.swift */,
 				A80A484229F3AEDE00F3F186 /* DateFilterView.swift */,
 				A80A484429F3B8FC00F3F186 /* CircleDateView.swift */,
 				A80A481A29EBC31B00F3F186 /* CalenderModel.swift */,
 				A875B24B297E779700704688 /* CalenderHolderGridView.swift */,
 				A8AB86BB29E2821700F5410F /* SplashView.swift */,
+				A83132252A0730F80087A82C /* DetailDiaryModel.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -340,6 +349,7 @@
 			files = (
 				A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */,
 				A8C0D69629FE475E00DEB477 /* Refactor_Networking.swift in Sources */,
+				A83132242A070B370087A82C /* NewMemoView.swift in Sources */,
 				A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */,
 				FEB9423D29D5F45300AE3D1F /* OnBoardingView.swift in Sources */,
 				A80A484329F3AEDE00F3F186 /* DateFilterView.swift in Sources */,
@@ -355,6 +365,7 @@
 				A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */,
 				A866B509293CC5C5001E182F /* LoginResultModel.swift in Sources */,
 				A817166629038013005B1268 /* ClimbingScore.swift in Sources */,
+				A83132222A03BC160087A82C /* RefacotCalenderView.swift in Sources */,
 				A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */,
 				A89E181E29A389A900F27045 /* NextButton.swift in Sources */,
 				A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */,
@@ -374,6 +385,7 @@
 				A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */,
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,
+				A83132262A0730F80087A82C /* DetailDiaryModel.swift in Sources */,
 				A86A596828F2A1F100C500E1 /* Calender.swift in Sources */,
 				A8A812EB29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld in Sources */,
 				A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */,
