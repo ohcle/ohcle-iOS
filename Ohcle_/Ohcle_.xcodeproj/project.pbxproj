@@ -35,7 +35,6 @@
 		A86A596828F2A1F100C500E1 /* Calender.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86A596728F2A1F100C500E1 /* Calender.swift */; };
 		A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B249297E5B5A00704688 /* CurrentDate.swift */; };
 		A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B24B297E779700704688 /* CalenderHolderGridView.swift */; };
-		A875B24F297EAC3A00704688 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B24E297EAC3A00704688 /* CalenderView.swift */; };
 		A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */; };
 		A887D60129A20D9800C0A75D /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D60029A20D9800C0A75D /* Networking.swift */; };
 		A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA060290D49C5000F87A8 /* MemoView.swift */; };
@@ -85,7 +84,6 @@
 		A86A596728F2A1F100C500E1 /* Calender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calender.swift; sourceTree = "<group>"; };
 		A875B249297E5B5A00704688 /* CurrentDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDate.swift; sourceTree = "<group>"; };
 		A875B24B297E779700704688 /* CalenderHolderGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CalenderHolderGridView.swift; path = Ohcle_/MainView/CalenderHolderGridView.swift; sourceTree = SOURCE_ROOT; };
-		A875B24E297EAC3A00704688 /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
 		A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenManager.swift; sourceTree = "<group>"; };
 		A887D60029A20D9800C0A75D /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		A88BA060290D49C5000F87A8 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
@@ -213,7 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				A859A63D28EC3E6500F217F3 /* MainView.swift */,
-				A875B24E297EAC3A00704688 /* CalenderView.swift */,
 				A83132212A03BC160087A82C /* RefacotCalenderView.swift */,
 				A80A484229F3AEDE00F3F186 /* DateFilterView.swift */,
 				A80A484429F3B8FC00F3F186 /* CircleDateView.swift */,
@@ -358,7 +355,6 @@
 				A80A484329F3AEDE00F3F186 /* DateFilterView.swift in Sources */,
 				A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */,
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
-				A875B24F297EAC3A00704688 /* CalenderView.swift in Sources */,
 				A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */,
 				A8C0D69429FE459C00DEB477 /* ExternalLinks.swift in Sources */,
 				A8A2C2CE29AF131D005C1B13 /* ClimbingPhotoPicker.swift in Sources */,
