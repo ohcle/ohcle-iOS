@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+class CalenderData {
+    
+}
+
 struct DateFilterView: View {
     @State var currentYear: Int
     @State var monthData: [String] = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
@@ -49,8 +53,8 @@ struct DateFilterView: View {
                         withAnimation {
                             self.isDismissed = true
                             self.selectedMonth = month
-                            self.calenderData.month = selectedMonth
-                            self.calenderData.year = "\(currentYear)"
+//                            self.calenderData.month = selectedMonth
+//                            self.calenderData.year = "\(currentYear)"
                         }
                     }
                 }
@@ -65,12 +69,12 @@ struct DateFilterView: View {
     }
 }
 
-struct DateFilterView_Previews: PreviewProvider {
-    @State static var isSelected = true
-    @State static var isdismissed = true
-    
-    @ObservedObject static var calenderData: CalenderData = CalenderData()
-    static var previews: some View {
-        DateFilterView(currentYear: 2023, isSelected: $isSelected, isDismissed: $isdismissed, calenderData: calenderData)
-    }
-}
+//struct DateFilterView_Previews: PreviewProvider {
+//    @State static var isSelected = true
+//    @State static var isdismissed = true
+//    
+////    @ObservedObject static var calenderData: CalenderData = CalenderData()
+//    static var previews: some View {
+//        DateFilterView(currentYear: 2023, isSelected: $isSelected, isDismissed: $isdismissed, calenderData: calenderData)
+//    }
+//}

@@ -19,7 +19,7 @@ struct Level: View {
         [GridItem(.adaptive(minimum: 60))]
     }
     
-    private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
+    private var nextButton: NextPageButton =  NextPageButton(title: "다음",
                                                              width: UIScreen.screenWidth/1.2,
                                                              height: UIScreen.screenHeight/15)
     var body: some View {
@@ -47,7 +47,7 @@ struct Level: View {
         }
         .onDisappear {
             let levelString = self.selectedColor.climbingLevelName
-            DataController.shared.saveTemporaryLevel(levelString)
+            CalendarDataManger.shared.record.saveTemporaryLevel(levelString)
         }
         .padding(.bottom, UIScreen.screenHeight/8)
         .overlay(

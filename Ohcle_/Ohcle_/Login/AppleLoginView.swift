@@ -18,20 +18,24 @@ struct AppleLoginView: View {
     @AppStorage("isLoggedIn") private var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
     
     var body: some View {
-        SignInWithAppleButton(.continue) { request in
-            request.requestedScopes = [.email, .fullName]
-        } onCompletion: { result in
-            let loginResult = filterAppleLoginResult(result)
-
-            if let userName = loginResult["last_name"] as? String {
-                self.userID = userName
-
+        if #available(iOS 15.0, *) {
+            SignInWithAppleButton(.continue) { request in
+                request.requestedScopes = [.email, .fullName]
+            } onCompletion: { result in
+                let loginResult = filterAppleLoginResult(result)
+                
+                if let userName = loginResult["last_name"] as? String {
+                    self.userID = userName
+                    
+                }
             }
-        }
-        .signInWithAppleButtonStyle(.black)
-
-        .alert("Apple Login Error", isPresented: $isLoginError) {
-            Text("Apple Login Error")
+            .signInWithAppleButtonStyle(.black)
+            
+            .alert("Apple Login Error", isPresented: $isLoginError) {
+                Text("Apple Login Error")
+            }
+        } else {
+            // Fallback on earlier versions
         }
     }
     

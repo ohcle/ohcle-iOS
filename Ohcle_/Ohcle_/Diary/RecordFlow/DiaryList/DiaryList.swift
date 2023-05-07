@@ -52,7 +52,6 @@ struct DiaryList: View {
     private let column = [
         GridItem(.flexible(minimum: 250))
     ]
-
     @ObservedObject var diaryModel = DiaryModel()
     
     @State private var isPresented: Bool = false
@@ -88,6 +87,10 @@ struct DiaryList: View {
                     }
                 }
             }
+        }
+        .task {
+            await CalendarDataManger.shared.getData(year: "2023", month: "03")
+            calenderList = CalendarDataManger.shared.calenderList
         }
     }
 }

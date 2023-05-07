@@ -15,7 +15,7 @@ struct CalenderViewModel: Decodable, Hashable {
     static func ==(lhs: CalenderViewModel, rhs: CalenderViewModel) -> Bool {
         return lhs.id == rhs.id
     }
-    
+
     let id: Int
     let `where`: ClimbingLocation
     let when: String

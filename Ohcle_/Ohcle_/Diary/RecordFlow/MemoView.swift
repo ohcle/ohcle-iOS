@@ -16,12 +16,11 @@ struct MemoView: View {
 
     @Binding var isModal: Bool
     @State private var climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
-    
-    @State private var typedText: String =  DataController.shared.temMemo
-    @State private var color = Color.convert(from: DataController.shared.temLevel)
-    @State private var date = DataController.shared.temDate
-    @State private var score = DataController.shared.temScore
-    @State private var photoData = DataController.shared.temPhoto
+    @State private var typedText: String =  CalendarDataManger.shared.record.temMemo
+    @State private var color = Color.convert(from: CalendarDataManger.shared.record.temLevel)
+    @State private var date = CalendarDataManger.shared.record.temDate
+    @State private var score =  CalendarDataManger.shared.record.temScore
+    @State private var photoData =  CalendarDataManger.shared.record.temPhoto
     
     @State var diary: Diary?
     
@@ -61,39 +60,40 @@ struct MemoView: View {
                 if photoData.isEmpty == false {
                     HStack {
                         Spacer()
-                        Image(uiImage: UIImage(data: DataController.shared.temPhoto) ?? UIImage())
+                        Image(uiImage: UIImage(data: CalendarDataManger.shared.record.temPhoto) ?? UIImage())
                             .resizable()
                             .scaledToFit()
                         Spacer()
                     }
                 }
                 
-                TextEditor(text: $typedText)
-                    .scrollContentBackground(.hidden)
-                    .background(memoBackgroundColor)
-                    .foregroundColor(Color.black)
-                    .lineSpacing(5)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .onChange(of: typedText) { newValue in
-                        self.diary?.memo = typedText
+                ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
+
+                    TextEditor(text: $typedText)
+                        .scrollContentBackground(.hidden)
+                        .background(memoBackgroundColor)
+                        .foregroundColor(Color.black)
+                        .lineSpacing(5)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .onChange(of: typedText) { newValue in
+                            self.diary?.memo = typedText
+                        }
+                    
+                    if typedText.isEmpty {
+                        Text("오늘의 클라이밍은 어땠나요?")
+                            .foregroundColor(.gray)
+                            .lineSpacing(5)
+                            .padding(.top,10)
                     }
+
+                }
+
             }
             
             Spacer()
             HStack {
                 Spacer()
                 MemoButton() {
-//                    if let diary = diary {
-//                        DataController.shared.updateDiary(diary)
-//                    } else {
-//                        DataController.shared.saveTemporaryMemo(typedText)
-////                        DataController.shared.saveDiary(managedObjectContext)
-//                        currentPageType.type = .done
-//                        currentPageType.type = .calender
-//                        self.saveDiaryToServer(DataController.shared.temDate, DataController.shared.temScore, DataController.shared.temLevel, DataController.shared.temPhoto, DataController.shared.temMemo)
-//                        DataController.shared.clearTemDiary()
-//
-//                    }
                 }
 
                 Spacer()
@@ -126,7 +126,13 @@ extension MemoView {
         return levelDict[levelStr] ?? 0
     }
     
-    func saveDiaryToServer(_ date: String, _ score: Int16, _ level: String, _ photo: Data, _ memo: String ) {
+    func saveDiaryToServer() {
+        
+        let date = CalendarDataManger.shared.record.date
+        let score = CalendarDataManger.shared.record.score
+        let level = CalendarDataManger.shared.record.level
+        let photo = CalendarDataManger.shared.record.photo
+        let memo = CalendarDataManger.shared.record.memo
          
         let urlStr = "https://api-gw.todayclimbing.com/" +  "v1/climbing/"
         guard let url = URL(string: urlStr) else {
