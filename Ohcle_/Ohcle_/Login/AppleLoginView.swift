@@ -10,19 +10,26 @@ import _AuthenticationServices_SwiftUI
 
 struct AppleLoginView: View {
     typealias AppleLoginReslutType = [String: Any]
+    
     @EnvironmentObject var loginSetting: LoginSetting
     @State private var isLoginError: Bool = false
+    
+    @AppStorage("userID") private var userID = ""
+    @AppStorage("isLoggedIn") private var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
     
     var body: some View {
         SignInWithAppleButton(.continue) { request in
             request.requestedScopes = [.email, .fullName]
         } onCompletion: { result in
             let loginResult = filterAppleLoginResult(result)
-            Task {
-                let data = try await fetchTokenData(loginResult)
-//                UserTokenManager.shared.save(token: data, account: .apple, service: .login)
+
+            if let userName = loginResult["last_name"] as? String {
+                self.userID = userName
+
             }
         }
+        .signInWithAppleButtonStyle(.black)
+
         .alert("Apple Login Error", isPresented: $isLoginError) {
             Text("Apple Login Error")
         }
@@ -32,23 +39,16 @@ struct AppleLoginView: View {
         let first_name: String?
         let last_name: String?
         let email: String
-        let user_id: Int
         
         var parameter: [String: Any] {
             return ["first_name": first_name ?? "무명의클라이머",
                     "last_name": last_name ?? "",
-                    "email": email,
-                    "user_id": user_id]
+                    "email": email]
         }
     }
     
     private func fetchTokenData(_ appleLoginResult: AppleLoginReslutType) async throws -> Data {
         let tokenURL = getAccessTokenURL(.appleLogin)
-        
-//        let parameters: [String: Any] = ["first_name": "도이",
-//                                         "last_name": "이",
-//                                         "email": "dlehdl7989@gmail.com",
-//                                         "user_id": 12345]
         
         var request = try URLRequest(url: tokenURL, method: .post)
         request.httpBody = try JSONSerialization.data(withJSONObject: appleLoginResult)
@@ -70,20 +70,23 @@ struct AppleLoginView: View {
         switch result {
         case .success(let auth):
             if let credential = auth.credential as? ASAuthorizationAppleIDCredential {
-                let userId = credential.user
+                let user = credential.user
+                                
                 let firstName = credential.fullName?.familyName
                 let lastName = credential.fullName?.givenName
                 
                 let email = credential.email ?? "ohcle@gmail.com"
                 
-                let userInfo = AppleLoginUserInfo(first_name: firstName, last_name: lastName, email: email, user_id: 123)
-                
+                let userInfo = AppleLoginUserInfo(first_name: firstName, last_name: lastName, email: email)
+                print(userInfo.parameter)
+                self.isLoggedIn = true
+
                 return userInfo.parameter
             }
 
-            self.loginSetting.login()
-            
         case .failure(let error):
+            self.isLoggedIn = false
+
             print("Apple Login Error. Error Message : \(error.localizedDescription)")
         }
         

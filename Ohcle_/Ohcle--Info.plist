@@ -4,5 +4,21 @@
 <dict>
 	<key>KAKAO_APP_KEY</key>
 	<string>22f5f9d3ede9cc50d4a9230018dcf376</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakaob61a430c747ede3f63f1f02fba513526</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaokompassauth</string>
+		<string>kakaolink</string>
+	</array>
 </dict>
 </plist>

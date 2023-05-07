@@ -15,6 +15,10 @@
 		A80B452A28FA70A200343BB4 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452928FA70A200343BB4 /* Level.swift */; };
 		A817166629038013005B1268 /* ClimbingScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166529038013005B1268 /* ClimbingScore.swift */; };
 		A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166B290386AE005B1268 /* AddPhotoView.swift */; };
+		A83132222A03BC160087A82C /* RefacotCalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83132212A03BC160087A82C /* RefacotCalenderView.swift */; };
+		A83132242A070B370087A82C /* NewMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83132232A070B370087A82C /* NewMemoView.swift */; };
+		A83132262A0730F80087A82C /* DetailDiaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83132252A0730F80087A82C /* DetailDiaryModel.swift */; };
+		A83132282A075FF20087A82C /* NewAppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83132272A075FF20087A82C /* NewAppleLoginView.swift */; };
 		A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8335B68292F7BFA0006899D /* AppleLoginView.swift */; };
 		A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */; };
 		A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */; };
@@ -31,7 +35,6 @@
 		A86A596828F2A1F100C500E1 /* Calender.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86A596728F2A1F100C500E1 /* Calender.swift */; };
 		A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B249297E5B5A00704688 /* CurrentDate.swift */; };
 		A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B24B297E779700704688 /* CalenderHolderGridView.swift */; };
-		A875B24F297EAC3A00704688 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B24E297EAC3A00704688 /* CalenderView.swift */; };
 		A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */; };
 		A887D60129A20D9800C0A75D /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D60029A20D9800C0A75D /* Networking.swift */; };
 		A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA060290D49C5000F87A8 /* MemoView.swift */; };
@@ -41,7 +44,8 @@
 		A8A812EB29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A8A812E929A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld */; };
 		A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812EC29A73EE900E7C6A2 /* DataController.swift */; };
 		A8AB86BC29E2821700F5410F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AB86BB29E2821700F5410F /* SplashView.swift */; };
-		A8AB86BE29E28F3800F5410F /* UserAlarmSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AB86BD29E28F3800F5410F /* UserAlarmSettingView.swift */; };
+		A8C0D69429FE459C00DEB477 /* ExternalLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C0D69329FE459C00DEB477 /* ExternalLinks.swift */; };
+		A8C0D69629FE475E00DEB477 /* Refactor_Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C0D69529FE475E00DEB477 /* Refactor_Networking.swift */; };
 		A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E3291F6BE40013A74F /* DiaryList.swift */; };
 		A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E7291F74700013A74F /* AddNewDiary.swift */; };
 		A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */; };
@@ -98,6 +102,10 @@
 		A80B452928FA70A200343BB4 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		A817166529038013005B1268 /* ClimbingScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingScore.swift; sourceTree = "<group>"; };
 		A817166B290386AE005B1268 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
+		A83132212A03BC160087A82C /* RefacotCalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefacotCalenderView.swift; sourceTree = "<group>"; };
+		A83132232A070B370087A82C /* NewMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMemoView.swift; sourceTree = "<group>"; };
+		A83132252A0730F80087A82C /* DetailDiaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDiaryModel.swift; sourceTree = "<group>"; };
+		A83132272A075FF20087A82C /* NewAppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAppleLoginView.swift; sourceTree = "<group>"; };
 		A8335B68292F7BFA0006899D /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
 		A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewGridItem.swift; sourceTree = "<group>"; };
 		A859A62A28EC3E1500F217F3 /* Ohcle_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ohcle_.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,7 +121,6 @@
 		A86A596728F2A1F100C500E1 /* Calender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calender.swift; sourceTree = "<group>"; };
 		A875B249297E5B5A00704688 /* CurrentDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDate.swift; sourceTree = "<group>"; };
 		A875B24B297E779700704688 /* CalenderHolderGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CalenderHolderGridView.swift; path = Ohcle_/MainView/CalenderHolderGridView.swift; sourceTree = SOURCE_ROOT; };
-		A875B24E297EAC3A00704688 /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
 		A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenManager.swift; sourceTree = "<group>"; };
 		A887D60029A20D9800C0A75D /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		A88BA060290D49C5000F87A8 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
@@ -123,7 +130,9 @@
 		A8A812EA29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TemporaryDiary.xcdatamodel; sourceTree = "<group>"; };
 		A8A812EC29A73EE900E7C6A2 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		A8AB86BB29E2821700F5410F /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		A8AB86BD29E28F3800F5410F /* UserAlarmSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAlarmSettingView.swift; sourceTree = "<group>"; };
+		A8C0D69229FCFC9500DEB477 /* Ohcle--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Ohcle--Info.plist"; sourceTree = SOURCE_ROOT; };
+		A8C0D69329FE459C00DEB477 /* ExternalLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLinks.swift; sourceTree = "<group>"; };
+		A8C0D69529FE475E00DEB477 /* Refactor_Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Refactor_Networking.swift; sourceTree = "<group>"; };
 		A8CBB2E3291F6BE40013A74F /* DiaryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryList.swift; sourceTree = "<group>"; };
 		A8CBB2E7291F74700013A74F /* AddNewDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDiary.swift; sourceTree = "<group>"; };
 		A8CBB2E9291F74F40013A74F /* DiaryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryHeader.swift; sourceTree = "<group>"; };
@@ -219,6 +228,7 @@
 				A88BA060290D49C5000F87A8 /* MemoView.swift */,
 				FE918FCB29F45B0C00484731 /* KakaoMapViewController.swift */,
 				FE918FCA29F45A6400484731 /* KaKaoMapBridgeHeader.h */,
+				A83132232A070B370087A82C /* NewMemoView.swift */,
 			);
 			path = RecordFlow;
 			sourceTree = "<group>";
@@ -243,7 +253,7 @@
 		A859A62C28EC3E1500F217F3 /* Ohcle_ */ = {
 			isa = PBXGroup;
 			children = (
-				FE918FC929F4522500484731 /* Ohcle--Info.plist */,
+				A8C0D69229FCFC9500DEB477 /* Ohcle--Info.plist */,
 				A80B452328FA50DE00343BB4 /* ReadViewSize.swift */,
 				A859A64B28EC457700F217F3 /* Ohcle_.entitlements */,
 				A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */,
@@ -272,10 +282,12 @@
 			isa = PBXGroup;
 			children = (
 				A887D60029A20D9800C0A75D /* Networking.swift */,
+				A8C0D69529FE475E00DEB477 /* Refactor_Networking.swift */,
 				A859A63F28EC3E7A00F217F3 /* LoginView.swift */,
 				A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */,
-				A8335B68292F7BFA0006899D /* AppleLoginView.swift */,
 				A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */,
+				A8335B68292F7BFA0006899D /* AppleLoginView.swift */,
+				A83132272A075FF20087A82C /* NewAppleLoginView.swift */,
 				A866B508293CC5C5001E182F /* LoginResultModel.swift */,
 				A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */,
 			);
@@ -295,12 +307,13 @@
 			isa = PBXGroup;
 			children = (
 				A859A63D28EC3E6500F217F3 /* MainView.swift */,
-				A875B24E297EAC3A00704688 /* CalenderView.swift */,
+				A83132212A03BC160087A82C /* RefacotCalenderView.swift */,
 				A80A484229F3AEDE00F3F186 /* DateFilterView.swift */,
 				A80A484429F3B8FC00F3F186 /* CircleDateView.swift */,
 				A80A481A29EBC31B00F3F186 /* CalenderModel.swift */,
 				A875B24B297E779700704688 /* CalenderHolderGridView.swift */,
 				A8AB86BB29E2821700F5410F /* SplashView.swift */,
+				A83132252A0730F80087A82C /* DetailDiaryModel.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -348,7 +361,7 @@
 			children = (
 				A8CBB2EE291F89A00013A74F /* MyPageView.swift */,
 				A8CBB2F0291F96570013A74F /* MyPageUserInfoView.swift */,
-				A8AB86BD29E28F3800F5410F /* UserAlarmSettingView.swift */,
+				A8C0D69329FE459C00DEB477 /* ExternalLinks.swift */,
 			);
 			path = UserSetting;
 			sourceTree = "<group>";
@@ -540,13 +553,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */,
+				A8C0D69629FE475E00DEB477 /* Refactor_Networking.swift in Sources */,
+				A83132242A070B370087A82C /* NewMemoView.swift in Sources */,
 				A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */,
 				FEB9423D29D5F45300AE3D1F /* OnBoardingView.swift in Sources */,
 				A80A484329F3AEDE00F3F186 /* DateFilterView.swift in Sources */,
 				A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */,
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
-				A875B24F297EAC3A00704688 /* CalenderView.swift in Sources */,
 				A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */,
+				A8C0D69429FE459C00DEB477 /* ExternalLinks.swift in Sources */,
 				A8A2C2CE29AF131D005C1B13 /* ClimbingPhotoPicker.swift in Sources */,
 				A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */,
 				FED3211529D02C3A00115539 /* ScoreStar.swift in Sources */,
@@ -554,6 +569,7 @@
 				A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */,
 				A866B509293CC5C5001E182F /* LoginResultModel.swift in Sources */,
 				A817166629038013005B1268 /* ClimbingScore.swift in Sources */,
+				A83132222A03BC160087A82C /* RefacotCalenderView.swift in Sources */,
 				A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */,
 				A89E181E29A389A900F27045 /* NextButton.swift in Sources */,
 				A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */,
@@ -565,17 +581,18 @@
 				A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */,
 				A80B452828FA5A8D00343BB4 /* ClimbingLocation.swift in Sources */,
 				A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */,
+				A83132282A075FF20087A82C /* NewAppleLoginView.swift in Sources */,
 				A8AB86BC29E2821700F5410F /* SplashView.swift in Sources */,
 				FE8E947329FD22B3008764DC /* CalendarDataManager.swift in Sources */,
 				A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */,
 				A80B452A28FA70A200343BB4 /* Level.swift in Sources */,
 				A80A484529F3B8FC00F3F186 /* CircleDateView.swift in Sources */,
-				A8AB86BE29E28F3800F5410F /* UserAlarmSettingView.swift in Sources */,
 				A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */,
 				A80A481B29EBC31B00F3F186 /* CalenderModel.swift in Sources */,
 				A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */,
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,
+				A83132262A0730F80087A82C /* DetailDiaryModel.swift in Sources */,
 				A86A596828F2A1F100C500E1 /* Calender.swift in Sources */,
 				A8A812EB29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld in Sources */,
 				A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */,

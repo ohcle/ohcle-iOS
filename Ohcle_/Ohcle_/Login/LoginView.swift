@@ -18,23 +18,17 @@ enum GreetingTextOptions: String {
 struct LoginView: View {
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
     @State private var appleLoginViewSize: CGSize = CGSize()
-        
-    @FetchRequest(sortDescriptors: []) var diary: FetchedResults<Diary>
-    @Environment(\.managedObjectContext) var moc
 
     private let mainLogoTitle: String
     private let url: URL
     private let defualtURL: String = "http://www.google.com"
-    private let usePolicy = "[서비스 이용약관](https://www.google.com)"
-    private let privatePolicy = "[서비스 이용약관](https://www.google.com)"
+    private let usePolicy = "[서비스 이용약관](\(ExternalOhcleLinks.serviceInfomation)"
+    private let privatePolicy = "[개인정보 정책](\(ExternalOhcleLinks.personalInfoPolicy)"
     
     init(mainLogoTitle: String, receptionURL: URL?) {
         self.mainLogoTitle = mainLogoTitle
-        if let url = receptionURL {
-            self.url = url
-        } else {
-            self.url = URL(string: defualtURL)!
-        }
+        let url = URL(string: ExternalOhcleLinks.customerSurport)!
+        self.url = url
     }
         
     var body: some View {
@@ -45,12 +39,11 @@ struct LoginView: View {
                 createMainLogo()
                 showMainGreetings()
                     .multilineTextAlignment(.center)
+                
                 KakaoLoginView()
                     .padding(.bottom, 11)
 
-                AppleLoginView()
-                    .aspectRatio(CGSize(width: 7, height: 1.2),
-                                 contentMode: .fit)
+                NewAppleLoginView()
                     .padding(.bottom, 32)
                 
                 Link("문의하기", destination: url)
@@ -71,7 +64,8 @@ struct LoginView: View {
                     .font(.caption)
                     .multilineTextAlignment(.center)
                 
-            }.padding(.horizontal, 35)
+            }
+            .padding(.horizontal, 35)
         }
     }
     

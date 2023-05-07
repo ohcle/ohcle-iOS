@@ -42,11 +42,15 @@ struct ClimbingLocation: View {
             
             
             ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.gray, lineWidth: 2)
-                    .background(.white)
-                    .frame(width: commonSize.width,
-                           height: commonSize.height * 1.5)
+                if #available(iOS 15.0, *) {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray, lineWidth: 2)
+                        .background(.white)
+                        .frame(width: commonSize.width,
+                               height: commonSize.height * 1.5)
+                } else {
+                    // Fallback on earlier versions
+                }
                 HStack {
                     Image("locationSearchBarIcon")
                     NavigationLink {
@@ -143,8 +147,6 @@ struct KakaoMapView: UIViewControllerRepresentable {
 
 
 struct ClimbingLocation_Preview: PreviewProvider {
-    @State static var path = NavigationPath()
-    
     static var previews: some View {
         ClimbingLocation()
     }

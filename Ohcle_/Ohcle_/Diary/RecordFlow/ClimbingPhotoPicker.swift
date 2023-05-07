@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 
+@available(iOS 16.0, *)
 class ClimbingImagePicker: ObservableObject {
     @Published var image: Image?
     @Published var imageSelection: PhotosPickerItem? {

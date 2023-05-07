@@ -25,78 +25,100 @@ struct OnBoardingView: View {
     ]
     
     let bottomImages:[Image] = [
-         Image("OnBoarding01")
+        Image("OnBoarding01")
         ,Image("OnBoarding02")
         ,Image("OnBoarding03")
         ,Image("OnBoarding04")
     ]
     
+    private func moveNextView() {
+        if curPage + 1 < pageCount {
+            curPage = (curPage + 1) % pageCount
+        }
+    }
+    
+    private func movePreviousView() {
+        if curPage == .zero {
+            return
+        } else {
+            curPage = (curPage - 1)
+        }
+    }
+    
     var body: some View {
         ZStack {
             Color.white
                 .edgesIgnoringSafeArea(.all)
-                .onTapGesture {
-                    if curPage + 1 < pageCount {
-                        curPage = (curPage + 1) % pageCount
-                    }
-                }
             
             VStack {
-                    upperViews[curPage]
-                    HStack {
-                        ForEach(0..<4) { index in
-                            Circle()
-                                .fill(curPage == index ? .orange : .gray)
-                                .frame(width: 10, height: 10)
-                                .animation(.spring().delay(Double(abs(curPage - index)) * 0.1), value: true)
-                            
-                        }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 38)
-                    .padding(.bottom, 90)
-                    .padding(.top, 20)
-                    
-
-                    VStack {
-                        bottomImages[curPage]
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
+                upperViews[curPage]
+                HStack {
+                    ForEach(0..<4) { index in
+                        Circle()
+                            .fill(curPage == index ? .orange : .gray)
+                            .frame(width: 10, height: 10)
+                            .animation(.spring().delay(Double(abs(curPage - index)) * 0.1), value: true)
                         
-                        if curPage+1 == pageCount {
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 38)
+                .padding(.bottom, 90)
+                .padding(.top, 20)
+                
+                VStack {
+                    bottomImages[curPage]
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    
+                    if curPage + 1 == pageCount {
+                        Button(action: {
+                            self.completeProcess()
+                        }, label: {
+                            Text("기록시작하기")
+                                .fontWeight(.bold)
+                                .font(.title3)
+                                .frame(width: 320, height: 70)
+                                .background(Color("editButton"))
+                                .foregroundColor(.white)
+                                .cornerRadius(5)
+                        })
+                        .padding(.top, 80)
+                        .padding(.bottom, 40)
+                    }
+                }
+                .frame(height: UIScreen.main.bounds.size.height / 2, alignment: .bottom)
+            }
+            .frame(maxWidth:.infinity, maxHeight:.infinity, alignment: .bottom)
+            .padding(.top, 50)
 
-                            Button(action: {
-                                self.completeProcess()
-                            }, label: {
-                                Text("기록시작하기")
-                                    .fontWeight(.bold)
-                                    .font(.title3)
-                                    .frame(width: 320, height: 70)
-                                    .background(Color("editButton"))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(5)
-                                
-                            })
-                            .padding(.top, 80)
-                            .padding(.bottom, 40)
+            .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
+                .onEnded { value in
+                    print(value.translation)
+                    switch(value.translation.width, value.translation.height) {
+                        case (...0, -50...50):
+                        print("left swipe")
+                        withAnimation {
+                            moveNextView()
                         }
-                    }
-                    .frame(height: UIScreen.main.bounds.size.height / 2, alignment: .bottom)
-                    
-                    
-                }
-                .frame(maxWidth:.infinity, maxHeight:.infinity, alignment: .bottom)
-                .padding(.top, 50)
-                .onTapGesture {
-                    if curPage + 1 < pageCount {
-                        curPage = (curPage + 1) % pageCount
-                    }
-                }
-        }
 
+                        case (0..., -50...50):
+                        print("right swipe")
+                        withAnimation {
+                            movePreviousView()
+                        }
+
+                        case (-100...100, ...0):
+                        print("up swipe")
+                        
+                        case (-100...100, 0...):
+                        print("down swipe")
+                        default:  print("no clue")
+                    }
+                }
+            )
+        }
     }
-    
-    
 }
 
 
@@ -167,7 +189,6 @@ struct UpperView02: View {
             .padding(.leading, 38)
     }
 }
-
 
 struct UpperView03: View {
     @Environment(\.bigFont) var bigFont: Font

@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct MyPageSetting: Identifiable {
-    
     enum PageType: String {
         case userInfo
         case userAlarm
-        case serviceNotification = "https://www.google.com"
-        case personalInfo = "https://www.google.com1"
-        case servicePolicy = "https://www.google.com2"
-        case customerService = "https://www.google.com3"
+        case serviceNotification
+        case personalInfo
+        case servicePolicy
+        case customerService
     }
     
     let id: UUID = UUID()
@@ -44,7 +43,7 @@ struct MyPageRowLinkView: View {
             if let url = URL(string: settingList.type.rawValue) {
                 Link(settingList.title, destination: url)
                     .foregroundColor(.black)
-                    
+                
             } else {
                 Text(settingList.title)
             }
@@ -53,9 +52,10 @@ struct MyPageRowLinkView: View {
 }
 
 struct MyPageView: View {
-    //서비스 공지링크 : https://stirring-heart-712.notion.site/50fa7a8de5a54b47b007786c3a1a0c8c
+    @State private var userName: String = ""
+    @State private var userImage: Image = Image("mypage-profile-placeholder")
+    
     private let myPageSettingList: [MyPageSetting] = [
-        MyPageSetting(type: .userInfo, title: "계정\n annamong@gmail.com", iconImageString: "mypage-profile-placeholder"),
         MyPageSetting(type: .userAlarm, title: "알림",
                       iconImageString: "mypage-alarm"),
         MyPageSetting(type: .serviceNotification, title: "서비스 공지",
@@ -65,27 +65,84 @@ struct MyPageView: View {
         MyPageSetting(type: .servicePolicy, title: "서비스이용", iconImageString: "mypage-use-service"),
         MyPageSetting(type: .customerService, title: "문의", iconImageString: "mypage-question")
     ]
-    
+     
     var body: some View {
         NavigationStack {
             List {
                 NavigationLink {
-                    MyPageUserInfoView()
+                    MyPageUserInfoView(thumbnailImage: $userImage, userName: $userName)
+                    
                 } label: {
-                    MyPageViewRow(settingList: myPageSettingList[0])
+                    HStack {
+                        userImage
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                        Text("계정\n\(userName)")
+                    }
                 }
                 
-                NavigationLink {
-                    UserAlarmSettingView()
-                } label: {
-                    MyPageViewRow(settingList: myPageSettingList[1])
-                }
-                
+                MyPageRowLinkView(settingList: myPageSettingList[1])
+                    .onTapGesture {
+                        openURL(ExternalOhcleLinks.serviceInfomation)
+                    }
                 MyPageRowLinkView(settingList: myPageSettingList[2])
+                    .onTapGesture {
+                        openURL(ExternalOhcleLinks.personalInfoPolicy)
+                    }
+                
                 MyPageRowLinkView(settingList: myPageSettingList[3])
+                    .onTapGesture {
+                        openURL(ExternalOhcleLinks.userServiceManual)
+                    }
+                
                 MyPageRowLinkView(settingList: myPageSettingList[4])
-                MyPageRowLinkView(settingList: myPageSettingList[5])
+                    .onTapGesture {
+                        openURL(ExternalOhcleLinks.customerSurport)
+                    }
             }
+        }
+        .task {
+            
+            let userDefaultsName = UserDefaults.standard.object(forKey: "userID")
+            if let nickName = userDefaultsName as? String {
+                self.userName = nickName
+                
+            } else {
+                self.userName = "ohcle"
+            }
+            
+            let userDefaults = UserDefaults.standard.object(forKey: "userImage")
+            if let userImageString = userDefaults as? String,
+               let url = URL(string: userImageString) {
+                do {
+                    guard let request = try? URLRequest(url: url, method: .get) else {
+                        self.userImage = Image("")
+                        
+                        return
+                    }
+                    
+                    URLSession.shared.dataTask(with: request) { data, response, error in
+                        let uiImage = UIImage(data: data ?? Data())
+                        let image = Image(uiImage: uiImage ?? UIImage())
+                        self.userImage = image
+                    }
+                    .resume()
+                    
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    private func openURL(_ urlString: String) {
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
 }
@@ -96,3 +153,4 @@ struct MyPageView_Previews: PreviewProvider {
         MyPageView()
     }
 }
+
