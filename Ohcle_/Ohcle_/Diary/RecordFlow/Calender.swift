@@ -50,7 +50,7 @@ struct Calender: View {
         }
         .onDisappear {
             let dateString = OhcleDate().diaryDateFormatter.string(from: self.date)
-            DataController.shared.saveTemporaryDate(dateString)
+            CalendarDataManger.shared.record.saveTemporaryDate(dateString)
         }
         .onAppear {
             self.nextButton.userEvent.inform()

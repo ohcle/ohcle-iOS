@@ -49,6 +49,15 @@ struct NextPageButton: View {
         }
     }
     
+    func activateNextButton() {
+        self.userEvent.isUserEventHappend = true
+    }
+    
+    func deactivateNextButton() {
+        self.userEvent.isUserEventHappend = false
+    }
+    
+    
     private func changePageType() {
         switch self.currentPageType.type {
         case .calender:

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CalenderViewModel: Decodable {
+struct CalenderViewModel: Decodable, Identifiable {
     let id: Int
     let `where`: ClimbingLocation
     let when: String

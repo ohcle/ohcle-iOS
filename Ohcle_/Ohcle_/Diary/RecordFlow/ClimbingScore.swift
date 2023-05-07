@@ -29,7 +29,7 @@ struct ClimbingScore: View {
             }
 
             .onDisappear {
-                DataController.shared.saveTemporaryScore(Int16(self.finalScore))
+                CalendarDataManger.shared.record.saveTemporaryScore(Int16(self.finalScore))
             }
         }
         .padding(.bottom, UIScreen.screenHeight/8)

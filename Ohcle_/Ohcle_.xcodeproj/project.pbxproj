@@ -48,6 +48,7 @@
 		A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2EE291F89A00013A74F /* MyPageView.swift */; };
 		A8CBB2F1291F96570013A74F /* MyPageUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F0291F96570013A74F /* MyPageUserInfoView.swift */; };
 		A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F2291F973E0013A74F /* MemoButton.swift */; };
+		FE8E947329FD22B3008764DC /* CalendarDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8E947229FD22B3008764DC /* CalendarDataManager.swift */; };
 		FE918F9E29F451A600484731 /* map_pinup_custom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE918F7929F451A600484731 /* map_pinup_custom@3x.png */; };
 		FE918F9F29F451A600484731 /* map_pin_custom.png in Resources */ = {isa = PBXBuildFile; fileRef = FE918F7A29F451A600484731 /* map_pin_custom.png */; };
 		FE918FA029F451A600484731 /* shadow_balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = FE918F7B29F451A600484731 /* shadow_balloon.png */; };
@@ -129,6 +130,7 @@
 		A8CBB2EE291F89A00013A74F /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		A8CBB2F0291F96570013A74F /* MyPageUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUserInfoView.swift; sourceTree = "<group>"; };
 		A8CBB2F2291F973E0013A74F /* MemoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoButton.swift; sourceTree = "<group>"; };
+		FE8E947229FD22B3008764DC /* CalendarDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDataManager.swift; sourceTree = "<group>"; };
 		FE918F7929F451A600484731 /* map_pinup_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup_custom@3x.png"; sourceTree = "<group>"; };
 		FE918F7A29F451A600484731 /* map_pin_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_custom.png; sourceTree = "<group>"; };
 		FE918F7B29F451A600484731 /* shadow_balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow_balloon.png; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 				A80A481A29EBC31B00F3F186 /* CalenderModel.swift */,
 				A875B24B297E779700704688 /* CalenderHolderGridView.swift */,
 				A8AB86BB29E2821700F5410F /* SplashView.swift */,
+				FE8E947229FD22B3008764DC /* CalendarDataManager.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				A80B452828FA5A8D00343BB4 /* ClimbingLocation.swift in Sources */,
 				A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */,
 				A8AB86BC29E2821700F5410F /* SplashView.swift in Sources */,
+				FE8E947329FD22B3008764DC /* CalendarDataManager.swift in Sources */,
 				A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */,
 				A80B452A28FA70A200343BB4 /* Level.swift in Sources */,
 				A80A484529F3B8FC00F3F186 /* CircleDateView.swift in Sources */,

@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct AddPhotoView: View {
-    @ObservedObject var picker = ClimbingImagePicker()
+//    @ObservedObject var picker = ClimbingImagePicker()
     
     private let titleImageHeighRatio = CGFloat(7)
     private let titleImageWidthRatio = CGFloat(0.8)
@@ -18,9 +18,9 @@ struct AddPhotoView: View {
     private var nextButton: NextPageButton =  NextPageButton(title: "다음",
                                                              width: UIScreen.screenWidth/1.2,
                                                              height: UIScreen.screenHeight/15)
-    
     @State private var isShowingGalleryPicker = false
     @State private var selectedImage: UIImage?
+    @State private var showAlert = false
     
     
     var body: some View {
@@ -35,34 +35,52 @@ struct AddPhotoView: View {
             .font(.title)
             .padding(.bottom, 20)
             
-            
-            if let image = selectedImage {
-                ZStack (alignment: Alignment(horizontal: .trailing, vertical: .top)) {
-                    
-                    Image(uiImage: selectedImage ?? UIImage())
-                        .resizable()
-                        .scaledToFit()
-                        .padding(.all, 10)
-                    
-                    Button {
-                        selectedImage = nil
-                        DataController.shared.clearTemporaryPhotoData()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .foregroundColor(.black)
-                            .padding(.all, 10)
-                        
-                    }
-                }
-                .frame(maxHeight: UIScreen.screenHeight/2)
-            } else {
+
+            HStack {
                 
                 Image("add-climbing-photo2")
-                    .padding(.top, 10)
+//                    .padding(.top, 10)
                     .onTapGesture {
-                        isShowingGalleryPicker = true
+                        if selectedImage == nil {
+                            isShowingGalleryPicker = true
+                        } else {
+                            showAlert = true
+                        }
+                        
                     }
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text(""), message: Text("최대 이미지는 1개까지 업로드 가능합니다."), dismissButton: .default(Text("확인")))
+                    }
+                
+                if selectedImage != nil {
+                    ZStack (alignment: Alignment(horizontal: .trailing, vertical: .top)) {
+                        
+                        Image(uiImage: selectedImage ?? UIImage())
+                            .resizable()
+//                            .scaledToFit()
+//                            .aspectRatio(contentMode: .fill)
+//                            .padding(.all, 10)
+                            .frame(width: 64, height: 64)
+
+                        Button {
+                            selectedImage = nil
+                            CalendarDataManger.shared.record.clearTemporaryPhotoData()
+                        } label: {
+                            Image(systemName: "xmark")
+                                .foregroundColor(.white)
+                                .padding(.all, 10)
+                                .background(.gray)
+                                .frame(width: 24, height: 24)
+                                .cornerRadius(12)
+                            
+                            
+                        }
+                    }
+//                        .frame(maxHeight: UIScreen.screenHeight/2)
+                }
+
             }
+            
             
             if isShowingGalleryPicker {
                 GalleryPickerView(isPresented: $isShowingGalleryPicker, selectedImage: $selectedImage)
@@ -79,10 +97,19 @@ struct AddPhotoView: View {
                         .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
                 }
             }
-            
-            
         )
+        .onChange(of: selectedImage) { _ in
+            
+            if selectedImage == nil {
+                self.nextButton.deactivateNextButton()
+            } else {
+                self.nextButton.activateNextButton()
+            }
+            
+            
+        }
     }
+        
 }
 
 struct AddPhotoView_Previews: PreviewProvider {
@@ -135,7 +162,7 @@ struct GalleryPickerView: UIViewControllerRepresentable {
                     imgData = image.jpegData(compressionQuality: 0.5) ?? Data()
                 }
                 print("\( imgData.count / (1024*1024)) MB")
-                DataController.shared.saveTemporaryPhotoData(imgData)
+                CalendarDataManger.shared.record.saveTemporaryPhotoData(imgData)
             }
             parent.isPresented = false
         }

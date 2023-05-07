@@ -47,7 +47,7 @@ struct Level: View {
         }
         .onDisappear {
             let levelString = self.selectedColor.climbingLevelName
-            DataController.shared.saveTemporaryLevel(levelString)
+            CalendarDataManger.shared.record.saveTemporaryLevel(levelString)
         }
         .padding(.bottom, UIScreen.screenHeight/8)
         .overlay(
