@@ -285,7 +285,7 @@
 		A86A596628F2A1BE00C500E1 /* Diary */ = {
 			isa = PBXGroup;
 			children = (
-				A8A2C2CC29AEECF1005C1B13 /* DataManage */,
+				A8A2C2CC29AEECF1005C1B13 /* DataManager */,
 				A80B452B28FA7CAB00343BB4 /* RecordFlow */,
 			);
 			path = Diary;
@@ -301,7 +301,6 @@
 				A80A481A29EBC31B00F3F186 /* CalenderModel.swift */,
 				A875B24B297E779700704688 /* CalenderHolderGridView.swift */,
 				A8AB86BB29E2821700F5410F /* SplashView.swift */,
-				FE8E947229FD22B3008764DC /* CalendarDataManager.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -335,12 +334,13 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		A8A2C2CC29AEECF1005C1B13 /* DataManage */ = {
+		A8A2C2CC29AEECF1005C1B13 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
+				FE8E947229FD22B3008764DC /* CalendarDataManager.swift */,
 				A8A812EC29A73EE900E7C6A2 /* DataController.swift */,
 			);
-			path = DataManage;
+			path = DataManager;
 			sourceTree = "<group>";
 		};
 		A8CBB2EB291F80360013A74F /* UserSetting */ = {

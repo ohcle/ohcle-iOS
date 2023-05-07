@@ -15,7 +15,7 @@ struct DiaryHeader: View {
                 Text(OhcleDate.currentDate)
                     .font(.title)
                     .padding(.bottom, 10)
-                Image(systemName: "arrow")
+                Image(systemName: "chevron.down")
             }
             Divider()
                 .frame(minHeight: 1)

@@ -26,23 +26,28 @@ struct DiaryList: View {
         GridItem(.flexible(minimum: 250))
     ]
     
-//    @ObservedObject var diaryModel = DiaryModel()
     
     @State private var isPresented: Bool = false
     @State private var isEdited: Bool = true
     @State var selectedDiaryIndex: Int = .zero
     
-    //FIXME:변수명수정
-    @State var tempData: [CalenderViewModel] = []
+    @State var calenderList: [CalenderViewModel] = []
+    
+    @State var date: Date = Date()
+    @State var showDatePicker = false
     
     
     
     var body: some View {
         VStack(spacing: listSpacing) {
             DiaryHeader()
-            ZStack {
-                
-                if tempData.count == 0 {
+                .onTapGesture {
+                    showDatePicker = true
+                }
+
+            
+            ZStack (alignment: .top){
+                if calenderList.count == 0 {
                     // DefaultImageView
                     VStack {
                         Image("DiaryListDefault")
@@ -58,12 +63,7 @@ struct DiaryList: View {
                                   alignment: .leading,
                                   spacing: listSpacing) {
                             
-//                            ForEach(diaryModel.recoredMemos) { recoredMemo in
-//                                
-//                                DiaryListViewGridItem(date: recoredMemo.date, location: " ", levelColorName: recoredMemo.level ?? "gray", score: recoredMemo.score, memoImageData: recoredMemo.imageData)
-//                            }
-                            
-                            ForEach(tempData) { calenderViewModel in
+                            ForEach(calenderList) { calenderViewModel in
                                 DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where.name, levelColorName: "gray" , score: Int16(calenderViewModel.score), memoImageData: Data())
                             }
                             
@@ -72,11 +72,21 @@ struct DiaryList: View {
                     }
                 }
                 
+                
+                if showDatePicker {
+                    DatePicker(
+                            "",
+                            selection:$date,
+                            displayedComponents: [.date])
+                        .datePickerStyle(GraphicalDatePickerStyle())
+                        .background(.white)
+                }
+                
             }
         }
         .task {
             await CalendarDataManger.shared.getData(year: "2023", month: "03")
-            tempData = CalendarDataManger.shared.calenderList
+            calenderList = CalendarDataManger.shared.calenderList
         }
     }
 }
