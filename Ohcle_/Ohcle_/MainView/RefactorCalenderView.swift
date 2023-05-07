@@ -6,6 +6,101 @@
 //
 
 import SwiftUI
+import Combine
+
+typealias DividedMonthDataType = [Int: [Int: CalenderViewModel]]
+
+class CalenderData: ObservableObject {
+    @Published var year: String = "2023"
+    @Published var month: String = "04"
+    @Published var isClimbingMemoAdded: Bool = false
+    @Published var data: DividedMonthDataType = [:]
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
+    init() {
+        $year.combineLatest($month)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] year, month in
+                self?.fetchCalenderData()
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func fetchCalenderData() {
+        guard let url = URL(string: OhcleURLs.generateMonthRecordURLString(year: self.year, month: self.month)) else {
+            return
+        }
+        
+        do {
+            let request = try URLRequest(url: url, method: .get)
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                
+                if let response = response as? HTTPURLResponse,
+                   response.statusCode != 200 {
+                    print(response.statusCode)
+                }
+                
+                if let data = data {
+                    do {
+                        let decoded = try JSONDecoder().decode([CalenderViewModel].self, from: data)
+                        let divided = self.divideWeekData(decoded)
+                        
+                        DispatchQueue.main.async {
+                            self.data = divided
+                        }
+                    } catch {
+                        print(error)
+                    }
+                    
+                }
+            }.resume()
+            
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func getDayOfWeek(dateString: String) -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier: "kr")
+        let date = dateFormatter.date(from: dateString) ?? Date()
+        
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.weekday], from: date)
+        guard let weekday = components.weekday else {
+            return .zero
+        }
+        
+        return weekday
+    }
+    
+    private func divideWeekData(_ data: [CalenderViewModel]) -> DividedMonthDataType {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier:
+                                        "kr")
+        let calendar = Calendar(identifier: .gregorian)
+        var dividedData: DividedMonthDataType = [1: [:], 2: [:], 3: [:], 4: [:], 5: [:]]
+        
+        print(data)
+        data.map { data in
+            let dateString = data.when
+            let date = dateFormatter.date(from: dateString) ?? Date()
+            
+            let weekOfMonth = calendar.component(.weekOfMonth, from: date)
+            let dayOfWeek = getDayOfWeek(dateString: dateString)
+            
+            print(weekOfMonth, dayOfWeek, dateString)
+
+            dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
+        }
+        
+        print(dividedData)
+        return dividedData
+    }
+}
 
 struct RefacotCalenderView: View {
     @State private var isSelected: Bool = false
@@ -51,6 +146,8 @@ struct RefacotCalenderView: View {
 struct MemoContainer {
     
 }
+
+
 
 struct CalenderHolderView: View {
     @ObservedObject var calenderData: CalenderData
@@ -137,6 +234,22 @@ struct CalenderMiddleView<Content>: View {
                     .foregroundColor(.black)
             }
         }
+    }
+}
+
+
+struct UpperBar: View {
+    var body: some View {
+        HStack {
+            Button {
+                
+            } label: {
+                Image("MainRefresh")
+            }
+            
+            Spacer()
+        }
+        .padding(.horizontal)
     }
 }
 

@@ -120,13 +120,13 @@ struct KakaoLoginView: View {
         let url = getAccessTokenURL(.kakaoLogin)
         var request = try URLRequest(url: url, method: .post)
         
-        request.setValue("232586", forHTTPHeaderField: "id")
-        request.setValue("Joy", forHTTPHeaderField: "nickname")
-        request.setValue("", forHTTPHeaderField: "gender")
-        
+//        request.setValue("232586", forHTTPHeaderField: "id")
+//        request.setValue("Joy", forHTTPHeaderField: "nickname")
+//        request.setValue("", forHTTPHeaderField: "gender")
+//
         let para = ["id": "232586", "nickname": "Joy", "gender": ""]
-        
-        let httpBody = try JSONSerialization.data(withJSONObject: para) ??  Data()
+
+        let httpBody = try JSONSerialization.data(withJSONObject: para)
         
         let (data, response) = try await URLSession.shared.data(for: request)
         
