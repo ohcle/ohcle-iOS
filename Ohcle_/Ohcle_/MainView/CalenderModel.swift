@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct CalenderViewModel: Decodable, Hashable {
+struct CalenderViewModel: Decodable, Identifiable,Hashable {
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -15,7 +16,7 @@ struct CalenderViewModel: Decodable, Hashable {
     static func ==(lhs: CalenderViewModel, rhs: CalenderViewModel) -> Bool {
         return lhs.id == rhs.id
     }
-
+    
     let id: Int
     let `where`: ClimbingLocation
     let when: String
@@ -23,12 +24,12 @@ struct CalenderViewModel: Decodable, Hashable {
     let score: Float
     
     enum CodingKeys: String, CodingKey {
-        case id
-        case `where`
-        case when
-        case level
-        case score
-    }
+          case id
+          case `where` // Use backticks to escape the reserved keyword "where"
+          case when
+          case level
+          case score
+      }
     
     struct ClimbingLocation: Decodable {
         let name: String

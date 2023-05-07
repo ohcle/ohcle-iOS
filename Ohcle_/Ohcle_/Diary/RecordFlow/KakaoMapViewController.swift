@@ -8,163 +8,108 @@
 import UIKit
 import CoreLocation
 
-class KakaoMapViewController: UIViewController {
-    private var mapView: MTMapView!
-    private let mapViewDeleate: MTMapViewDelegate = MapViewDelegate()
+@objc protocol KakaoMapViewDelegate {
+    @objc optional func movedCenterPoint(_ mapView: MTMapView, mapCenterPoint: MTMapPoint)
+    @objc optional func tapMapView(_ mapView: MTMapView, mapPoint: MTMapPoint)
+    @objc optional func foundAddress(_ rGeoCoder: MTMapReverseGeoCoder, addressString: String)
     
-    private var searchResultMapData: KakaoMapRestAPIModel?
-    private var searchBarDelegate =  MapViewSearchBarDelegate()
-    private let serachController = UISearchController()
-    private(set) var searchedResult = ""
-    
-    private let locationManger = CLLocationManager()
-    private(set) var currentLocation = CLLocationCoordinate2D(latitude: 33.41,
-                                                              longitude: 126.52)
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setMapView()
-        setSearchBar()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        setLocationManage()
-    }
 }
 
-extension KakaoMapViewController {
-    private func setMapView() {
-        self.mapView = MTMapView(frame: self.view.frame)
-        self.mapView.delegate = self.mapViewDeleate
-        self.mapView.baseMapType = .standard
+class KakaoMapViewController: UIViewController, MTMapViewDelegate, MTMapReverseGeoCoderDelegate {
+
+    
+
+    var mapView: MTMapView?
+    var geocoder: MTMapReverseGeoCoder?
+    var delegate: KakaoMapViewDelegate?
+
+    var latitude : Double = 37.576568
+    var longitude : Double = 127.029148
+
+    override func loadView() {
+        let myView = UIView()
+        myView.frame = UIScreen.main.bounds
+        self.view = myView
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // 지도 불러오기
+        mapView = MTMapView(frame: self.view.frame)
+
+        guard let mapView = mapView else { return }
+        // 델리게이트 연결
+        mapView.delegate = self
+        // 지도의 타입 설정 - hybrid: 하이브리드, satellite: 위성지도, standard: 기본지도
+        mapView.baseMapType = .standard
+        
+        // 현재 위치 트래킹
+        mapView.currentLocationTrackingMode = .onWithoutHeading
+        mapView.showCurrentLocationMarker = true
+        
+        let mapPointGeo = MTMapPointGeo(latitude:  37.456518177069526, longitude: 126.70531256589555)
+
+        // 지도의 센터를 설정 (x와 y 좌표, 줌 레벨 등을 설정)
+        mapView.setMapCenter(MTMapPoint(geoCoord: mapPointGeo), zoomLevel: 0, animated: true)
+        
+        // 현재 주소지 가져오기
+        geocoder = MTMapReverseGeoCoder.init(mapPoint: MTMapPoint(geoCoord: mapPointGeo), with: self, withOpenAPIKey: "22f5f9d3ede9cc50d4a9230018dcf376")
+        geocoder?.startFindingAddress()
+        
+        
+        self.makeMarker()
+        
         self.view.addSubview(mapView)
     }
     
-    private func setSearchBar() {
-        self.navigationItem.title = "클라이밍"
-        self.navigationItem.searchController = self.serachController
-        self.serachController.searchBar.delegate = self.searchBarDelegate
-        self.serachController.searchResultsUpdater = self
-        self.serachController.searchBar.barTintColor = .blue
-        self.navigationItem.searchController = self.serachController
+    // poiItem 클릭 이벤트
+    func mapView(_ mapView: MTMapView!, touchedCalloutBalloonOf poiItem: MTMapPOIItem!) {
+        // 인덱스는 poiItem의 태그로 접근
+        let index = poiItem.tag
     }
     
-    private func setLocationManage() {
-        self.locationManger.delegate = self
-        self.locationManger.requestWhenInUseAuthorization()
-    }
-    
-    private func showMarkers() {
-        self.mapView.removeAllPOIItems()
-        var marker: [MTMapPOIItem] = []
-        self.searchResultMapData?.documents.map { data in
-            let poiItem = MTMapPOIItem()
-            poiItem.itemName = data.placeName
-            let doubleLatitude = Double(data.y) ?? 33.41
-            let doubleLongitude = Double(data.x) ?? 126.52
-            let mapPointGeo = MTMapPointGeo(latitude: doubleLatitude, longitude: doubleLongitude)
-            poiItem.mapPoint = MTMapPoint(geoCoord: mapPointGeo)
-            poiItem.markerType = .yellowPin
-            poiItem.showAnimationType = .dropFromHeaven
-            marker.append(poiItem)
+    override func viewWillDisappear(_ animated: Bool) {
+        // mapView의 모든 poiItem 제거
+        for item in mapView!.poiItems {
+            mapView!.remove(item as! MTMapPOIItem)
         }
-        
-        self.mapView.addPOIItems(marker)
-        self.mapView.fitAreaToShowAllPOIItems()
     }
+    
+    // 마커 추가
+    func makeMarker(){
+        let mapPoint = MTMapPoint(geoCoord: MTMapPointGeo(latitude: 37.456518177069526, longitude: 126.70531256589555))
+        
+        let poiItem1 = MTMapPOIItem()
+        poiItem1.markerType = .redPin
+        poiItem1.mapPoint = mapPoint
+        poiItem1.itemName = "클라이밍장"
+        
+        if let mapView = mapView {
+            mapView.add(poiItem1)
+        }
+    }
+
 }
 
-//MARK:- Keyword Search
-extension KakaoMapViewController: UISearchResultsUpdating {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.search()
-    }
-    
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else {
-            return
-        }
-        self.searchedResult = text
-    }
-    
-    private func search() {
-        let authorizationKey = "ea9fd242a4916abaf72fb19ac00ad011"
-        let x = currentLocation.latitude
-        let y = currentLocation.longitude
-        let radius = 20000
-        
-        guard let url = URL( "https://dapi.kakao.com/v2/local/search/keyword.json?query={\(self.searchedResult)}&y=\(x)&x=\(y)&radius=\(radius)") else {
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.allHTTPHeaderFields = ["Authorization" :
-                                        "KakaoAK \(authorizationKey)"]
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let resultData = data else {
-                return
-            }
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            do {
-                let decodedData = try decoder.decode(KakaoMapRestAPIModel.self, from: resultData)
-                self.searchResultMapData = decodedData
-                
-                DispatchQueue.main.async {
-                    self.showMarkers()
-                }
-            } catch {
-                print(error)
-            }
-        }.resume()
-    }
-}
-
-//MARK:- Location authorization use cases
-extension KakaoMapViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager,
-                         didUpdateLocations locations: [CLLocation]) {
-        
-        guard let latitude = locations.last?.coordinate.latitude,
-              let longitude = locations.last?.coordinate.longitude else {
-            return
-        }
-        
-        self.currentLocation = CLLocationCoordinate2D(latitude: latitude,
-                                                      longitude: longitude)
-        
-        self.mapView.currentLocationTrackingMode = .onWithoutHeading
-        self.mapView.showCurrentLocationMarker = true
-    }
-    
-    func locationManager(_ manager: CLLocationManager,
-                         didFailWithError error: Error) {
-        if let error = error as? CLError {
-            switch error.code {
-            case .locationUnknown:
-                break
-            default:
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .restricted, .denied:
-            break
-        case .authorizedWhenInUse, .authorizedAlways, .notDetermined:
-            manager.requestLocation()
-            break
-        @unknown default: break
-        }
-    }
-}
-
+//MARK: Delegate
 extension KakaoMapViewController {
+
+    //MARK: MTMapViewDelegate
+    
+    func mapView(_ mapView: MTMapView!, centerPointMovedTo mapCenterPoint: MTMapPoint!) {
+        delegate?.tapMapView?(mapView, mapPoint: mapCenterPoint)
+    }
+    
+    func mapView(_ mapView: MTMapView!, singleTapOn mapPoint: MTMapPoint!) {
+        delegate?.tapMapView?(mapView, mapPoint: mapPoint)
+    }
+    
+    
+    //MARK: MTMapReverseGeoCoderDelegate
+    
+    func mtMapReverseGeoCoder(_ rGeoCoder: MTMapReverseGeoCoder!, foundAddress addressString: String!) {
+        delegate?.foundAddress?(rGeoCoder, addressString: addressString)
+    }
     
 }

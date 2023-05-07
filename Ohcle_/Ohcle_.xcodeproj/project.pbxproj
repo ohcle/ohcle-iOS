@@ -52,7 +52,6 @@
 		A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2EE291F89A00013A74F /* MyPageView.swift */; };
 		A8CBB2F1291F96570013A74F /* MyPageUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F0291F96570013A74F /* MyPageUserInfoView.swift */; };
 		A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F2291F973E0013A74F /* MemoButton.swift */; };
-		A8D1BEE32A07712F00A43FF0 /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D1BEE22A07712F00A43FF0 /* KakaoMapViewController.swift */; };
 		A8D1BEE52A0772CE00A43FF0 /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D1BEE42A0772CE00A43FF0 /* URLs.swift */; };
 		A8D1BEE82A07765C00A43FF0 /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D1BEE72A07765C00A43FF0 /* KakaoMapViewController.swift */; };
 		FE8E947329FD22B3008764DC /* CalendarDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8E947229FD22B3008764DC /* CalendarDataManager.swift */; };
@@ -141,7 +140,6 @@
 		A8CBB2EE291F89A00013A74F /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		A8CBB2F0291F96570013A74F /* MyPageUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUserInfoView.swift; sourceTree = "<group>"; };
 		A8CBB2F2291F973E0013A74F /* MemoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoButton.swift; sourceTree = "<group>"; };
-		A8D1BEE22A07712F00A43FF0 /* KakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KakaoMapViewController.swift; path = Ohcle_/Diary/RecordFlow/KakaoMapViewController.swift; sourceTree = "<group>"; };
 		A8D1BEE42A0772CE00A43FF0 /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		A8D1BEE62A07764C00A43FF0 /* KaKaoMapBridgeHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaKaoMapBridgeHeader.h; sourceTree = "<group>"; };
 		A8D1BEE72A07765C00A43FF0 /* KakaoMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoMapViewController.swift; sourceTree = "<group>"; };
@@ -239,7 +237,6 @@
 		A859A62128EC3E1500F217F3 = {
 			isa = PBXGroup;
 			children = (
-				A8D1BEE22A07712F00A43FF0 /* KakaoMapViewController.swift */,
 				A859A62C28EC3E1500F217F3 /* Ohcle_ */,
 				A859A62B28EC3E1500F217F3 /* Products */,
 				FE918FBA29F451CB00484731 /* Frameworks */,
@@ -565,7 +562,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A8D1BEE32A07712F00A43FF0 /* KakaoMapViewController.swift in Sources */,
 				A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */,
 				A8C0D69629FE475E00DEB477 /* Refactor_Networking.swift in Sources */,
 				A83132242A070B370087A82C /* NewMemoView.swift in Sources */,
