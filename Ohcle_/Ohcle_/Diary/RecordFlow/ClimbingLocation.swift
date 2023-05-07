@@ -7,6 +7,8 @@
 
 import SwiftUI
 import CoreLocation
+import PhotosUI
+import KakaoSDKCommon
 
 struct IdentifiableSpace: Identifiable {
     let id: UUID
@@ -139,10 +141,7 @@ struct KakaoMapView: UIViewControllerRepresentable {
         init(_ parent: KakaoMapView) {
             self.parent = parent
         }
-
-
-    }
-
+     }
 }
 
 

@@ -54,6 +54,7 @@
 		A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F2291F973E0013A74F /* MemoButton.swift */; };
 		A8D1BEE32A07712F00A43FF0 /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D1BEE22A07712F00A43FF0 /* KakaoMapViewController.swift */; };
 		A8D1BEE52A0772CE00A43FF0 /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D1BEE42A0772CE00A43FF0 /* URLs.swift */; };
+		A8D1BEE82A07765C00A43FF0 /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D1BEE72A07765C00A43FF0 /* KakaoMapViewController.swift */; };
 		FE8E947329FD22B3008764DC /* CalendarDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8E947229FD22B3008764DC /* CalendarDataManager.swift */; };
 		FE918F9E29F451A600484731 /* map_pinup_custom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE918F7929F451A600484731 /* map_pinup_custom@3x.png */; };
 		FE918F9F29F451A600484731 /* map_pin_custom.png in Resources */ = {isa = PBXBuildFile; fileRef = FE918F7A29F451A600484731 /* map_pin_custom.png */; };
@@ -142,6 +143,8 @@
 		A8CBB2F2291F973E0013A74F /* MemoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoButton.swift; sourceTree = "<group>"; };
 		A8D1BEE22A07712F00A43FF0 /* KakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KakaoMapViewController.swift; path = Ohcle_/Diary/RecordFlow/KakaoMapViewController.swift; sourceTree = "<group>"; };
 		A8D1BEE42A0772CE00A43FF0 /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
+		A8D1BEE62A07764C00A43FF0 /* KaKaoMapBridgeHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaKaoMapBridgeHeader.h; sourceTree = "<group>"; };
+		A8D1BEE72A07765C00A43FF0 /* KakaoMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoMapViewController.swift; sourceTree = "<group>"; };
 		FE8E947229FD22B3008764DC /* CalendarDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDataManager.swift; sourceTree = "<group>"; };
 		FE918F7929F451A600484731 /* map_pinup_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup_custom@3x.png"; sourceTree = "<group>"; };
 		FE918F7A29F451A600484731 /* map_pin_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_custom.png; sourceTree = "<group>"; };
@@ -215,6 +218,8 @@
 		A80B452B28FA7CAB00343BB4 /* RecordFlow */ = {
 			isa = PBXGroup;
 			children = (
+				A8D1BEE72A07765C00A43FF0 /* KakaoMapViewController.swift */,
+				A8D1BEE62A07764C00A43FF0 /* KaKaoMapBridgeHeader.h */,
 				A89E182129A38A1900F27045 /* Common */,
 				A89E181F29A389B500F27045 /* Buttons */,
 				A89E182029A389E100F27045 /* DiaryList */,
@@ -571,6 +576,7 @@
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
 				A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */,
 				A8D1BEE52A0772CE00A43FF0 /* URLs.swift in Sources */,
+				A8D1BEE82A07765C00A43FF0 /* KakaoMapViewController.swift in Sources */,
 				A8C0D69429FE459C00DEB477 /* ExternalLinks.swift in Sources */,
 				A8A2C2CE29AF131D005C1B13 /* ClimbingPhotoPicker.swift in Sources */,
 				A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */,

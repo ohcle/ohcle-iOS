@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class CalenderData {
+class CalenderData: ObservableObject {
     
 }
 

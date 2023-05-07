@@ -10,15 +10,19 @@ import PhotosUI
 
 @available(iOS 16.0, *)
 struct AddPhotoView: View {
+    @ObservedObject var picker = ClimbingImagePicker()
+    
     private let titleImageHeighRatio = CGFloat(7)
     private let titleImageWidthRatio = CGFloat(0.8)
-
-    private var nextButton: NextPageButton =  NextPageButton(title: "다음",
+    
+    
+    private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
                                                              width: UIScreen.screenWidth/1.2,
                                                              height: UIScreen.screenHeight/15)
+    
     @State private var isShowingGalleryPicker = false
     @State private var selectedImage: UIImage?
-    @State private var showAlert = false
+    
     
     var body: some View {
         VStack {
@@ -69,6 +73,7 @@ struct AddPhotoView: View {
                         .background(.gray)
                 }
             }
+            
         }
         .overlay(
             Group {
@@ -79,7 +84,6 @@ struct AddPhotoView: View {
             }
         )
     }
-        
 }
 struct AddPhotoView_Previews: PreviewProvider {
     static var previews: some View {

@@ -8,7 +8,6 @@
 import UIKit
 import CoreLocation
 
-
 class KakaoMapViewController: UIViewController {
     private var mapView: MTMapView!
     private let mapViewDeleate: MTMapViewDelegate = MapViewDelegate()

@@ -42,8 +42,6 @@ class DiaryModel: ObservableObject {
     func count() -> Int {
         return recoredMemos.count
     }
-    
-    
 }
 
 struct DiaryList: View {
