@@ -14,7 +14,9 @@ struct MemoView: View {
     
     @EnvironmentObject var currentPageType: MyPageType
     @Environment(\.managedObjectContext) var managedObjectContext
-
+    
+    @Binding var isModal: Bool
+    
     @State private var climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
     @State private var typedText: String =  CalendarDataManger.shared.record.temMemo
     @State private var color = Color.convert(from: CalendarDataManger.shared.record.temLevel)
@@ -190,7 +192,9 @@ extension MemoView {
 struct MemoView_Previews: PreviewProvider {
     static let mocRecorded = RecordedMemo(id:0,date: "dd", location: "dd", level: "Ddd", score: 2, imageData: Data(), memo: "ddd")
     @State static var isEdited: Bool = false
+    @State static var isModal: Bool = false
+    
     static var previews: some View {
-        MemoView()
+        MemoView(isModal: $isModal)
     }
 }

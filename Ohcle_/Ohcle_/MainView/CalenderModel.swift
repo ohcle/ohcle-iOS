@@ -7,7 +7,16 @@
 
 import Foundation
 
-struct CalenderViewModel: Decodable, Identifiable {
+struct CalenderViewModel: Decodable, Identifiable,Hashable {
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func ==(lhs: CalenderViewModel, rhs: CalenderViewModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     let id: Int
     let `where`: ClimbingLocation
     let when: String

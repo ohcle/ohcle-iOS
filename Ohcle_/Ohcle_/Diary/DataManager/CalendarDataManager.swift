@@ -95,7 +95,7 @@ class CalendarDataManger {
     func getData(year: String, month: String) async {
         
         do {
-            let fetchedData = try await fetchData(urlString: URLs.generateMonthRecordURLString(year: year, month: month), method: .get)
+            let fetchedData = try await fetchData(urlString: OhcleURLs.generateMonthRecordURLString(year: year, month: month), method: .get)
             print(fetchedData)
             let decoded = try JSONDecoder().decode([CalenderViewModel].self, from: fetchedData)
             print(decoded)
