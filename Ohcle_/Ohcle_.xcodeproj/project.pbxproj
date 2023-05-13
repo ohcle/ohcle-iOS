@@ -53,7 +53,6 @@
 		A8CBB2F1291F96570013A74F /* MyPageUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F0291F96570013A74F /* MyPageUserInfoView.swift */; };
 		A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CBB2F2291F973E0013A74F /* MemoButton.swift */; };
 		A8D1BEE52A0772CE00A43FF0 /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D1BEE42A0772CE00A43FF0 /* URLs.swift */; };
-		A8D1BEE82A07765C00A43FF0 /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D1BEE72A07765C00A43FF0 /* KakaoMapViewController.swift */; };
 		FE8E947329FD22B3008764DC /* CalendarDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8E947229FD22B3008764DC /* CalendarDataManager.swift */; };
 		FE918F9E29F451A600484731 /* map_pinup_custom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE918F7929F451A600484731 /* map_pinup_custom@3x.png */; };
 		FE918F9F29F451A600484731 /* map_pin_custom.png in Resources */ = {isa = PBXBuildFile; fileRef = FE918F7A29F451A600484731 /* map_pin_custom.png */; };
@@ -82,7 +81,6 @@
 		FE918FB629F451A600484731 /* map_present_background_update.png in Resources */ = {isa = PBXBuildFile; fileRef = FE918F9A29F451A600484731 /* map_present_background_update.png */; };
 		FE918FB729F451A600484731 /* daum_th_line.png in Resources */ = {isa = PBXBuildFile; fileRef = FE918F9B29F451A600484731 /* daum_th_line.png */; };
 		FE918FB829F451A600484731 /* map_pin_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = FE918F9C29F451A600484731 /* map_pin_shadow.png */; };
-		FE918FB929F451A600484731 /* DaumMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE918F9D29F451A600484731 /* DaumMap.framework */; };
 		FE918FBC29F451CB00484731 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE918FBB29F451CB00484731 /* CoreLocation.framework */; };
 		FE918FBE29F451D400484731 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FE918FBD29F451D400484731 /* libsqlite3.tbd */; };
 		FE918FC029F451E000484731 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FE918FBF29F451E000484731 /* libxml2.tbd */; };
@@ -141,8 +139,6 @@
 		A8CBB2F0291F96570013A74F /* MyPageUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUserInfoView.swift; sourceTree = "<group>"; };
 		A8CBB2F2291F973E0013A74F /* MemoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoButton.swift; sourceTree = "<group>"; };
 		A8D1BEE42A0772CE00A43FF0 /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
-		A8D1BEE62A07764C00A43FF0 /* KaKaoMapBridgeHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaKaoMapBridgeHeader.h; sourceTree = "<group>"; };
-		A8D1BEE72A07765C00A43FF0 /* KakaoMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoMapViewController.swift; sourceTree = "<group>"; };
 		FE8E947229FD22B3008764DC /* CalendarDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDataManager.swift; sourceTree = "<group>"; };
 		FE918F7929F451A600484731 /* map_pinup_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup_custom@3x.png"; sourceTree = "<group>"; };
 		FE918F7A29F451A600484731 /* map_pin_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_custom.png; sourceTree = "<group>"; };
@@ -205,7 +201,6 @@
 				FE918FBC29F451CB00484731 /* CoreLocation.framework in Frameworks */,
 				A859A64528EC3EB300F217F3 /* KakaoSDKCommon in Frameworks */,
 				A859A64328EC3EB300F217F3 /* KakaoSDKAuth in Frameworks */,
-				FE918FB929F451A600484731 /* DaumMap.framework in Frameworks */,
 				A859A64728EC3EB300F217F3 /* KakaoSDKUser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,8 +211,6 @@
 		A80B452B28FA7CAB00343BB4 /* RecordFlow */ = {
 			isa = PBXGroup;
 			children = (
-				A8D1BEE72A07765C00A43FF0 /* KakaoMapViewController.swift */,
-				A8D1BEE62A07764C00A43FF0 /* KaKaoMapBridgeHeader.h */,
 				A89E182129A38A1900F27045 /* Common */,
 				A89E181F29A389B500F27045 /* Buttons */,
 				A89E182029A389E100F27045 /* DiaryList */,
@@ -572,7 +565,6 @@
 				A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */,
 				A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */,
 				A8D1BEE52A0772CE00A43FF0 /* URLs.swift in Sources */,
-				A8D1BEE82A07765C00A43FF0 /* KakaoMapViewController.swift in Sources */,
 				A8C0D69429FE459C00DEB477 /* ExternalLinks.swift in Sources */,
 				A8A2C2CE29AF131D005C1B13 /* ClimbingPhotoPicker.swift in Sources */,
 				A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */,
@@ -763,7 +755,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "todaysClimbing.Ohcle-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/joy/Projects/ohcle-iOS/Ohcle_/Ohcle_/Diary/RecordFlow/KaKaoMapBridgeHeader.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -804,7 +796,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "todaysClimbing.Ohcle-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/joy/Projects/ohcle-iOS/Ohcle_/Ohcle_/Diary/RecordFlow/KaKaoMapBridgeHeader.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
