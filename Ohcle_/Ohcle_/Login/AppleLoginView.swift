@@ -8,6 +8,10 @@
 import SwiftUI
 import _AuthenticationServices_SwiftUI
 
+extension Notification.Name {
+    static let appleLoginError = Notification.Name("appleLoginError")
+}
+
 struct AppleLoginView: View {
     typealias AppleLoginReslutType = [String: Any]
     
