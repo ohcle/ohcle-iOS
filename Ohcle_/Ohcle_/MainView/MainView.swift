@@ -12,6 +12,7 @@ struct RecordView: View {
     @ObservedObject var currentPageState: MyPageType
     @Binding var selectedPage: Int
     @State var isModal: Bool = false
+    @Binding var selectedTab:Int
     
     var body: some View {
         switch currentPageState.type {
@@ -30,7 +31,7 @@ struct RecordView: View {
         case .photo:
             AddPhotoView().environmentObject(currentPageState)
         case .memo:
-            MemoView(isModal: $isModal).environmentObject(currentPageState)
+            MemoView(isModal: $isModal, selectedTab: $selectedTab).environmentObject(currentPageState)
         case .done:
             Calender()
                 .environmentObject(currentPageState)
@@ -41,7 +42,7 @@ struct RecordView: View {
 struct MainView: View {
     @StateObject var pageState: MyPageType = MyPageType.init()
     @State private var selectedPage = 0
-
+    @State var selectedTab = 1
     init() {
         UIPageControl.appearance().currentPageIndicatorTintColor =  UIColor(named: "HomeCurIndicatorColor")
         UIPageControl.appearance().pageIndicatorTintColor = UIColor(named: "HomeIndicatorColor")
@@ -49,7 +50,7 @@ struct MainView: View {
     }
 
     var body: some View {
-        TabView {
+        TabView  (selection: $selectedTab){
             TabView {
                 RefacotCalenderView()
                 DiaryList()
@@ -59,9 +60,10 @@ struct MainView: View {
             .tabItem {
                 Image("tabItem_home")
             }
+            .tag(1)
             
             NavigationView {
-                RecordView(currentPageState: pageState, selectedPage: $selectedPage)
+                RecordView(currentPageState: pageState, selectedPage: $selectedPage, selectedTab: $selectedTab)
                 //                    .navigationTitle("Title")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
@@ -95,11 +97,13 @@ struct MainView: View {
             .tabItem {
                 Image("tabItem_plus")
             }
+            .tag(2)
             
             MyPageView()
-                .tabItem {
-                    Image("tabItem_self")
-                }
+            .tabItem {
+                Image("tabItem_self")
+            }
+            .tag(3)
         }
     }
     
