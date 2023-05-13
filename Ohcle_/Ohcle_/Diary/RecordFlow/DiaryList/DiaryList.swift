@@ -31,23 +31,25 @@ struct DiaryList: View {
     @State private var isEdited: Bool = true
     @State var selectedDiaryIndex: Int = .zero
     
-    @State var calenderList: [CalenderViewModel] = []
+//    @State var calenderList: [CalenderViewModel] = []
     
-    @State var date: Date = Date()
-    @State var showDatePicker = false
+//    @State var date: Date = Date()
+    @State private var isSelected: Bool = false
+    @State private var isDismissed: Bool = true
+    @ObservedObject var calenderData: CalenderData = CalenderData()
     
     
     
     var body: some View {
         VStack(spacing: listSpacing) {
-            DiaryHeader()
+            DiaryHeader(year: calenderData.year, month: calenderData.month)
                 .onTapGesture {
-                    showDatePicker = true
+                    self.isDismissed = false
                 }
 
             
             ZStack (alignment: .top){
-                if calenderList.count == 0 {
+                if calenderData.data.flatMap{ $0.value.values.compactMap { $0 }}.count == 0 {
                     // DefaultImageView
                     VStack {
                         Image("DiaryListDefault")
@@ -63,7 +65,7 @@ struct DiaryList: View {
                                   alignment: .leading,
                                   spacing: listSpacing) {
                             
-                            ForEach(calenderList) { calenderViewModel in
+                            ForEach(calenderData.data.flatMap{ $0.value.values.compactMap { $0 } }.sorted { $0.when > $1.when }) { calenderViewModel in
                                 DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where.name, levelColorName: "gray" , score: Int16(calenderViewModel.score), memoImageData: Data())
                             }
                             
@@ -73,21 +75,24 @@ struct DiaryList: View {
                 }
                 
                 
-                if showDatePicker {
-                    DatePicker(
-                            "",
-                            selection:$date,
-                            displayedComponents: [.date])
-                        .datePickerStyle(GraphicalDatePickerStyle())
-                        .background(.white)
+                if !self.isDismissed {
+                    withAnimation {
+                        DateFilterView(currentYear: 2023, isSelected: $isSelected, isDismissed: $isDismissed, calenderData: calenderData)
+                            .frame(width: 250, height: 250, alignment: .center)
+                            .background(Color.white)
+                            .padding(.top, 20)
+                        
+                        
+                    }
                 }
                 
             }
         }
-        .task {
-            await CalendarDataManger.shared.getData(year: "2023", month: "03")
-            calenderList = CalendarDataManger.shared.calenderList
-        }
+//        .task {
+//            await CalendarDataManger.shared.getData(year: "2023", month: "03")
+//            calenderList = CalendarDataManger.shared.calenderList
+//        }
+        
     }
 }
 

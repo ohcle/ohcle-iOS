@@ -13,6 +13,7 @@ struct Record {
     var score: Int16 = 0
     var photo: Data = Data()
     var memo: String = ""
+    var climbingLocation: ClimbingLocation = ClimbingLocation()
     
     mutating func clearRecord() {
         self.date = ""

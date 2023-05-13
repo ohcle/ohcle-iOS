@@ -62,4 +62,14 @@ class OhcleDate {
         numberFormatter.numberStyle = .ordinal
         return numberFormatter.string(from: NSNumber(nonretainedObject: year))
     }()
+    
+    static let currentMonthString: String? = {
+        let date = Date()
+        let calendar = Calendar.current
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM"
+        let monthString = formatter.string(from: date)
+
+        return monthString
+    }()
 }
