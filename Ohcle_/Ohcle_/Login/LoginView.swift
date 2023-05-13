@@ -43,7 +43,7 @@ struct LoginView: View {
                 KakaoLoginView()
                     .padding(.bottom, 11)
 
-                NewAppleLoginView()
+                AppleLoginView()
                     .padding(.bottom, 32)
                 
                 Link("문의하기", destination: url)

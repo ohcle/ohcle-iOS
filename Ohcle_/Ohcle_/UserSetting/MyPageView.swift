@@ -103,7 +103,6 @@ struct MyPageView: View {
             }
         }
         .task {
-            
             let userDefaultsName = UserDefaults.standard.object(forKey: "userID")
             if let nickName = userDefaultsName as? String {
                 self.userName = nickName

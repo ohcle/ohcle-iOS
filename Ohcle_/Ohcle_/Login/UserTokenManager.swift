@@ -111,14 +111,20 @@ final class UserTokenManager {
     ///let tokenData = Data(tokenWhichYouWantToSave.utf8)
     ///save(token: tokenData, account: "access-token", service: "Ochle")
     func save(token: String, account: Account, service: Service) {
-        let query = [kSecValueData: token,
+        let password = token.data(using: String.Encoding.utf8)!
+
+        let query: [CFString: Any] = [kSecValueData: password,
                          kSecClass: kSecClassGenericPassword,
                    kSecAttrService: service.rawValue,
-                   kSecAttrAccount: account.rawValue] as CFDictionary
+                   kSecAttrAccount: account.rawValue]
+
         
-        let status = SecItemAdd(query, nil)
+        print(query)
+        let status = SecItemAdd(query  as CFDictionary, nil)
                 
         switch status {
+        case errSecSuccess:
+            print("Success")
         case errSecDuplicateItem:
             updateToken(token, account: account, service: service)
         default:

@@ -46,9 +46,18 @@ struct KakaoLoginView: View {
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
     @State private var userID: Int64? = .zero
     
+    fileprivate func fetchKakaoUserInfomation() async {
+        let user = await UserApi.shared.me()
+        let urlString = user?.properties?["profile_image"] ?? ""
+        let userNickName = user?.properties?["nickname"] ?? "오클"
+        
+        self.userNickName = userNickName
+        self.userID = user?.id
+        self.userImageString = urlString
+    }
+    
     var body: some View {
         Button {
-            
             //MARK: 카카오톡 토큰 여부 확인
             if AuthApi.hasToken() {
                 checkAndRefreshToken()
@@ -57,16 +66,9 @@ struct KakaoLoginView: View {
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                 
                 Task {
-                    let user = await UserApi.shared.me()
-                    let urlString = user?.properties?["profile_image"] ?? ""
-                    let userNickName = user?.properties?["nickname"] ?? "오클"
-                    
-                    self.userNickName = userNickName
-                    self.userID = user?.id
-                    self.userImageString = urlString
-                    
+                    await fetchKakaoUserInfomation()
                     do {
-                        let userIDInt = Int(userID ?? .zero)
+                        let userIDInt = Int(self.userID ?? .zero)
                         let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt, nickName: self.userNickName)
                         
                         if isSucceded {
@@ -131,6 +133,10 @@ struct KakaoLoginView: View {
     private func isValidLoginResult(_ data: Data) -> Bool {
         do {
             let decodedData = try JSONDecoder().decode(AppleLoginResultModel.self, from: data)
+            UserTokenManager.shared.save(token: decodedData.token,
+                                         account: .kakao,
+                                         service: .login)
+            
             return true
         } catch {
             let errorMessage = error.localizedDescription
@@ -138,6 +144,5 @@ struct KakaoLoginView: View {
             return false
         }
     }
-    
 }
 

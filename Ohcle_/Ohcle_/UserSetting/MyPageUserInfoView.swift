@@ -49,6 +49,7 @@ struct MyPageUserInfoView: View {
                 .padding(.bottom, 76)
                 
                 Button {
+                    clearKeyChain()
                     clearUserDefaults()
                     signOutUser()
                     signOutKakaoAccount()
@@ -59,6 +60,17 @@ struct MyPageUserInfoView: View {
                 Spacer()
             }.padding()
         }
+    }
+    
+    private func clearKeyChain() {
+        UserTokenManager.shared.delete(account: .kakao, service: .login)
+        UserTokenManager.shared.delete(account: .apple, service: .login)
+//        func delete(account: Account, service: Service) {
+//            let query = [kSecAttrService: service.rawValue,
+//                         kSecAttrAccount: account.rawValue,
+//                               kSecClass: kSecClassGenericPassword] as CFDictionary
+//            SecItemDelete(query)
+//        }
     }
     
     private func clearUserDefaults() {

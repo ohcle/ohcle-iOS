@@ -25,7 +25,7 @@ struct CalenderViewModel: Decodable, Identifiable,Hashable {
     
     enum CodingKeys: String, CodingKey {
           case id
-          case `where` // Use backticks to escape the reserved keyword "where"
+          case `where`
           case when
           case level
           case score
