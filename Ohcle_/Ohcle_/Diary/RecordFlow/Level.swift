@@ -37,8 +37,15 @@ struct Level: View {
                         self.selectedColor = colors[index]
                         self.nextButton.userEvent.inform()
                     } label: {
-                        Circle()
-                            .fill(colors[index])
+                        
+                        ZStack {
+                            Circle()
+                                .fill(colors[index].opacity(self.selectedColor == colors[index] ? 1.0 : 0.7))
+                            Circle()
+                                .strokeBorder(self.selectedColor == colors[index] ? .black : .clear, lineWidth: 5)
+//                            Circle()
+//                                .fill(self.selectedColor == colors[index] ? .clear : .black.opacity(0.25))
+                        }
                     }
                 }
             }
