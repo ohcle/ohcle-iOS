@@ -31,7 +31,7 @@ struct DiaryList: View {
     @State private var isEdited: Bool = true
     @State var selectedDiaryIndex: Int = .zero
     
-    @State var calenderList: [CalenderViewModel] = []
+    @State var calenderList: [CalenderModel] = []
     
     @State var date: Date = Date()
     @State var showDatePicker = false

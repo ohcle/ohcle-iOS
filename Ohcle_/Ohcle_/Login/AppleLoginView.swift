@@ -23,16 +23,14 @@ struct AppleLoginView: View {
     
     var body: some View {
         if #available(iOS 15.0, *) {
-            SignInWithAppleButton(.continue) { request in
+            SignInWithAppleButton(.signUp) { request in
                 request.requestedScopes = [.email, .fullName]
             } onCompletion: { result in
                 Task {
                     await filterAppleLoginResult(result)
-
                 }
             }
             .signInWithAppleButtonStyle(.black)
-            
             .alert("Apple Login Error", isPresented: $isLoginError) {
                 Text("Apple Login Error")
             }
@@ -98,7 +96,6 @@ struct AppleLoginView: View {
                                      lastName: lastName,
                                      email: email)
                     self.isLoggedIn = true
-
                 } catch {
                    print(error)
                 }
@@ -106,7 +103,6 @@ struct AppleLoginView: View {
 
         case .failure(let error):
             self.isLoggedIn = false
-
             print("Apple Login Error. Error Message : \(error.localizedDescription)")
         }
     }

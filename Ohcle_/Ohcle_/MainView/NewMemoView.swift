@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+struct MemoViewModel {
+    let typedText: String
+    let levelColor: Color
+    let date: String
+    let score: Int
+    let photoData: Data
+}
+
 struct NewMemoView: View {
     private let mapImageName: String = "map"
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
@@ -15,14 +23,13 @@ struct NewMemoView: View {
     @Binding var isModalView: Bool
     
     @State var id: Int
-    @State private var climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
-    
-    @State private var typedText: String = ""
+    @State private var climbingLocation = "클라임웍스 클라이밍"
+    @State private var typedText = ""
     @State private var levelColor = Color.yellow
     @State private var date = ""
     @State private var score = 0
     @State private var photoData = Data()
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             Circle()
@@ -35,7 +42,7 @@ struct NewMemoView: View {
             
             HStack(spacing: 5) {
                 Image(systemName: mapImageName)
-                Text(climbingLocationPlaceHolder)
+                Text(climbingLocation)
                     .font(.body)
                     .foregroundColor(.gray)
             }
@@ -83,7 +90,6 @@ struct NewMemoView: View {
                 MemoButton() {
                     
                 }
-                
                 Spacer()
             }
             Spacer()
@@ -96,13 +102,11 @@ struct NewMemoView: View {
         }
         
         .task {
-            print(self.id)
             let data = await requestDetailMemo(id: self.id)
             decodeData(data ?? Data())
         }
     }
 }
-
 
 extension NewMemoView {
     func saveDiary(id: Int) async {
@@ -159,23 +163,41 @@ extension NewMemoView {
     
     private func decodeData(_ data: Data) {
         do {
-            let decodedData = try JSONDecoder().decode(ClimbingData.self, from: data)
+            let decodedData = try JSONDecoder().decode(DetailClimbingModel.self, from: data)
             
-            let levelColorString = HolderColorNumber(rawValue: "\(decodedData.level)")
-            let levleColor = Color.convert(from: levelColorString?.rawValue ?? "red")
+            let levelColorString = HolderColorNumber(rawValue: "\(decodedData.level)") ?? HolderColorNumber.nonSelected
+            print(levelColorString.rawValue)
+            
+            let levleColor = Color.convert(from: levelColorString.colorName)
+            print(levleColor)
             
             self.levelColor = levleColor
-            self.date = decodedData.when
+            self.date = decodedData.when.convertToTrimmedLiteral()
             self.typedText = decodedData.memo
             self.score = Int(decodedData.score)
+            self.climbingLocation = decodedData.where.name
             
-            print(decodedData.when)
-            //            self.photoData = decodedData.picture
+            print(self.date, self.score, self.typedText)
         } catch {
             print(error)
         }
     }
-    
+
+}
+
+extension String {
+    func convertToTrimmedLiteral() -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd"
+        guard let date = inputFormatter.date(from: self) else {
+            fatalError("Failed to parse date")
+        }
+
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "yyyy년 M월 d일"
+        let formattedDate = outputFormatter.string(from: date)
+        return formattedDate
+    }
 }
 
 struct NewMemoView_Previews: PreviewProvider {

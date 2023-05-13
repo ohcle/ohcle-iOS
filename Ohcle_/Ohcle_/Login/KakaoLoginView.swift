@@ -64,7 +64,6 @@ struct KakaoLoginView: View {
             }
             
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                
                 Task {
                     await fetchKakaoUserInfomation()
                     do {

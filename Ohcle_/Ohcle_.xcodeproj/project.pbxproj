@@ -222,7 +222,6 @@
 				A817166B290386AE005B1268 /* AddPhotoView.swift */,
 				A8A2C2CD29AF131D005C1B13 /* ClimbingPhotoPicker.swift */,
 				A88BA060290D49C5000F87A8 /* MemoView.swift */,
-				A83132232A070B370087A82C /* NewMemoView.swift */,
 			);
 			path = RecordFlow;
 			sourceTree = "<group>";
@@ -303,6 +302,7 @@
 			children = (
 				A859A63D28EC3E6500F217F3 /* MainView.swift */,
 				A83132212A03BC160087A82C /* RefactorCalenderView.swift */,
+				A83132232A070B370087A82C /* NewMemoView.swift */,
 				A80A484229F3AEDE00F3F186 /* DateFilterView.swift */,
 				A80A484429F3B8FC00F3F186 /* CircleDateView.swift */,
 				A80A481A29EBC31B00F3F186 /* CalenderModel.swift */,

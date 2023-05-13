@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-typealias DividedMonthDataType = [Int: [Int: CalenderViewModel]]
+typealias DividedMonthDataType = [Int: [Int: CalenderModel]]
 
 class CalenderData: ObservableObject {
     @Published var year: String = "2023"
@@ -43,7 +43,7 @@ class CalenderData: ObservableObject {
                 
                 if let data = data {
                     do {
-                        let decoded = try JSONDecoder().decode([CalenderViewModel].self, from: data)
+                        let decoded = try JSONDecoder().decode([CalenderModel].self, from: data)
                         let divided = self.divideWeekData(decoded)
                         
                         DispatchQueue.main.async {
@@ -76,7 +76,7 @@ class CalenderData: ObservableObject {
         return weekday
     }
     
-    private func divideWeekData(_ data: [CalenderViewModel]) -> DividedMonthDataType {
+    private func divideWeekData(_ data: [CalenderModel]) -> DividedMonthDataType {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier:
@@ -143,11 +143,6 @@ struct RefacotCalenderView: View {
     }
 }
 
-struct MemoContainer {
-    
-}
-
-
 
 struct CalenderHolderView: View {
     @ObservedObject var calenderData: CalenderData
@@ -165,26 +160,20 @@ struct CalenderHolderView: View {
                             
                             let holderColor: HolderColorNumber = HolderColorNumber(rawValue: "\(level)") ?? .red
                             
-                            let holderType = HolderType( holderColor: holderColor, nil)
-                            
+                            let holderType = HolderType(holderColor: holderColor, nil)
+                            var selectedRecordID: Int = .zero
                             CalenderHolderGridView(isClimbedDate: true, holderType: holderType)
                                 .onTapGesture {
-                                    self.diaryID = data[week]?[date]?.id ?? 0
-                                    print(data[week]?[date]?.id)
+                                    selectedRecordID = data[week]?[date]?.id ?? .zero
+
                                     self.isModal = true
                                 }
                                 .sheet(isPresented: $isModal) {
-                                    if let diaryID = diaryID {
-                                        NewMemoView(isModalView: $isModal, id: diaryID)
-                                    } else {
-                                        NewMemoView(isModalView: $isModal, id: diaryID ?? 21)
-                                    }
+                                        NewMemoView(isModalView: $isModal,
+                                                    id: selectedRecordID)
                                 }
                         } else {
                             CalenderHolderGridView(holderType: nil)
-                                .onTapGesture {
-                                    
-                                }
                         }
                     }
                 }
