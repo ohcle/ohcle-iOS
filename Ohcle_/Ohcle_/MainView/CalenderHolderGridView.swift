@@ -35,13 +35,17 @@ enum HolderColorNumber: String {
     case nonSelected = "11"
     
     var colorName: String {
-          switch self {
-          case .white, .nonSelected:
-              return self.rawValue
-          default:
-              return String(describing: self)
-          }
-      }
+        switch self {
+        case .white, .nonSelected:
+            return self.rawValue
+        default:
+            return String(describing: self)
+        }
+    }
+    
+    var colorNumber: Int? {
+         return Int(rawValue)
+     }
 }
 
 struct HolderType {

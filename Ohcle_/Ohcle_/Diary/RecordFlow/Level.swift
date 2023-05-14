@@ -82,6 +82,8 @@ extension Color {
             return "purple"
         case .black:
             return "black"
+        case .indigo:
+            return "indigo"
         case Color("holder-lightgray"):
             return "holder-lightgray"
         case Color("holder-darkgray"):

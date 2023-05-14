@@ -7,12 +7,19 @@
 
 import SwiftUI
 
-struct MemoViewModel {
-    let typedText: String
-    let levelColor: Color
-    let date: String
-    let score: Int
-    let photoData: Data
+extension String {
+    func convertToTrimmedLiteral() -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd"
+        guard let date = inputFormatter.date(from: self) else {
+            fatalError("Failed to parse date")
+        }
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "yyyy년 M월 d일"
+        let formattedDate = outputFormatter.string(from: date)
+        return formattedDate
+    }
 }
 
 struct NewMemoView: View {
@@ -26,10 +33,10 @@ struct NewMemoView: View {
     @State private var climbingLocation = "클라임웍스 클라이밍"
     @State private var typedText = ""
     @State private var levelColor = Color.yellow
-    @State private var date = ""
+    @State private var date = "2020-02-02"
     @State private var score = 0
     @State private var photoData = Data()
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             Circle()
@@ -37,7 +44,7 @@ struct NewMemoView: View {
                 .frame(width: 30, height: 30)
                 .padding(.top, 20)
             
-            Text("\(date)")
+            Text("\(date.convertToTrimmedLiteral())")
                 .font(.title)
             
             HStack(spacing: 5) {
@@ -79,16 +86,30 @@ struct NewMemoView: View {
                     .foregroundColor(Color.black)
                     .lineSpacing(5)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .onChange(of: typedText) { newValue in
-                        
-                    }
+//                    .onChange(of: typedText) { newValue in
+////                        typedText = newValue
+//                    }
             }
             
             Spacer()
             HStack {
                 Spacer()
                 MemoButton() {
-                    
+                    Task {
+                        let levelColorString = self.levelColor.climbingLevelName
+                        let levelColorNumber = HolderColorNumber(rawValue: levelColorString)?.colorNumber
+                        
+                        if let levelColorNumber = levelColorNumber {
+
+                        }
+                        
+                        let patchData = PatchData(whereID: self.id, when: self.date,
+                                                  level: 3, score: Double(self.score),
+                                                  memo: self.typedText, picture: [""],
+                                                  video: "", tags: [""])
+                        await saveDiary(patchData)
+                       
+                    }
                 }
                 Spacer()
             }
@@ -108,9 +129,20 @@ struct NewMemoView: View {
     }
 }
 
+struct PatchData: Codable {
+    let whereID: Int
+    let when: String
+    let level: Int
+    let score: Double
+    let memo: String
+    let picture: [String]
+    let video: String?
+    let tags: [String]?
+}
+
 extension NewMemoView {
-    func saveDiary(id: Int) async {
-        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(id)/"
+    private func saveDiary(_ diary: PatchData) async {
+        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(diary.whereID)/"
         
         guard let url = URL(string: urlStr) else {
             print("Fail to InitURL")
@@ -118,8 +150,16 @@ extension NewMemoView {
         }
         
         do {
-            var request = try URLRequest(url: url, method: .post)
-            let parameters = ["where": 0, ]
+            var request = try URLRequest(url: url, method: .patch)
+            let parameters: [String: Any?] = ["where": ["id": diary.whereID],
+                                              "when": diary.when,
+                                              "level": diary.level,
+                                              "score": diary.score,
+                                              "memo": diary.memo,
+                                              "picture": [],
+                                              "video": nil,
+                                              "tags": nil]
+            
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
             
@@ -135,7 +175,7 @@ extension NewMemoView {
         }
     }
     
-    func requestDetailMemo(id: Int) async -> Data? {
+    private func requestDetailMemo(id: Int) async -> Data? {
         let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(id)"
         
         guard let url = URL(string: urlStr) else {
@@ -172,7 +212,7 @@ extension NewMemoView {
             print(levleColor)
             
             self.levelColor = levleColor
-            self.date = decodedData.when.convertToTrimmedLiteral()
+            self.date = decodedData.when
             self.typedText = decodedData.memo
             self.score = Int(decodedData.score)
             self.climbingLocation = decodedData.where.name
@@ -182,22 +222,7 @@ extension NewMemoView {
             print(error)
         }
     }
-
-}
-
-extension String {
-    func convertToTrimmedLiteral() -> String {
-        let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "yyyy-MM-dd"
-        guard let date = inputFormatter.date(from: self) else {
-            fatalError("Failed to parse date")
-        }
-
-        let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "yyyy년 M월 d일"
-        let formattedDate = outputFormatter.string(from: date)
-        return formattedDate
-    }
+    
 }
 
 struct NewMemoView_Previews: PreviewProvider {

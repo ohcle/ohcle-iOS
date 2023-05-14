@@ -168,7 +168,6 @@ struct CalenderHolderView: View {
                                         self.isModal = true
                                     }
                                 }
-
                         } else {
                             CalenderHolderGridView(holderType: nil)
                         }
@@ -203,7 +202,6 @@ struct CalenderMiddleView<Content>: View {
         Text(title)
             .font(.title)
             .padding(.bottom, 10)
-        
         Button {
             content()
         } label: {
@@ -217,7 +215,6 @@ struct CalenderMiddleView<Content>: View {
         }
     }
 }
-
 
 struct UpperBar: View {
     var body: some View {

@@ -64,7 +64,7 @@ struct DiaryList: View {
                                   spacing: listSpacing) {
                             
                             ForEach(calenderList) { calenderViewModel in
-                                DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where.name, levelColorName: "gray" , score: Int16(calenderViewModel.score), memoImageData: Data())
+                                DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where?.name, levelColorName: "gray" , score: Int16(calenderViewModel.score), memoImageData: Data())
                             }
                             
                         } // End Of LazyVGrid

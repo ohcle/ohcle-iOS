@@ -18,10 +18,11 @@ struct CalenderModel: Decodable, Identifiable,Hashable {
     }
     
     let id: Int
-    let `where`: ClimbingLocation
+    let `where`: ClimbingLocation?
     let when: String
     let level: Int
     let score: Float
+    let picture: [String]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -29,9 +30,11 @@ struct CalenderModel: Decodable, Identifiable,Hashable {
         case when
         case level
         case score
+        case picture
     }
     
     struct ClimbingLocation: Decodable {
+        let id: Int
         let name: String
         let address: String
         let latitude: Float
