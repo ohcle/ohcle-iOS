@@ -93,7 +93,7 @@ class CalenderData: ObservableObject {
             let dayOfWeek = getDayOfWeek(dateString: dateString)
             
             print(weekOfMonth, dayOfWeek, dateString)
-
+            
             dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
         }
         
@@ -143,11 +143,10 @@ struct RefacotCalenderView: View {
     }
 }
 
-
 struct CalenderHolderView: View {
     @ObservedObject var calenderData: CalenderData
     @State private var isModal: Bool = false
-    @State private var diaryID: Int? = nil
+    @State private var diaryID: Int = .zero
     
     var body: some View {
         VStack(spacing: 0) {
@@ -161,32 +160,25 @@ struct CalenderHolderView: View {
                             let holderColor: HolderColorNumber = HolderColorNumber(rawValue: "\(level)") ?? .red
                             
                             let holderType = HolderType(holderColor: holderColor, nil)
-                            var selectedRecordID: Int = .zero
-                            CalenderHolderGridView(isClimbedDate: true, holderType: holderType)
+                            CalenderHolderGridView(isClimbedDate: true,
+                                                   holderType: holderType)
                                 .onTapGesture {
-                                    selectedRecordID = data[week]?[date]?.id ?? .zero
+                                    if let recordID = data[week]?[date]?.id {
+                                        diaryID = recordID
+                                        self.isModal = true
+                                    }
+                                }
 
-                                    self.isModal = true
-                                }
-                                .sheet(isPresented: $isModal) {
-                                        NewMemoView(isModalView: $isModal,
-                                                    id: selectedRecordID)
-                                }
                         } else {
                             CalenderHolderGridView(holderType: nil)
                         }
                     }
                 }
-                .onChange(of: calenderData.data) { newData in
-                    if let weekData = newData[1], let dateData = weekData[1] {
-                        self.diaryID = dateData.id
-                    } else {
-                        self.diaryID = .zero
-                    }
-                }
-                
-                
             }
+        }
+        .sheet(isPresented: $isModal) {
+            NewMemoView(isModalView: $isModal,
+                        id: $diaryID)
         }
     }
 }

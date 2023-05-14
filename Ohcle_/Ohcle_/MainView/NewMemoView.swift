@@ -22,7 +22,7 @@ struct NewMemoView: View {
     @EnvironmentObject var currentPageType: MyPageType
     @Binding var isModalView: Bool
     
-    @State var id: Int
+    @Binding var id: Int
     @State private var climbingLocation = "클라임웍스 클라이밍"
     @State private var typedText = ""
     @State private var levelColor = Color.yellow
@@ -202,7 +202,8 @@ extension String {
 
 struct NewMemoView_Previews: PreviewProvider {
     @State static var isModal: Bool = false
+    @State static var id: Int = 21
     static var previews: some View {
-        NewMemoView(isModalView: $isModal, id: 0)
+        NewMemoView(isModalView: $isModal, id: $id)
     }
 }
