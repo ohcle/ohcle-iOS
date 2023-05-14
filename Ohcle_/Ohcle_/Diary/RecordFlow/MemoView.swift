@@ -13,8 +13,10 @@ struct MemoView: View {
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
     
     @EnvironmentObject var currentPageType: MyPageType
-
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
     @Binding var isModal: Bool
+    
     @State private var climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
     @State private var typedText: String =  CalendarDataManger.shared.record.temMemo
     @State private var color = Color.convert(from: CalendarDataManger.shared.record.temLevel)
@@ -23,6 +25,7 @@ struct MemoView: View {
     @State private var photoData =  CalendarDataManger.shared.record.temPhoto
     
     @State var diary: Diary?
+    @Binding var selectedTab: Int
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
@@ -94,6 +97,18 @@ struct MemoView: View {
             HStack {
                 Spacer()
                 MemoButton() {
+                    if let diary = diary {
+                        CalendarDataManger.shared.updateDiary(diary: diary)
+                       
+                    } else {
+                        CalendarDataManger.shared.record.saveTemporaryMemo(typedText)
+                        currentPageType.type = .done
+                        currentPageType.type = .calender
+                        self.saveDiaryToServer()
+                        CalendarDataManger.shared.record.clearRecord()
+                        
+                        self.selectedTab = 1
+                    }
                 }
 
                 Spacer()
@@ -140,15 +155,13 @@ extension MemoView {
             return
         }
         var request = URLRequest(url: url)
-        let parameters = ["where": ["name": "test"
-                                   ,"address": "address"
-                                   ,"latitude":37.13
-                                   ,"longitude":127.234
+        let parameters = ["where": ["id": 1
                                    ]
                           ,"when":date
                           ,"level": self.getLevel(level)
                           ,"score":score
                           ,"memo":memo
+                          ,"picture": String(data: photo, encoding: .utf8)
                           
                         ] as [String : Any]
         
@@ -178,8 +191,11 @@ extension MemoView {
 
 struct MemoView_Previews: PreviewProvider {
     static let mocRecorded = RecordedMemo(id:0,date: "dd", location: "dd", level: "Ddd", score: 2, imageData: Data(), memo: "ddd")
+    @State static var isEdited: Bool = false
     @State static var isModal: Bool = false
+    @State static var selectedTab:Int = 2
+
     static var previews: some View {
-        MemoView(isModal: $isModal)
+        MemoView(isModal: $isModal, selectedTab: $selectedTab)
     }
 }

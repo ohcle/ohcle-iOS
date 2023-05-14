@@ -86,9 +86,6 @@ struct NewMemoView: View {
                     .foregroundColor(Color.black)
                     .lineSpacing(5)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                    .onChange(of: typedText) { newValue in
-////                        typedText = newValue
-//                    }
             }
             
             Spacer()

@@ -8,7 +8,6 @@
 import SwiftUI
 import PhotosUI
 
-@available(iOS 16.0, *)
 struct AddPhotoView: View {
     @ObservedObject var picker = ClimbingImagePicker()
     
@@ -22,7 +21,7 @@ struct AddPhotoView: View {
     
     @State private var isShowingGalleryPicker = false
     @State private var selectedImage: UIImage?
-    
+    @State private var showAlert: Bool = false
     
     var body: some View {
         VStack {
@@ -74,7 +73,57 @@ struct AddPhotoView: View {
                 }
             }
             
+            HStack {
+                Image("add-climbing-photo2")
+//                    .padding(.top, 10)
+                    .onTapGesture {
+                        if selectedImage == nil {
+                            isShowingGalleryPicker = true
+                        } else {
+                            showAlert = true
+                        }
+                        
+                    }
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text(""), message: Text("최대 이미지는 1개까지 업로드 가능합니다."), dismissButton: .default(Text("확인")))
+                    }
+                
+                if selectedImage != nil {
+                    ZStack (alignment: Alignment(horizontal: .trailing, vertical: .top)) {
+                        
+                        Image(uiImage: selectedImage ?? UIImage())
+                            .resizable()
+//                            .scaledToFit()
+//                            .aspectRatio(contentMode: .fill)
+//                            .padding(.all, 10)
+                            .frame(width: 64, height: 64)
+
+                        Button {
+                            selectedImage = nil
+                            CalendarDataManger.shared.record.clearTemporaryPhotoData()
+                        } label: {
+                            Image(systemName: "xmark")
+                                .foregroundColor(.white)
+                                .padding(.all, 10)
+                                .background(.gray)
+                                .frame(width: 24, height: 24)
+                                .cornerRadius(12)
+                        }
+                    }
+//                        .frame(maxHeight: UIScreen.screenHeight/2)
+                }
+
+            }
+            
+            
+            if isShowingGalleryPicker {
+                GalleryPickerView(isPresented: $isShowingGalleryPicker, selectedImage: $selectedImage)
+                    .frame(maxHeight: UIScreen.screenHeight/2) // view의 반절에만 나오도록 설정
+                    .edgesIgnoringSafeArea(.bottom) // Safe Area를 무시하여 밑에만 나오도록 설정
+                    .background(.gray)
+            }
         }
+        
         .overlay(
             Group {
                 if !self.isShowingGalleryPicker {
@@ -83,20 +132,24 @@ struct AddPhotoView: View {
                 }
             }
         )
-    }
-}
-struct AddPhotoView_Previews: PreviewProvider {
-    static var previews: some View {
-        if #available(iOS 16.0, *) {
-            AddPhotoView()
-        } else {
-            // Fallback on earlier versions
+        .onChange(of: selectedImage) { _ in
+            
+            if selectedImage == nil {
+                self.nextButton.deactivateNextButton()
+            } else {
+                self.nextButton.activateNextButton()
+            }
         }
     }
 }
 
+struct AddPhotoView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddPhotoView()
+    }
+}
 
-@available(iOS 16.0, *)
+
 extension PhotosPicker {
     init(selection: Binding<PhotosPickerItem?>, matching filter: PHPickerFilter? = nil, preferredItemEncoding: PhotosPickerItem.EncodingDisambiguationPolicy = .automatic, @ViewBuilder label: () -> Label, closure: () -> ()) {
         self.init(selection: selection, label: label)
@@ -131,22 +184,17 @@ struct GalleryPickerView: UIViewControllerRepresentable {
         }
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            
             if let image = info[.originalImage] as? UIImage {
                 parent.selectedImage = image
-                
                 guard var imgData = image.jpegData(compressionQuality: 1.0) else { return }
                 print(imgData.count)
-                
                 while (imgData.count > 3*1024*1024) { //이미지의 최대 크기 3MB로 제한
                     imgData = image.jpegData(compressionQuality: 0.5) ?? Data()
                 }
-                
                 print("\( imgData.count / (1024*1024)) MB")
-                
-                DataController.shared.saveTemporaryPhotoData(imgData)
-                parent.isPresented = false
+                CalendarDataManger.shared.record.saveTemporaryPhotoData(imgData)
             }
+            parent.isPresented = false
         }
         
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
