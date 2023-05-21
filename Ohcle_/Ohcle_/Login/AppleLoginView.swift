@@ -21,6 +21,7 @@ struct AppleLoginView: View {
     @AppStorage("isLoggedIn") private var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
     @AppStorage("ohcleToken") private var ohcleToken = ""
     
+    
     var body: some View {
         if #available(iOS 15.0, *) {
             SignInWithAppleButton(.signUp) { request in
@@ -73,6 +74,8 @@ struct AppleLoginView: View {
             UserTokenManager.shared.save(token: decodedData.token,
                                          account: .apple,
                                          service: .login)
+            
+            self.ohcleToken = String(decodedData.id)
         } catch {
             let errorMessage = error.localizedDescription
             NotificationCenter.default

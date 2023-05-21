@@ -8,11 +8,11 @@
 import SwiftUI
 import Combine
 
-typealias DividedMonthDataType = [Int: [Int: CalenderModel]]
+typealias DividedMonthDataType = [Int: [Int: CalenderViewModel]]
 
 class CalenderData: ObservableObject {
     @Published var year: String = "2023"
-    @Published var month: String = "04"
+    @Published var month: String = OhcleDate.currentMonthString ?? ""
     @Published var isClimbingMemoAdded: Bool = false
     @Published var data: DividedMonthDataType = [:]
     
@@ -27,7 +27,7 @@ class CalenderData: ObservableObject {
             .store(in: &cancellables)
     }
     
-    private func fetchCalenderData() {
+    func fetchCalenderData() {
         guard let url = URL(string: OhcleURLs.generateMonthRecordURLString(year: self.year, month: self.month)) else {
             return
         }
@@ -43,7 +43,7 @@ class CalenderData: ObservableObject {
                 
                 if let data = data {
                     do {
-                        let decoded = try JSONDecoder().decode([CalenderModel].self, from: data)
+                        let decoded = try JSONDecoder().decode([CalenderViewModel].self, from: data)
                         let divided = self.divideWeekData(decoded)
                         
                         DispatchQueue.main.async {
@@ -76,7 +76,9 @@ class CalenderData: ObservableObject {
         return weekday
     }
     
-    private func divideWeekData(_ data: [CalenderModel]) -> DividedMonthDataType {
+    
+    
+    private func divideWeekData(_ data: [CalenderViewModel]) -> DividedMonthDataType {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier:
@@ -91,8 +93,6 @@ class CalenderData: ObservableObject {
             
             let weekOfMonth = calendar.component(.weekOfMonth, from: date)
             let dayOfWeek = getDayOfWeek(dateString: dateString)
-            
-            print(weekOfMonth, dayOfWeek, dateString)
             
             dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
         }
@@ -112,9 +112,12 @@ struct RefacotCalenderView: View {
     var body: some View {
         ZStack {
             VStack {
-                UpperBar()
+                UpperBar {
+                    calenderData.fetchCalenderData()
+                }
                 Spacer()
-                CalenderMiddleView(yearString: self.calenderData.year, monthString: self.calenderData.month) {
+                CalenderMiddleView(yearString: self.calenderData.year,
+                                   monthString: self.calenderData.month) {
                     self.isDismissed = false
                 }
                 
@@ -141,18 +144,23 @@ struct RefacotCalenderView: View {
             return HolderLocatedType.small
         }
     }
+    
+    
 }
 
 struct CalenderHolderView: View {
     @ObservedObject var calenderData: CalenderData
     @State private var isModal: Bool = false
     @State private var diaryID: Int = .zero
+
     
     var body: some View {
         VStack(spacing: 0) {
             let data = calenderData.data
             ForEach(1...5, id:\.self) { week in
                 HStack(spacing: 0) {
+                    let calenderWeek = ((week - 1) * 7) - 3
+                    
                     ForEach(1...7, id: \.self) { date in
                         if (data[week]?[date] != nil) {
                             let level = data[week]?[date]?.level ?? 11
@@ -161,15 +169,16 @@ struct CalenderHolderView: View {
                             
                             let holderType = HolderType(holderColor: holderColor, nil)
                             CalenderHolderGridView(isClimbedDate: true,
-                                                   holderType: holderType)
-                                .onTapGesture {
-                                    if let recordID = data[week]?[date]?.id {
-                                        diaryID = recordID
-                                        self.isModal = true
-                                    }
+                                                   holderType: holderType,
+                                                   date: calenderWeek + date)
+                            .onTapGesture {
+                                if let recordID = data[week]?[date]?.id {
+                                    diaryID = recordID
+                                    self.isModal = true
                                 }
+                            }
                         } else {
-                            CalenderHolderGridView(holderType: nil)
+                            CalenderHolderGridView(holderType: nil, date: calenderWeek + date)
                         }
                     }
                 }
@@ -217,10 +226,11 @@ struct CalenderMiddleView<Content>: View {
 }
 
 struct UpperBar: View {
+    var action: (() -> ())?
     var body: some View {
         HStack {
             Button {
-                
+                action?()
             } label: {
                 Image("MainRefresh")
             }

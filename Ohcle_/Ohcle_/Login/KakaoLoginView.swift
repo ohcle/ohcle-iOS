@@ -127,7 +127,7 @@ struct KakaoLoginView: View {
                 NotificationCenter.default.post(name: .kakaoLoginError, object: nil)
             }
         }
-    }
+    } 
     
     private func isValidLoginResult(_ data: Data) -> Bool {
         do {
@@ -135,7 +135,6 @@ struct KakaoLoginView: View {
             UserTokenManager.shared.save(token: decodedData.token,
                                          account: .kakao,
                                          service: .login)
-            
             return true
         } catch {
             let errorMessage = error.localizedDescription
