@@ -25,7 +25,6 @@ struct Ohcle_App: App {
             ZStack {
                 LoginView(mainLogoTitle: "main logo",
                           receptionURL: URL(string: "")).environmentObject(LoginSetting())
-//                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     .onOpenURL { url in
                         if (AuthApi.isKakaoTalkLoginUrl(url)) {
                             _ =  AuthController.handleOpenUrl(url: url)

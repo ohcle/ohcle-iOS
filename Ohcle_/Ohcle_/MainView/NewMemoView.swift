@@ -297,10 +297,9 @@ extension NewMemoView {
         }
     }
     
-    
     private func requestMemoPicture(name: String) async {
         let urlStr = "https://api-gw.todayclimbing.com/v1/media/image?filename=\(name)"
-        print(urlStr)
+        
         guard let url = URL(string: urlStr) else {
             print("Fail to InitURL")
             return
@@ -317,7 +316,8 @@ extension NewMemoView {
                 print("Response data: \(String(data: data, encoding: .utf8) ?? "")")
             }
             
-            let decoded = try? JSONDecoder().decode(ClimbingImageModel.self, from: data)
+            let decoded = try? JSONDecoder().decode(ClimbingImageModel.self,
+                                                    from: data)
             
             if let base64String = decoded?.image,
                let data = Data(base64Encoded: base64String),
@@ -328,7 +328,6 @@ extension NewMemoView {
         } catch {
             print(error)
         }
-        
     }
 }
 

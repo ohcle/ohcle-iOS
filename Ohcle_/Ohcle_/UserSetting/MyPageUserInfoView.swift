@@ -59,7 +59,6 @@ struct MyPageUserInfoView: View {
                     signOutKakaoAccount()
                     Task {
                         await signOutAppleAccount()
-                        
                     }
                 } label: {
                     Text("탈퇴하기")

@@ -63,22 +63,49 @@ struct KakaoLoginView: View {
                 checkAndRefreshToken()
             }
             
-            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                Task {
-                    await fetchKakaoUserInfomation()
-                    do {
-                        let userIDInt = Int(self.userID ?? .zero)
-                        let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt, nickName: self.userNickName)
-                        
-                        if isSucceded {
-                            self.isLoggedIn = true
+            if (UserApi.isKakaoTalkLoginAvailable()) {
+                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                    Task {
+                        await fetchKakaoUserInfomation()
+                        do {
+                            let userIDInt = Int(self.userID ?? .zero)
+                            let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt, nickName: self.userNickName)
+                            
+                            if isSucceded {
+                                self.isLoggedIn = true
+                            } else {
+                                
+                            }
+                            
+                        } catch {
+                            let errorMessage = error.localizedDescription
+                            NotificationCenter.default
+                                .post(name: .nonValidUserError, object: errorMessage)
                         }
-                    } catch {
-                        let errorMessage = error.localizedDescription
-                        NotificationCenter.default
-                            .post(name: .nonValidUserError, object: errorMessage)
                     }
                 }
+            } else {
+                UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                    Task {
+                        await fetchKakaoUserInfomation()
+                        do {
+                            let userIDInt = Int(self.userID ?? .zero)
+                            let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt, nickName: self.userNickName)
+                            
+                            if isSucceded {
+                                self.isLoggedIn = true
+                            } else {
+                                
+                            }
+                            
+                        } catch {
+                            let errorMessage = error.localizedDescription
+                            NotificationCenter.default
+                                .post(name: .nonValidUserError, object: errorMessage)
+                        }
+                    }
+                }
+                
             }
         } label : {
             Image("kakao_login_medium_wide_Anna")
@@ -124,7 +151,6 @@ struct KakaoLoginView: View {
         UserApi.shared.accessTokenInfo { (tokenInfo, error) in
             if let error = error {
                 defineKakaoLoginError(error)
-                NotificationCenter.default.post(name: .kakaoLoginError, object: nil)
             }
         }
     } 

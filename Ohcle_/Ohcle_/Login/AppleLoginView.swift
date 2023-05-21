@@ -27,6 +27,8 @@ struct AppleLoginView: View {
             SignInWithAppleButton(.signUp) { request in
                 request.requestedScopes = [.email, .fullName]
             } onCompletion: { result in
+                
+                
                 Task {
                     await filterAppleLoginResult(result)
                 }

@@ -22,13 +22,15 @@ struct LoginView: View {
     private let mainLogoTitle: String
     private let url: URL
     private let defualtURL: String = "http://www.google.com"
-    private let usePolicy = "[서비스 이용약관]\(ExternalOhcleLinks.serviceInfomation)"
-    private let privatePolicy = "[개인정보 정책]\(ExternalOhcleLinks.personalInfoPolicy)"
+    private let usePolicy: URL
+    private let privatePolicy: URL
     
     init(mainLogoTitle: String, receptionURL: URL?) {
         self.mainLogoTitle = mainLogoTitle
         let url = URL(string: ExternalOhcleLinks.customerSurport)!
         self.url = url
+        self.usePolicy = URL(string: ExternalOhcleLinks.serviceInfomation)!
+        self.privatePolicy = URL(string: ExternalOhcleLinks.personalInfoPolicy)!
     }
         
     var body: some View {
@@ -52,17 +54,16 @@ struct LoginView: View {
                     .foregroundColor(.black)
                     .padding(.bottom, 30)
                 
-                ZStack {
-                    Text("로그인시 ")
-                    + Text(.init(self.usePolicy))
-                        .underline()
-                    + Text(" 및 ")
-                    + Text(.init(self.privatePolicy))
-                        .underline()
-                    + Text("에 \n 동의하는 것으로 간주합니다.")
-                }.accentColor(.black)
-                    .font(.caption)
-                    .multilineTextAlignment(.center)
+//                ZStack {
+//                    Text("로그인시 ")
+//                    + Link("서비스 이용약관", destination: self.usePolicy)
+//                    + Text(" 및 ")
+//                    + Link("개인정보 이용약관", destination: self.privatePolicy)
+//
+//                    + Text("에 \n 동의하는 것으로 간주합니다.")
+//                }.accentColor(.black)
+//                    .font(.caption)
+//                    .multilineTextAlignment(.center)
                 
             }
             .padding(.horizontal, 35)

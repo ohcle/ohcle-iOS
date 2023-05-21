@@ -76,8 +76,6 @@ class CalenderData: ObservableObject {
         return weekday
     }
     
-    
-    
     private func divideWeekData(_ data: [CalenderModel]) -> DividedMonthDataType {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -144,15 +142,12 @@ struct RefacotCalenderView: View {
             return HolderLocatedType.small
         }
     }
-    
-    
 }
 
 struct CalenderHolderView: View {
     @ObservedObject var calenderData: CalenderData
     @State private var isModal: Bool = false
     @State private var diaryID: Int = .zero
-
     
     var body: some View {
         VStack(spacing: 0) {

@@ -25,7 +25,7 @@ struct MemoView: View {
     @State private var score =  CalendarDataManger.shared.record.temScore
     @State private var photoData =  CalendarDataManger.shared.record.temPhoto
     
-    @State var diary: Diary?
+//    @State var diary: Diary?
     @Binding var selectedTab: Int
     
     var body: some View {
@@ -80,7 +80,7 @@ struct MemoView: View {
                         .lineSpacing(5)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .onChange(of: typedText) { newValue in
-                            self.diary?.memo = typedText
+//                            self.diary?.memo = typedText
                         }
                     
                     if typedText.isEmpty {
@@ -99,18 +99,18 @@ struct MemoView: View {
                 Spacer()
                 MemoButton(isEdited: $isEdited) {
 
-                    if let diary = diary {
-                        CalendarDataManger.shared.updateDiary(diary: diary)
-                       
-                    } else {
-                        CalendarDataManger.shared.record.saveTemporaryMemo(typedText)
-                        currentPageType.type = .done
-                        currentPageType.type = .calender
-                        self.saveDiaryToServer()
-                        CalendarDataManger.shared.record.clearRecord()
-                        
-                        self.selectedTab = 1
-                    }
+//                    if let diary = diary {
+//                        CalendarDataManger.shared.updateDiary(diary: diary)
+//
+//                    } else {
+//                        CalendarDataManger.shared.record.saveTemporaryMemo(typedText)
+//                        currentPageType.type = .done
+//                        currentPageType.type = .calender
+//                        self.saveDiaryToServer()
+//                        CalendarDataManger.shared.record.clearRecord()
+//
+//                        self.selectedTab = 1
+//                    }
                 }
 
                 Spacer()
