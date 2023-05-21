@@ -33,14 +33,26 @@ enum HolderColorNumber: String {
     case white = "9"
     case gray = "10"
     case nonSelected = "11"
+    
+    var colorName: String {
+        switch self {
+        case .white, .nonSelected:
+            return self.rawValue
+        default:
+            return String(describing: self)
+        }
+    }
+    
+    var colorNumber: Int? {
+         return Int(rawValue)
+     }
 }
 
 struct HolderType {
     let holder: Image
     let holderShape : String?
-    let holderID: Int
     
-    init(holderID: Int = 10, holderColor: HolderColorNumber,
+    init(holderColor: HolderColorNumber,
          _ holderShape: HolderShapeAssetNumber?) {
         let divider = "-"
         let colorName = holderColor.rawValue
@@ -48,20 +60,18 @@ struct HolderType {
         let holderTypeAssetName = holderShape.rawValue
         let assetName = holderTypeAssetName + divider + colorName
         
-        self.holderID = holderID
         self.holderShape = holderShape.rawValue
         self.holder = Image(assetName)
     }
     
     
-    init(holderID: Int = 10, holderColor: HolderColorNumber,
+    init(holderColor: HolderColorNumber,
          holderShape: HolderShapeAssetNumber) {
         let holderTypeAssetName = holderShape.rawValue
         let divider = "-"
         let colorName = holderColor.rawValue
         let assetName = holderTypeAssetName + divider + colorName
         
-        self.holderID = holderID
         self.holderShape = holderShape.rawValue
         self.holder = Image(assetName)
     }
@@ -84,7 +94,7 @@ struct HolderType {
 struct CalenderHolderGridView: View {
     let isClimbedDate: Bool
     let holderType: HolderType?
-
+    
     private let holderLocatedType: HolderLocatedType = .allCases.randomElement() ?? .big
     private let backgroundColor = Color("holder_background")
     private let widthHeightRatio: CGFloat = 5/4

@@ -10,75 +10,73 @@ import KakaoSDKUser
 import KakaoSDKAuth
 import KakaoSDKCommon
 
+extension Notification.Name {
+    static let kakaoLoginError = Notification.Name("kakaoLoginError")
+    static let nonValidUserError = Notification.Name("nonValidUserError")
+}
+
+extension UserApi {
+    public func me(propertyKeys: [String]? = nil,
+                   secureResource: Bool = true) async -> User? {
+        return await withCheckedContinuation { continuation in
+            AUTH_API.responseData(.get,
+                                  Urls.compose(path:Paths.userMe),
+                                  parameters: ["property_keys": propertyKeys?.toJsonString(), "secure_resource": secureResource].filterNil(),
+                                  apiType: .KApi) { (response, data, error) in
+                if let data = data {
+                    do {
+                        let user = try? SdkJSONDecoder.customIso8601Date.decode(User.self, from: data)
+                        continuation.resume(returning: user)
+                    } catch {
+                        continuation.resume(returning: nil)
+                    }
+                } else {
+                    continuation.resume(returning: nil)
+                }
+            }
+        }
+    }
+}
+
 struct KakaoLoginView: View {
     @EnvironmentObject var kakaoLoginSetting: LoginSetting
     @AppStorage("userID") private var userNickName = ""
     @AppStorage("userImage") private var userImageString: String = ""
     
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
+    @State private var userID: Int64? = .zero
+    
+    fileprivate func fetchKakaoUserInfomation() async {
+        let user = await UserApi.shared.me()
+        let urlString = user?.properties?["profile_image"] ?? ""
+        let userNickName = user?.properties?["nickname"] ?? "오클"
+        
+        self.userNickName = userNickName
+        self.userID = user?.id
+        self.userImageString = urlString
+    }
     
     var body: some View {
         Button {
-            //MARK: - 카카오톡 토큰 여부 확인
+            //MARK: 카카오톡 토큰 여부 확인
             if AuthApi.hasToken() {
                 checkAndRefreshToken()
             }
-            else {
-                //로그인 필요
-            }
             
-            //MARK: - 카카오톡 실행 여부 확인
-            if (UserApi.isKakaoTalkLoginAvailable()) {
-                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                    print(oauthToken?.accessToken)
-                    
-                    UserApi.shared.me { user, error in
-                        self.userNickName = user?.properties?["nickname"] ?? "오클"
-                        print(self.userNickName)
+            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                Task {
+                    await fetchKakaoUserInfomation()
+                    do {
+                        let userIDInt = Int(self.userID ?? .zero)
+                        let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt, nickName: self.userNickName)
                         
-                        let urlString = user?.properties?["profile_image"] ?? ""
-                        self.userImageString = urlString
-                    }
-                    
-                    let toeknErrorMessage = ""
-                    let accessToken: String = oauthToken?.accessToken ?? toeknErrorMessage
-                    
-                    Task {
-                        do {
-                            let isSucceded = try await isValidOhcleUser(kakaoAccessToken: accessToken,
-                                                                        nickName: self.userNickName)
-                            
-                            if isSucceded {
-                                self.isLoggedIn = true
-                            }
-                        } catch {
-                            print(error)
+                        if isSucceded {
+                            self.isLoggedIn = true
                         }
-                    }
-                }
-                
-            } else {
-                UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                    print(oauthToken?.accessToken)
-                    UserApi.shared.me { user, error in
-                        self.userNickName = user?.properties?["nickname"] ?? "오클"
-                        print(self.userNickName)
-                        
-                        let urlString = user?.properties?["profile_image"] ?? ""
-                        self.userImageString = urlString
-                    }
-                    
-                    let toeknErrorMessage = ""
-                    let accessToken: String = oauthToken?.accessToken ?? toeknErrorMessage
-                    Task {
-                        do {
-                            let isSucceded = try await isValidOhcleUser(kakaoAccessToken: accessToken, nickName: self.userNickName)
-                            if isSucceded {
-                                self.isLoggedIn = true
-                            }
-                        } catch {
-                            print(error)
-                        }
+                    } catch {
+                        let errorMessage = error.localizedDescription
+                        NotificationCenter.default
+                            .post(name: .nonValidUserError, object: errorMessage)
                     }
                 }
             }
@@ -89,6 +87,28 @@ struct KakaoLoginView: View {
                 .aspectRatio(CGSize(width: 7, height: 1.1),
                              contentMode: .fit)
         }
+    }
+    
+    private func isValidOhcleUser(kakaoUserID: Int,
+                                  nickName: String, gender: String? = nil) async throws -> Bool {
+        let url = getAccessTokenURL(.kakaoLogin)
+        var request = try URLRequest(url: url, method: .post)
+        let para = ["id": "\(kakaoUserID)",
+                    "nickname": nickName,
+                    "gender": gender]
+        
+        let httpBody = try JSONSerialization.data(withJSONObject: para, options: [])
+        request.httpBody = httpBody
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let (loginResult, response) = try await URLSession.shared.data(for: request)
+        
+        if let response = response as? HTTPURLResponse,
+           response.statusCode != 200 {
+            print("reponse Code is :\(response.statusCode)")
+        }
+        
+        return isValidLoginResult(loginResult)
     }
     
     private func defineKakaoLoginError(_ error: Error) {
@@ -104,56 +124,22 @@ struct KakaoLoginView: View {
         UserApi.shared.accessTokenInfo { (tokenInfo, error) in
             if let error = error {
                 defineKakaoLoginError(error)
+                NotificationCenter.default.post(name: .kakaoLoginError, object: nil)
             }
         }
     }
     
-    //    private func saveUserKeychain(token: ) {
-    //        let mockData: [String: Any] = ["isNewbie": true,
-    //                                       "token": "test"]
-    //        UserTokenManager.shared.save(token: decodedData["token"] as? String ?? "", account: .kakao, service: .login)
-    //    }
-    
-    private func isValidOhcleUser(kakaoAccessToken: String,
-                                  nickName: String, gender: String? = nil) async throws -> Bool {
-        
-        let url = getAccessTokenURL(.kakaoLogin)
-        var request = try URLRequest(url: url, method: .post)
-        
-        request.setValue("232586", forHTTPHeaderField: "id")
-        request.setValue("Joy", forHTTPHeaderField: "nickname")
-        request.setValue("", forHTTPHeaderField: "gender")
-        
-        let para = ["id": "232586", "nickname": "Joy", "gender": ""]
-        
-        let httpBody = try JSONSerialization.data(withJSONObject: para) ??  Data()
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        if let response = response as? HTTPURLResponse,
-           response.statusCode != 200 {
-            print("reponse Code is :\(response.statusCode)")
-            print(response.url, response.headers, response.allHeaderFields)
-        }
-        
-#if DEBUG
+    private func isValidLoginResult(_ data: Data) -> Bool {
         do {
-            print(data)
-            let decodedData = try JSONDecoder().decode(LoginResultModel.self, from: data)
-            return true
-        } catch {
-            print(error)
-            return true
-        }
-        
-#endif
-        do {
-            print(data)
-            let decodedData = try JSONDecoder().decode(LoginResultModel.self, from: data)
+            let decodedData = try JSONDecoder().decode(AppleLoginResultModel.self, from: data)
+            UserTokenManager.shared.save(token: decodedData.token,
+                                         account: .kakao,
+                                         service: .login)
             
             return true
         } catch {
-            print(error)
+            let errorMessage = error.localizedDescription
+            NotificationCenter.default.post(name: .kakaoLoginError, object: errorMessage)
             return false
         }
     }
