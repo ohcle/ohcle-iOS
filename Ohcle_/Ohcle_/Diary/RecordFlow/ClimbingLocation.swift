@@ -75,9 +75,7 @@ struct ClimbingLocation: View {
             Spacer()
             
         }
-        .onDisappear {
-            let locationString = self.searchText
-        }
+
         .overlay(
             self.nextButton
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))

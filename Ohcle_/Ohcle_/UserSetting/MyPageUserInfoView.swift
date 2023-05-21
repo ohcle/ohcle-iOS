@@ -129,10 +129,7 @@ struct MyPageUserInfoView: View {
     }
     
     private func signOutAppleAccount() async {
-        //        let keyChain = UserTokenManager.shared.read(account: .apple, service: .login)
-        //        let tokenString = String(data: keyChain ?? Data(), encoding: .utf8)
-        //        print(tokenString)
-        guard let token = UserDefaults.standard.string(forKey: "ohcleToken") as? String else {
+        guard let token = UserDefaults.standard.string(forKey: "ohcleToken") else {
             return
         }
         print(token)

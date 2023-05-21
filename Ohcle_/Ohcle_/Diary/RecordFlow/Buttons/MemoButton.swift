@@ -18,9 +18,20 @@ enum MemoState: String {
 }
 
 struct MemoButton: View {
-    @State private var title: String = MemoState.save.rawValue
+    private var title: String {
+        get {
+            if self.isEdited {
+                return MemoState.edit.rawValue
+            } else {
+                return MemoState.save.rawValue
+            }
+        }
+    }
+    
     private let memoButtonColor: String = "editButton"
     private let memoButtonRadius: CGFloat = 8.0
+    @Binding var isEdited: Bool
+    
     @State var action: (() -> ())?
     
     var body: some View {
@@ -36,14 +47,12 @@ struct MemoButton: View {
                 .foregroundColor(.white)
         }
     }
-
-    func changeButtonTitleToEdit() {
-        self.title = MemoState.edit.rawValue
-    }
 }
 
 struct OhcleButton_Previews: PreviewProvider {
+    @State static var isEdited = true
+    
     static var previews: some View {
-        MemoButton()
+        MemoButton(isEdited: $isEdited)
     }
 }

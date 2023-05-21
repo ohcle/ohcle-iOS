@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct Level: View {
     @State private var commonSize: CGSize = CGSize()
     @EnvironmentObject var nextPage: MyPageType
@@ -42,9 +43,8 @@ struct Level: View {
                             Circle()
                                 .fill(colors[index].opacity(self.selectedColor == colors[index] ? 1.0 : 0.7))
                             Circle()
-                                .strokeBorder(self.selectedColor == colors[index] ? .black : .clear, lineWidth: 5)
-//                            Circle()
-//                                .fill(self.selectedColor == colors[index] ? .clear : .black.opacity(0.25))
+                                .strokeBorder(self.selectedColor == colors[index] ?
+                                    .black : .clear, lineWidth: 5)
                         }
                     }
                 }
@@ -99,7 +99,7 @@ extension Color {
             return "Level Color Error"
         }
     }
-    
+ 
    static func convert(from climbingLevelName: String) -> Color {
         switch climbingLevelName {
         case "red" :

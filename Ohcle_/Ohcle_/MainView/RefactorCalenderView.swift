@@ -114,7 +114,8 @@ struct RefacotCalenderView: View {
             VStack {
                 UpperBar()
                 Spacer()
-                CalenderMiddleView(yearString: self.calenderData.year, monthString: self.calenderData.month) {
+                CalenderMiddleView(yearString: self.calenderData.year,
+                                   monthString: self.calenderData.month) {
                     self.isDismissed = false
                 }
                 

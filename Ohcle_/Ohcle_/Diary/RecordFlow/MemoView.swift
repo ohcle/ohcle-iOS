@@ -16,7 +16,8 @@ struct MemoView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @Binding var isModal: Bool
-    
+    @State private var isEdited: Bool = false
+
     @State private var climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
     @State private var typedText: String =  CalendarDataManger.shared.record.temMemo
     @State private var color = Color.convert(from: CalendarDataManger.shared.record.temLevel)
@@ -96,7 +97,7 @@ struct MemoView: View {
             Spacer()
             HStack {
                 Spacer()
-                MemoButton() {
+                MemoButton(isEdited: $isEdited) {
                     if let diary = diary {
                         CalendarDataManger.shared.updateDiary(diary: diary)
                        
