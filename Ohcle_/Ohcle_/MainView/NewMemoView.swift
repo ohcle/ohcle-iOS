@@ -300,7 +300,7 @@ extension NewMemoView {
     
     private func requestMemoPicture(name: String) async {
         let urlStr = "https://api-gw.todayclimbing.com/v1/media/image?filename=\(name)"
-        
+        print(urlStr)
         guard let url = URL(string: urlStr) else {
             print("Fail to InitURL")
             return

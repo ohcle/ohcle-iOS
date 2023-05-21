@@ -144,18 +144,23 @@ struct RefacotCalenderView: View {
             return HolderLocatedType.small
         }
     }
+    
+    
 }
 
 struct CalenderHolderView: View {
     @ObservedObject var calenderData: CalenderData
     @State private var isModal: Bool = false
     @State private var diaryID: Int = .zero
+
     
     var body: some View {
         VStack(spacing: 0) {
             let data = calenderData.data
             ForEach(1...5, id:\.self) { week in
                 HStack(spacing: 0) {
+                    let calenderWeek = ((week - 1) * 7) - 3
+                    
                     ForEach(1...7, id: \.self) { date in
                         if (data[week]?[date] != nil) {
                             let level = data[week]?[date]?.level ?? 11
@@ -164,15 +169,16 @@ struct CalenderHolderView: View {
                             
                             let holderType = HolderType(holderColor: holderColor, nil)
                             CalenderHolderGridView(isClimbedDate: true,
-                                                   holderType: holderType)
-                                .onTapGesture {
-                                    if let recordID = data[week]?[date]?.id {
-                                        diaryID = recordID
-                                        self.isModal = true
-                                    }
+                                                   holderType: holderType,
+                                                   date: calenderWeek + date)
+                            .onTapGesture {
+                                if let recordID = data[week]?[date]?.id {
+                                    diaryID = recordID
+                                    self.isModal = true
                                 }
+                            }
                         } else {
-                            CalenderHolderGridView(holderType: nil)
+                            CalenderHolderGridView(holderType: nil, date: calenderWeek + date)
                         }
                     }
                 }
