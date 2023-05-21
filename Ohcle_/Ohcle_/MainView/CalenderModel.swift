@@ -64,3 +64,8 @@ struct DetailClimbingModel: Decodable {
         let longitude: Float
     }
 }
+
+
+struct ClimbingImageModel: Decodable {
+    let image: String
+}

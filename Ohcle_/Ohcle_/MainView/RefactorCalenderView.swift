@@ -12,7 +12,7 @@ typealias DividedMonthDataType = [Int: [Int: CalenderViewModel]]
 
 class CalenderData: ObservableObject {
     @Published var year: String = "2023"
-    @Published var month: String = "04"
+    @Published var month: String = OhcleDate.currentMonthString ?? ""
     @Published var isClimbingMemoAdded: Bool = false
     @Published var data: DividedMonthDataType = [:]
     
@@ -27,7 +27,7 @@ class CalenderData: ObservableObject {
             .store(in: &cancellables)
     }
     
-    private func fetchCalenderData() {
+    func fetchCalenderData() {
         guard let url = URL(string: OhcleURLs.generateMonthRecordURLString(year: self.year, month: self.month)) else {
             return
         }
@@ -76,6 +76,8 @@ class CalenderData: ObservableObject {
         return weekday
     }
     
+    
+    
     private func divideWeekData(_ data: [CalenderViewModel]) -> DividedMonthDataType {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -91,8 +93,6 @@ class CalenderData: ObservableObject {
             
             let weekOfMonth = calendar.component(.weekOfMonth, from: date)
             let dayOfWeek = getDayOfWeek(dateString: dateString)
-            
-            print(weekOfMonth, dayOfWeek, dateString)
             
             dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
         }
@@ -112,7 +112,9 @@ struct RefacotCalenderView: View {
     var body: some View {
         ZStack {
             VStack {
-                UpperBar()
+                UpperBar {
+                    calenderData.fetchCalenderData()
+                }
                 Spacer()
                 CalenderMiddleView(yearString: self.calenderData.year,
                                    monthString: self.calenderData.month) {
@@ -218,10 +220,11 @@ struct CalenderMiddleView<Content>: View {
 }
 
 struct UpperBar: View {
+    var action: (() -> ())?
     var body: some View {
         HStack {
             Button {
-                
+                action?()
             } label: {
                 Image("MainRefresh")
             }

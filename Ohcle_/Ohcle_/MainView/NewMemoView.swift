@@ -40,12 +40,41 @@ struct NewMemoView: View {
     @State private var date = "2020-02-02"
     @State private var score = 0
     @State private var photoData = Data()
-    
+    @State private var photo = Image("")
+
     @State private var selectedColor: Color = .clear
     @State private var selectedDate: Date = Date()
     
     private let colors: [Color] = [.red, .orange, .yellow,
                                    .green, .blue, .purple, .black]
+    
+    private func converToLevelInt(color: Color) -> Int {
+        switch color {
+        case .red:
+            return 1
+        case .orange:
+            return 2
+        case .yellow:
+            return 3
+        case .green:
+            return 4
+        case .blue:
+            return 5
+        case .indigo:
+            return 6
+        case .purple:
+            return 7
+        case .black:
+            return 8
+        case .white:
+            return 9
+        case .gray:
+            return 10
+        default:
+            return .zero
+        }
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             Button {
@@ -72,6 +101,9 @@ struct NewMemoView: View {
                         withAnimation {
                             self.levelColor = selectedColor
                             self.isLevelCircleTapped = false
+                            let colorInt = converToLevelInt(color: self.selectedColor)
+                            print(test)
+                            self.levelColorInt = colorInt
                         }
                     }
                 }
@@ -124,15 +156,13 @@ struct NewMemoView: View {
                     .overlay(Color.black)
                     .padding(.top, -10)
                 
-                //                if photoData.isEmpty == false {
-                //                    HStack {
-                //                        Spacer()
-                //                        Image(uiImage: UIImage(data: DataController.shared.temPhoto) ?? UIImage())
-                //                            .resizable()
-                //                            .scaledToFit()
-                //                        Spacer()
-                //                    }
-                //                }
+                HStack {
+                    Spacer()
+                    photo
+                        .resizable()
+                        .scaledToFit()
+                    Spacer()
+                }
                 
                 TextEditor(text: $typedText)
                     .scrollContentBackground(.hidden)
@@ -168,7 +198,10 @@ struct NewMemoView: View {
         
         .task {
             let data = await requestDetailMemo(id: self.id)
-            decodeData(data ?? Data())
+            await decodeData(data ?? Data())
+        }
+        .onDisappear {
+            
         }
     }
 }
@@ -245,7 +278,7 @@ extension NewMemoView {
         return nil
     }
     
-    private func decodeData(_ data: Data) {
+    private func decodeData(_ data: Data) async {
         do {
             let decodedData = try JSONDecoder().decode(DetailClimbingModel.self, from: data)
             
@@ -258,10 +291,44 @@ extension NewMemoView {
             self.typedText = decodedData.memo
             self.score = Int(decodedData.score)
             self.climbingLocation = decodedData.where?.name ?? ""
-            
+            await requestMemoPicture(name: decodedData.picture?.first ?? "")
         } catch {
             print(error)
         }
+    }
+    
+    
+    private func requestMemoPicture(name: String) async {
+        let urlStr = "https://api-gw.todayclimbing.com/v1/media/image?filename=\(name)"
+        
+        guard let url = URL(string: urlStr) else {
+            print("Fail to InitURL")
+            return
+        }
+        
+        do {
+            let request = try URLRequest(url: url, method: .get)
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let response = response as? HTTPURLResponse,
+               response.statusCode != 200 {
+                print("Status code: \(response.statusCode)")
+                print("Response data: \(String(data: data, encoding: .utf8) ?? "")")
+            }
+            
+            let decoded = try? JSONDecoder().decode(ClimbingImageModel.self, from: data)
+            
+            if let base64String = decoded?.image,
+               let data = Data(base64Encoded: base64String),
+               let image = UIImage(data: data) {
+                self.photoData = data
+                self.photo = Image(uiImage: image)
+            }
+        } catch {
+            print(error)
+        }
+        
     }
 }
 
