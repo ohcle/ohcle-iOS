@@ -13,7 +13,7 @@ struct MemoView: View {
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
     
     @EnvironmentObject var currentPageType: MyPageType
-    @Environment(\.managedObjectContext) var managedObjectContext
+//    @Environment(\.managedObjectContext) var managedObjectContext
     
     @Binding var isModal: Bool
     
@@ -161,8 +161,7 @@ extension MemoView {
                           ,"level": self.getLevel(level)
                           ,"score":score
                           ,"memo":memo
-                          ,"picture": String(data: photo, encoding: .utf8)
-                          
+                          ,"picture": [photo.base64EncodedString()]
                         ] as [String : Any]
         
         

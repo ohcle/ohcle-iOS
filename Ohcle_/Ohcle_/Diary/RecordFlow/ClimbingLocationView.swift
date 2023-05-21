@@ -20,6 +20,12 @@ struct IdentifiableSpace: Identifiable {
     }
 }
 
+struct AnnotationItem: Identifiable {
+    let id = UUID()
+    let coordinate: CLLocationCoordinate2D
+}
+
+
 struct ClimbingLocationView: View {
     @State private var searchText = ""
     @State private var commonSize = CGSize()
@@ -28,8 +34,12 @@ struct ClimbingLocationView: View {
     private var nextButton: NextPageButton =  NextPageButton(title: "다음",
                                                              width: UIScreen.screenWidth/1.2,
                                                              height: UIScreen.screenHeight/15)
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+    
+    
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.592887, longitude: 126.948906), span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
     @StateObject var locationDataManager = LocationDataManager()
+    @State var selectedLocation:ClimbingLocation = ClimbingLocation()
+    @State private var annotations:[AnnotationItem] = []
     
     var body: some View {
         VStack {
@@ -53,12 +63,10 @@ struct ClimbingLocationView: View {
                 } else {
                     // Fallback on earlier versions
                 }
-                HStack {
+                HStack{
                     Image("locationSearchBarIcon")
                     NavigationLink {
-                        
-                        Text("Search Process")
-                        
+                        ClimbingLocationSearch(selectedLocation: $selectedLocation, selectedname: $searchText)
                     } label: {
                         TextField("장소를 입력해 주세요",
                                   text: $searchText)
@@ -67,10 +75,11 @@ struct ClimbingLocationView: View {
                                 self.nextButton.userEvent.inform()
                             }
                         }
+                        .disabled(true)
+                        .multilineTextAlignment(.leading)
                     }
-                    
                 }
-                .padding(.leading, commonSize.width * 0.2)
+                .padding(.leading, 10)
             }
             .frame(width: commonSize.width * 0.9,
                    height: commonSize.height)
@@ -79,19 +88,36 @@ struct ClimbingLocationView: View {
             
             switch locationDataManager.locationManager.authorizationStatus {
             case .authorizedWhenInUse:  // Location services are available.
-                Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: .constant(.follow))
-                    .frame(width: 400, height: 300)
+                Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: annotations) { annotation in
+                    MapAnnotation(coordinate: annotation.coordinate) {
+                        Image(systemName: "mappin.and.ellipse")
+                            .foregroundColor(.red)
+                    }
+                }
+                .frame(width: 400, height: 300)
             case .restricted, .denied:  // Location services currently unavailable.
-                Map(coordinateRegion: $region)
-                    .frame(width: 400, height: 300)
+                Map(coordinateRegion: $region, annotationItems: annotations) { annotation in
+                    MapAnnotation(coordinate: annotation.coordinate) {
+                        Image(systemName: "mappin.and.ellipse")
+                            .foregroundColor(.red)
+                            .font(.title)
+                    }
+                }
+                .frame(width: 400, height: 300)
                 
             case .notDetermined:        // Authorization not determined yet.
-                Map(coordinateRegion: $region)
-                    .frame(width: 400, height: 300)
+                Map(coordinateRegion: $region, annotationItems: annotations) { annotation in
+                    MapAnnotation(coordinate: annotation.coordinate) {
+                        Image(systemName: "mappin.and.ellipse")
+                            .foregroundColor(.red)
+                            .font(.title)
+                    }
+                }
+                .frame(width: 400, height: 300)
             default:
                 ProgressView()
             }
-           
+            
             
             Spacer()
             
@@ -104,6 +130,15 @@ struct ClimbingLocationView: View {
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
         )
         .onAppear {
+            
+            if selectedLocation.longitude != 0 && selectedLocation.longitude != 0 {
+                annotations.removeAll()
+                let locationPosition = CLLocationCoordinate2D(latitude: CLLocationDegrees(selectedLocation.latitude), longitude: CLLocationDegrees(selectedLocation.longitude))
+                let newAnnotation = AnnotationItem(coordinate: locationPosition)
+                annotations.append(newAnnotation)
+                region = MKCoordinateRegion(center: locationPosition, latitudinalMeters: 300, longitudinalMeters: 300)
+            }
+            
             
         }
     }
@@ -157,6 +192,11 @@ class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegat
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // Insert code to handle location updates
+        print("\\======",locations.count)
+        //        for ele in locations {
+        //
+        //        }
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

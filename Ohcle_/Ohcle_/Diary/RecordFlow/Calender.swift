@@ -26,10 +26,9 @@ struct Calender: View {
     @State private var pickerWidth: CGFloat = 0
     @State private var pickerHeight: CGFloat = 0
     
-    private var nextButton: NextPageButton =  NextPageButton(title: "다음",
+     var nextButton: NextPageButton =  NextPageButton(title: "다음",
                                                      width: UIScreen.screenWidth/1.2,
-                                                             height: UIScreen.screenHeight/15)
-
+                                                      height: UIScreen.screenHeight/15)
     var body: some View {
         VStack {
             Text("기록하고 싶은 날")
@@ -49,17 +48,22 @@ struct Calender: View {
             .environment(\.locale, Locale(identifier: "ko"))
         }
         .onDisappear {
-            let dateString = OhcleDate().diaryDateFormatter.string(from: self.date)
-            CalendarDataManger.shared.record.saveTemporaryDate(dateString)
+//            let dateString = OhcleDate().diaryDateFormatter.string(from: self.date)
+//            CalendarDataManger.shared.record.saveTemporaryDate(dateString)
         }
         .onAppear {
             self.nextButton.userEvent.inform()
+            self.nextButton.userEvent.nextButtonTouched = {
+                let dateString = OhcleDate().diaryDateFormatter.string(from: self.date)
+                CalendarDataManger.shared.record.saveTemporaryDate(dateString)
+            }
         }
         .overlay(
             self.nextButton
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
         )
     }
+
 }
 
 struct Calender_Previews: PreviewProvider {

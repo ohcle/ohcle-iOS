@@ -8,13 +8,111 @@
 import SwiftUI
 
 struct ClimbingLocationSearch: View {
+    @State private var searchText = ""
+    @State private var climbingLocations: [ClimbingLocation] = []
+    @Binding var selectedLocation:ClimbingLocation
+    @Binding var selectedname: String
+    @Environment(\.presentationMode) var presetntationMode
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+        
+            TextField("test",text: $searchText)
+                .frame(height: 40)
+                .onSubmit {
+                    print("Submit")
+                    fetchClimbinPlace(searchText)
+                }
+                .overlay {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray, lineWidth: 2)
+                }
+                .padding(10)
+            
+            List(climbingLocations){ climbingLocation in
+                HStack{
+                    Text(climbingLocation.name)
+                    Text(climbingLocation.address)
+                }
+                .listRowInsets(EdgeInsets())
+                .onTapGesture {
+                    print("tapped \(climbingLocation.name),\(climbingLocation.latitude),\(climbingLocation.longitude)")
+                    selectedname = climbingLocation.name
+                    selectedLocation = climbingLocation
+                    
+                    presetntationMode.wrappedValue.dismiss()
+                    
+                    
+                }
+            }
+            .edgesIgnoringSafeArea(.all)
+            .listStyle(.plain)
+        }
+
+        
+        
     }
 }
 
-struct ClimbingLocationSearch_Previews: PreviewProvider {
-    static var previews: some View {
-        ClimbingLocationSearch()
+// MARK: Network function
+extension ClimbingLocationSearch {
+    
+    
+    private func fetchClimbinPlace(_ keyword: String) {
+        let urlString = "https://api-gw.todayclimbing.com/" + "v1/climbing/place/?keyword="
+        guard let url = URL(string: urlString) else { return }
+        
+        do {
+            let request = try URLRequest(url: url, method: .get)
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                
+                if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+                    print(response.statusCode)
+                }
+                
+                if let data = data {
+                    
+                    print(data)
+                    print(String(data: data, encoding: .utf8))
+                    do {
+                        if let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String:Any]] {
+
+                            for ele in jsonArray {
+                               print(ele)
+                                let id   = ele["id"]        as? Int     ?? 0
+                                let name = ele["name"]      as? String  ?? ""
+                                let addr = ele["address"]   as? String  ?? ""
+                                let lat  = ele["latitude"]  as? Double   ?? 0.0
+                                let long = ele["longitude"] as? Double   ?? 0.0
+                                
+                                climbingLocations.append(ClimbingLocation(id: id, name: name, address: addr, latitude: Float(lat), longitude: Float(long)))
+                            }
+                        }
+                        
+
+                    }
+                    catch {
+                        print("JsonSerialization error \(error)")
+                    }
+
+                    
+                }
+                
+                
+                
+            }
+            .resume()
+        } catch {
+            print(error)
+        }
+        
+        
     }
 }
+
+//struct ClimbingLocationSearch_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ClimbingLocationSearch()
+//    }
+//}

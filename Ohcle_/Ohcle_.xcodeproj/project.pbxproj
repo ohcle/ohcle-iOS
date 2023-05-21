@@ -11,7 +11,7 @@
 		A80A484329F3AEDE00F3F186 /* DateFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80A484229F3AEDE00F3F186 /* DateFilterView.swift */; };
 		A80A484529F3B8FC00F3F186 /* CircleDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80A484429F3B8FC00F3F186 /* CircleDateView.swift */; };
 		A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452328FA50DE00343BB4 /* ReadViewSize.swift */; };
-		A80B452828FA5A8D00343BB4 /* ClimbingLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */; };
+		A80B452828FA5A8D00343BB4 /* ClimbingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452728FA5A8D00343BB4 /* ClimbingLocationView.swift */; };
 		A80B452A28FA70A200343BB4 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B452928FA70A200343BB4 /* Level.swift */; };
 		A817166629038013005B1268 /* ClimbingScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166529038013005B1268 /* ClimbingScore.swift */; };
 		A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166B290386AE005B1268 /* AddPhotoView.swift */; };
@@ -89,6 +89,7 @@
 		FE918FC629F451FD00484731 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE918FC529F451FD00484731 /* SystemConfiguration.framework */; };
 		FE918FC829F4520500484731 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE918FC729F4520400484731 /* OpenGLES.framework */; };
 		FEB9423D29D5F45300AE3D1F /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */; };
+		FEB9B67C2A19B08900DCCE5A /* ClimbingLocationSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB9B67B2A19B08900DCCE5A /* ClimbingLocationSearch.swift */; };
 		FED3211529D02C3A00115539 /* ScoreStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED3211429D02C3A00115539 /* ScoreStar.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,7 +98,7 @@
 		A80A484229F3AEDE00F3F186 /* DateFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterView.swift; sourceTree = "<group>"; };
 		A80A484429F3B8FC00F3F186 /* CircleDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleDateView.swift; sourceTree = "<group>"; };
 		A80B452328FA50DE00343BB4 /* ReadViewSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadViewSize.swift; sourceTree = "<group>"; };
-		A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingLocation.swift; sourceTree = "<group>"; };
+		A80B452728FA5A8D00343BB4 /* ClimbingLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingLocationView.swift; sourceTree = "<group>"; };
 		A80B452928FA70A200343BB4 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		A817166529038013005B1268 /* ClimbingScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingScore.swift; sourceTree = "<group>"; };
 		A817166B290386AE005B1268 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
@@ -183,6 +184,7 @@
 		FE918FC329F451F400484731 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FE918FC529F451FD00484731 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FE918FC729F4520400484731 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		FEB9B67B2A19B08900DCCE5A /* ClimbingLocationSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingLocationSearch.swift; sourceTree = "<group>"; };
 		FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OnBoardingView.swift; path = Ohcle_/OnBoardingView.swift; sourceTree = SOURCE_ROOT; };
 		FED3211429D02C3A00115539 /* ScoreStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -215,7 +217,8 @@
 				A89E181F29A389B500F27045 /* Buttons */,
 				A89E182029A389E100F27045 /* DiaryList */,
 				A86A596728F2A1F100C500E1 /* Calender.swift */,
-				A80B452728FA5A8D00343BB4 /* ClimbingLocation.swift */,
+				A80B452728FA5A8D00343BB4 /* ClimbingLocationView.swift */,
+				FEB9B67B2A19B08900DCCE5A /* ClimbingLocationSearch.swift */,
 				A80B452928FA70A200343BB4 /* Level.swift */,
 				FED3211429D02C3A00115539 /* ScoreStar.swift */,
 				A817166529038013005B1268 /* ClimbingScore.swift */,
@@ -582,7 +585,7 @@
 				A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */,
 				A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */,
 				A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */,
-				A80B452828FA5A8D00343BB4 /* ClimbingLocation.swift in Sources */,
+				A80B452828FA5A8D00343BB4 /* ClimbingLocationView.swift in Sources */,
 				A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */,
 				A83132282A075FF20087A82C /* NewAppleLoginView.swift in Sources */,
 				A8AB86BC29E2821700F5410F /* SplashView.swift in Sources */,
@@ -597,6 +600,7 @@
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,
 				A83132262A0730F80087A82C /* DetailDiaryModel.swift in Sources */,
 				A86A596828F2A1F100C500E1 /* Calender.swift in Sources */,
+				FEB9B67C2A19B08900DCCE5A /* ClimbingLocationSearch.swift in Sources */,
 				A8A812EB29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld in Sources */,
 				A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */,
 			);
@@ -739,6 +743,8 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Ohcle--Info.plist";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치사용한다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치사용한다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -780,6 +786,8 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Ohcle--Info.plist";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치사용한다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치사용한다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -66,7 +66,12 @@ struct DiaryList: View {
                                   spacing: listSpacing) {
                             
                             ForEach(calenderData.data.flatMap{ $0.value.values.compactMap { $0 } }.sorted { $0.when > $1.when }) { calenderViewModel in
-                                DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where.name, levelColorName: "gray" , score: Int16(calenderViewModel.score), memoImageData: Data())
+
+                                
+                                DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where?.name, levelColorName: "gray" , score: Int16(calenderViewModel.score), memoImageData: calenderViewModel.picture)
+                                
+//                                NewMemoView(isModalView: $isModal,
+//                                            id: $diaryID)
                             }
                             
                         } // End Of LazyVGrid
