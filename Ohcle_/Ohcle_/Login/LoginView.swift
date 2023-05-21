@@ -22,8 +22,8 @@ struct LoginView: View {
     private let mainLogoTitle: String
     private let url: URL
     private let defualtURL: String = "http://www.google.com"
-    private let usePolicy = "[서비스 이용약관](\(ExternalOhcleLinks.serviceInfomation)"
-    private let privatePolicy = "[개인정보 정책](\(ExternalOhcleLinks.personalInfoPolicy)"
+    private let usePolicy = "[서비스 이용약관]\(ExternalOhcleLinks.serviceInfomation)"
+    private let privatePolicy = "[개인정보 정책]\(ExternalOhcleLinks.personalInfoPolicy)"
     
     init(mainLogoTitle: String, receptionURL: URL?) {
         self.mainLogoTitle = mainLogoTitle

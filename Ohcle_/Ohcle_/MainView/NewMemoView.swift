@@ -56,7 +56,9 @@ struct NewMemoView: View {
             .padding(.bottom, -5)
             
             HStack() {
-                ScoreStar(rating: .constant(Int(score)))
+//                ScoreStar(rating: .constant(Int(score)))
+                ScoreStar(rating: $score)
+
             }
             
             VStack(alignment: .leading) {
@@ -212,7 +214,7 @@ extension NewMemoView {
             self.date = decodedData.when
             self.typedText = decodedData.memo
             self.score = Int(decodedData.score)
-            self.climbingLocation = decodedData.where.name
+            self.climbingLocation = decodedData.where?.name ?? ""
             
             print(self.date, self.score, self.typedText)
         } catch {

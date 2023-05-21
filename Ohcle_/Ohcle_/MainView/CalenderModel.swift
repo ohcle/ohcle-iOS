@@ -44,7 +44,7 @@ struct CalenderViewModel: Decodable, Identifiable,Hashable {
 
 struct DetailClimbingModel: Decodable {
     let id: Int
-    let `where`: Location
+    let `where`: Location?
     let when: String
     let level: Int
     let score: Float
@@ -57,7 +57,7 @@ struct DetailClimbingModel: Decodable {
     let deleted_at: String?
     
     struct Location: Decodable {
-        let id: Int
+        let id: Int?
         let name: String
         let address: String
         let latitude: Float
