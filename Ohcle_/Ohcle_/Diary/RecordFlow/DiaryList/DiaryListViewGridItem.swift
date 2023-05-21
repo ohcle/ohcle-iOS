@@ -24,17 +24,24 @@ struct DiaryListViewGridItem: View {
     private let memoImageData: Data?
     
     init(date: String?, location: String?,
-         levelColorName: String, score: Int16?, memoImageData: Data?) {
+         levelColorName: String, score: Int16?, memoImageData: [String]?) {
         self.date = date
         self.location = location
         self.levelColor = Color.convert(from: levelColorName)
         self.scoreNumber = Int(score ?? .zero)
-        self.memoImageData = memoImageData
+        
+        if let memoImageData = memoImageData, memoImageData.count > 0  {
+            self.memoImageData = Data(base64Encoded: memoImageData[0])
+        } else {
+            self.memoImageData = Data()
+        }
+        
     }
     
     
     private func generateMemoImage() -> Image {
         if let data = self.memoImageData {
+            print(data.base64EncodedString())
             return Image(uiImage: UIImage(data: data) ?? UIImage(named: "main_logo") ?? UIImage())
         } else {
            return self.placeHoldeImage
@@ -82,7 +89,7 @@ struct DiaryListCell_Previews: PreviewProvider {
     static private let mocLocation = "오클 클라이밍"
     static private let mocColorName = "gray"
     static private let mocScore: Int16 = 3
-    static private let mocImageData = Data()
+    static private let mocImageData = [""]
     
     static var previews: some View {
         DiaryListViewGridItem(date: mocDate, location: mocLocation, levelColorName: mocColorName, score: mocScore, memoImageData: mocImageData)

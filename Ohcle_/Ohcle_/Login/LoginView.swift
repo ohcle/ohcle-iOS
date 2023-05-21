@@ -50,7 +50,7 @@ struct LoginView: View {
                     .font(.body)
                     .bold()
                     .foregroundColor(.black)
-                    .padding(.bottom, 100)
+                    .padding(.bottom, 30)
                 
                 ZStack {
                     Text("로그인시 ")

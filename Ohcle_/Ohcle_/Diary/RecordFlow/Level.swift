@@ -41,10 +41,12 @@ struct Level: View {
                         
                         ZStack {
                             Circle()
-                                .fill(colors[index].opacity(self.selectedColor == colors[index] ? 1.0 : 0.7))
-                            Circle()
-                                .strokeBorder(self.selectedColor == colors[index] ?
-                                    .black : .clear, lineWidth: 5)
+                                .fill(colors[index].opacity(self.selectedColor == colors[index] ? 1.0 :1.0))
+                            if (self.selectedColor == colors[index]) {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(Color.white)
+                            }
+
                         }
                     }
                 }

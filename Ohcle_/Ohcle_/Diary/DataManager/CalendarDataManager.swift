@@ -7,9 +7,17 @@
 
 import Foundation
 
+struct ClimbingLocation:Identifiable  {
+    var id: Int          = 0
+    var name: String     = ""
+    var address: String  = ""
+    var latitude: Float  = 0.0
+    var longitude: Float = 0.0
+}
+
 struct Record {
-    var date: String = "Record_Date"
-    var level: String = "Record_Level"
+    var date: String = ""
+    var level: String = ""
     var score: Int16 = 0
     var photo: Data = Data()
     var memo: String = ""
@@ -21,6 +29,8 @@ struct Record {
         self.level = ""
         self.photo = Data()
         self.memo = ""
+        self.climbingLocation = ClimbingLocation()
+        
     }
     
     mutating func deliverTemDiary(_ record: Record) {
@@ -48,6 +58,14 @@ struct Record {
             self.photo
         }
     }
+    
+    var temClimbingLocation: ClimbingLocation {
+        get {
+            self.climbingLocation
+        }
+    }
+    
+    
     var temMemo: String {
         get {
             self.memo
@@ -74,6 +92,10 @@ struct Record {
         self.memo = memo
     }
     
+    mutating func saveTemporaryLocation(_ climbingLocation: ClimbingLocation) {
+        self.climbingLocation = climbingLocation
+    }
+    
     mutating func clearTemporaryPhotoData() {
         self.photo = Data()
     }
@@ -85,7 +107,7 @@ class CalendarDataManger {
 //    var calenderData = CalenderData()
     var year: String = "2023"
     var month: String = "03"
-    var calenderList:[CalenderViewModel] = []
+    var calenderList:[CalenderModel] = []
     var record:Record = Record()
     
     
@@ -98,7 +120,7 @@ class CalendarDataManger {
         do {
             let fetchedData = try await fetchData(urlString: OhcleURLs.generateMonthRecordURLString(year: year, month: month), method: .get)
             print(fetchedData)
-            let decoded = try JSONDecoder().decode([CalenderViewModel].self, from: fetchedData)
+            let decoded = try JSONDecoder().decode([CalenderModel].self, from: fetchedData)
             print(decoded)
 //            let divided = divideWeekData2(decoded)
 //            self.calenderData.data = divided
@@ -109,13 +131,13 @@ class CalendarDataManger {
         }
     }
     
-    private func divideWeekData2(_ data: [CalenderViewModel]) -> [Int: [CalenderViewModel]] {
+    private func divideWeekData2(_ data: [CalenderModel]) -> [Int: [CalenderModel]] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier:
                                         "kr")
         let calendar = Calendar.current
-        var dividedData: [Int: [CalenderViewModel]] = [:]
+        var dividedData: [Int: [CalenderModel]] = [:]
         
         print(data)
         data.map { data in

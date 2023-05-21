@@ -9,19 +9,18 @@ import SwiftUI
 import PhotosUI
 
 struct AddPhotoView: View {
-    @ObservedObject var picker = ClimbingImagePicker()
+//    @ObservedObject var picker = ClimbingImagePicker()
     
     private let titleImageHeighRatio = CGFloat(7)
     private let titleImageWidthRatio = CGFloat(0.8)
     
     
-    private var nextButton: NextPageButton =  NextPageButton(title: "다음 페이지로",
+    private var nextButton: NextPageButton =  NextPageButton(title: "다음",
                                                              width: UIScreen.screenWidth/1.2,
                                                              height: UIScreen.screenHeight/15)
-    
     @State private var isShowingGalleryPicker = false
     @State private var selectedImage: UIImage?
-    @State private var showAlert: Bool = false
+    @State private var showAlert = false
     
     var body: some View {
         VStack {
@@ -34,37 +33,9 @@ struct AddPhotoView: View {
             )
             .font(.title)
             .padding(.bottom, 20)
-            
-            if #available(iOS 15.0, *) {
-                PhotosPicker(selection: $picker.imageSelection, matching: .any(of: [.images, .not(.livePhotos)])) {
-                    if let image = picker.image {
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .padding(.all, 10)
-                    } else {
-                        Image("add-climbing-photo")
-                            .padding(.top, 10)
-                    }
-                }
-            } else {
-                // Fallback on earlier versions
-                if let image = selectedImage {
-                    Image(uiImage: selectedImage ?? UIImage())
-                        .resizable()
-                        .scaledToFit()
-                        .padding(.all, 10)
-                        .onTapGesture {
-                            isShowingGalleryPicker = true
-                        }
-                } else {
-                    Image("add-climbing-photo")
-                        .padding(.top, 10)
-                        .onTapGesture {
-                            isShowingGalleryPicker = true
-                        }
-                }
-                
+
+
+            HStack {
                 if isShowingGalleryPicker {
                     GalleryPickerView(isPresented: $isShowingGalleryPicker, selectedImage: $selectedImage)
                         .frame(maxHeight: UIScreen.screenHeight/2) // view의 반절에만 나오도록 설정
@@ -141,6 +112,7 @@ struct AddPhotoView: View {
             }
         }
     }
+        
 }
 
 struct AddPhotoView_Previews: PreviewProvider {

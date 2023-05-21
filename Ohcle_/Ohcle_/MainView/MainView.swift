@@ -20,7 +20,7 @@ struct RecordView: View {
             Calender()
                 .environmentObject(currentPageState)
         case .location :
-            ClimbingLocation()
+            ClimbingLocationView()
                 .environmentObject(currentPageState)
         case .score:
             ClimbingScore()
@@ -64,7 +64,6 @@ struct MainView: View {
             
             NavigationView {
                 RecordView(currentPageState: pageState, selectedPage: $selectedPage, selectedTab: $selectedTab)
-                //                    .navigationTitle("Title")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         

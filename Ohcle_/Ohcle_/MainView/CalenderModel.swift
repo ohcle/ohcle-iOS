@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct CalenderViewModel: Decodable, Identifiable,Hashable {
+struct CalenderModel: Decodable, Identifiable,Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
     
-    static func ==(lhs: CalenderViewModel,
-                   rhs: CalenderViewModel) -> Bool {
+    static func ==(lhs: CalenderModel,
+                   rhs: CalenderModel) -> Bool {
         return lhs.id == rhs.id
     }
     
@@ -23,6 +23,7 @@ struct CalenderViewModel: Decodable, Identifiable,Hashable {
     let level: Int
     let score: Float
     let picture: [String]?
+    let thumbnail: [String]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -31,6 +32,7 @@ struct CalenderViewModel: Decodable, Identifiable,Hashable {
         case level
         case score
         case picture
+        case thumbnail
     }
     
     struct ClimbingLocation: Decodable {

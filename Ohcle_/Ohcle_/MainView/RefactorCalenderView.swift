@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-typealias DividedMonthDataType = [Int: [Int: CalenderViewModel]]
+typealias DividedMonthDataType = [Int: [Int: CalenderModel]]
 
 class CalenderData: ObservableObject {
     @Published var year: String = "2023"
@@ -43,7 +43,7 @@ class CalenderData: ObservableObject {
                 
                 if let data = data {
                     do {
-                        let decoded = try JSONDecoder().decode([CalenderViewModel].self, from: data)
+                        let decoded = try JSONDecoder().decode([CalenderModel].self, from: data)
                         let divided = self.divideWeekData(decoded)
                         
                         DispatchQueue.main.async {
@@ -78,7 +78,7 @@ class CalenderData: ObservableObject {
     
     
     
-    private func divideWeekData(_ data: [CalenderViewModel]) -> DividedMonthDataType {
+    private func divideWeekData(_ data: [CalenderModel]) -> DividedMonthDataType {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier:

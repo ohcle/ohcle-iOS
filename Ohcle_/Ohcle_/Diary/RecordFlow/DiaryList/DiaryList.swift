@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RecordedMemo: Identifiable {
+struct RecordedMemo:Identifiable {
     var id: Int
     
     let date: String?
@@ -30,8 +30,6 @@ struct DiaryList: View {
     @State private var isPresented: Bool = false
     @State private var isEdited: Bool = true
     @State var selectedDiaryIndex: Int = .zero
-    
-    @State var calenderList: [CalenderViewModel] = []
 
 //    @State var date: Date = Date()
     @State private var isSelected: Bool = false
@@ -64,9 +62,10 @@ struct DiaryList: View {
                         LazyVGrid(columns: column,
                                   alignment: .leading,
                                   spacing: listSpacing) {
-
                             ForEach(calenderData.data.flatMap{ $0.value.values.compactMap { $0 } }.sorted { $0.when > $1.when }) { calenderViewModel in
-                                DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where?.name, levelColorName: "gray" , score: Int16(calenderViewModel.score), memoImageData: Data())
+
+                                
+                                DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where?.name, levelColorName: "gray" , score: Int16(calenderViewModel.score), memoImageData: calenderViewModel.picture)
                             }
                             
                         } // End Of LazyVGrid

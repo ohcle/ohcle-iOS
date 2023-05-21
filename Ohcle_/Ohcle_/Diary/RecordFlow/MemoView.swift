@@ -13,7 +13,7 @@ struct MemoView: View {
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
     
     @EnvironmentObject var currentPageType: MyPageType
-    @Environment(\.managedObjectContext) var managedObjectContext
+//    @Environment(\.managedObjectContext) var managedObjectContext
     
     @Binding var isModal: Bool
     @State private var isEdited: Bool = false
@@ -98,6 +98,7 @@ struct MemoView: View {
             HStack {
                 Spacer()
                 MemoButton(isEdited: $isEdited) {
+
                     if let diary = diary {
                         CalendarDataManger.shared.updateDiary(diary: diary)
                        
@@ -162,8 +163,7 @@ extension MemoView {
                           ,"level": self.getLevel(level)
                           ,"score":score
                           ,"memo":memo
-                          ,"picture": String(data: photo, encoding: .utf8)
-                          
+                          ,"picture": [photo.base64EncodedString()]
                         ] as [String : Any]
         
         
