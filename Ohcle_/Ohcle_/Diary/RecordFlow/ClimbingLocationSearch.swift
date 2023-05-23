@@ -22,6 +22,7 @@ struct ClimbingLocationSearch: View {
                 .frame(height: 40)
                 .onSubmit {
                     print("Submit")
+                    climbingLocations.removeAll()
                     fetchClimbinPlace(searchText)
                 }
                 .overlay {
@@ -42,8 +43,6 @@ struct ClimbingLocationSearch: View {
                     selectedLocation = climbingLocation
                     
                     presetntationMode.wrappedValue.dismiss()
-                    
-                    
                 }
             }
             .edgesIgnoringSafeArea(.all)
@@ -60,8 +59,13 @@ extension ClimbingLocationSearch {
     
     
     private func fetchClimbinPlace(_ keyword: String) {
-        let urlString = "https://api-gw.todayclimbing.com/" + "v1/climbing/place/?keyword="
-        guard let url = URL(string: urlString) else { return }
+        guard var urlComponents = URLComponents(string: "https://api-gw.todayclimbing.com/" + "v1/climbing/place/") else { return }
+        let queryItems = [
+            URLQueryItem(name: "keyword", value: keyword)
+        ]
+        urlComponents.queryItems = queryItems
+        guard let url = urlComponents.url else { return }
+        
         
         do {
             let request = try URLRequest(url: url, method: .get)

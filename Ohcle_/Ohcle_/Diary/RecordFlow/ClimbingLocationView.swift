@@ -130,6 +130,10 @@ struct ClimbingLocationView: View {
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
         )
         .onAppear {
+            if CalendarDataManger.shared.record.climbingLocation.name != "" {
+                self.searchText = CalendarDataManger.shared.record.climbingLocation.name
+                self.nextButton.userEvent.inform()
+            }
             
             if selectedLocation.longitude != 0 && selectedLocation.longitude != 0 {
                 annotations.removeAll()
@@ -137,6 +141,10 @@ struct ClimbingLocationView: View {
                 let newAnnotation = AnnotationItem(coordinate: locationPosition)
                 annotations.append(newAnnotation)
                 region = MKCoordinateRegion(center: locationPosition, latitudinalMeters: 300, longitudinalMeters: 300)
+            }
+            
+            self.nextButton.userEvent.nextButtonTouched = {
+                CalendarDataManger.shared.record.saveTemporaryLocation(selectedLocation)
             }
             
             

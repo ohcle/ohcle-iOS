@@ -13,11 +13,9 @@ struct MemoView: View {
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
     
     @EnvironmentObject var currentPageType: MyPageType
-//    @Environment(\.managedObjectContext) var managedObjectContext
-    
     @Binding var isModal: Bool
     
-    @State private var climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
+    @State private var climbingLocationPlaceHolder: String = CalendarDataManger.shared.record.climbingLocation.name
     @State private var typedText: String =  CalendarDataManger.shared.record.temMemo
     @State private var color = Color.convert(from: CalendarDataManger.shared.record.temLevel)
     @State private var date = CalendarDataManger.shared.record.temDate
@@ -26,6 +24,9 @@ struct MemoView: View {
     
     @State var diary: Diary?
     @Binding var selectedTab: Int
+    
+    @State private var showAlert = false
+    @State private var alertMsg  = ""
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
@@ -79,8 +80,17 @@ struct MemoView: View {
                         .lineSpacing(5)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .onChange(of: typedText) { newValue in
+                            print(newValue.count)
+                            
+                            if newValue.count >= 100 {
+                                typedText = String(typedText.prefix(100))
+                                
+                                alertMsg = "최대글자는 100자 제한입니다."
+                                showAlert = true
+                            }
                             self.diary?.memo = typedText
                         }
+                    
                     
                     if typedText.isEmpty {
                         Text("오늘의 클라이밍은 어땠나요?")
@@ -121,6 +131,10 @@ struct MemoView: View {
         .onAppear() {
             UITextView.appearance().backgroundColor = .clear
         }
+        
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text(alertMsg))
+        }
     }
 }
 
@@ -146,7 +160,8 @@ extension MemoView {
         let date = CalendarDataManger.shared.record.date
         let score = CalendarDataManger.shared.record.score
         let level = CalendarDataManger.shared.record.level
-        let photo = CalendarDataManger.shared.record.photo
+//        let photo = CalendarDataManger.shared.record.photo
+        let photoNm = CalendarDataManger.shared.record.photoName
         let memo = CalendarDataManger.shared.record.memo
          
         let urlStr = "https://api-gw.todayclimbing.com/" +  "v1/climbing/"
@@ -161,7 +176,7 @@ extension MemoView {
                           ,"level": self.getLevel(level)
                           ,"score":score
                           ,"memo":memo
-                          ,"picture": [photo.base64EncodedString()]
+                          ,"picture": [photoNm]
                         ] as [String : Any]
         
         

@@ -40,7 +40,6 @@
 		A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA060290D49C5000F87A8 /* MemoView.swift */; };
 		A89E181E29A389A900F27045 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89E181D29A389A900F27045 /* NextButton.swift */; };
 		A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EF9B3294A1A390018BDFD /* Debouncer.swift */; };
-		A8A2C2CE29AF131D005C1B13 /* ClimbingPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A2C2CD29AF131D005C1B13 /* ClimbingPhotoPicker.swift */; };
 		A8A812EB29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A8A812E929A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld */; };
 		A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812EC29A73EE900E7C6A2 /* DataController.swift */; };
 		A8AB86BC29E2821700F5410F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AB86BB29E2821700F5410F /* SplashView.swift */; };
@@ -126,7 +125,6 @@
 		A88BA060290D49C5000F87A8 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
 		A89E181D29A389A900F27045 /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		A89EF9B3294A1A390018BDFD /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
-		A8A2C2CD29AF131D005C1B13 /* ClimbingPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingPhotoPicker.swift; sourceTree = "<group>"; };
 		A8A812EA29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TemporaryDiary.xcdatamodel; sourceTree = "<group>"; };
 		A8A812EC29A73EE900E7C6A2 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		A8AB86BB29E2821700F5410F /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -223,7 +221,6 @@
 				FED3211429D02C3A00115539 /* ScoreStar.swift */,
 				A817166529038013005B1268 /* ClimbingScore.swift */,
 				A817166B290386AE005B1268 /* AddPhotoView.swift */,
-				A8A2C2CD29AF131D005C1B13 /* ClimbingPhotoPicker.swift */,
 				A88BA060290D49C5000F87A8 /* MemoView.swift */,
 			);
 			path = RecordFlow;
@@ -569,7 +566,6 @@
 				A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */,
 				A8D1BEE52A0772CE00A43FF0 /* URLs.swift in Sources */,
 				A8C0D69429FE459C00DEB477 /* ExternalLinks.swift in Sources */,
-				A8A2C2CE29AF131D005C1B13 /* ClimbingPhotoPicker.swift in Sources */,
 				A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */,
 				FED3211529D02C3A00115539 /* ScoreStar.swift in Sources */,
 				A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */,
