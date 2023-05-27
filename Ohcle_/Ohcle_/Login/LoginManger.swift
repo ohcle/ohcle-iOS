@@ -10,12 +10,14 @@ import SwiftUI
 import KakaoSDKUser
 import AuthenticationServices
 
-final class LoginManager {
+final class LoginManager: ObservableObject {
     @AppStorage("userNickName") var userNickName: String = ""
     @AppStorage("userImageString") var userImageString: String = ""
-    @AppStorage("isLoggedIn") private var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
+    @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
     @AppStorage("ohcleToken") var ohcleToken = ""
     @AppStorage("ohcleID") var ohcleID: Int = .zero
+    
+    @Published var currentLoggedIn: Bool = false
     
     private (set) var userEmail: String = ""
     private (set) var userFirstName: String = ""
@@ -40,17 +42,20 @@ final class LoginManager {
         let urlString = user?.properties?["profile_image"] ?? ""
         let userNickName = user?.properties?["nickname"] ?? "오클"
         
-        self.userNickName = userNickName
-        self.userImageString = urlString
-        
+        DispatchQueue.main.async {
+            self.userNickName = userNickName
+            self.userImageString = urlString
+        }
         return [.userID: user?.id,
                 .profileURLString: urlString,
                 .userNickName: userNickName]
     }
     
     func saveOhcleToken(loginResult: LoginResultModel) {
-        LoginManager.shared.ohcleToken = loginResult.token
-        LoginManager.shared.ohcleID = loginResult.userID
+        DispatchQueue.main.async {
+            LoginManager.shared.ohcleToken = loginResult.token
+            LoginManager.shared.ohcleID = loginResult.userID
+        }
     }
     
     func saveAppleUserInformation(userID: String, firstName: String, lastName: String, email: String) {
@@ -67,9 +72,7 @@ final class LoginManager {
     }
     
     func signIn() {
-        withAnimation {
             self.isLoggedIn = true
-        }
     }
     
     func logOut() async {

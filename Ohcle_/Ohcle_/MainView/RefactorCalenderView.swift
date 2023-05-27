@@ -15,6 +15,7 @@ class CalenderData: ObservableObject {
     @Published var month: String = OhcleDate.currentMonthString ?? ""
     @Published var isClimbingMemoAdded: Bool = false
     @Published var data: DividedMonthDataType = [:]
+    @Published var dayOfMonth: Int = 2
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -61,7 +62,25 @@ class CalenderData: ObservableObject {
         }
     }
     
-    private func getDayOfWeek(dateString: String) -> Int {
+    //    private func getFirstDayOfWeek(dateString: String) {
+    //        let calendar = Calendar.current
+    //        let currentDate = Date()
+    //
+    //
+    //        let dateFormatter = DateFormatter()
+    //        dateFormatter.dateFormat = "yyyy-MM-dd"
+    //        dateFormatter.locale = Locale(identifier: "kr")
+    //        let date = dateFormatter.date(from: dateString) ?? Date()
+    //
+    //        let components = calendar.dateComponents([.year, .month], from: currentDate)
+    //        let firstDayOfMonth = calendar.date(from: components)
+    //
+    //        let firstDayOfMonthString = dateFormatter.string(from: firstDayOfMonth!)
+    //
+    //        print(firstDayOfMonthString)
+    //    }
+    
+    func getDayOfWeek(dateString: String) -> Int {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier: "kr")
@@ -148,18 +167,33 @@ struct CalenderHolderView: View {
     @ObservedObject var calenderData: CalenderData
     @State private var isModal: Bool = false
     @State private var diaryID: Int = .zero
+    private var firstDayOfMonth: Int {
+        let dateString = "\(calenderData.year)-\(calenderData.month)"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.year, .month], from: date)
+            let firstDayOfMonth = calendar.date(from: components)
+            
+            dateFormatter.dateFormat = "EEEE"
+            print(dateFormatter.string(from: firstDayOfMonth!))
+            return Int(dateFormatter.string(from: firstDayOfMonth!)) ?? .zero
+        }
+        
+        return .zero
+        
+    }
     
     var body: some View {
         VStack(spacing: 0) {
-            let data = calenderData.data
             ForEach(1...5, id:\.self) { week in
                 HStack(spacing: 0) {
-                    let calenderWeek = ((week - 1) * 7) - 3
-                    
+                    let calenderWeek = ((week - 1) * 7) - firstDayOfMonth
                     ForEach(1...7, id: \.self) { date in
-                        if (data[week]?[date] != nil) {
-                            let level = data[week]?[date]?.level ?? 11
-                            
+                        if (calenderData.data[week]?[date] != nil) {
+                            let level = calenderData.data[week]?[date]?.level ?? 11
                             let holderColor: HolderColorNumber = HolderColorNumber(rawValue: "\(level)") ?? .red
                             
                             let holderType = HolderType(holderColor: holderColor, nil)
@@ -167,7 +201,7 @@ struct CalenderHolderView: View {
                                                    holderType: holderType,
                                                    date: calenderWeek + date)
                             .onTapGesture {
-                                if let recordID = data[week]?[date]?.id {
+                                if let recordID = calenderData.data[week]?[date]?.id {
                                     diaryID = recordID
                                     self.isModal = true
                                 }

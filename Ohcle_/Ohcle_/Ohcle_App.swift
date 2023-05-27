@@ -17,14 +17,13 @@ struct Ohcle_App: App {
         KakaoSDK.initSDK(appKey: "b61a430c747ede3f63f1f02fba513526")
     }
     
-//    @StateObject private var persistenceController = DataController.shared
     @State var didSeeOnBoarding: Bool = UserDefaults.standard.bool(forKey: "didSeeOnBoarding")
     
     var body: some Scene {
         WindowGroup {
             ZStack {
                 LoginView(mainLogoTitle: "main logo",
-                          receptionURL: URL(string: "")).environmentObject(LoginSetting())
+                          receptionURL: URL(string: ""))
                     .onOpenURL { url in
                         if (AuthApi.isKakaoTalkLoginUrl(url)) {
                             _ =  AuthController.handleOpenUrl(url: url)
@@ -47,4 +46,3 @@ struct Ohcle_App: App {
         }
     }
 }
-

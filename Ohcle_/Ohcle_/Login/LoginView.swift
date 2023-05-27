@@ -17,7 +17,8 @@ enum GreetingTextOptions: String {
 
 struct LoginView: View {
     @State private var appleLoginViewSize: CGSize = CGSize()
-    
+    @ObservedObject var loginManager = LoginManager.shared
+
     private let mainLogoTitle: String
     private let url: URL
     private let defualtURL: String = "http://www.google.com"
@@ -34,7 +35,7 @@ struct LoginView: View {
     }
     
     var body: some View {
-        if LoginManager.shared.isOhcleUserSignedIn() {
+        if loginManager.isLoggedIn {
             MainView()
         } else {
             VStack(alignment: .center) {

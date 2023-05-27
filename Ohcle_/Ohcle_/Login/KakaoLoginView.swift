@@ -34,8 +34,6 @@ extension UserApi {
 }
 
 struct KakaoLoginView: View {
-    @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-
     var body: some View {
         Button {
             //MARK: 카카오톡 토큰 여부 확인
@@ -54,7 +52,10 @@ struct KakaoLoginView: View {
                             let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt, nickName: LoginManager.shared.userNickName)
                             
                             if isSucceded {
-                                LoginManager.shared.signIn()
+                                withAnimation {
+                                    LoginManager.shared.signIn()
+//                                    currentLoggedIn.toggle()
+                                }
                             } else {
                                 
                             }
@@ -73,7 +74,9 @@ struct KakaoLoginView: View {
                             let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt, nickName: LoginManager.shared.userNickName)
 
                             if isSucceded {
-                                LoginManager.shared.signIn()
+                                withAnimation {
+                                    LoginManager.shared.signIn()
+                                }
                             } else {
                                
                             }
@@ -113,6 +116,8 @@ struct KakaoLoginView: View {
             print("reponse Code is :\(response.statusCode)")
         }
         
+//        LoginManager.shared.signIn()
+
         return decodeAndSaveLoginResult(loginResult)
     }
     
