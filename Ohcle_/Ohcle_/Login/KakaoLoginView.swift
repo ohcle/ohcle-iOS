@@ -10,11 +10,6 @@ import KakaoSDKUser
 import KakaoSDKAuth
 import KakaoSDKCommon
 
-extension Notification.Name {
-    static let kakaoLoginError = Notification.Name("kakaoLoginError")
-    static let nonValidUserError = Notification.Name("nonValidUserError")
-}
-
 extension UserApi {
     public func me(propertyKeys: [String]? = nil,
                    secureResource: Bool = true) async -> User? {
@@ -39,23 +34,8 @@ extension UserApi {
 }
 
 struct KakaoLoginView: View {
-    @EnvironmentObject var kakaoLoginSetting: LoginSetting
-    @AppStorage("userID") private var userNickName = ""
-    @AppStorage("userImage") private var userImageString: String = ""
-    
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-    @State private var userID: Int64? = .zero
-    
-    fileprivate func fetchKakaoUserInfomation() async {
-        let user = await UserApi.shared.me()
-        let urlString = user?.properties?["profile_image"] ?? ""
-        let userNickName = user?.properties?["nickname"] ?? "오클"
-        
-        self.userNickName = userNickName
-        self.userID = user?.id
-        self.userImageString = urlString
-    }
-    
+
     var body: some View {
         Button {
             //MARK: 카카오톡 토큰 여부 확인
@@ -66,42 +46,40 @@ struct KakaoLoginView: View {
             if (UserApi.isKakaoTalkLoginAvailable()) {
                 UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                     Task {
-                        await fetchKakaoUserInfomation()
+                        let userInfo = await LoginManager.shared.saveKakaoUserInfomation()
+                        
                         do {
-                            let userIDInt = Int(self.userID ?? .zero)
-                            let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt, nickName: self.userNickName)
+                            
+                            let userIDInt = Int(userInfo[.userID] as? Int64 ?? .zero)
+                            let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt, nickName: LoginManager.shared.userNickName)
                             
                             if isSucceded {
-                                self.isLoggedIn = true
+                                LoginManager.shared.signIn()
                             } else {
                                 
                             }
                             
                         } catch {
-                            let errorMessage = error.localizedDescription
-                            NotificationCenter.default
-                                .post(name: .nonValidUserError, object: errorMessage)
+                            _ = error.localizedDescription
                         }
                     }
                 }
             } else {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
                     Task {
-                        await fetchKakaoUserInfomation()
+                        let userInfo = await LoginManager.shared.saveKakaoUserInfomation()
                         do {
-                            let userIDInt = Int(self.userID ?? .zero)
-                            let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt, nickName: self.userNickName)
-                            
+                            let userIDInt = Int(userInfo[.userID] as? Int64 ?? .zero)
+                            let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt, nickName: LoginManager.shared.userNickName)
+
                             if isSucceded {
-                                self.isLoggedIn = true
+                                LoginManager.shared.signIn()
                             } else {
-                                
+                               
                             }
                             
                         } catch {
-                            let errorMessage = error.localizedDescription
-                            NotificationCenter.default
-                                .post(name: .nonValidUserError, object: errorMessage)
+                            _ = error.localizedDescription
                         }
                     }
                 }
@@ -135,7 +113,7 @@ struct KakaoLoginView: View {
             print("reponse Code is :\(response.statusCode)")
         }
         
-        return isValidLoginResult(loginResult)
+        return decodeAndSaveLoginResult(loginResult)
     }
     
     private func defineKakaoLoginError(_ error: Error) {
@@ -153,18 +131,17 @@ struct KakaoLoginView: View {
                 defineKakaoLoginError(error)
             }
         }
-    } 
+    }
     
-    private func isValidLoginResult(_ data: Data) -> Bool {
+    private func decodeAndSaveLoginResult(_ data: Data) -> Bool {
         do {
-            let decodedData = try JSONDecoder().decode(AppleLoginResultModel.self, from: data)
-            UserTokenManager.shared.save(token: decodedData.token,
-                                         account: .kakao,
-                                         service: .login)
+            let decodedData = try JSONDecoder().decode(LoginResultModel.self, from: data)
+            
+            LoginManager.shared.saveOhcleToken(loginResult: decodedData)
+            
             return true
         } catch {
             let errorMessage = error.localizedDescription
-            NotificationCenter.default.post(name: .kakaoLoginError, object: errorMessage)
             return false
         }
     }

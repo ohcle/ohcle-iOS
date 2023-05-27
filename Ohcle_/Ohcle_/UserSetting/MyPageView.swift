@@ -103,15 +103,14 @@ struct MyPageView: View {
             }
         }
         .task {
-            let userDefaultsName = UserDefaults.standard.object(forKey: "userID")
+            let userDefaultsName = UserDefaults.standard.object(forKey: "userNickName")
             if let nickName = userDefaultsName as? String {
                 self.userName = nickName
-                
             } else {
                 self.userName = "ohcle"
             }
             
-            let userDefaults = UserDefaults.standard.object(forKey: "userImage")
+            let userDefaults = UserDefaults.standard.object(forKey: "userImageString")
             if let userImageString = userDefaults as? String,
                let url = URL(string: userImageString) {
                 do {

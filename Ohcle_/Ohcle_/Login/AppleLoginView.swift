@@ -8,29 +8,35 @@
 import SwiftUI
 import _AuthenticationServices_SwiftUI
 
-extension Notification.Name {
-    static let appleLoginError = Notification.Name("appleLoginError")
+typealias AppleLoginReslutType = [UserInfo: String]
+
+enum UserInfo: String {
+    case userID
+    case userEmail
+    case userFirstName
+    case userLastName
 }
 
 struct AppleLoginView: View {
-    typealias AppleLoginReslutType = [String: Any]
-    
-    @EnvironmentObject var loginSetting: LoginSetting
     @State private var isLoginError: Bool = false
-    
-    @AppStorage("isLoggedIn") private var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-    @AppStorage("ohcleToken") private var ohcleToken = ""
-    
     
     var body: some View {
         if #available(iOS 15.0, *) {
             SignInWithAppleButton(.signUp) { request in
                 request.requestedScopes = [.email, .fullName]
             } onCompletion: { result in
-                
-                
                 Task {
-                    await filterAppleLoginResult(result)
+                    if await isAppleLoginSucceded(result) {
+                        do {
+                            let loginResultData = try await requestLogin()
+                            decodeAndSaveLoginResult(data: loginResultData)
+                            withAnimation {
+                                LoginManager.shared.signIn()
+                            }
+                        } catch {
+                            
+                        }
+                    }
                 }
             }
             .signInWithAppleButtonStyle(.black)
@@ -43,18 +49,14 @@ struct AppleLoginView: View {
         }
     }
     
-    private func requestLogin(appleUserID: String,
-                                  firstName: String,
-                                  lastName: String,
-                                  email: String,
-                                  gender: String? = nil) async throws {
+    private func requestLogin() async throws -> Data? {
         let url = getAccessTokenURL(.appleLogin)
         var request = try URLRequest(url: url, method: .post)
-        let parameter = ["id": appleUserID,
-                    "first_name": firstName,
-                    "last_name": lastName,
-                    "email": email,
-                    "gender": gender]
+        let parameter = ["id": LoginManager.shared.userID,
+                         "first_name": LoginManager.shared.userFirstName,
+                         "last_name": LoginManager.shared.userLastName,
+                         "email": LoginManager.shared.userEmail,
+                    "gender": ""]
         
         let httpBody = try JSONSerialization.data(withJSONObject: parameter, options: [])
         request.httpBody = httpBody
@@ -65,52 +67,47 @@ struct AppleLoginView: View {
         if let response = response as? HTTPURLResponse,
            response.statusCode != 200 {
             print("reponse Code is :\(response.statusCode)")
+            return nil
         }
         
-        isValidLoginResult(loginResult)
+        return loginResult
     }
     
-    private func isValidLoginResult(_ data: Data) {
-        do {
-            let decodedData = try JSONDecoder().decode(AppleLoginResultModel.self, from: data)
-            UserTokenManager.shared.save(token: decodedData.token,
-                                         account: .apple,
-                                         service: .login)
-            
-            self.ohcleToken = String(decodedData.id)
-        } catch {
-            let errorMessage = error.localizedDescription
-            NotificationCenter.default
-                .post(name: .kakaoLoginError, object: errorMessage)
+    private func decodeAndSaveLoginResult(data: Data?) {
+        if let data = data {
+            do {
+                let decodedData = try JSONDecoder().decode(LoginResultModel.self, from: data)
+                LoginManager.shared.saveOhcleToken(loginResult: decodedData)
+            } catch {
+                let errorMessage = error.localizedDescription
+                print(errorMessage)
+            }
+        } else {
+            return
         }
     }
     
-    private func filterAppleLoginResult(_ result: Result<ASAuthorization, Error>) async {
+    private func isAppleLoginSucceded(_ result: Result<ASAuthorization, Error>) async -> Bool {
         switch result {
         case .success(let auth):
             if let credential = auth.credential as? ASAuthorizationAppleIDCredential {
                 let userID = credential.user
                 
                 let firstName = credential.fullName?.familyName ?? ""
-                let lastName = credential.fullName?.givenName ?? ""
+                let lastName = credential.fullName?.givenName ?? "무명의 클라이머"
                 let email = credential.email ?? "ohcle@gmail.com"
-                
-                do {
-                    try await requestLogin(appleUserID: userID,
-                                     firstName: firstName,
-                                     lastName: lastName,
-                                     email: email)
-                    self.isLoggedIn = true
-                } catch {
-                   print(error)
-                }
+                print("🎉🎉🎉🎉🎉", firstName, lastName, email)
+                LoginManager.shared.saveAppleUserInformation(userID: userID, firstName: firstName, lastName: lastName, email: email)
+                return true
             }
 
         case .failure(let error):
-            self.isLoggedIn = false
             print("Apple Login Error. Error Message : \(error.localizedDescription)")
+            return false
         }
+        return false
     }
+
 }
 
 struct AppleLoginView_Previews: PreviewProvider {
