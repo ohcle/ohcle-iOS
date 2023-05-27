@@ -62,6 +62,10 @@ final class LoginManager {
         self.userNickName = firstName + lastName
     }
     
+    func isOhcleUserSignedIn() -> Bool {
+        return self.isLoggedIn
+    }
+    
     func signIn() {
         withAnimation {
             self.isLoggedIn = true
@@ -136,7 +140,6 @@ final class LoginManager {
         } catch {
             print(error)
         }
-        
     }
     
     private func logoutOhcleAccount() async {

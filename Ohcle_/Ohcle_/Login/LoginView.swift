@@ -16,14 +16,14 @@ enum GreetingTextOptions: String {
 }
 
 struct LoginView: View {
-    @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
     @State private var appleLoginViewSize: CGSize = CGSize()
-
+    
     private let mainLogoTitle: String
     private let url: URL
     private let defualtURL: String = "http://www.google.com"
     private let usePolicy: URL
     private let privatePolicy: URL
+    private let informationLinkFont: Font = .caption2
     
     init(mainLogoTitle: String, receptionURL: URL?) {
         self.mainLogoTitle = mainLogoTitle
@@ -32,9 +32,9 @@ struct LoginView: View {
         self.usePolicy = URL(string: ExternalOhcleLinks.serviceInfomation)!
         self.privatePolicy = URL(string: ExternalOhcleLinks.personalInfoPolicy)!
     }
-        
+    
     var body: some View {
-        if isLoggedIn {
+        if LoginManager.shared.isOhcleUserSignedIn() {
             MainView()
         } else {
             VStack(alignment: .center) {
@@ -44,27 +44,46 @@ struct LoginView: View {
                 
                 KakaoLoginView()
                     .padding(.bottom, 11)
-
+                    .padding(.leading, 20)
+                    .padding(.trailing, 20)
                 AppleLoginView()
                     .padding(.bottom, 32)
+                    .padding(.leading, 20)
+                    .padding(.trailing, 20)
                 
                 Link("문의하기", destination: url)
                     .font(.body)
                     .bold()
                     .foregroundColor(.black)
                     .padding(.bottom, 30)
+                    .padding(.top, 40)
                 
-//                ZStack {
-//                    Text("로그인시 ")
-//                    + Link("서비스 이용약관", destination: self.usePolicy)
-//                    + Text(" 및 ")
-//                    + Link("개인정보 이용약관", destination: self.privatePolicy)
-//
-//                    + Text("에 \n 동의하는 것으로 간주합니다.")
-//                }.accentColor(.black)
-//                    .font(.caption)
-//                    .multilineTextAlignment(.center)
+                HStack(spacing: 0) {
+                    Text("로그인시 ")
+                    Link(destination: self.usePolicy) {
+                        Text("서비스 이용약관")
+                            .underline()
+                            .accentColor(.black)
+                    }
+                    
+                    Text(" 및 ")
+                }
+                .font(informationLinkFont)
                 
+                HStack(spacing: 0) {
+                    Link(destination: self.privatePolicy) {
+                        Text("개인정보 이용약관")
+                            .underline()
+                            .accentColor(.black)
+                    }
+                    
+                    Text("에")
+                }
+                .font(informationLinkFont)
+
+                Text(" 동의하는 것으로 간주합니다.")
+                    .font(informationLinkFont)
+
             }
             .padding(.horizontal, 35)
         }
@@ -86,9 +105,10 @@ struct LoginView: View {
             +
             Text(GreetingTextOptions.timeToStart.rawValue)
             
-        }.minimumScaleFactor(0.5)
-            .font(.title)
-            .lineLimit(1)
+        }
+        .minimumScaleFactor(0.5)
+        .font(.title)
+        .lineLimit(1)
     }
 }
 

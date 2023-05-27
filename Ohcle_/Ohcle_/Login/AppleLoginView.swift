@@ -8,15 +8,6 @@
 import SwiftUI
 import _AuthenticationServices_SwiftUI
 
-typealias AppleLoginReslutType = [UserInfo: String]
-
-enum UserInfo: String {
-    case userID
-    case userEmail
-    case userFirstName
-    case userLastName
-}
-
 struct AppleLoginView: View {
     @State private var isLoginError: Bool = false
     

@@ -102,7 +102,6 @@ struct NewMemoView: View {
                             self.levelColor = selectedColor
                             self.isLevelCircleTapped = false
                             let colorInt = converToLevelInt(color: self.selectedColor)
-                            print(test)
                             self.levelColorInt = colorInt
                         }
                     }
