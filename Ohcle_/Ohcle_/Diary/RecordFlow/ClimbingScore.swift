@@ -28,15 +28,22 @@ struct ClimbingScore: View {
                     .font(.system(size: 43))
             }
 
-            .onDisappear {
-                CalendarDataManger.shared.record.saveTemporaryScore(Int16(self.finalScore))
-            }
         }
         .padding(.bottom, UIScreen.screenHeight/8)
         .overlay(
             self.nextButton
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
         )
+        .onAppear {
+            if CalendarDataManger.shared.record.score != 0 {
+                finalScore = Int(CalendarDataManger.shared.record.score)
+                self.nextButton.userEvent.inform()
+            }
+            
+            self.nextButton.userEvent.nextButtonTouched = {
+                CalendarDataManger.shared.record.saveTemporaryScore(Int16(self.finalScore))
+            }
+        }
         
     }
 }
