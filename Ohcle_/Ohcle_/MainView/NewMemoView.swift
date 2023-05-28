@@ -290,7 +290,7 @@ extension NewMemoView {
             self.date = decodedData.when
             self.typedText = decodedData.memo
             self.score = Int(decodedData.score)
-            self.climbingLocation = decodedData.where?.name ?? ""
+            self.climbingLocation = decodedData.where.name ?? ""
             await requestMemoPicture(name: decodedData.picture?.first ?? "")
         } catch {
             print(error)

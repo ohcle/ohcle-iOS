@@ -118,7 +118,7 @@ class CalendarDataManger {
 //    var calenderData = CalenderData()
     var year: String = "2023"
     var month: String = "03"
-    var calenderList:[CalenderViewModel] = []
+    var calenderList:[CalenderModel] = []
     var record:Record = Record()
     
     
@@ -131,7 +131,7 @@ class CalendarDataManger {
         do {
             let fetchedData = try await fetchData(urlString: OhcleURLs.generateMonthRecordURLString(year: year, month: month), method: .get)
             print(fetchedData)
-            let decoded = try JSONDecoder().decode([CalenderViewModel].self, from: fetchedData)
+            let decoded = try JSONDecoder().decode([CalenderModel].self, from: fetchedData)
             print(decoded)
 //            let divided = divideWeekData2(decoded)
 //            self.calenderData.data = divided
@@ -142,13 +142,13 @@ class CalendarDataManger {
         }
     }
     
-    private func divideWeekData2(_ data: [CalenderViewModel]) -> [Int: [CalenderViewModel]] {
+    private func divideWeekData2(_ data: [CalenderModel]) -> [Int: [CalenderModel]] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier:
                                         "kr")
         let calendar = Calendar.current
-        var dividedData: [Int: [CalenderViewModel]] = [:]
+        var dividedData: [Int: [CalenderModel]] = [:]
         
         print(data)
         data.map { data in

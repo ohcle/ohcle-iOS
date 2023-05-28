@@ -21,6 +21,7 @@ struct MemoView: View {
     @State private var date = CalendarDataManger.shared.record.temDate
     @State private var score =  CalendarDataManger.shared.record.temScore
     @State private var photoData =  CalendarDataManger.shared.record.temPhoto
+    @State private var isEdited = false
     
     @State var diary: Diary?
     @Binding var selectedTab: Int
@@ -106,7 +107,7 @@ struct MemoView: View {
             Spacer()
             HStack {
                 Spacer()
-                MemoButton() {
+                MemoButton(isEdited: $isEdited) {
                     if let diary = diary {
                         CalendarDataManger.shared.updateDiary(diary: diary)
                        
@@ -203,13 +204,13 @@ extension MemoView {
 
 }
 
-struct MemoView_Previews: PreviewProvider {
-    static let mocRecorded = RecordedMemo(id:0,date: "dd", location: "dd", level: "Ddd", score: 2, imageData: Data(), memo: "ddd")
-    @State static var isEdited: Bool = false
-    @State static var isModal: Bool = false
-    @State static var selectedTab:Int = 2
-
-    static var previews: some View {
-        MemoView(isModal: $isModal, selectedTab: $selectedTab)
-    }
-}
+//struct MemoView_Previews: PreviewProvider {
+//    static let mocRecorded = RecordedMemo(id:0,date: "dd", location: "dd", level: "Ddd", score: 2, imageData: Data(), memo: "ddd")
+//    @State static var isEdited: Bool = false
+//    @State static var isModal: Bool = false
+//    @State static var selectedTab:Int = 2
+//
+//    static var previews: some View {
+//        MemoView(isModal: $isModal, selectedTab: $selectedTab)
+//    }
+//}
