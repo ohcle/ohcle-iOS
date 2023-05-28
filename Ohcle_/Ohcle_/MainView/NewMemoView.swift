@@ -81,139 +81,150 @@ struct NewMemoView: View {
     }
     
     var body: some View {
-        ZStack {
-            VStack(alignment: .leading, spacing: 15) {
+        VStack(alignment: .leading, spacing: 15) {
+            HStack{
+                Spacer()
                 Button {
-                    self.isLevelCircleTapped = true
-                } label: {
-                    Circle()
-                        .fill(levelColor)
-                        .frame(width: 30, height: 30)
-                        .padding(.top, 20)
+                    Task {
+                        await deleteMemo(id: self.id)
+                        self.isModalView.toggle()
+                    }
                     
-                    if isLevelCircleTapped {
-                        Picker("", selection: $selectedColor) {
-                            ForEach(colors, id: \.self) { color in
-                                Circle()
-                                    .fill(color)
-                                    .frame(width: 30, height: 30)
-                            }
-                        }
-                        .pickerStyle(.wheel)
-                        .background(.clear)
-                        .cornerRadius(15)
-                        .padding()
-                        .onChange(of: selectedColor) { newValue in
-                            withAnimation {
-                                self.levelColor = selectedColor
-                                self.isLevelCircleTapped = false
-                                let colorInt = converToLevelInt(color: self.selectedColor)
-                                self.levelColorInt = colorInt
-                            }
-                        }
-                    }
-                }
-                
-                Button {
-                    self.isDateTapped = true
                 } label: {
-                    Text("\(date.convertToOhcleDateLiteral())")
-                        .font(.title)
-                        .foregroundColor(.black)
-                    if isDateTapped {
-                        DatePicker("Select a date",
-                                   selection: $selectedDate,
-                                   displayedComponents: [.date])
-                        .datePickerStyle(.compact)
-                        .labelsHidden()
-                    }
-                }
-                .onChange(of: selectedDate) { newValue in
-                    withAnimation {
-                        self.isDateTapped = false
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "yyyy-MM-dd"
-                        let dateString = dateFormatter.string(from: newValue)
-                        self.date = dateString
-                    }
-                }
-                
-                HStack(spacing: 5) {
-                    Image(systemName: mapImageName)
-                    Text(climbingLocation)
-                        .font(.body)
+                    Image(systemName: "trash.fill")
+                        .font(.system(size: 24))
                         .foregroundColor(.gray)
                 }
-                .padding(.bottom, -5)
+            }
+            Button {
+                self.isLevelCircleTapped = true
+            } label: {
+                Circle()
+                    .fill(levelColor)
+                    .frame(width: 30, height: 30)
                 
-                HStack() {
-                    ScoreStar(rating: $score)
-                }
-                
-                VStack(alignment: .leading) {
-                    Text("MEMO")
-                        .font(.title)
-                        .bold()
-                        .padding(.top, 10)
-                    
-                    Divider()
-                        .frame(minHeight: 2)
-                        .overlay(Color.black)
-                        .padding(.top, -10)
-                    
-                    HStack {
-                        Spacer()
-                        photo?
-                            .resizable()
-                            .scaledToFit()
-                        PickerView(isShowingGalleryPicker: $isPhotoPickerTapped, selectedImage: $selectedPhoto)
-                            .sheet(isPresented: $isPhotoPickerTapped) {                 GalleryPickerView(isPresented: $isPhotoPickerTapped,
-                                                  selectedImage: $selectedPhoto)
-                            }
-                        Spacer()
+                if isLevelCircleTapped {
+                    Picker("", selection: $selectedColor) {
+                        ForEach(colors, id: \.self) { color in
+                            Circle()
+                                .fill(color)
+                                .frame(width: 30, height: 30)
+                        }
                     }
-                    
-                    TextEditor(text: $typedText)
-                        .scrollContentBackground(.hidden)
-                        .background(memoBackgroundColor)
-                        .foregroundColor(Color.black)
-                        .lineSpacing(5)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .pickerStyle(.wheel)
+                    .background(.clear)
+                    .cornerRadius(15)
+                    .padding()
+                    .onChange(of: selectedColor) { newValue in
+                        withAnimation {
+                            self.levelColor = selectedColor
+                            self.isLevelCircleTapped = false
+                            let colorInt = converToLevelInt(color: self.selectedColor)
+                            self.levelColorInt = colorInt
+                        }
+                    }
                 }
+            }
+            
+            Button {
+                self.isDateTapped = true
+            } label: {
+                Text("\(date.convertToOhcleDateLiteral())")
+                    .font(.title)
+                    .foregroundColor(.black)
+                if isDateTapped {
+                    DatePicker("Select a date",
+                               selection: $selectedDate,
+                               displayedComponents: [.date])
+                    .datePickerStyle(.compact)
+                    .labelsHidden()
+                }
+            }
+            .onChange(of: selectedDate) { newValue in
+                withAnimation {
+                    self.isDateTapped = false
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    let dateString = dateFormatter.string(from: newValue)
+                    self.date = dateString
+                }
+            }
+            
+            HStack(spacing: 5) {
+                Image(systemName: mapImageName)
+                Text(climbingLocation)
+                    .font(.body)
+                    .foregroundColor(.gray)
+            }
+            .padding(.bottom, -5)
+            
+            HStack() {
+                ScoreStar(rating: $score)
+            }
+            
+            VStack(alignment: .leading) {
+                Text("MEMO")
+                    .font(.title)
+                    .bold()
+                    .padding(.top, 10)
                 
-                Spacer()
+                Divider()
+                    .frame(minHeight: 2)
+                    .overlay(Color.black)
+                    .padding(.top, -10)
+                
                 HStack {
                     Spacer()
-                    MemoButton(isEdited: $isEdited) {
-                        withAnimation {
-                            self.isModalView.toggle()
+                    photo?
+                        .resizable()
+                        .scaledToFit()
+                    PickerView(isShowingGalleryPicker: $isPhotoPickerTapped, selectedImage: $selectedPhoto)
+                        .sheet(isPresented: $isPhotoPickerTapped) {                 GalleryPickerView(isPresented: $isPhotoPickerTapped,
+                                                                                                      selectedImage: $selectedPhoto)
                         }
-                        
-                        Task {
-                            let sendableData = SendableClibmingMemo(whereID: self.id,
-                                                                    when: self.date,
-                                                                    level: levelColorInt,
-                                                                    score: Double(self.score),
-                                                                    memo: self.typedText, picture: [""],
-                                                                    video: "", tags: [""])
-                            await saveDiary(sendableData)
-                        }
-                    }
                     Spacer()
+                }
+                
+                TextEditor(text: $typedText)
+                    .scrollContentBackground(.hidden)
+                    .background(memoBackgroundColor)
+                    .foregroundColor(Color.black)
+                    .lineSpacing(5)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            
+            Spacer()
+            HStack {
+                Spacer()
+                MemoButton(isEdited: $isEdited) {
+                    withAnimation {
+                        self.isModalView.toggle()
+                    }
+                    
+                    Task {
+                        let sendableData = SendableClibmingMemo(whereID: self.id,
+                                                                when: self.date,
+                                                                level: levelColorInt,
+                                                                score: Double(self.score),
+                                                                memo: self.typedText, picture: [""],
+                                                                video: "", tags: [""])
+                        await saveDiary(sendableData)
+                    }
                 }
                 Spacer()
             }
-            .padding(.leading, 30)
-            .padding(.trailing, 30)
-            .onAppear() {
-                UITextView.appearance().backgroundColor = .clear
-            }
-            .task {
-                let data = await requestDetailMemo(id: self.id)
-                await decodeData(data ?? Data())
-            }
-
+            Spacer()
         }
+        .padding(.leading, 30)
+        .padding(.trailing, 30)
+        .onAppear() {
+            UITextView.appearance().backgroundColor = .clear
+        }
+        .task {
+            let data = await requestDetailMemo(id: self.id)
+            await decodeData(data ?? Data())
+        }
+        
     }
 }
 
@@ -229,6 +240,25 @@ struct SendableClibmingMemo: Codable {
 }
 
 extension NewMemoView {
+    private func deleteMemo(id: Int) async {
+        guard let url = URL(string: "https://api-gw.todayclimbing.com/v1/climbing/\(id)") else {
+            return
+        }
+        
+        do {
+            let reqeust = try URLRequest(url: url, method: .delete)
+            let (_, response) = try await URLSession.shared.data(for: reqeust)
+            
+            if let response = response as? HTTPURLResponse,
+               response.statusCode != 200 {
+                print(response.statusCode)
+            }
+        } catch {
+            
+        }
+        
+    }
+    
     private func saveDiary(_ diary: SendableClibmingMemo) async {
         let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(diary.whereID)/"
         
