@@ -7,25 +7,13 @@
 
 import Foundation
 
-struct KakaoLoginResultModel: Decodable {
+struct LoginResultModel: Decodable {
     let userID: Int
     let isUserSignedIn: Bool
     let token: String
     
     enum CodingKeys: String, CodingKey {
         case userID = "id"
-        case isUserSignedIn = "is_newbie"
-        case token = "token"
-    }
-}
-
-struct AppleLoginResultModel: Decodable {
-    let id: Int
-    let isUserSignedIn: Bool
-    let token: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id
         case isUserSignedIn = "is_newbie"
         case token = "token"
     }

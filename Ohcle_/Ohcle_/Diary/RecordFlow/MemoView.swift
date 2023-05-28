@@ -23,7 +23,7 @@ struct MemoView: View {
     @State private var photoData =  CalendarDataManger.shared.record.temPhoto
     @State private var isEdited = false
     
-    @State var diary: Diary?
+//    @State var diary: Diary?
     @Binding var selectedTab: Int
     
     @State private var showAlert = false
@@ -87,7 +87,7 @@ struct MemoView: View {
                                 alertMsg = "최대글자는 100자 제한입니다."
                                 showAlert = true
                             }
-                            self.diary?.memo = typedText
+//                            self.diary?.memo = typedText
                         }
                     
                     
@@ -106,10 +106,7 @@ struct MemoView: View {
             HStack {
                 Spacer()
                 MemoButton(isEdited: $isEdited) {
-                    if let diary = diary {
-                        CalendarDataManger.shared.updateDiary(diary: diary)
-                       
-                    } else {
+                   
                         CalendarDataManger.shared.record.saveTemporaryMemo(typedText)
                         
                         RecNetworkManager.shared.saveDiaryToServer { res in
@@ -124,7 +121,6 @@ struct MemoView: View {
                             }
                         }
 
-                    }
                 }
 
                 Spacer()

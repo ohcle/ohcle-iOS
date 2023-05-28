@@ -50,7 +50,7 @@ struct MainView: View {
     }
 
     var body: some View {
-        TabView  (selection: $selectedTab){
+        TabView (selection: $selectedTab){
             TabView {
                 RefacotCalenderView()
                 DiaryList()

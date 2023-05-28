@@ -35,20 +35,20 @@ class DataController: ObservableObject {
     }
     
     func saveDiary(_ context: NSManagedObjectContext) {
-        let diary = Diary(context: context)
-        diary.date = self.temporaryDiary.date
-        diary.score = self.temporaryDiary.score
-        diary.level = self.temporaryDiary.level
-        diary.photo = self.temporaryDiary.photo
-        diary.memo = self.temporaryDiary.memo
-        
+//        let diary = Diary(context: context)
+//        diary.date = self.temporaryDiary.date
+//        diary.score = self.temporaryDiary.score
+//        diary.level = self.temporaryDiary.level
+//        diary.photo = self.temporaryDiary.photo
+//        diary.memo = self.temporaryDiary.memo
+//
         self.saveContext()
     }
     
-    func updateDiary(_ diary: Diary) {
-        self.saveContext()
-        clearTemDiary()
-    }
+//    func updateDiary(_ diary: Diary) {
+//        self.saveContext()
+//        clearTemDiary()
+//    }
     
     func clearTemDiary() {
         self.temporaryDiary.date = ""
@@ -125,15 +125,15 @@ class DataController: ObservableObject {
 }
 
 extension DataController {
-    func fetch() -> [Diary] {
-        let fetchRequest: NSFetchRequest<Diary> = Diary.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        
-        do {
-            return try container.viewContext.fetch(fetchRequest)
-        } catch {
-            print("fetch Diary error:\(error)")
-            return []
-        }
-    }
+//    func fetch() -> [Diary] {
+//        let fetchRequest: NSFetchRequest<Diary> = Diary.fetchRequest()
+//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+//        
+//        do {
+//            return try container.viewContext.fetch(fetchRequest)
+//        } catch {
+//            print("fetch Diary error:\(error)")
+//            return []
+//        }
+//    }
 }

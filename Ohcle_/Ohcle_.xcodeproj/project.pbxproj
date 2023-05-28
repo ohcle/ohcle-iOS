@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8050EE72A221CA0000E0E10 /* LoginManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8050EE62A221CA0000E0E10 /* LoginManger.swift */; };
+		A8050EEA2A23220C000E0E10 /* EditMemoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8050EE92A23220C000E0E10 /* EditMemoPickerView.swift */; };
 		A80A481B29EBC31B00F3F186 /* CalenderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80A481A29EBC31B00F3F186 /* CalenderModel.swift */; };
 		A80A484329F3AEDE00F3F186 /* DateFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80A484229F3AEDE00F3F186 /* DateFilterView.swift */; };
 		A80A484529F3B8FC00F3F186 /* CircleDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80A484429F3B8FC00F3F186 /* CircleDateView.swift */; };
@@ -17,8 +19,6 @@
 		A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A817166B290386AE005B1268 /* AddPhotoView.swift */; };
 		A83132222A03BC160087A82C /* RefactorCalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83132212A03BC160087A82C /* RefactorCalenderView.swift */; };
 		A83132242A070B370087A82C /* NewMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83132232A070B370087A82C /* NewMemoView.swift */; };
-		A83132262A0730F80087A82C /* DetailDiaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83132252A0730F80087A82C /* DetailDiaryModel.swift */; };
-		A83132282A075FF20087A82C /* NewAppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83132272A075FF20087A82C /* NewAppleLoginView.swift */; };
 		A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8335B68292F7BFA0006899D /* AppleLoginView.swift */; };
 		A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */; };
 		A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */; };
@@ -30,7 +30,6 @@
 		A859A64328EC3EB300F217F3 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64228EC3EB300F217F3 /* KakaoSDKAuth */; };
 		A859A64528EC3EB300F217F3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64428EC3EB300F217F3 /* KakaoSDKCommon */; };
 		A859A64728EC3EB300F217F3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64628EC3EB300F217F3 /* KakaoSDKUser */; };
-		A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */; };
 		A866B509293CC5C5001E182F /* KakaoLoginResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A866B508293CC5C5001E182F /* KakaoLoginResultModel.swift */; };
 		A86A596828F2A1F100C500E1 /* Calender.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86A596728F2A1F100C500E1 /* Calender.swift */; };
 		A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B249297E5B5A00704688 /* CurrentDate.swift */; };
@@ -61,6 +60,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A8050EE62A221CA0000E0E10 /* LoginManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManger.swift; sourceTree = "<group>"; };
+		A8050EE92A23220C000E0E10 /* EditMemoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMemoPickerView.swift; sourceTree = "<group>"; };
 		A80A481A29EBC31B00F3F186 /* CalenderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderModel.swift; sourceTree = "<group>"; };
 		A80A484229F3AEDE00F3F186 /* DateFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterView.swift; sourceTree = "<group>"; };
 		A80A484429F3B8FC00F3F186 /* CircleDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleDateView.swift; sourceTree = "<group>"; };
@@ -71,8 +72,6 @@
 		A817166B290386AE005B1268 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
 		A83132212A03BC160087A82C /* RefactorCalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefactorCalenderView.swift; sourceTree = "<group>"; };
 		A83132232A070B370087A82C /* NewMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMemoView.swift; sourceTree = "<group>"; };
-		A83132252A0730F80087A82C /* DetailDiaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDiaryModel.swift; sourceTree = "<group>"; };
-		A83132272A075FF20087A82C /* NewAppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAppleLoginView.swift; sourceTree = "<group>"; };
 		A8335B68292F7BFA0006899D /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
 		A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewGridItem.swift; sourceTree = "<group>"; };
 		A859A62A28EC3E1500F217F3 /* Ohcle_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ohcle_.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,7 +82,6 @@
 		A859A63D28EC3E6500F217F3 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		A859A63F28EC3E7A00F217F3 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A859A64B28EC457700F217F3 /* Ohcle_.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ohcle_.entitlements; sourceTree = "<group>"; };
-		A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSetting.swift; sourceTree = "<group>"; };
 		A866B508293CC5C5001E182F /* KakaoLoginResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginResultModel.swift; sourceTree = "<group>"; };
 		A86A596728F2A1F100C500E1 /* Calender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calender.swift; sourceTree = "<group>"; };
 		A875B249297E5B5A00704688 /* CurrentDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDate.swift; sourceTree = "<group>"; };
@@ -129,6 +127,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A8050EE82A222C2F000E0E10 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				A8C0D69529FE475E00DEB477 /* Refactor_Networking.swift */,
+				A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
 		A80B452B28FA7CAB00343BB4 /* RecordFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,7 +179,6 @@
 				A80B452328FA50DE00343BB4 /* ReadViewSize.swift */,
 				A859A64B28EC457700F217F3 /* Ohcle_.entitlements */,
 				A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */,
-				A8A812E929A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld */,
 				A859A63128EC3E1600F217F3 /* Assets.xcassets */,
 				FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */,
 				A875B24D297E7C2200704688 /* MainView */,
@@ -197,14 +203,12 @@
 			isa = PBXGroup;
 			children = (
 				A887D60029A20D9800C0A75D /* Networking.swift */,
-				A8C0D69529FE475E00DEB477 /* Refactor_Networking.swift */,
 				A859A63F28EC3E7A00F217F3 /* LoginView.swift */,
-				A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */,
 				A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */,
+				A8050EE62A221CA0000E0E10 /* LoginManger.swift */,
 				A8335B68292F7BFA0006899D /* AppleLoginView.swift */,
-				A83132272A075FF20087A82C /* NewAppleLoginView.swift */,
 				A866B508293CC5C5001E182F /* KakaoLoginResultModel.swift */,
-				A859A64C28EC5D5F00F217F3 /* LoginSetting.swift */,
+				A8050EE82A222C2F000E0E10 /* Legacy */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -224,12 +228,12 @@
 				A859A63D28EC3E6500F217F3 /* MainView.swift */,
 				A83132212A03BC160087A82C /* RefactorCalenderView.swift */,
 				A83132232A070B370087A82C /* NewMemoView.swift */,
+				A8050EE92A23220C000E0E10 /* EditMemoPickerView.swift */,
 				A80A484229F3AEDE00F3F186 /* DateFilterView.swift */,
 				A80A484429F3B8FC00F3F186 /* CircleDateView.swift */,
 				A80A481A29EBC31B00F3F186 /* CalenderModel.swift */,
 				A875B24B297E779700704688 /* CalenderHolderGridView.swift */,
 				A8AB86BB29E2821700F5410F /* SplashView.swift */,
-				A83132252A0730F80087A82C /* DetailDiaryModel.swift */,
 				A8D1BEE42A0772CE00A43FF0 /* URLs.swift */,
 			);
 			path = MainView;
@@ -397,7 +401,7 @@
 				A8C0D69429FE459C00DEB477 /* ExternalLinks.swift in Sources */,
 				A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */,
 				FED3211529D02C3A00115539 /* ScoreStar.swift in Sources */,
-				A859A64D28EC5D5F00F217F3 /* LoginSetting.swift in Sources */,
+				A8050EE72A221CA0000E0E10 /* LoginManger.swift in Sources */,
 				A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */,
 				A866B509293CC5C5001E182F /* KakaoLoginResultModel.swift in Sources */,
 				A817166629038013005B1268 /* ClimbingScore.swift in Sources */,
@@ -412,8 +416,8 @@
 				A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */,
 				A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */,
 				A80B452828FA5A8D00343BB4 /* ClimbingLocationView.swift in Sources */,
+				A8050EEA2A23220C000E0E10 /* EditMemoPickerView.swift in Sources */,
 				A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */,
-				A83132282A075FF20087A82C /* NewAppleLoginView.swift in Sources */,
 				A8AB86BC29E2821700F5410F /* SplashView.swift in Sources */,
 				FE8E947329FD22B3008764DC /* CalendarDataManager.swift in Sources */,
 				A8CBB2EA291F74F40013A74F /* DiaryHeader.swift in Sources */,
@@ -424,10 +428,8 @@
 				A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */,
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,
-				A83132262A0730F80087A82C /* DetailDiaryModel.swift in Sources */,
 				A86A596828F2A1F100C500E1 /* Calender.swift in Sources */,
 				FEB9B67C2A19B08900DCCE5A /* ClimbingLocationSearch.swift in Sources */,
-				A8A812EB29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld in Sources */,
 				A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -533,6 +535,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -545,7 +548,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -687,19 +690,6 @@
 			productName = KakaoSDKUser;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		A8A812E929A73D1100E7C6A2 /* TemporaryDiary.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				A8A812EA29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodel */,
-			);
-			currentVersion = A8A812EA29A73D1100E7C6A2 /* TemporaryDiary.xcdatamodel */;
-			path = TemporaryDiary.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = A859A62228EC3E1500F217F3 /* Project object */;
 }

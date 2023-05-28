@@ -10,7 +10,6 @@ import KakaoSDKUser
 import AuthenticationServices
 
 struct MyPageUserInfoView: View {
-    @EnvironmentObject var loginSetting: LoginSetting
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
     @Binding var thumbnailImage: Image
     @Binding var userName: String
@@ -33,12 +32,8 @@ struct MyPageUserInfoView: View {
                 .multilineTextAlignment(.center)
                 
                 Button {
-                    withAnimation {
-                        self.isLoggedIn = false
-                    }
-                    
                     Task {
-                        await logoutAccount()
+                        await LoginManager.shared.logOut()
                     }
                 } label: {
                     Text("로그아웃")
@@ -53,13 +48,8 @@ struct MyPageUserInfoView: View {
                 .padding(.bottom, 76)
                 
                 Button {
-                    clearKeyChain()
-                    clearUserDefaults()
-                    signOutUser()
-                    signOutKakaoAccount()
                     Task {
-                        await signOutAppleAccount()
-                        
+                        await LoginManager.shared.signOut()
                     }
                 } label: {
                     Text("탈퇴하기")
@@ -68,89 +58,6 @@ struct MyPageUserInfoView: View {
                 Spacer()
             }.padding()
         }
-    }
-    
-    private func clearKeyChain() {
-        UserTokenManager.shared.delete(account: .kakao, service: .login)
-        UserTokenManager.shared.delete(account: .apple, service: .login)
-    }
-    
-    private func clearUserDefaults() {
-        UserDefaults.standard.removeObject(forKey: "userImage")
-        UserDefaults.standard.removeObject(forKey: "userID")
-        UserDefaults.standard.removeObject(forKey: "didSeeOnBoarding")
-        UserDefaults.standard.removeObject(forKey: "isLoggedIn")
-    }
-    
-    private func signOutUser() {
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedOperation = .operationLogout
-        withAnimation {
-            self.isLoggedIn = false
-        }
-    }
-    
-    private func signOutKakaoAccount() {
-        UserApi.shared.unlink {(error) in
-            if let error = error {
-                print(error)
-            } else {
-                print("unlink() success.")
-                withAnimation {
-                    self.isLoggedIn = false
-                }
-            }
-        }
-    }
-    
-    private func logoutAccount() async {
-        guard let token = UserDefaults.standard.string(forKey: "ohcleToken") as? String else {
-            return
-        }
-        
-        print(token)
-        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(token)/signout"
-        
-        guard let url = URL(string: urlString) else {
-            return
-        }
-        
-        do {
-            let request = try URLRequest(url: url, method: .patch)
-            let (data, response) = try await URLSession.shared.data(for: request)
-            
-            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-                print(response)
-            }
-        } catch {
-            print(error)
-        }
-    }
-    
-    private func signOutAppleAccount() async {
-        guard let token = UserDefaults.standard.string(forKey: "ohcleToken") else {
-            return
-        }
-        print(token)
-        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(token)"
-        
-        guard let url = URL(string: urlString) else {
-            return
-        }
-        
-        do {
-            let request = try URLRequest(url: url, method: .delete)
-            let (data, response) = try await URLSession.shared.data(for: request)
-            
-            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-                print(response)
-            }
-            
-        } catch {
-            print(error)
-        }
-        
     }
 }
 

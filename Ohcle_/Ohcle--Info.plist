@@ -2,8 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>KAKAO_APP_KEY</key>
-	<string>b61a430c747ede3f63f1f02fba513526</string>
+    <key>LSApplicationQueriesSchemes</key>
+     <array>
+         <!-- 카카오톡으로 로그인 -->
+         <string>kakaokompassauth</string>
+         <!-- 카카오톡 공유 -->
+         <string>kakaolink</string>
+     </array>
+     
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -11,14 +17,10 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakaob61a430c747ede3f63f1f02fba513526</string>
+				<string>kakao</string>
+				<string>b61a430c747ede3f63f1f02fba513526</string>
 			</array>
 		</dict>
-	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>kakaokompassauth</string>
-		<string>kakaolink</string>
 	</array>
 </dict>
 </plist>
