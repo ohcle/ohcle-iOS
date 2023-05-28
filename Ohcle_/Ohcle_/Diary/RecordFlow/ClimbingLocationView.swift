@@ -142,8 +142,6 @@ struct ClimbingLocationView: View {
             if CalendarDataManger.shared.record.climbingLocation.name == "" {
                 locationDataManager.updateCurrentLocation = { location in
                     region = MKCoordinateRegion(center: location, latitudinalMeters: 300, longitudinalMeters: 300)
-                    
-                    fetchClimbingPlaceWithLoc(latitude: Double(location.latitude), longitude: Double(location.longitude))
                 }
             }
             // 뒤로 왔을 때 액션
@@ -233,64 +231,3 @@ class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegat
     
 }
 
-
-// MARK: Network function
-extension ClimbingLocationView {
-    
-    private func fetchClimbingPlaceWithLoc(latitude: Double, longitude: Double) {
-        
-//        var urlComponents = URLComponents()
-//        urlComponents.scheme = "https"
-//        urlComponents.host = "api-gw.todayclimbing.com"
-//        urlComponents.path = "/v1/climbing/place/nearby"
-        guard var urlComponents = URLComponents(string: "https://api-gw.todayclimbing.com/" + "v1/climbing/place/nearby") else { return }
-        urlComponents.queryItems = [
-            URLQueryItem(name: "latitude", value: String(latitude)),
-            URLQueryItem(name: "longitude", value: String(longitude))
-        ]
-        
-        guard let url = urlComponents.url else { return }
-        
-        
-        do {
-            let request = try URLRequest(url: url, method: .get)
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                
-                if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-                    print(response.statusCode)
-                }
-                
-                if let data = data {
-                    
-                    print(data)
-                    print(String(data: data, encoding: .utf8))
-                    do {
-                        if let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String:Any]] {
-
-                            for ele in jsonArray {
-                               print(ele)
-                                let id   = ele["id"]        as? Int     ?? 0
-                                let name = ele["name"]      as? String  ?? ""
-                                let addr = ele["address"]   as? String  ?? ""
-                                let lat  = ele["latitude"]  as? Double   ?? 0.0
-                                let long = ele["longitude"] as? Double   ?? 0.0
-                                
-                            }
-                        }
-                    }
-                    catch {
-                        print("JsonSerialization error \(error)")
-                    }
-
-                }
-                
-            }
-            .resume()
-        } catch {
-            print(error)
-        }
-        
-        
-    }
-    
-}

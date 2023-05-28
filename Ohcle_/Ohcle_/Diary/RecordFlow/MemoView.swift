@@ -81,8 +81,6 @@ struct MemoView: View {
                         .lineSpacing(5)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .onChange(of: typedText) { newValue in
-                            print(newValue.count)
-                            
                             if newValue.count >= 100 {
                                 typedText = String(typedText.prefix(100))
                                 
@@ -113,12 +111,19 @@ struct MemoView: View {
                        
                     } else {
                         CalendarDataManger.shared.record.saveTemporaryMemo(typedText)
-                        currentPageType.type = .done
-                        currentPageType.type = .calender
-                        self.saveDiaryToServer()
-                        CalendarDataManger.shared.record.clearRecord()
                         
-                        self.selectedTab = 1
+                        RecNetworkManager.shared.saveDiaryToServer { res in
+                            if !res {
+                                showAlert = true
+                                alertMsg  = "기록 업로드실패"
+                            } else {
+                                currentPageType.type = .done
+                                currentPageType.type = .calender
+                                self.selectedTab = 1
+                                CalendarDataManger.shared.record.clearRecord()
+                            }
+                        }
+
                     }
                 }
 
@@ -137,71 +142,6 @@ struct MemoView: View {
             Alert(title: Text(alertMsg))
         }
     }
-}
-
-
-extension MemoView {
-    func getLevel(_ levelStr: String) -> Int {
-        let levelDict = ["red"              : 1
-                         ,"orange"          : 2
-                         ,"yellow"          : 3
-                         ,"green"           : 4
-                         ,"holder-darkblue" : 5
-                         ,"blue"            : 6
-                         ,"purple"          : 7
-                         ,"black"           : 8
-                         ,"holder-lightgray": 9
-                         ,"holder-darkgray" : 10
-        ]
-        return levelDict[levelStr] ?? 0
-    }
-    
-    func saveDiaryToServer() {
-        
-        let date = CalendarDataManger.shared.record.date
-        let score = CalendarDataManger.shared.record.score
-        let level = CalendarDataManger.shared.record.level
-//        let photo = CalendarDataManger.shared.record.photo
-        let photoNm = CalendarDataManger.shared.record.photoName
-        let memo = CalendarDataManger.shared.record.memo
-         
-        let urlStr = "https://api-gw.todayclimbing.com/" +  "v1/climbing/"
-        guard let url = URL(string: urlStr) else {
-            print("Fail to InitURL")
-            return
-        }
-        var request = URLRequest(url: url)
-        let parameters = ["where": ["id": 1
-                                   ]
-                          ,"when":date
-                          ,"level": self.getLevel(level)
-                          ,"score":score
-                          ,"memo":memo
-                          ,"picture": [photoNm]
-                        ] as [String : Any]
-        
-        
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: [])
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-                return
-            }
-            
-            if let data = data, let response = response as? HTTPURLResponse {
-                print("Status code: \(response.statusCode)")
-                print("Response data: \(String(data: data, encoding: .utf8) ?? "")")
-                
-            }
-        }
-        task.resume()
-        
-    }
-
 }
 
 //struct MemoView_Previews: PreviewProvider {

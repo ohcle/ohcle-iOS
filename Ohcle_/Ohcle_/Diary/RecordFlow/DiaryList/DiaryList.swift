@@ -70,7 +70,7 @@ struct DiaryList: View {
                             ForEach(calenderData.data.flatMap{ $0.value.values.compactMap { $0 } }.sorted { $0.when > $1.when }) { calenderViewModel in
 
                                 
-                                DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where?.name, levelColorName: "gray" , score: Int16(calenderViewModel.score), memoImageData: calenderViewModel.picture)
+                                DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where?.name, levelColorName: "gray" , score: Int16(calenderViewModel.score), memoImageData: calenderViewModel.thumbnail)
                                     .onTapGesture {
                                         diaryID = calenderViewModel.id
                                         isModal = true
@@ -122,35 +122,11 @@ struct DiaryList: View {
             }
         }
         
-        deleteClimbing(id: rows[idx].id)
+        RecNetworkManager.shared.deleteClimbing(id: rows[idx].id)
     }
 }
 
-// MARK: Network function
-extension DiaryList {
-    private func deleteClimbing(id: Int) {
-        let urlStr = "https://api-gw.todayclimbing.com/" + "v1/climbing/" + String(id)
-        guard let url = URL(string: urlStr) else { return }
-        
-        do {
-            let request = try URLRequest(url: url, method: .delete)
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                
-                if let response = response as? HTTPURLResponse,
-                   response.statusCode != 200 {
-                    print(response.statusCode)
-                }
-                if let data = data {
-                    print(String(data: data, encoding: .utf8))
-                }
-                
-            }.resume()
-            
-        } catch {
-            print(error)
-        }
-    }
-}
+
 
 //struct example_Previews: PreviewProvider {
 //    static var previews: some View {

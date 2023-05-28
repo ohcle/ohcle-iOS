@@ -56,6 +56,7 @@
 		FE918FBC29F451CB00484731 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE918FBB29F451CB00484731 /* CoreLocation.framework */; };
 		FEB9423D29D5F45300AE3D1F /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */; };
 		FEB9B67C2A19B08900DCCE5A /* ClimbingLocationSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB9B67B2A19B08900DCCE5A /* ClimbingLocationSearch.swift */; };
+		FECB29A52A2310CC005EF41A /* RecNetowrkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECB29A42A2310CC005EF41A /* RecNetowrkManager.swift */; };
 		FED3211529D02C3A00115539 /* ScoreStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED3211429D02C3A00115539 /* ScoreStar.swift */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +110,7 @@
 		FE918FBB29F451CB00484731 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		FEB9B67B2A19B08900DCCE5A /* ClimbingLocationSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingLocationSearch.swift; sourceTree = "<group>"; };
 		FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OnBoardingView.swift; path = Ohcle_/OnBoardingView.swift; sourceTree = SOURCE_ROOT; };
+		FECB29A42A2310CC005EF41A /* RecNetowrkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecNetowrkManager.swift; sourceTree = "<group>"; };
 		FED3211429D02C3A00115539 /* ScoreStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -258,6 +260,7 @@
 			children = (
 				A875B249297E5B5A00704688 /* CurrentDate.swift */,
 				A89EF9B3294A1A390018BDFD /* Debouncer.swift */,
+				FECB29A42A2310CC005EF41A /* RecNetowrkManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				A8CBB2F1291F96570013A74F /* MyPageUserInfoView.swift in Sources */,
 				A887D60129A20D9800C0A75D /* Networking.swift in Sources */,
 				A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */,
+				FECB29A52A2310CC005EF41A /* RecNetowrkManager.swift in Sources */,
 				A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */,
 				A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */,
 				A80B452828FA5A8D00343BB4 /* ClimbingLocationView.swift in Sources */,

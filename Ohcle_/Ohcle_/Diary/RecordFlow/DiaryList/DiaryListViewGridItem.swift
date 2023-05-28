@@ -24,14 +24,14 @@ struct DiaryListViewGridItem: View {
     private let memoImageData: Data?
     
     init(date: String?, location: String?,
-         levelColorName: String, score: Int16?, memoImageData: [String]?) {
+         levelColorName: String, score: Int16?, memoImageData: String?) {
         self.date = date
         self.location = location
         self.levelColor = Color.convert(from: levelColorName)
         self.scoreNumber = Int(score ?? .zero)
         
-        if let memoImageData = memoImageData, memoImageData.count > 0  {
-            self.memoImageData = Data(base64Encoded: memoImageData[0])
+        if let memoImageData = memoImageData {
+            self.memoImageData = Data(base64Encoded: memoImageData)
         } else {
             self.memoImageData = Data()
         }
@@ -84,14 +84,16 @@ struct DiaryListViewGridItem: View {
     }
 }
 
-struct DiaryListCell_Previews: PreviewProvider {
-    static private let mocDate = "2023년 3월 10일"
-    static private let mocLocation = "오클 클라이밍"
-    static private let mocColorName = "gray"
-    static private let mocScore: Int16 = 3
-    static private let mocImageData = [""]
-    
-    static var previews: some View {
-        DiaryListViewGridItem(date: mocDate, location: mocLocation, levelColorName: mocColorName, score: mocScore, memoImageData: mocImageData)
-    }
-}
+
+
+//struct DiaryListCell_Previews: PreviewProvider {
+//    static private let mocDate = "2023년 3월 10일"
+//    static private let mocLocation = "오클 클라이밍"
+//    static private let mocColorName = "gray"
+//    static private let mocScore: Int16 = 3
+//    static private let mocImageData = [""]
+//
+//    static var previews: some View {
+//        DiaryListViewGridItem(date: mocDate, location: mocLocation, levelColorName: mocColorName, score: mocScore, memoImageData: mocImageData)
+//    }
+//}

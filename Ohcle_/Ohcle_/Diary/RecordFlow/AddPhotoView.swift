@@ -120,38 +120,6 @@ struct AddPhotoView: View {
         
 }
 
-
-// MARK: Network func
-extension AddPhotoView {
-    private func postImage(_ imgData: Data) {
-        let urlStr = "https://api-gw.todayclimbing.com/" +  "v1/media/image"
-        guard let url = URL(string: urlStr) else {
-            print("Fail to InitURL")
-            return
-        }
-        var request = URLRequest(url: url)
-        let parameters = ["image":imgData.base64EncodedString()]
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: [])
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-                return
-            }
-            
-            if let data = data, let response = response as? HTTPURLResponse {
-                print("Status code: \(response.statusCode)")
-                print("Response data: \(String(data: data, encoding: .utf8) ?? "")")
-            }
-        }
-        task.resume()
-    }
-}
-
-
 // MARK: Photo Picker
 struct GalleryPickerView: UIViewControllerRepresentable {
     @Binding var isPresented: Bool
