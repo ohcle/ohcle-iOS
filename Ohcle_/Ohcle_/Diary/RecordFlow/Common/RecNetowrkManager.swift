@@ -97,7 +97,7 @@ class RecNetworkManager {
     func fetchClimbingPlace(with keyword: String, completion: @escaping (Result<[ClimbingLocation], Error>) -> Void) {
         let baseURLString = "https://api-gw.todayclimbing.com/v1/climbing/place/"
         let encodedKeyword = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let urlString = baseURLString + "?keyword=" + encodedKeyword
+        let urlString = baseURLString + "?search_words=" + encodedKeyword
         performRequest(urlString: urlString, method: .get) { result in
             switch result {
             case .success(let data):
