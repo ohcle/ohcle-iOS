@@ -15,7 +15,6 @@ class OhcleDate {
         formatter.timeStyle = .none
         formatter.dateStyle = .medium
         formatter.locale = Locale(identifier: "ko")
-//        formatter.setLocalizedDateFormatFromTemplate("yyyy-MMMM dd")
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()

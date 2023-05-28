@@ -144,8 +144,6 @@ class NetworkManager {
 
         urlComponent.path = decidePath(purpose: purpose, userMemoId: userMemoId)
 
-        print(urlComponent.url)
-
         guard let url = urlComponent.url else {
             return defaultURL
         }

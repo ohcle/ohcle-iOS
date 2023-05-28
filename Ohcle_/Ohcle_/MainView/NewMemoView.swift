@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension String {
-    func convertToTrimmedLiteral() -> String {
+    func convertToOhcleDateLiteral() -> String {
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd"
         guard let date = inputFormatter.date(from: self) else {
@@ -28,24 +28,110 @@ struct NewMemoView: View {
     
     @EnvironmentObject var currentPageType: MyPageType
     @Binding var isModalView: Bool
+    @State private var isEdited = true
+    @State private var isLevelCircleTapped = false
+    @State private var isDateTapped = false
     
     @Binding var id: Int
     @State private var climbingLocation = "클라임웍스 클라이밍"
     @State private var typedText = ""
     @State private var levelColor = Color.yellow
+    @State private var levelColorInt = 0
     @State private var date = "2020-02-02"
     @State private var score = 0
     @State private var photoData = Data()
+    @State private var photo = Image("")
+
+    @State private var selectedColor: Color = .clear
+    @State private var selectedDate: Date = Date()
+    
+    private let colors: [Color] = [.red, .orange, .yellow,
+                                   .green, .blue, .purple, .black]
+    
+    private func converToLevelInt(color: Color) -> Int {
+        switch color {
+        case .red:
+            return 1
+        case .orange:
+            return 2
+        case .yellow:
+            return 3
+        case .green:
+            return 4
+        case .blue:
+            return 5
+        case .indigo:
+            return 6
+        case .purple:
+            return 7
+        case .black:
+            return 8
+        case .white:
+            return 9
+        case .gray:
+            return 10
+        default:
+            return .zero
+        }
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
-            Circle()
-                .fill(levelColor)
-                .frame(width: 30, height: 30)
-                .padding(.top, 20)
+            Button {
+                self.isLevelCircleTapped = true
+            } label: {
+                Circle()
+                    .fill(levelColor)
+                    .frame(width: 30, height: 30)
+                    .padding(.top, 20)
+                
+                if isLevelCircleTapped {
+                    Picker("", selection: $selectedColor) {
+                        ForEach(colors, id: \.self) { color in
+                            Circle()
+                                .fill(color)
+                                .frame(width: 30, height: 30)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .background(.clear)
+                    .cornerRadius(15)
+                    .padding()
+                    .onChange(of: selectedColor) { newValue in
+                        withAnimation {
+                            self.levelColor = selectedColor
+                            self.isLevelCircleTapped = false
+                            let colorInt = converToLevelInt(color: self.selectedColor)
+                            print(test)
+                            self.levelColorInt = colorInt
+                        }
+                    }
+                }
+            }
             
-            Text("\(date.convertToTrimmedLiteral())")
-                .font(.title)
+            Button {
+                self.isDateTapped = true
+            } label: {
+                Text("\(date.convertToOhcleDateLiteral())")
+                    .font(.title)
+                    .foregroundColor(.black)
+                if isDateTapped {
+                    DatePicker("Select a date",
+                               selection: $selectedDate,
+                               displayedComponents: [.date])
+                    .datePickerStyle(.compact)
+                    .labelsHidden()
+                }
+            }
+            .onChange(of: selectedDate) { newValue in
+                withAnimation {
+                    self.isDateTapped = false
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    let dateString = dateFormatter.string(from: newValue)
+                    self.date = dateString
+                }
+            }
             
             HStack(spacing: 5) {
                 Image(systemName: mapImageName)
@@ -56,7 +142,7 @@ struct NewMemoView: View {
             .padding(.bottom, -5)
             
             HStack() {
-                ScoreStar(rating: .constant(Int(score)))
+                ScoreStar(rating: $score)
             }
             
             VStack(alignment: .leading) {
@@ -70,14 +156,12 @@ struct NewMemoView: View {
                     .overlay(Color.black)
                     .padding(.top, -10)
                 
-                if photoData.isEmpty == false {
-                    HStack {
-                        Spacer()
-                        Image(uiImage: UIImage(data: DataController.shared.temPhoto) ?? UIImage())
-                            .resizable()
-                            .scaledToFit()
-                        Spacer()
-                    }
+                HStack {
+                    Spacer()
+                    photo
+                        .resizable()
+                        .scaledToFit()
+                    Spacer()
                 }
                 
                 TextEditor(text: $typedText)
@@ -86,29 +170,19 @@ struct NewMemoView: View {
                     .foregroundColor(Color.black)
                     .lineSpacing(5)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                    .onChange(of: typedText) { newValue in
-////                        typedText = newValue
-//                    }
             }
             
             Spacer()
             HStack {
                 Spacer()
-                MemoButton() {
+                MemoButton(isEdited: $isEdited) {
                     Task {
-                        let levelColorString = self.levelColor.climbingLevelName
-                        let levelColorNumber = HolderColorNumber(rawValue: levelColorString)?.colorNumber
-                        
-                        if let levelColorNumber = levelColorNumber {
-
-                        }
-                        
                         let patchData = PatchData(whereID: self.id, when: self.date,
-                                                  level: 3, score: Double(self.score),
+                                                  level: levelColorInt,
+                                                  score: Double(self.score),
                                                   memo: self.typedText, picture: [""],
                                                   video: "", tags: [""])
                         await saveDiary(patchData)
-                       
                     }
                 }
                 Spacer()
@@ -124,7 +198,10 @@ struct NewMemoView: View {
         
         .task {
             let data = await requestDetailMemo(id: self.id)
-            decodeData(data ?? Data())
+            await decodeData(data ?? Data())
+        }
+        .onDisappear {
+            
         }
     }
 }
@@ -159,7 +236,7 @@ extension NewMemoView {
                                               "picture": [],
                                               "video": nil,
                                               "tags": nil]
-            
+            print(parameters)
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
             
@@ -184,7 +261,7 @@ extension NewMemoView {
         }
         
         do {
-            var request = try URLRequest(url: url, method: .get)
+            let request = try URLRequest(url: url, method: .get)
             
             let (data, response) = try await URLSession.shared.data(for: request)
             
@@ -201,28 +278,58 @@ extension NewMemoView {
         return nil
     }
     
-    private func decodeData(_ data: Data) {
+    private func decodeData(_ data: Data) async {
         do {
             let decodedData = try JSONDecoder().decode(DetailClimbingModel.self, from: data)
             
             let levelColorString = HolderColorNumber(rawValue: "\(decodedData.level)") ?? HolderColorNumber.nonSelected
-            print(levelColorString.rawValue)
-            
             let levleColor = Color.convert(from: levelColorString.colorName)
-            print(levleColor)
             
             self.levelColor = levleColor
+            self.levelColorInt = decodedData.level
             self.date = decodedData.when
             self.typedText = decodedData.memo
             self.score = Int(decodedData.score)
-            self.climbingLocation = decodedData.where.name
-            
-            print(self.date, self.score, self.typedText)
+            self.climbingLocation = decodedData.where?.name ?? ""
+            await requestMemoPicture(name: decodedData.picture?.first ?? "")
         } catch {
             print(error)
         }
     }
     
+    
+    private func requestMemoPicture(name: String) async {
+        let urlStr = "https://api-gw.todayclimbing.com/v1/media/image?filename=\(name)"
+        print(urlStr)
+        guard let url = URL(string: urlStr) else {
+            print("Fail to InitURL")
+            return
+        }
+        
+        do {
+            let request = try URLRequest(url: url, method: .get)
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let response = response as? HTTPURLResponse,
+               response.statusCode != 200 {
+                print("Status code: \(response.statusCode)")
+                print("Response data: \(String(data: data, encoding: .utf8) ?? "")")
+            }
+            
+            let decoded = try? JSONDecoder().decode(ClimbingImageModel.self, from: data)
+            
+            if let base64String = decoded?.image,
+               let data = Data(base64Encoded: base64String),
+               let image = UIImage(data: data) {
+                self.photoData = data
+                self.photo = Image(uiImage: image)
+            }
+        } catch {
+            print(error)
+        }
+        
+    }
 }
 
 struct NewMemoView_Previews: PreviewProvider {

@@ -36,6 +36,10 @@ struct MyPageUserInfoView: View {
                     withAnimation {
                         self.isLoggedIn = false
                     }
+                    
+                    Task {
+                        await logoutAccount()
+                    }
                 } label: {
                     Text("로그아웃")
                         .font(.body)
@@ -53,6 +57,10 @@ struct MyPageUserInfoView: View {
                     clearUserDefaults()
                     signOutUser()
                     signOutKakaoAccount()
+                    Task {
+                        await signOutAppleAccount()
+                        
+                    }
                 } label: {
                     Text("탈퇴하기")
                         .foregroundColor(.black)
@@ -65,12 +73,6 @@ struct MyPageUserInfoView: View {
     private func clearKeyChain() {
         UserTokenManager.shared.delete(account: .kakao, service: .login)
         UserTokenManager.shared.delete(account: .apple, service: .login)
-//        func delete(account: Account, service: Service) {
-//            let query = [kSecAttrService: service.rawValue,
-//                         kSecAttrAccount: account.rawValue,
-//                               kSecClass: kSecClassGenericPassword] as CFDictionary
-//            SecItemDelete(query)
-//        }
     }
     
     private func clearUserDefaults() {
@@ -100,6 +102,55 @@ struct MyPageUserInfoView: View {
                 }
             }
         }
+    }
+    
+    private func logoutAccount() async {
+        guard let token = UserDefaults.standard.string(forKey: "ohcleToken") as? String else {
+            return
+        }
+        
+        print(token)
+        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(token)/signout"
+        
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        
+        do {
+            let request = try URLRequest(url: url, method: .patch)
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+                print(response)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func signOutAppleAccount() async {
+        guard let token = UserDefaults.standard.string(forKey: "ohcleToken") else {
+            return
+        }
+        print(token)
+        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(token)"
+        
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        
+        do {
+            let request = try URLRequest(url: url, method: .delete)
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+                print(response)
+            }
+            
+        } catch {
+            print(error)
+        }
+        
     }
 }
 

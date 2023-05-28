@@ -20,10 +20,12 @@ struct KakaoLoginResultModel: Decodable {
 }
 
 struct AppleLoginResultModel: Decodable {
+    let id: Int
     let isUserSignedIn: Bool
     let token: String
     
     enum CodingKeys: String, CodingKey {
+        case id
         case isUserSignedIn = "is_newbie"
         case token = "token"
     }
