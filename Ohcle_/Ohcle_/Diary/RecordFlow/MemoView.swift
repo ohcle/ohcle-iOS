@@ -13,20 +13,21 @@ struct MemoView: View {
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
     
     @EnvironmentObject var currentPageType: MyPageType
-//    @Environment(\.managedObjectContext) var managedObjectContext
-    
     @Binding var isModal: Bool
-    @State private var isEdited: Bool = false
-
-    @State private var climbingLocationPlaceHolder: String = "클라임웍스 클라이밍"
+    
+    @State private var climbingLocationPlaceHolder: String = CalendarDataManger.shared.record.climbingLocation.name
     @State private var typedText: String =  CalendarDataManger.shared.record.temMemo
     @State private var color = Color.convert(from: CalendarDataManger.shared.record.temLevel)
     @State private var date = CalendarDataManger.shared.record.temDate
     @State private var score =  CalendarDataManger.shared.record.temScore
     @State private var photoData =  CalendarDataManger.shared.record.temPhoto
+    @State private var isEdited = false
     
 //    @State var diary: Diary?
     @Binding var selectedTab: Int
+    
+    @State private var showAlert = false
+    @State private var alertMsg  = ""
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
@@ -80,8 +81,15 @@ struct MemoView: View {
                         .lineSpacing(5)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .onChange(of: typedText) { newValue in
+                            if newValue.count >= 100 {
+                                typedText = String(typedText.prefix(100))
+                                
+                                alertMsg = "최대글자는 100자 제한입니다."
+                                showAlert = true
+                            }
 //                            self.diary?.memo = typedText
                         }
+                    
                     
                     if typedText.isEmpty {
                         Text("오늘의 클라이밍은 어땠나요?")
@@ -98,19 +106,21 @@ struct MemoView: View {
             HStack {
                 Spacer()
                 MemoButton(isEdited: $isEdited) {
+                   
+                        CalendarDataManger.shared.record.saveTemporaryMemo(typedText)
+                        
+                        RecNetworkManager.shared.saveDiaryToServer { res in
+                            if !res {
+                                showAlert = true
+                                alertMsg  = "기록 업로드실패"
+                            } else {
+                                currentPageType.type = .done
+                                currentPageType.type = .calender
+                                self.selectedTab = 1
+                                CalendarDataManger.shared.record.clearRecord()
+                            }
+                        }
 
-//                    if let diary = diary {
-//                        CalendarDataManger.shared.updateDiary(diary: diary)
-//
-//                    } else {
-//                        CalendarDataManger.shared.record.saveTemporaryMemo(typedText)
-//                        currentPageType.type = .done
-//                        currentPageType.type = .calender
-//                        self.saveDiaryToServer()
-//                        CalendarDataManger.shared.record.clearRecord()
-//
-//                        self.selectedTab = 1
-//                    }
                 }
 
                 Spacer()
@@ -123,80 +133,19 @@ struct MemoView: View {
         .onAppear() {
             UITextView.appearance().backgroundColor = .clear
         }
-    }
-}
-
-
-extension MemoView {
-    func getLevel(_ levelStr: String) -> Int {
-        let levelDict = ["red"              : 1
-                         ,"orange"          : 2
-                         ,"yellow"          : 3
-                         ,"green"           : 4
-                         ,"holder-darkblue" : 5
-                         ,"blue"            : 6
-                         ,"purple"          : 7
-                         ,"black"           : 8
-                         ,"holder-lightgray": 9
-                         ,"holder-darkgray" : 10
-        ]
-        return levelDict[levelStr] ?? 0
-    }
-    
-    func saveDiaryToServer() {
         
-        let date = CalendarDataManger.shared.record.date
-        let score = CalendarDataManger.shared.record.score
-        let level = CalendarDataManger.shared.record.level
-        let photo = CalendarDataManger.shared.record.photo
-        let memo = CalendarDataManger.shared.record.memo
-         
-        let urlStr = "https://api-gw.todayclimbing.com/" +  "v1/climbing/"
-        guard let url = URL(string: urlStr) else {
-            print("Fail to InitURL")
-            return
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text(alertMsg))
         }
-        var request = URLRequest(url: url)
-        let parameters = ["where": ["id": 1
-                                   ]
-                          ,"when":date
-                          ,"level": self.getLevel(level)
-                          ,"score":score
-                          ,"memo":memo
-                          ,"picture": [photo.base64EncodedString()]
-                        ] as [String : Any]
-        
-        
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: [])
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-                return
-            }
-            
-            if let data = data, let response = response as? HTTPURLResponse {
-                print("Status code: \(response.statusCode)")
-                print("Response data: \(String(data: data, encoding: .utf8) ?? "")")
-                
-            }
-        }
-        task.resume()
-        
-    }
-
-}
-
-struct MemoView_Previews: PreviewProvider {
-    static let mocRecorded = RecordedMemo(id:0,date: "dd", location: "dd", level: "Ddd", score: 2, imageData: Data(), memo: "ddd")
-    @State static var isEdited: Bool = false
-    @State static var isModal: Bool = false
-    @State static var selectedTab:Int = 2
-
-    static var previews: some View {
-        MemoView(isModal: $isModal, selectedTab: $selectedTab)
     }
 }
+//struct MemoView_Previews: PreviewProvider {
+//    static let mocRecorded = RecordedMemo(id:0,date: "dd", location: "dd", level: "Ddd", score: 2, imageData: Data(), memo: "ddd")
+//    @State static var isEdited: Bool = false
+//    @State static var isModal: Bool = false
+//    @State static var selectedTab:Int = 2
+//
+//    static var previews: some View {
+//        MemoView(isModal: $isModal, selectedTab: $selectedTab)
+//    }
+//}

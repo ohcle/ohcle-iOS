@@ -11,9 +11,8 @@ struct CalenderModel: Decodable, Identifiable,Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-    
-    static func ==(lhs: CalenderModel,
-                   rhs: CalenderModel) -> Bool {
+
+    static func ==(lhs: CalenderModel, rhs: CalenderModel) -> Bool {
         return lhs.id == rhs.id
     }
     
@@ -46,7 +45,7 @@ struct CalenderModel: Decodable, Identifiable,Hashable {
 
 struct DetailClimbingModel: Decodable {
     let id: Int
-    let `where`: Location?
+    let `where`: Location
     let when: String
     let level: Int
     let score: Float
@@ -59,14 +58,13 @@ struct DetailClimbingModel: Decodable {
     let deleted_at: String?
     
     struct Location: Decodable {
-        let id: Int?
+        let id: Int
         let name: String
         let address: String
         let latitude: Float
         let longitude: Float
     }
 }
-
 
 struct ClimbingImageModel: Decodable {
     let image: String

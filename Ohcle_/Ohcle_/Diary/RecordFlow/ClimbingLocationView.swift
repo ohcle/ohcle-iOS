@@ -23,6 +23,7 @@ struct IdentifiableSpace: Identifiable {
 struct AnnotationItem: Identifiable {
     let id = UUID()
     let coordinate: CLLocationCoordinate2D
+    let name:String
 }
 
 
@@ -36,11 +37,13 @@ struct ClimbingLocationView: View {
                                                              height: UIScreen.screenHeight/15)
     
     
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.592887, longitude: 126.948906), span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.5666612, longitude: 126.9783785), span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
     @StateObject var locationDataManager = LocationDataManager()
     @State var selectedLocation:ClimbingLocation = ClimbingLocation()
     @State private var annotations:[AnnotationItem] = []
+    @State private var showAlert = false
     
+
     var body: some View {
         VStack {
             (Text("어디서")
@@ -85,58 +88,79 @@ struct ClimbingLocationView: View {
                    height: commonSize.height)
             .padding(.bottom, commonSize.height * 0.7)
             
-            
-            switch locationDataManager.locationManager.authorizationStatus {
-            case .authorizedWhenInUse:  // Location services are available.
-                Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: annotations) { annotation in
-                    MapAnnotation(coordinate: annotation.coordinate) {
-                        Image(systemName: "mappin.and.ellipse")
-                            .foregroundColor(.red)
-                    }
-                }
-                .frame(width: 400, height: 300)
-            case .restricted, .denied:  // Location services currently unavailable.
+            ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
                 Map(coordinateRegion: $region, annotationItems: annotations) { annotation in
                     MapAnnotation(coordinate: annotation.coordinate) {
-                        Image(systemName: "mappin.and.ellipse")
-                            .foregroundColor(.red)
-                            .font(.title)
+                        
+                        VStack(spacing: 0){
+                            Image("1-1")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                            Text(annotation.name)
+                                .frame(maxWidth: 50)
+                                .font(.system(size: 9))
+                        }
+                        
                     }
                 }
                 .frame(width: 400, height: 300)
-                
-            case .notDetermined:        // Authorization not determined yet.
-                Map(coordinateRegion: $region, annotationItems: annotations) { annotation in
-                    MapAnnotation(coordinate: annotation.coordinate) {
-                        Image(systemName: "mappin.and.ellipse")
-                            .foregroundColor(.red)
-                            .font(.title)
+
+                Button {
+                    if locationDataManager.locationManager.authorizationStatus == .authorizedWhenInUse {
+                        locationDataManager.locationManager.requestLocation()
+                        locationDataManager.updateCurrentLocation = { location in
+                            region = MKCoordinateRegion(center: location, latitudinalMeters: 300, longitudinalMeters: 300)
+                        }
+                        
+                    } else {
+                        showAlert = true
                     }
+
+                } label: {
+                    Image(systemName: "scope")
+                        .resizable()
+                        .frame(width: 30, height: 30)
                 }
-                .frame(width: 400, height: 300)
-            default:
-                ProgressView()
+                .padding(20)
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text(""), message: Text("현재 위치 추적을 위해서\n설정 > 개인정보 보호 및 보안 > 위치서비스\n에서 위치 권한을 허용해주세요."), dismissButton: .default(Text("확인")))
+                }
+
             }
+            
             
             
             Spacer()
             
-        }
-        .onDisappear {
-            let locationString = self.searchText
         }
         .overlay(
             self.nextButton
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
         )
         .onAppear {
+            // 최초 로딩 시
+            if CalendarDataManger.shared.record.climbingLocation.name == "" {
+                locationDataManager.updateCurrentLocation = { location in
+                    region = MKCoordinateRegion(center: location, latitudinalMeters: 300, longitudinalMeters: 300)
+                }
+            }
+            // 뒤로 왔을 때 액션
+            if CalendarDataManger.shared.record.climbingLocation.name != "" {
+                self.searchText = CalendarDataManger.shared.record.climbingLocation.name
+                self.nextButton.userEvent.inform()
+            }
             
+            // Search에서 선택 시 액션
             if selectedLocation.longitude != 0 && selectedLocation.longitude != 0 {
                 annotations.removeAll()
                 let locationPosition = CLLocationCoordinate2D(latitude: CLLocationDegrees(selectedLocation.latitude), longitude: CLLocationDegrees(selectedLocation.longitude))
-                let newAnnotation = AnnotationItem(coordinate: locationPosition)
+                let newAnnotation = AnnotationItem(coordinate: locationPosition, name: selectedLocation.name)
                 annotations.append(newAnnotation)
                 region = MKCoordinateRegion(center: locationPosition, latitudinalMeters: 300, longitudinalMeters: 300)
+            }
+            
+            self.nextButton.userEvent.nextButtonTouched = {
+                CalendarDataManger.shared.record.saveTemporaryLocation(selectedLocation)
             }
             
             
@@ -163,6 +187,7 @@ struct ClimbingLocation_Preview: PreviewProvider {
 class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegate {
     var locationManager = CLLocationManager()
     @Published var authorizationStatus: CLAuthorizationStatus?
+    var updateCurrentLocation: ((CLLocationCoordinate2D) -> Void)?
     
     override init() {
         super.init()
@@ -191,16 +216,18 @@ class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegat
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // Insert code to handle location updates
-        print("\\======",locations.count)
-        //        for ele in locations {
-        //
-        //        }
-        
+        if locations.count > 0 {
+            if let closure = updateCurrentLocation {
+                closure((locations[0].coordinate))
+            }
+        }
     }
+    
+    
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("error: \(error.localizedDescription)")
     }
     
 }
+

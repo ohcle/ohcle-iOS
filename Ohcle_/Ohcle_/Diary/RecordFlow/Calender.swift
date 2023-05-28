@@ -48,10 +48,17 @@ struct Calender: View {
             .environment(\.locale, Locale(identifier: "ko"))
         }
         .onDisappear {
-//            let dateString = OhcleDate().diaryDateFormatter.string(from: self.date)
-//            CalendarDataManger.shared.record.saveTemporaryDate(dateString)
+            if CalendarDataManger.shared.record.date == "" {
+                let dateString = OhcleDate().diaryDateFormatter.string(from: self.date)
+                CalendarDataManger.shared.record.saveTemporaryDate(dateString)
+            }
         }
         .onAppear {
+            if CalendarDataManger.shared.record.date != "" {
+                self.date = OhcleDate().diaryDateFormatter.date(from: CalendarDataManger.shared.record.date) ?? Date()
+                self.nextButton.userEvent.inform()
+            }
+            
             self.nextButton.userEvent.inform()
             self.nextButton.userEvent.nextButtonTouched = {
                 let dateString = OhcleDate().diaryDateFormatter.string(from: self.date)

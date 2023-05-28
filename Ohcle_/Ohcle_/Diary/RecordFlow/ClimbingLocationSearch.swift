@@ -16,25 +16,41 @@ struct ClimbingLocationSearch: View {
     
     var body: some View {
         
-        VStack {
-        
-            TextField("test",text: $searchText)
-                .frame(height: 40)
-                .onSubmit {
-                    print("Submit")
-                    fetchClimbinPlace(searchText)
-                }
-                .overlay {
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray, lineWidth: 2)
-                }
-                .padding(10)
+        VStack (spacing: 25){
+            
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.gray, lineWidth: 2)
+                    .padding(.horizontal,10)
+                
+                TextField("장소를 입력해 주세요",text: $searchText)
+                    .frame(height: 40)
+                    .onSubmit {
+                        print("Submit")
+                        climbingLocations.removeAll()
+                        RecNetworkManager.shared.fetchClimbingPlace(with: searchText) { result in
+                            switch result {
+                            case .success(let climbLocations):
+                                self.climbingLocations = climbLocations
+                            case .failure(let error):
+                                print(error)
+                            }
+                        }
+                    }
+                    .padding(.leading, 20)
+            }
+            .frame(height: 20)
+            .padding(.top, 10)
+            
             
             List(climbingLocations){ climbingLocation in
-                HStack{
+                HStack {
                     Text(climbingLocation.name)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: 150)
                     Text(climbingLocation.address)
                 }
+                .frame(maxHeight:50, alignment: .leading)
                 .listRowInsets(EdgeInsets())
                 .onTapGesture {
                     print("tapped \(climbingLocation.name),\(climbingLocation.latitude),\(climbingLocation.longitude)")
@@ -42,8 +58,6 @@ struct ClimbingLocationSearch: View {
                     selectedLocation = climbingLocation
                     
                     presetntationMode.wrappedValue.dismiss()
-                    
-                    
                 }
             }
             .edgesIgnoringSafeArea(.all)
@@ -55,61 +69,6 @@ struct ClimbingLocationSearch: View {
     }
 }
 
-// MARK: Network function
-extension ClimbingLocationSearch {
-    
-    
-    private func fetchClimbinPlace(_ keyword: String) {
-        let urlString = "https://api-gw.todayclimbing.com/" + "v1/climbing/place/?keyword="
-        guard let url = URL(string: urlString) else { return }
-        
-        do {
-            let request = try URLRequest(url: url, method: .get)
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                
-                if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-                    print(response.statusCode)
-                }
-                
-                if let data = data {
-                    
-                    print(data)
-                    print(String(data: data, encoding: .utf8))
-                    do {
-                        if let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String:Any]] {
-
-                            for ele in jsonArray {
-                               print(ele)
-                                let id   = ele["id"]        as? Int     ?? 0
-                                let name = ele["name"]      as? String  ?? ""
-                                let addr = ele["address"]   as? String  ?? ""
-                                let lat  = ele["latitude"]  as? Double   ?? 0.0
-                                let long = ele["longitude"] as? Double   ?? 0.0
-                                
-                                climbingLocations.append(ClimbingLocation(id: id, name: name, address: addr, latitude: Float(lat), longitude: Float(long)))
-                            }
-                        }
-                        
-
-                    }
-                    catch {
-                        print("JsonSerialization error \(error)")
-                    }
-
-                    
-                }
-                
-                
-                
-            }
-            .resume()
-        } catch {
-            print(error)
-        }
-        
-        
-    }
-}
 
 //struct ClimbingLocationSearch_Previews: PreviewProvider {
 //    static var previews: some View {

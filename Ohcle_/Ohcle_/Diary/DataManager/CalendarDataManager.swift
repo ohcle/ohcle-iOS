@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ClimbingLocation:Identifiable  {
+struct ClimbingLocation: Identifiable {
     var id: Int          = 0
     var name: String     = ""
     var address: String  = ""
@@ -20,6 +20,7 @@ struct Record {
     var level: String = ""
     var score: Int16 = 0
     var photo: Data = Data()
+    var photoName: String = ""
     var memo: String = ""
     var climbingLocation: ClimbingLocation = ClimbingLocation()
     
@@ -59,6 +60,12 @@ struct Record {
         }
     }
     
+    var temPhotoName: String  {
+        get {
+            self.photoName
+        }
+    }
+    
     var temClimbingLocation: ClimbingLocation {
         get {
             self.climbingLocation
@@ -86,6 +93,10 @@ struct Record {
     
     mutating func saveTemporaryPhotoData(_ imageData: Data) {
         self.photo = imageData
+    }
+    
+    mutating func saveTemporaryPhotoName(_ imageName: String) {
+        self.photoName = imageName
     }
     
     mutating func saveTemporaryMemo(_ memo: String) {

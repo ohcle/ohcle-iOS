@@ -76,7 +76,7 @@ class CalenderData: ObservableObject {
         
         return weekday
     }
-    
+
     private func divideWeekData(_ data: [CalenderModel]) -> DividedMonthDataType {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"

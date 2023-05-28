@@ -31,7 +31,6 @@ struct NextPageButton: View {
     var photo: Data?
     var memo: String?
     var climbingLocation: ClimbingLocation?
-    
 
     private let memoButtonColor: String = "editButton"
     private let memoButtonRadius: CGFloat = 8.0

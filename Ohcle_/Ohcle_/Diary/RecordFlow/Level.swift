@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-
 struct Level: View {
     @State private var commonSize: CGSize = CGSize()
     @EnvironmentObject var nextPage: MyPageType
-    @State private var selectedColor: Color = .gray
-    
+    @State private var selectedColor: Color = .cyan
+    @State private var selectedIdx:Int = -1
     private let colors: [Color] = [.red, .orange, .yellow,
                                    .green, .blue, Color.init("holder-darkblue"), .purple, .black, Color.init("holder-lightgray"), Color.init("holder-darkgray")]
-    
+
     private var columns: [GridItem] {
         [GridItem(.adaptive(minimum: 60))]
     }
@@ -36,33 +35,75 @@ struct Level: View {
                 ForEach(0..<self.colors.count) { index in
                     Button {
                         self.selectedColor = colors[index]
+                        self.selectedIdx = index
                         self.nextButton.userEvent.inform()
                     } label: {
                         
                         ZStack {
                             Circle()
-                                .fill(colors[index].opacity(self.selectedColor == colors[index] ? 1.0 :1.0))
-                            if (self.selectedColor == colors[index]) {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(Color.white)
+                                .fill(colors[index].opacity(self.selectedIdx == index ? 1.0 :1.0))
+                            if (self.selectedIdx == index) {
+                                if (index < 8) {
+                                    Image("select-color-white")
+                                } else {
+                                    Image("select-color-black")
+                                }
                             }
-
                         }
                     }
+                    // End of Button
                 }
             }
             .padding(.leading, 20)
             .padding(.trailing, 20)
-        }
-        .onDisappear {
-            let levelString = self.selectedColor.climbingLevelName
-            CalendarDataManger.shared.record.saveTemporaryLevel(levelString)
+
         }
         .padding(.bottom, UIScreen.screenHeight/8)
         .overlay(
             self.nextButton
                 .offset(CGSize(width: 0, height: UIScreen.screenHeight/4))
         )
+        .onAppear {
+            if CalendarDataManger.shared.record.level !=  "" {
+                let levelString = CalendarDataManger.shared.record.level
+                self.selectedIdx = self.getSelectedIdx(levelString)
+                self.nextButton.userEvent.inform()
+            }
+            
+            self.nextButton.userEvent.nextButtonTouched = {
+                let levelString = colors[selectedIdx].climbingLevelName
+                CalendarDataManger.shared.record.saveTemporaryLevel(levelString)
+            }
+            
+        }
+        
+    }
+    
+    func getSelectedIdx(_ selectedColor: String) -> Int {
+        switch selectedColor {
+        case "red" :
+            return 0
+        case "orange":
+            return 1
+        case "yellow" :
+            return 2
+        case "green" :
+            return  3
+        case "blue":
+            return 4
+        case "holder-darkblue"  :
+            return 5
+        case "purple" :
+            return 6
+        case  "black" :
+            return 7
+        case "holder-lightgray" :
+            return 8
+        case "holder-darkgray" :
+            return 9
+        default:
+            return -1
+        }
     }
 }
 
@@ -75,8 +116,8 @@ struct Level_Previews: PreviewProvider {
 extension Color {
     var climbingLevelName: String {
         switch self {
-        case .red:
-            return "red"
+        case Color.red:
+             return "red"
         case .orange:
             return "orange"
         case .yellow:
@@ -91,8 +132,6 @@ extension Color {
             return "purple"
         case .black:
             return "black"
-        case .indigo:
-            return "indigo"
         case Color("holder-lightgray"):
             return "holder-lightgray"
         case Color("holder-darkgray"):
@@ -101,8 +140,8 @@ extension Color {
             return "Level Color Error"
         }
     }
- 
-   static func convert(from climbingLevelName: String) -> Color {
+    
+    static func convert(from climbingLevelName: String) -> Color {
         switch climbingLevelName {
         case "red" :
             return Color(.red)
