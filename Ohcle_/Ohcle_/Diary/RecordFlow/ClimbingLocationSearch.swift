@@ -16,26 +16,33 @@ struct ClimbingLocationSearch: View {
     
     var body: some View {
         
-        VStack {
-        
-            TextField("test",text: $searchText)
-                .frame(height: 40)
-                .onSubmit {
-                    print("Submit")
-                    climbingLocations.removeAll()
-                    fetchClimbinPlace(searchText)
-                }
-                .overlay {
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray, lineWidth: 2)
-                }
-                .padding(10)
+        VStack (spacing: 25){
+            
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.gray, lineWidth: 2)
+                    .padding(.horizontal,10)
+                
+                TextField("장소를 입력해 주세요",text: $searchText)
+                    .frame(height: 40)
+                    .onSubmit {
+                        print("Submit")
+                        climbingLocations.removeAll()
+                        fetchClimbinPlace(searchText)
+                    }
+                    .padding(.leading, 20)
+            }
+            .frame(height: 20)
+            .padding(.top, 10)
+            
             
             List(climbingLocations){ climbingLocation in
                 HStack{
                     Text(climbingLocation.name)
+                        .frame(maxWidth: 150)
                     Text(climbingLocation.address)
                 }
+                .frame(maxHeight:50)
                 .listRowInsets(EdgeInsets())
                 .onTapGesture {
                     print("tapped \(climbingLocation.name),\(climbingLocation.latitude),\(climbingLocation.longitude)")
@@ -102,8 +109,6 @@ extension ClimbingLocationSearch {
 
                     
                 }
-                
-                
                 
             }
             .resume()

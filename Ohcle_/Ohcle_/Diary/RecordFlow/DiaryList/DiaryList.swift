@@ -37,6 +37,8 @@ struct DiaryList: View {
     @State private var isSelected: Bool = false
     @State private var isDismissed: Bool = true
     @ObservedObject var calenderData: CalenderData = CalenderData()
+    @State private var isModal: Bool = false
+    @State private var diaryID:Int = 0
     
     
     
@@ -69,9 +71,12 @@ struct DiaryList: View {
 
                                 
                                 DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where?.name, levelColorName: "gray" , score: Int16(calenderViewModel.score), memoImageData: calenderViewModel.picture)
+                                    .onTapGesture {
+                                        diaryID = calenderViewModel.id
+                                        isModal = true
+                                    }
                                 
-//                                NewMemoView(isModalView: $isModal,
-//                                            id: $diaryID)
+                            
                             }
                             
                         } // End Of LazyVGrid
@@ -82,7 +87,7 @@ struct DiaryList: View {
                 
                 if !self.isDismissed {
                     withAnimation {
-                        DateFilterView(currentYear: 2023, isSelected: $isSelected, isDismissed: $isDismissed, calenderData: calenderData)
+                        DateFilterView(currentYear: Int(OhcleDate.currentYear ?? "2023") ?? 2023, isSelected: $isSelected, isDismissed: $isDismissed, calenderData: calenderData)
                             .frame(width: 250, height: 250, alignment: .center)
                             .background(Color.white)
                             .padding(.top, 20)
@@ -93,16 +98,62 @@ struct DiaryList: View {
                 
             }
         }
-//        .task {
-//            await CalendarDataManger.shared.getData(year: "2023", month: "03")
-//            calenderList = CalendarDataManger.shared.calenderList
-//        }
+        .sheet(isPresented: $isModal) {
+            NewMemoView(isModalView: $isModal,
+                        id: $diaryID)
+        }
         
+    }
+    
+    func removeRows(at offsets: IndexSet) {
+        var rows = calenderData.data.flatMap{ $0.value.values.compactMap { $0 } }.sorted { $0.when > $1.when }
+        
+        let idx = Int(offsets.first ?? 0)
+        print(rows[idx].id)
+    
+        for week in calenderData.data {
+            for day in week.value {
+                print(day)
+                if rows[idx].id == day.value.id {
+                    let weekInt = week.key
+                    let dayInt = day.key
+                    calenderData.data[weekInt]?.removeValue(forKey: dayInt)
+                }
+            }
+        }
+        
+        deleteClimbing(id: rows[idx].id)
     }
 }
 
-struct example_Previews: PreviewProvider {
-    static var previews: some View {
-        DiaryList(selectedDiaryIndex: 1)
+// MARK: Network function
+extension DiaryList {
+    private func deleteClimbing(id: Int) {
+        let urlStr = "https://api-gw.todayclimbing.com/" + "v1/climbing/" + String(id)
+        guard let url = URL(string: urlStr) else { return }
+        
+        do {
+            let request = try URLRequest(url: url, method: .delete)
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                
+                if let response = response as? HTTPURLResponse,
+                   response.statusCode != 200 {
+                    print(response.statusCode)
+                }
+                if let data = data {
+                    print(String(data: data, encoding: .utf8))
+                }
+                
+            }.resume()
+            
+        } catch {
+            print(error)
+        }
     }
 }
+
+//struct example_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DiaryList(selectedDiaryIndex: 1)
+//    }
+//}
