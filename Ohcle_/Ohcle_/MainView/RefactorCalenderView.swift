@@ -61,25 +61,7 @@ class CalenderData: ObservableObject {
             print(error)
         }
     }
-    
-    //    private func getFirstDayOfWeek(dateString: String) {
-    //        let calendar = Calendar.current
-    //        let currentDate = Date()
-    //
-    //
-    //        let dateFormatter = DateFormatter()
-    //        dateFormatter.dateFormat = "yyyy-MM-dd"
-    //        dateFormatter.locale = Locale(identifier: "kr")
-    //        let date = dateFormatter.date(from: dateString) ?? Date()
-    //
-    //        let components = calendar.dateComponents([.year, .month], from: currentDate)
-    //        let firstDayOfMonth = calendar.date(from: components)
-    //
-    //        let firstDayOfMonthString = dateFormatter.string(from: firstDayOfMonth!)
-    //
-    //        print(firstDayOfMonthString)
-    //    }
-    
+
     func getDayOfWeek(dateString: String) -> Int {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"

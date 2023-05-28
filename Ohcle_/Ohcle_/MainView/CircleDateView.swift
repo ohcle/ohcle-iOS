@@ -28,7 +28,6 @@ struct CircleDate : View {
                         .foregroundColor(.black)
                 }
             }
-            
         }
     }
 }

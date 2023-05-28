@@ -23,7 +23,7 @@ struct CalenderModel: Decodable, Identifiable,Hashable {
     let level: Int
     let score: Float
     let picture: [String]?
-    let thumbnail: [String]?
+    let thumbnail: String?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -71,3 +71,8 @@ struct DetailClimbingModel: Decodable {
 struct ClimbingImageModel: Decodable {
     let image: String
 }
+
+struct ConvertedClimbingImageModel: Decodable {
+    let filename: String
+}
+

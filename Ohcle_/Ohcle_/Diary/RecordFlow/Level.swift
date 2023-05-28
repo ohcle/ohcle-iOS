@@ -120,6 +120,10 @@ extension Color {
             return Color(.purple)
         case  "black" :
             return Color(.black)
+        case  "gray" :
+            return Color(.gray)
+        case  "white" :
+            return Color(.white)
         case  "indigo" :
             return Color(.systemIndigo)
         case "holder-lightgray" :

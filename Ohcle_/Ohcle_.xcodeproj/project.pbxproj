@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A8050EE72A221CA0000E0E10 /* LoginManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8050EE62A221CA0000E0E10 /* LoginManger.swift */; };
+		A8050EEA2A23220C000E0E10 /* EditMemoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8050EE92A23220C000E0E10 /* EditMemoPickerView.swift */; };
 		A80A481B29EBC31B00F3F186 /* CalenderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80A481A29EBC31B00F3F186 /* CalenderModel.swift */; };
 		A80A484329F3AEDE00F3F186 /* DateFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80A484229F3AEDE00F3F186 /* DateFilterView.swift */; };
 		A80A484529F3B8FC00F3F186 /* CircleDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80A484429F3B8FC00F3F186 /* CircleDateView.swift */; };
@@ -92,6 +93,7 @@
 
 /* Begin PBXFileReference section */
 		A8050EE62A221CA0000E0E10 /* LoginManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManger.swift; sourceTree = "<group>"; };
+		A8050EE92A23220C000E0E10 /* EditMemoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMemoPickerView.swift; sourceTree = "<group>"; };
 		A80A481A29EBC31B00F3F186 /* CalenderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderModel.swift; sourceTree = "<group>"; };
 		A80A484229F3AEDE00F3F186 /* DateFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterView.swift; sourceTree = "<group>"; };
 		A80A484429F3B8FC00F3F186 /* CircleDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleDateView.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				A859A63D28EC3E6500F217F3 /* MainView.swift */,
 				A83132212A03BC160087A82C /* RefactorCalenderView.swift */,
 				A83132232A070B370087A82C /* NewMemoView.swift */,
+				A8050EE92A23220C000E0E10 /* EditMemoPickerView.swift */,
 				A80A484229F3AEDE00F3F186 /* DateFilterView.swift */,
 				A80A484429F3B8FC00F3F186 /* CircleDateView.swift */,
 				A80A481A29EBC31B00F3F186 /* CalenderModel.swift */,
@@ -585,6 +588,7 @@
 				A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */,
 				A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */,
 				A80B452828FA5A8D00343BB4 /* ClimbingLocationView.swift in Sources */,
+				A8050EEA2A23220C000E0E10 /* EditMemoPickerView.swift in Sources */,
 				A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */,
 				A8AB86BC29E2821700F5410F /* SplashView.swift in Sources */,
 				FE8E947329FD22B3008764DC /* CalendarDataManager.swift in Sources */,

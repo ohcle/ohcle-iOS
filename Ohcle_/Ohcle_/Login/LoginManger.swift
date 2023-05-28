@@ -116,8 +116,10 @@ final class LoginManager: ObservableObject {
         let request = appleIDProvider.createRequest()
         request.requestedOperation = .operationLogout
         
-        withAnimation {
-            self.isLoggedIn = false
+        DispatchQueue.main.async {
+            withAnimation {
+                self.isLoggedIn = false
+            }
         }
     }
     

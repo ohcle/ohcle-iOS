@@ -14,7 +14,6 @@ struct AddPhotoView: View {
     private let titleImageHeighRatio = CGFloat(7)
     private let titleImageWidthRatio = CGFloat(0.8)
     
-    
     private var nextButton: NextPageButton =  NextPageButton(title: "다음",
                                                              width: UIScreen.screenWidth/1.2,
                                                              height: UIScreen.screenHeight/15)
@@ -84,14 +83,6 @@ struct AddPhotoView: View {
 //                        .frame(maxHeight: UIScreen.screenHeight/2)
                 }
 
-            }
-            
-            
-            if isShowingGalleryPicker {
-                GalleryPickerView(isPresented: $isShowingGalleryPicker, selectedImage: $selectedImage)
-                    .frame(maxHeight: UIScreen.screenHeight/2) // view의 반절에만 나오도록 설정
-                    .edgesIgnoringSafeArea(.bottom) // Safe Area를 무시하여 밑에만 나오도록 설정
-                    .background(.gray)
             }
         }
         
