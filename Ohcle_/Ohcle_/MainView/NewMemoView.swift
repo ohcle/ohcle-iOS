@@ -224,7 +224,6 @@ struct NewMemoView: View {
             let data = await requestDetailMemo(id: self.id)
             await decodeData(data ?? Data())
         }
-        
     }
 }
 
@@ -344,7 +343,7 @@ extension NewMemoView {
     }
     
     private func requestDetailMemo(id: Int) async -> Data? {
-        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(id)"
+        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(id)/"
         
         guard let url = URL(string: urlStr) else {
             print("Fail to InitURL")
@@ -385,7 +384,6 @@ extension NewMemoView {
             self.score = Int(decodedData.score)
             self.climbingLocation = decodedData.where.name ?? "오클 클라이밍장"
             await requestMemoPicture(name: decodedData.picture?.first ?? "이름이 없어요")
-
         } catch {
             print(error)
         }
