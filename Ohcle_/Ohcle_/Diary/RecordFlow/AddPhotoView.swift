@@ -75,6 +75,14 @@ struct AddPhotoView: View {
                 }
 
             }
+            
+            
+            if isShowingGalleryPicker {
+                GalleryPickerView(isPresented: $isShowingGalleryPicker, selectedImage: $selectedImage)
+                    .frame(maxHeight: UIScreen.screenHeight/2) // view의 반절에만 나오도록 설정
+                    .edgesIgnoringSafeArea(.bottom) // Safe Area를 무시하여 밑에만 나오도록 설정
+                    .background(.gray)
+            }
         }
         
         .overlay(
