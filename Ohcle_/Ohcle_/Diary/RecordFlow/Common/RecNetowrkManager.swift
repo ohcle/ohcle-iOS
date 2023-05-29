@@ -137,7 +137,7 @@ class RecNetworkManager {
         let level = CalendarDataManger.shared.record.level
         let photoNm = CalendarDataManger.shared.record.photoName
         let memo = CalendarDataManger.shared.record.memo
-
+        
         let parameters: [String: Any] = [
             "where": [
                 "id": 1
@@ -146,7 +146,7 @@ class RecNetworkManager {
             "level": getLevel(level),
             "score": score,
             "memo": memo,
-            "picture": [photoNm]
+            "picture": (photoNm.count==0 ? nil : [photoNm])
         ]
         
         performRequest(urlString: urlStr, method: .post, parameters: parameters) { result in
