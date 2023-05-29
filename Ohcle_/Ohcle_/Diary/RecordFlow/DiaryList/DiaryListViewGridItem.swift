@@ -24,10 +24,10 @@ struct DiaryListViewGridItem: View {
     private let memoImageData: Data?
     
     init(date: String?, location: String?,
-         levelColorName: String, score: Int16?, memoImageData: String?) {
+         levelColor: Int, score: Int16?, memoImageData: String?) {
         self.date = date
         self.location = location
-        self.levelColor = Color.convert(from: levelColorName)
+        self.levelColor = getColor(levelColor)
         self.scoreNumber = Int(score ?? .zero)
         
         if let memoImageData = memoImageData {
@@ -36,8 +36,33 @@ struct DiaryListViewGridItem: View {
             self.memoImageData = Data()
         }
         
+        func getColor(_ level: Int) -> Color {
+            switch level {
+            case 1:
+                return Color(.red)
+            case 2:
+                return Color(.orange)
+            case 3:
+                return Color(.yellow)
+            case 4:
+                return Color(.green)
+            case 5:
+                return Color("holder-darkblue")
+            case 6:
+                return Color(.blue)
+            case 7:
+                return Color(.purple)
+            case 8:
+                return Color(.black)
+            case 9:
+                return Color("holder-lightgray")
+            case 10:
+                return Color("holder-darkgray")
+            default:
+                return Color(.cyan)
+            }
+        }
     }
-    
     
     private func generateMemoImage() -> Image {
         if let data = self.memoImageData {

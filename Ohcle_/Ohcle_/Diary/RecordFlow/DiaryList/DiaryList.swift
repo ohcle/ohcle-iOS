@@ -66,8 +66,7 @@ struct DiaryList: View {
                                   spacing: listSpacing) {
                             ForEach(calenderData.data.flatMap{ $0.value.values.compactMap { $0 } }.sorted { $0.when > $1.when }) { calenderViewModel in
 
-                                
-                                DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where?.name, levelColorName: "gray" , score: Int16(calenderViewModel.score), memoImageData: calenderViewModel.thumbnail)
+                                DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where?.name, levelColor: calenderViewModel.level , score: Int16(calenderViewModel.score), memoImageData: calenderViewModel.thumbnail)
                                     .onTapGesture {
                                         diaryID = calenderViewModel.id
                                         isModal = true
