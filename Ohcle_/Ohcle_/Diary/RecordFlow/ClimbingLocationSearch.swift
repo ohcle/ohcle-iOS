@@ -21,7 +21,7 @@ struct ClimbingLocationSearch: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.gray, lineWidth: 2)
-                    .padding(.horizontal,10)
+                    .padding(.horizontal,20)
                 
                 TextField("장소를 입력해 주세요",text: $searchText)
                     .frame(height: 40)
@@ -37,7 +37,7 @@ struct ClimbingLocationSearch: View {
                             }
                         }
                     }
-                    .padding(.leading, 20)
+                    .padding(.leading, 30)
             }
             .frame(height: 20)
             .padding(.top, 10)
@@ -46,11 +46,11 @@ struct ClimbingLocationSearch: View {
             List(climbingLocations){ climbingLocation in
                 HStack {
                     Text(climbingLocation.name)
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: 150)
+                        .frame(width:150, alignment: .leading)
                     Text(climbingLocation.address)
+                        .frame(alignment: .leading)
                 }
-                .frame(maxHeight:50, alignment: .leading)
+                .frame(height:50, alignment: .leading)
                 .listRowInsets(EdgeInsets())
                 .onTapGesture {
                     print("tapped \(climbingLocation.name),\(climbingLocation.latitude),\(climbingLocation.longitude)")
@@ -59,11 +59,24 @@ struct ClimbingLocationSearch: View {
                     
                     presetntationMode.wrappedValue.dismiss()
                 }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
             }
-            .edgesIgnoringSafeArea(.all)
             .listStyle(.plain)
         }
-
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            // Left Button
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    presetntationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(.gray)
+                }
+                
+            }
+        }
         
         
     }
