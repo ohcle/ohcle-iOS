@@ -55,6 +55,8 @@ final class LoginManager: ObservableObject {
         DispatchQueue.main.async {
             LoginManager.shared.ohcleToken = loginResult.token
             LoginManager.shared.ohcleID = loginResult.userID
+            
+            print(self.ohcleToken)
         }
     }
     
@@ -72,7 +74,7 @@ final class LoginManager: ObservableObject {
     }
     
     func signIn() {
-            self.isLoggedIn = true
+        self.isLoggedIn = true
     }
     
     func logOut() async {
@@ -87,6 +89,12 @@ final class LoginManager: ObservableObject {
         signOutAppleAccount()
         signOutKakaoAccount()
         await signOutOhcleAccount()
+        
+        DispatchQueue.main.async {
+            withAnimation {
+                self.isLoggedIn = false
+            }
+        }
     }
     
     private func clearUserDefaults() {
@@ -104,9 +112,6 @@ final class LoginManager: ObservableObject {
                 print(error)
             } else {
                 print("unlink() success.")
-                withAnimation {
-                    self.isLoggedIn = false
-                }
             }
         }
     }
@@ -115,18 +120,15 @@ final class LoginManager: ObservableObject {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedOperation = .operationLogout
-        
-        DispatchQueue.main.async {
-            withAnimation {
-                self.isLoggedIn = false
-            }
-        }
     }
     
     private func signOutOhcleAccount() async {
-        guard let token = UserDefaults.standard.string(forKey: "ohcleToken") else {
-            return
-        }
+//        guard let token = UserDefaults.standard.string(forKey: "ohcleToken") else {
+//            return
+//        }
+//
+        let token = LoginManager.shared.ohcleToken
+        print(token)
         
         let urlString = "https://api-gw.todayclimbing.com/v1/user/\(token)"
         
@@ -136,11 +138,13 @@ final class LoginManager: ObservableObject {
         
         do {
             let request = try URLRequest(url: url, method: .delete)
-            let (_, response) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await URLSession.shared.data(for: request)
             
             if let response = response as? HTTPURLResponse, response.statusCode != 200 {
                 print(response)
             }
+            
+            print(String(data: data, encoding: .utf8))
             
         } catch {
             print(error)

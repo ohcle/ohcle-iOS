@@ -22,7 +22,7 @@ struct CalenderModel: Decodable, Identifiable,Hashable {
     let when: String
     let level: Int
     let score: Float
-    let picture: [String]?
+    let picture: [String?]?
     let thumbnail: String?
     
     enum CodingKeys: String, CodingKey {
@@ -44,6 +44,9 @@ struct CalenderModel: Decodable, Identifiable,Hashable {
     }
 }
 
+
+//let errorString = "{\"id\":66,\"where\":null,\"when\":\"2023-05-05\",\"level\":7,\"score\":3.0,\"memo\":\"\",\"picture\":[null],\"video\":null,\"tags\":null,\"created_at\":\"2023-05-28T12:03:18.232471Z\",\"modified_at\":\"2023-05-31T10:03:52.868377Z\",\"deleted_at\":null}")
+
 struct DetailClimbingModel: Decodable {
     let id: Int
     let `where`: Location?
@@ -51,7 +54,7 @@ struct DetailClimbingModel: Decodable {
     let level: Int
     let score: Float
     let memo: String
-    let picture: [String]?
+    let picture: [String?]?
     let video: [String]?
     let tags: [String]?
     let created_at: String

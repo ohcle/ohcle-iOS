@@ -53,8 +53,8 @@ class CalenderData: ObservableObject {
                     } catch {
                         print(error)
                     }
-                    
                 }
+                
             }.resume()
             
         } catch {
@@ -149,6 +149,7 @@ struct CalenderHolderView: View {
     @ObservedObject var calenderData: CalenderData
     @State private var isModal: Bool = false
     @State private var diaryID: Int = .zero
+    
     private var firstDayOfMonth: Int {
         let dateString = "\(calenderData.year)-\(calenderData.month)"
         let dateFormatter = DateFormatter()
