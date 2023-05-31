@@ -35,7 +35,7 @@ struct NewMemoView: View {
     @State private var isPhotoPickerTapped = false
     
     @Binding var id: Int
-    @State private var climbingLocation = "클라임웍스 클라이밍"
+    @State private var climbingLocation: String? = "클라임웍스 클라이밍"
     @State private var typedText = ""
     @State private var levelColor = Color.yellow
     @State private var levelColorInt = 0
@@ -94,6 +94,7 @@ struct NewMemoView: View {
                     Image(systemName: "trash.fill")
                         .font(.system(size: 24))
                         .foregroundColor(.gray)
+                        .padding(.top, 20)
                 }
             }
             Button {
@@ -152,7 +153,7 @@ struct NewMemoView: View {
             
             HStack(spacing: 5) {
                 Image(systemName: mapImageName)
-                Text(climbingLocation)
+                Text(climbingLocation ?? "")
                     .font(.body)
                     .foregroundColor(.gray)
             }
@@ -178,7 +179,8 @@ struct NewMemoView: View {
                     photo?
                         .resizable()
                         .scaledToFit()
-                    PickerView(isShowingGalleryPicker: $isPhotoPickerTapped, selectedImage: $selectedPhoto)
+                    PickerView(isShowingGalleryPicker: $isPhotoPickerTapped,
+                               selectedImage: $selectedPhoto)
                         .sheet(isPresented: $isPhotoPickerTapped) {                 GalleryPickerView(isPresented: $isPhotoPickerTapped,
                                                                                                       selectedImage: $selectedPhoto)
                         }
@@ -224,6 +226,7 @@ struct NewMemoView: View {
             let data = await requestDetailMemo(id: self.id)
             await decodeData(data ?? Data())
         }
+        
     }
 }
 
@@ -343,7 +346,7 @@ extension NewMemoView {
     }
     
     private func requestDetailMemo(id: Int) async -> Data? {
-        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(id)/"
+        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(id)"
         
         guard let url = URL(string: urlStr) else {
             print("Fail to InitURL")
@@ -370,6 +373,8 @@ extension NewMemoView {
     
     private func decodeData(_ data: Data) async {
         do {
+            
+            print(String(data: data, encoding: .utf8))
             let decodedData = try JSONDecoder().decode(DetailClimbingModel.self, from: data)
             
             print("🎉🎉🎉",decodedData.level)
@@ -382,8 +387,8 @@ extension NewMemoView {
             self.date = decodedData.when
             self.typedText = decodedData.memo
             self.score = Int(decodedData.score)
-            self.climbingLocation = decodedData.where.name ?? "오클 클라이밍장"
-            await requestMemoPicture(name: decodedData.picture?.first ?? "이름이 없어요")
+            self.climbingLocation = decodedData.where?.name ?? "오클 클라이밍장"
+            await requestMemoPicture(name: (decodedData.picture?.first ?? "이름이 없어요") ?? "")
         } catch {
             print(error)
         }

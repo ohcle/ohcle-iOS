@@ -176,10 +176,12 @@ struct GalleryPickerView: UIViewControllerRepresentable {
         
         func postImage(_ imgData: Data, completion: @escaping (Data,HTTPURLResponse) -> Void ) {
             let urlStr = "https://api-gw.todayclimbing.com/" +  "v1/media/image"
+            
             guard let url = URL(string: urlStr) else {
                 print("Fail to InitURL")
                 return
             }
+            
             var request = URLRequest(url: url)
             let parameters = ["image":imgData.base64EncodedString()]
             request.httpMethod = "POST"
@@ -199,11 +201,9 @@ struct GalleryPickerView: UIViewControllerRepresentable {
                     
                     completion(data,response)
                 }
-                
             }
             task.resume()
         }
-        
     }
 }
 
