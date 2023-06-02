@@ -26,6 +26,7 @@ extension String {
 struct NewMemoView: View {
     private let mapImageName: String = "map"
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
+    @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var currentPageType: MyPageType
     @Binding var isModalView: Bool
@@ -217,6 +218,7 @@ struct NewMemoView: View {
             }
             Spacer()
         }
+        .preferredColorScheme(.light)
         .padding(.leading, 30)
         .padding(.trailing, 30)
         .onAppear() {
