@@ -43,6 +43,7 @@ struct MainView: View {
     @StateObject var pageState: MyPageType = MyPageType.init()
     @State private var selectedPage = 0
     @State var selectedTab = 1
+
     init() {
         UIPageControl.appearance().currentPageIndicatorTintColor =  UIColor(named: "HomeCurIndicatorColor")
         UIPageControl.appearance().pageIndicatorTintColor = UIColor(named: "HomeIndicatorColor")
