@@ -127,10 +127,10 @@ final class LoginManager: ObservableObject {
 //            return
 //        }
 //
-        let token = LoginManager.shared.ohcleToken
-        print(token)
+        let ohcleID = LoginManager.shared.ohcleID
+        print(ohcleID)
         
-        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(token)"
+        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(ohcleID)"
         
         guard let url = URL(string: urlString) else {
             return
