@@ -182,9 +182,10 @@ struct NewMemoView: View {
                         .scaledToFit()
                     PickerView(isShowingGalleryPicker: $isPhotoPickerTapped,
                                selectedImage: $selectedPhoto)
-                        .sheet(isPresented: $isPhotoPickerTapped) {                 GalleryPickerView(isPresented: $isPhotoPickerTapped,
-                                                                                                      selectedImage: $selectedPhoto)
-                        }
+                    .sheet(isPresented: $isPhotoPickerTapped) {
+                        GalleryPickerView(isPresented: $isPhotoPickerTapped,
+                                          selectedImage: $selectedPhoto)
+                    }
                     Spacer()
                 }
                 
@@ -260,7 +261,6 @@ extension NewMemoView {
         } catch {
             
         }
-        
     }
     
     private func saveDiary(_ diary: SendableClibmingMemo) async {
@@ -375,8 +375,6 @@ extension NewMemoView {
     
     private func decodeData(_ data: Data) async {
         do {
-            
-            print(String(data: data, encoding: .utf8))
             let decodedData = try JSONDecoder().decode(DetailClimbingModel.self, from: data)
             
             print("🎉🎉🎉",decodedData.level)
@@ -423,7 +421,6 @@ extension NewMemoView {
                let image = UIImage(data: data) {
                 self.photoData = data
                 self.photo = Image(uiImage: image)
-                //                self.selectedPhoto = photo?.asUIImage()
             }
             
         } catch {
