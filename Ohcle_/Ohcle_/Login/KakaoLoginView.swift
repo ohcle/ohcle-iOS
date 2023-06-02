@@ -46,18 +46,22 @@ struct KakaoLoginView: View {
                     Task {
                         let userInfo = await LoginManager.shared.saveKakaoUserInfomation()
                         
+                        if let userID = userInfo[.userID] as? String?, userID ==  nil {
+                            return
+                        }
+                        
                         do {
-                            
                             let userIDInt = Int(userInfo[.userID] as? Int64 ?? .zero)
-                            let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt, nickName: LoginManager.shared.userNickName)
+                            print(userIDInt)
+                            let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt,
+                                                                        nickName: LoginManager.shared.userNickName)
                             
                             if isSucceded {
                                 withAnimation {
                                     LoginManager.shared.signIn()
-//                                    currentLoggedIn.toggle()
                                 }
                             } else {
-                                
+
                             }
                             
                         } catch {
@@ -69,6 +73,11 @@ struct KakaoLoginView: View {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
                     Task {
                         let userInfo = await LoginManager.shared.saveKakaoUserInfomation()
+                        
+                        if let userID = userInfo[.userID] as? String?, userID ==  nil {
+                            return
+                        }
+                        
                         do {
                             let userIDInt = Int(userInfo[.userID] as? Int64 ?? .zero)
                             let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt, nickName: LoginManager.shared.userNickName)
@@ -116,8 +125,6 @@ struct KakaoLoginView: View {
             print("reponse Code is :\(response.statusCode)")
         }
         
-//        LoginManager.shared.signIn()
-
         return decodeAndSaveLoginResult(loginResult)
     }
     

@@ -202,9 +202,9 @@
 				A887D60029A20D9800C0A75D /* Networking.swift */,
 				A859A63F28EC3E7A00F217F3 /* LoginView.swift */,
 				A859A63B28EC3E4300F217F3 /* KakaoLoginView.swift */,
+				A866B508293CC5C5001E182F /* KakaoLoginResultModel.swift */,
 				A8050EE62A221CA0000E0E10 /* LoginManger.swift */,
 				A8335B68292F7BFA0006899D /* AppleLoginView.swift */,
-				A866B508293CC5C5001E182F /* KakaoLoginResultModel.swift */,
 				A8050EE82A222C2F000E0E10 /* Legacy */,
 			);
 			path = Login;
