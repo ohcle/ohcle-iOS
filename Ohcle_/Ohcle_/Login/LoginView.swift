@@ -68,10 +68,7 @@ struct LoginView: View {
                     }
                     
                     Text(" 및 ")
-                }
-                .font(informationLinkFont)
-                
-                HStack(spacing: 0) {
+                    
                     Link(destination: self.privatePolicy) {
                         Text("개인정보 이용약관")
                             .underline()
