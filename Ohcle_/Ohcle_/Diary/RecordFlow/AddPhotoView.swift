@@ -155,23 +155,21 @@ struct GalleryPickerView: UIViewControllerRepresentable {
                 print("\( imgData.count / (1024*1024)) MB")
                 
                 // Save Img in Server
-                self.postImage(imgData) { (data, response) in
-                    let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String:Any]
-
-                    if response.statusCode == 200 {
+                RecNetworkManager.shared.postImage(imgData) { result in
+                    switch(result) {
+                    case .success(let data):
+                        let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String:Any]
                         if let filename = json?["filename"] as? String {
                             CalendarDataManger.shared.record.saveTemporaryPhotoData(imgData)
                             CalendarDataManger.shared.record.saveTemporaryPhotoName(filename)
+                            // 서버저장 후, 이미지 지정
                             self.parent.selectedImage = image
                         }
-
-                    } else {
-                        print("Image 저장실패")
+                    case .failure(let error):
+                        break
                     }
                     
                 }
-
-                
                 
             }
             parent.isPresented = false
@@ -184,12 +182,10 @@ struct GalleryPickerView: UIViewControllerRepresentable {
         
         func postImage(_ imgData: Data, completion: @escaping (Data,HTTPURLResponse) -> Void ) {
             let urlStr = "https://api-gw.todayclimbing.com/" +  "v1/media/image"
-            
             guard let url = URL(string: urlStr) else {
                 print("Fail to InitURL")
                 return
             }
-            
             var request = URLRequest(url: url)
             let parameters = ["image":imgData.base64EncodedString()]
             request.httpMethod = "POST"
@@ -209,9 +205,11 @@ struct GalleryPickerView: UIViewControllerRepresentable {
                     
                     completion(data,response)
                 }
+                
             }
             task.resume()
         }
+        
     }
 }
 
