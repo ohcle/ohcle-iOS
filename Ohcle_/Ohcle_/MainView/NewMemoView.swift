@@ -215,7 +215,7 @@ struct NewMemoView: View {
                         }
                         
                         Task {
-                            let sendableData = SendableClibmingMemo(whereID: self.id,
+                            let sendableData = SendableClibmingMemo(whereID: self.climbingLocation.id,
                                                                     when: self.date,
                                                                     level: levelColorInt,
                                                                     score: Double(self.score),
@@ -274,7 +274,7 @@ extension NewMemoView {
     }
     
     private func saveDiary(_ diary: SendableClibmingMemo) async {
-        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(diary.whereID)/"
+        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(self.id)/"
         
         guard let url = URL(string: urlStr) else {
             print("Fail to InitURL")
