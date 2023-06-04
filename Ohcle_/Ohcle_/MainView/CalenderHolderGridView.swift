@@ -36,8 +36,10 @@ enum HolderColorNumber: String {
     
     var colorName: String {
         switch self {
-        case .white, .nonSelected:
+        case .nonSelected:
             return self.rawValue
+        case .white:
+            return "white"
         default:
             return String(describing: self)
         }

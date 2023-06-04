@@ -44,9 +44,6 @@ struct CalenderModel: Decodable, Identifiable,Hashable {
     }
 }
 
-
-//let errorString = "{\"id\":66,\"where\":null,\"when\":\"2023-05-05\",\"level\":7,\"score\":3.0,\"memo\":\"\",\"picture\":[null],\"video\":null,\"tags\":null,\"created_at\":\"2023-05-28T12:03:18.232471Z\",\"modified_at\":\"2023-05-31T10:03:52.868377Z\",\"deleted_at\":null}")
-
 struct DetailClimbingModel: Decodable {
     let id: Int
     let `where`: Location?
