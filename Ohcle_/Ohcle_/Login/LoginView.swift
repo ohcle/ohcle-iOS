@@ -20,16 +20,16 @@ struct LoginView: View {
     @ObservedObject var loginManager = LoginManager.shared
 
     private let mainLogoTitle: String
-    private let url: URL
-    private let defualtURL: String = "http://www.google.com"
+    private let receptionURL: URL
     private let usePolicy: URL
     private let privatePolicy: URL
     private let informationLinkFont: Font = .caption2
     
     init(mainLogoTitle: String, receptionURL: URL?) {
         self.mainLogoTitle = mainLogoTitle
-        let url = URL(string: ExternalOhcleLinks.customerSurport)!
-        self.url = url
+        let receptionURL = URL(string: ExternalOhcleLinks.customerSurport)!
+        
+        self.receptionURL = receptionURL
         self.usePolicy = URL(string: ExternalOhcleLinks.serviceInfomation)!
         self.privatePolicy = URL(string: ExternalOhcleLinks.personalInfoPolicy)!
     }
@@ -52,7 +52,7 @@ struct LoginView: View {
                     .padding(.leading, 20)
                     .padding(.trailing, 20)
                 
-                Link("문의하기", destination: url)
+                Link("문의하기", destination: receptionURL)
                     .font(.body)
                     .bold()
                     .foregroundColor(.black)
@@ -68,10 +68,7 @@ struct LoginView: View {
                     }
                     
                     Text(" 및 ")
-                }
-                .font(informationLinkFont)
-                
-                HStack(spacing: 0) {
+                    
                     Link(destination: self.privatePolicy) {
                         Text("개인정보 이용약관")
                             .underline()

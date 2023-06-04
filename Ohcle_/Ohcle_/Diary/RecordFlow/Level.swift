@@ -95,7 +95,7 @@ struct Level: View {
             return 5
         case "purple" :
             return 6
-        case  "black" :
+        case "black" :
             return 7
         case "holder-lightgray" :
             return 8
@@ -132,6 +132,8 @@ extension Color {
             return "purple"
         case .black:
             return "black"
+        case .white:
+            return "white"
         case Color("holder-lightgray"):
             return "holder-lightgray"
         case Color("holder-darkgray"):
@@ -159,6 +161,10 @@ extension Color {
             return Color(.purple)
         case  "black" :
             return Color(.black)
+        case  "gray" :
+            return Color(.gray)
+        case  "white" :
+            return Color(.white)
         case "holder-lightgray" :
             return  Color("holder-lightgray")
         case "holder-darkgray" :

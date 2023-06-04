@@ -10,19 +10,40 @@ import Combine
 
 typealias DividedMonthDataType = [Int: [Int: CalenderModel]]
 
+func getDayOfWeek(dateString: String) -> Int {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    dateFormatter.locale = Locale(identifier: "kr")
+    let date = dateFormatter.date(from: dateString) ?? Date()
+    
+    let calendar = Calendar(identifier: .gregorian)
+    let components = calendar.dateComponents([.weekday], from: date)
+    guard let weekday = components.weekday else {
+        return .zero
+    }
+    
+    return weekday - 1
+}
+
 class CalenderData: ObservableObject {
     @Published var year: String = "2023"
     @Published var month: String = OhcleDate.currentMonthString ?? ""
-    @Published var isClimbingMemoAdded: Bool = false
+    @Published var switchWhenMemoChanged: Bool = false
     @Published var data: DividedMonthDataType = [:]
-    @Published var dayOfMonth: Int = 2
-    
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
         $year.combineLatest($month)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] year, month in
+                self?.fetchCalenderData()
+                self?.changeSelectedDate()
+            }
+            .store(in: &cancellables)
+        
+        $switchWhenMemoChanged
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] changedValue in
                 self?.fetchCalenderData()
             }
             .store(in: &cancellables)
@@ -61,31 +82,14 @@ class CalenderData: ObservableObject {
             print(error)
         }
     }
-
-    func getDayOfWeek(dateString: String) -> Int {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.locale = Locale(identifier: "kr")
-        let date = dateFormatter.date(from: dateString) ?? Date()
-        
-        let calendar = Calendar(identifier: .gregorian)
-        let components = calendar.dateComponents([.weekday], from: date)
-        guard let weekday = components.weekday else {
-            return .zero
-        }
-        
-        return weekday
-    }
-
+    
     private func divideWeekData(_ data: [CalenderModel]) -> DividedMonthDataType {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.locale = Locale(identifier:
-                                        "kr")
+        dateFormatter.locale = Locale(identifier: "kr")
         let calendar = Calendar(identifier: .gregorian)
         var dividedData: DividedMonthDataType = [1: [:], 2: [:], 3: [:], 4: [:], 5: [:]]
         
-        print(data)
         data.map { data in
             let dateString = data.when
             let date = dateFormatter.date(from: dateString) ?? Date()
@@ -96,8 +100,118 @@ class CalenderData: ObservableObject {
             dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
         }
         
-        print(dividedData)
         return dividedData
+    }
+    
+    private lazy var selectedDate: Date = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM yyyy"
+        let dateString = self.month + " " + self.year
+        
+        if let selectedDate = dateFormatter.date(from: dateString) {
+            return selectedDate
+        } else {
+            print("Invalid date format")
+            return Date()
+        }
+    }()
+    
+    private let calendar: Calendar = {
+        var calender =  Calendar.current
+        calender.timeZone = TimeZone(identifier: "Asia/Seoul")!
+        calender.locale = Locale(identifier: "ko_KR")
+        return calender
+    }()
+    
+    
+    func changeSelectedDate() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM yyyy"
+        let dateString = self.month + " " + self.year
+        if let selectedDate = dateFormatter.date(from: dateString) {
+            self.selectedDate = selectedDate
+            print(dateFormatter.string(from: selectedDate))
+        } else {
+            print("Invalid date format")
+        }
+    }
+    
+    private var startDate: Date {
+        let components = calendar.dateComponents([.month, .day], from: selectedDate)
+        return calendar.date(from: components)!
+    }
+    
+    private var endDate: Date {
+        let components = DateComponents(month: 1, day: -1)
+        return calendar.date(byAdding: components, to: startDate)!
+    }
+    
+    private var monthOfSelectedDate: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        return formatter.string(from: selectedDate)
+    }
+    
+    private func isSameMonth(date: Date) -> Bool {
+        return calendar.isDate(date, equalTo: startDate, toGranularity: .month)
+    }
+    
+    private func dayOfMonth(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d"
+        return formatter.string(from: date)
+    }
+    
+    private func nextMonth() {
+        selectedDate = calendar.date(byAdding: .month, value: 1, to: selectedDate)!
+    }
+    
+    private func previousMonth() {
+        selectedDate = calendar.date(byAdding: .month, value: -1, to: selectedDate)!
+    }
+    
+    func dateRange() -> [Date] {
+        var dates: [Date] = []
+        
+        let components = calendar.dateComponents([.month, .day], from: selectedDate)
+        let startDate = calendar.date(from: components)!
+        
+        let startComponents = calendar.dateComponents([.year, .month, .weekday], from: startDate)
+        let startWeekday = startComponents.weekday!
+        let numberOfDaysInMonth = calendar.range(of: .day, in: .month, for: startDate)!.count
+        
+        // Calculate the number of days to display from the previous month
+        let previousMonthOffset = (startWeekday - calendar.firstWeekday + 7) % 7
+        let previousMonthDate = calendar.date(byAdding: .day, value: -previousMonthOffset, to: startDate)!
+        let previousMonthRange = calendar.range(of: .day, in: .month, for: previousMonthDate)!
+        
+        // Add dates from the previous month
+        for day in (previousMonthRange.upperBound - previousMonthOffset)..<previousMonthRange.upperBound {
+            let components = calendar.dateComponents([.year, .month], from: previousMonthDate)
+            let date = calendar.date(byAdding: .day, value: day - (previousMonthRange.upperBound - previousMonthOffset), to: previousMonthDate)!
+            dates.append(date)
+        }
+        
+        // Add dates from the current month
+        for day in 1...numberOfDaysInMonth {
+            let components = calendar.dateComponents([.year, .month], from: startDate)
+            let date = calendar.date(byAdding: .day, value: day - 1, to: startDate)!
+            dates.append(date)
+        }
+        
+        // Calculate the number of days to display from the next month
+        let nextMonthOffset = 42 - (previousMonthOffset + numberOfDaysInMonth)
+        let nextMonthDate = calendar.date(byAdding: .month, value: 1, to: startDate)!
+        let nextMonthRange = calendar.range(of: .day, in: .month, for: nextMonthDate)!
+        
+        // Add dates from the next month
+        for day in 1...nextMonthOffset {
+            let components = calendar.dateComponents([.year, .month], from: nextMonthDate)
+            let date = calendar.date(byAdding: .day, value: day - 1, to: nextMonthDate)!
+            dates.append(date)
+        }
+        
+        return dates
     }
 }
 
@@ -127,10 +241,14 @@ struct RefacotCalenderView: View {
             
             if !self.isDismissed {
                 withAnimation {
-                    DateFilterView(currentYear: 2023, isSelected: $isSelected, isDismissed: $isDismissed, calenderData: calenderData)
-                        .frame(width: 250, height: 250, alignment: .center)
-                        .background(Color.white)
-                        .padding(.top, 20)
+                    DateFilterView(currentYear: 2023, isSelected: $isSelected,
+                                   isDismissed: $isDismissed, calenderData: calenderData)
+                    .frame(width: 250, height: 250, alignment: .center)
+                    .background(Color.white)
+                    .padding(.top, 20)
+                    .onDisappear {
+                        self.calenderData.changeSelectedDate()
+                    }
                 }
             }
         }
@@ -150,47 +268,29 @@ struct CalenderHolderView: View {
     @State private var isModal: Bool = false
     @State private var diaryID: Int = .zero
     
-    private var firstDayOfMonth: Int {
-        let dateString = "\(calenderData.year)-\(calenderData.month)"
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        if let date = dateFormatter.date(from: dateString) {
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.year, .month], from: date)
-            let firstDayOfMonth = calendar.date(from: components)
-            
-            dateFormatter.dateFormat = "EEEE"
-            print(dateFormatter.string(from: firstDayOfMonth!))
-            return Int(dateFormatter.string(from: firstDayOfMonth!)) ?? .zero
-        }
-        
-        return .zero
-        
+    init(calenderData: CalenderData) {
+        self.calenderData = calenderData
+        self.isModal = isModal
+        self.diaryID = diaryID
     }
     
     var body: some View {
         VStack(spacing: 0) {
             ForEach(1...5, id:\.self) { week in
                 HStack(spacing: 0) {
-                    let calenderWeek = ((week - 1) * 7) - firstDayOfMonth
-                    ForEach(1...7, id: \.self) { date in
-                        if (calenderData.data[week]?[date] != nil) {
-                            let level = calenderData.data[week]?[date]?.level ?? 11
-                            let holderColor: HolderColorNumber = HolderColorNumber(rawValue: "\(level)") ?? .red
-                            
-                            let holderType = HolderType(holderColor: holderColor, nil)
-                            CalenderHolderGridView(isClimbedDate: true,
-                                                   holderType: holderType,
-                                                   date: calenderWeek + date)
-                            .onTapGesture {
-                                if let recordID = calenderData.data[week]?[date]?.id {
-                                    diaryID = recordID
-                                    self.isModal = true
-                                }
+                    ForEach(1...7, id: \.self) { day in
+                        let level = calenderData.data[week]?[day]?.level ?? 11
+                        let holderColor: HolderColorNumber = HolderColorNumber(rawValue: "\(level)") ?? .red
+                        let holderType = HolderType(holderColor: holderColor, nil)
+                        
+                        CalenderHolderGridView(isClimbedDate: true,
+                                               holderType: holderType,
+                                               date: calenderData.dateRange()[((week - 1) * 7 + day - 1)])
+                        .onTapGesture {
+                            if let recordID = calenderData.data[week]?[day]?.id {
+                                diaryID = recordID
+                                self.isModal = true
                             }
-                        } else {
-                            CalenderHolderGridView(holderType: nil, date: calenderWeek + date)
                         }
                     }
                 }
@@ -198,9 +298,10 @@ struct CalenderHolderView: View {
         }
         .sheet(isPresented: $isModal) {
             NewMemoView(isModalView: $isModal,
-                        id: $diaryID)
+                        isMemoChanged: $calenderData.switchWhenMemoChanged, id: $diaryID)
         }
     }
+    
 }
 
 struct CalenderMiddleView<Content>: View {

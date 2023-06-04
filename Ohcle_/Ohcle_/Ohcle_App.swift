@@ -31,8 +31,7 @@ struct Ohcle_App: App {
                             _ =  AuthController.handleOpenUrl(url: url)
                         }
                     }
-                    .environment(\.colorScheme, .light)
-
+                    .preferredColorScheme(.light)
                 
                 if !didSeeOnBoarding {
                     OnBoardingView {

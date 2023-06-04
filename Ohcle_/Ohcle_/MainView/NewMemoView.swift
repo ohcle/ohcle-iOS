@@ -29,6 +29,8 @@ struct NewMemoView: View {
     
     @EnvironmentObject var currentPageType: MyPageType
     @Binding var isModalView: Bool
+    @Binding var isMemoChanged: Bool
+
     @State private var isEdited = true
     @State private var isLevelCircleTapped = false
     @State private var isDateTapped = false
@@ -170,6 +172,20 @@ struct NewMemoView: View {
                 }
                 .padding(.bottom, -5)
                 
+// <<<<<<< develop_tacocat
+//                 HStack {
+//                     Spacer()
+//                     photo?
+//                         .resizable()
+//                         .scaledToFit()
+//                     PickerView(isShowingGalleryPicker: $isPhotoPickerTapped,
+//                                selectedImage: $selectedPhoto)
+//                     .sheet(isPresented: $isPhotoPickerTapped) {
+//                         GalleryPickerView(isPresented: $isPhotoPickerTapped,
+//                                           selectedImage: $selectedPhoto)
+//                     }
+//                     Spacer()
+// =======
                 HStack() {
                     ScoreStar(rating: $score)
                 }
@@ -204,6 +220,7 @@ struct NewMemoView: View {
                         .foregroundColor(Color.black)
                         .lineSpacing(5)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+//>>>>>>> develop
                 }
                 
                 Spacer()
@@ -229,6 +246,7 @@ struct NewMemoView: View {
                 Spacer()
             }
         }
+        .preferredColorScheme(.light)
         .padding(.leading, 30)
         .padding(.trailing, 30)
         .onAppear() {
@@ -238,7 +256,6 @@ struct NewMemoView: View {
             let data = await requestDetailMemo(id: self.id)
             await decodeData(data ?? Data())
         }
-        
     }
 }
 
@@ -267,10 +284,12 @@ extension NewMemoView {
                response.statusCode != 200 {
                 print(response.statusCode)
             }
+            
+            refreshCalenderView()
+            
         } catch {
             
         }
-        
     }
     
     private func saveDiary(_ diary: SendableClibmingMemo) async {
@@ -305,9 +324,15 @@ extension NewMemoView {
                 print("Status code: \(response.statusCode)")
                 print("Response message: \(String(data: data, encoding: .utf8) ?? "")")
             }
+            
+            refreshCalenderView()
         } catch {
             print(error)
         }
+    }
+    
+    private func refreshCalenderView() {
+        isMemoChanged.toggle()
     }
     
     private func saveImage() async -> String? {
@@ -385,8 +410,6 @@ extension NewMemoView {
     
     private func decodeData(_ data: Data) async {
         do {
-            
-            print(String(data: data, encoding: .utf8))
             let decodedData = try JSONDecoder().decode(DetailClimbingModel.self, from: data)
             
             print("🎉🎉🎉",decodedData.level)
@@ -439,7 +462,6 @@ extension NewMemoView {
                let image = UIImage(data: data) {
                 self.photoData = data
                 self.photo = Image(uiImage: image)
-                //                self.selectedPhoto = photo?.asUIImage()
             }
             
         } catch {
@@ -455,13 +477,12 @@ extension NewMemoView {
         let base64String = imageData.base64EncodedString(options: [])
         return base64String
     }
-    
 }
 
 struct NewMemoView_Previews: PreviewProvider {
     @State static var isModal: Bool = false
     @State static var id: Int = 21
     static var previews: some View {
-        NewMemoView(isModalView: $isModal, id: $id)
+        NewMemoView(isModalView: $isModal, isMemoChanged: $isModal, id: $id)
     }
 }

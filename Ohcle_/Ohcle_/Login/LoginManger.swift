@@ -14,7 +14,7 @@ final class LoginManager: ObservableObject {
     @AppStorage("userNickName") var userNickName: String = ""
     @AppStorage("userImageString") var userImageString: String = ""
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-    @AppStorage("ohcleToken") var ohcleToken = ""
+//    @AppStorage("ohcleToken") var ohcleToken: Int = .zero
     @AppStorage("ohcleID") var ohcleID: Int = .zero
     
     @Published var currentLoggedIn: Bool = false
@@ -37,6 +37,15 @@ final class LoginManager: ObservableObject {
         case userNickName
     }
     
+    func saveOhcleToken(loginResult: LoginResultModel) {
+        DispatchQueue.main.async {
+            LoginManager.shared.ohcleID = loginResult.userID
+//            LoginManager.shared.ohcleID = loginResult.userID
+            
+            print(self.ohcleID)
+        }
+    }
+    
     func saveKakaoUserInfomation() async -> [UserInfo: Any?] {
         let user = await UserApi.shared.me()
         let urlString = user?.properties?["profile_image"] ?? ""
@@ -46,21 +55,15 @@ final class LoginManager: ObservableObject {
             self.userNickName = userNickName
             self.userImageString = urlString
         }
+        
+        print(user)
         return [.userID: user?.id,
                 .profileURLString: urlString,
                 .userNickName: userNickName]
     }
     
-    func saveOhcleToken(loginResult: LoginResultModel) {
-        DispatchQueue.main.async {
-            LoginManager.shared.ohcleToken = loginResult.token
-            LoginManager.shared.ohcleID = loginResult.userID
-            
-            print(self.ohcleToken)
-        }
-    }
-    
-    func saveAppleUserInformation(userID: String, firstName: String, lastName: String, email: String) {
+    func saveAppleUserInformation(userID: String, firstName: String,
+                                  lastName: String, email: String) {
         self.userFirstName = firstName
         self.userLastName = lastName
         self.userEmail = email
@@ -123,14 +126,10 @@ final class LoginManager: ObservableObject {
     }
     
     private func signOutOhcleAccount() async {
-//        guard let token = UserDefaults.standard.string(forKey: "ohcleToken") else {
-//            return
-//        }
-//
-        let token = LoginManager.shared.ohcleToken
-        print(token)
+        let ohcleID = LoginManager.shared.ohcleID
+        print(ohcleID)
         
-        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(token)"
+        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(ohcleID)"
         
         guard let url = URL(string: urlString) else {
             return
@@ -152,7 +151,7 @@ final class LoginManager: ObservableObject {
     }
     
     private func logoutOhcleAccount() async {
-        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(self.ohcleToken)/signout"
+        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(self.ohcleID)/signout"
         
         guard let url = URL(string: urlString) else {
             return

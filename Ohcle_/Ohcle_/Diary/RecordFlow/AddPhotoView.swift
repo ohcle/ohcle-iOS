@@ -181,7 +181,8 @@ struct GalleryPickerView: UIViewControllerRepresentable {
         
         
         func postImage(_ imgData: Data, completion: @escaping (Data,HTTPURLResponse) -> Void ) {
-            let urlStr = "https://api-gw.todayclimbing.com/" +  "v1/media/image"
+ 
+            let urlStr = "https://api-gw.todayclimbing.com/" +  "v1/media/image/"
             guard let url = URL(string: urlStr) else {
                 print("Fail to InitURL")
                 return
