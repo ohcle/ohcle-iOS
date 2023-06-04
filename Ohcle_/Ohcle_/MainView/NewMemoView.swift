@@ -445,7 +445,6 @@ extension NewMemoView {
         let base64String = imageData.base64EncodedString(options: [])
         return base64String
     }
-    
 }
 
 struct NewMemoView_Previews: PreviewProvider {
