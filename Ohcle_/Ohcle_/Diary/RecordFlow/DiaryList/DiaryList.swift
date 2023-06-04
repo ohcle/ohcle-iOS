@@ -94,7 +94,7 @@ struct DiaryList: View {
         }
         .sheet(isPresented: $isModal) {
             NewMemoView(isModalView: $isModal,
-                        isMemoChanged: $calenderData.isClimbingMemoAdded, id: $diaryID)
+                        isMemoChanged: $calenderData.switchWhenMemoChanged, id: $diaryID)
         }
         
     }

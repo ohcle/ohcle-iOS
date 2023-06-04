@@ -114,8 +114,11 @@ struct MemoView: View {
                                 showAlert = true
                                 alertMsg  = "기록 업로드실패"
                             } else {
-                                currentPageType.type = .done
-                                currentPageType.type = .calender
+                                DispatchQueue.main.async {
+                                    currentPageType.type = .done
+                                    currentPageType.type = .calender
+                                }
+                                
                                 self.selectedTab = 1
                                 CalendarDataManger.shared.record.clearRecord()
                             }

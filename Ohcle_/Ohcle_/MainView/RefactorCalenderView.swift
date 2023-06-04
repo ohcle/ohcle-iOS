@@ -13,9 +13,8 @@ typealias DividedMonthDataType = [Int: [Int: CalenderModel]]
 class CalenderData: ObservableObject {
     @Published var year: String = "2023"
     @Published var month: String = OhcleDate.currentMonthString ?? ""
-    @Published var isClimbingMemoAdded: Bool = false
+    @Published var switchWhenMemoChanged: Bool = false
     @Published var data: DividedMonthDataType = [:]
-    @Published var dayOfMonth: Int = 2
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -27,8 +26,9 @@ class CalenderData: ObservableObject {
             }
             .store(in: &cancellables)
         
-        
-        $isClimbingMemoAdded.sink { [weak self] changedValue in
+        $switchWhenMemoChanged
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] changedValue in
             self?.fetchCalenderData()
         }
         .store(in: &cancellables)
@@ -204,7 +204,7 @@ struct CalenderHolderView: View {
         }
         .sheet(isPresented: $isModal) {
             NewMemoView(isModalView: $isModal,
-                        isMemoChanged: $calenderData.isClimbingMemoAdded, id: $diaryID)
+                        isMemoChanged: $calenderData.switchWhenMemoChanged, id: $diaryID)
         }
     }
 }

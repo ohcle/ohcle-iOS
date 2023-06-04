@@ -230,9 +230,6 @@ struct NewMemoView: View {
             let data = await requestDetailMemo(id: self.id)
             await decodeData(data ?? Data())
         }
-//        .onDisappear {
-//            isMemoChanged.toggle()
-//        }
     }
 }
 
