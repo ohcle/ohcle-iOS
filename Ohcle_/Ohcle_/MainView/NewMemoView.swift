@@ -29,6 +29,8 @@ struct NewMemoView: View {
     
     @EnvironmentObject var currentPageType: MyPageType
     @Binding var isModalView: Bool
+    @Binding var isMemoChanged: Bool
+
     @State private var isEdited = true
     @State private var isLevelCircleTapped = false
     @State private var isDateTapped = false
@@ -228,7 +230,9 @@ struct NewMemoView: View {
             let data = await requestDetailMemo(id: self.id)
             await decodeData(data ?? Data())
         }
-        
+//        .onDisappear {
+//            isMemoChanged.toggle()
+//        }
     }
 }
 
@@ -257,6 +261,9 @@ extension NewMemoView {
                response.statusCode != 200 {
                 print(response.statusCode)
             }
+            
+            refreshCalenderView()
+            
         } catch {
             
         }
@@ -294,9 +301,15 @@ extension NewMemoView {
                 print("Status code: \(response.statusCode)")
                 print("Response message: \(String(data: data, encoding: .utf8) ?? "")")
             }
+            
+            refreshCalenderView()
         } catch {
             print(error)
         }
+    }
+    
+    private func refreshCalenderView() {
+        isMemoChanged.toggle()
     }
     
     private func saveImage() async -> String? {
@@ -442,6 +455,6 @@ struct NewMemoView_Previews: PreviewProvider {
     @State static var isModal: Bool = false
     @State static var id: Int = 21
     static var previews: some View {
-        NewMemoView(isModalView: $isModal, id: $id)
+        NewMemoView(isModalView: $isModal, isMemoChanged: $isModal, id: $id)
     }
 }

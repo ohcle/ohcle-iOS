@@ -26,6 +26,12 @@ class CalenderData: ObservableObject {
                 self?.fetchCalenderData()
             }
             .store(in: &cancellables)
+        
+        
+        $isClimbingMemoAdded.sink { [weak self] changedValue in
+            self?.fetchCalenderData()
+        }
+        .store(in: &cancellables)
     }
     
     func fetchCalenderData() {
@@ -198,7 +204,7 @@ struct CalenderHolderView: View {
         }
         .sheet(isPresented: $isModal) {
             NewMemoView(isModalView: $isModal,
-                        id: $diaryID)
+                        isMemoChanged: $calenderData.isClimbingMemoAdded, id: $diaryID)
         }
     }
 }
