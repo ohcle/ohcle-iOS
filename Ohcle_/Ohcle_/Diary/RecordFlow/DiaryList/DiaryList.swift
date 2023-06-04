@@ -94,29 +94,27 @@ struct DiaryList: View {
         }
         .sheet(isPresented: $isModal) {
             NewMemoView(isModalView: $isModal,
-                        isMemoChanged: $calenderData.switchWhenMemoChanged, id: $diaryID)
+// <<<<<<< develop_tacocat
+//                         isMemoChanged: $calenderData.switchWhenMemoChanged, id: $diaryID)
+// =======
+                        id: $diaryID) { deleteId in
+                removeRows(deleteId)
+            }
+// >>>>>>> develop
         }
         
     }
     
-    func removeRows(at offsets: IndexSet) {
-        var rows = calenderData.data.flatMap{ $0.value.values.compactMap { $0 } }.sorted { $0.when > $1.when }
-        
-        let idx = Int(offsets.first ?? 0)
-        print(rows[idx].id)
-    
-        for week in calenderData.data {
-            for day in week.value {
-                print(day)
-                if rows[idx].id == day.value.id {
-                    let weekInt = week.key
-                    let dayInt = day.key
-                    calenderData.data[weekInt]?.removeValue(forKey: dayInt)
+    func removeRows(_ id: Int) {
+        for weekDict in calenderData.data {
+            for dayDict in weekDict.value {
+                let obj = dayDict.value
+                if obj.id == id {
+                    calenderData.data[weekDict.key]?.removeValue(forKey: dayDict.key)
+                    
                 }
             }
         }
-        
-        RecNetworkManager.shared.deleteClimbing(id: rows[idx].id)
     }
 }
 

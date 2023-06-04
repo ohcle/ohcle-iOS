@@ -52,6 +52,9 @@ class RecNetworkManager {
                 } else {
                     print(String(data: data ?? Data(), encoding: .utf8))
                     completion(.failure(URLError(.init(rawValue: response.statusCode))))
+                    var errorMsg = "error Code:\(String(response.statusCode))\n"
+                    errorMsg += (error?.localizedDescription ?? "")
+                    AlertManager.shared.showAlert(message: errorMsg)
                 }
             }.resume()
         } catch {
@@ -122,10 +125,14 @@ class RecNetworkManager {
     }
     
 
-    func postImage(_ imgData: Data) {
-        let urlStr = "https://api-gw.todayclimbing.com/v1/media/image"
+    func postImage(_ imgData: Data, completion: ((Result<Data, Error>) -> Void)? ) {
+        let urlStr = "https://api-gw.todayclimbing.com/v1/media/image/"
+        
         performRequest(urlString: urlStr, method: .post, parameters: ["image": imgData.base64EncodedString()]) { result in
             // Handle the result here
+            if let completion = completion {
+                completion(result)
+            }
         }
     }
     

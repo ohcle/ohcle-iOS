@@ -19,6 +19,8 @@ struct Ohcle_App: App {
     
     @State var didSeeOnBoarding: Bool = UserDefaults.standard.bool(forKey: "didSeeOnBoarding")
     
+    @StateObject private var alertManager = AlertManager.shared
+    
     var body: some Scene {
         WindowGroup {
             ZStack {
@@ -42,6 +44,31 @@ struct Ohcle_App: App {
                     }
                 }
             }
+            .alert(isPresented: $alertManager.isShowingAlert) {
+                Alert(title: Text(""), message: Text(alertManager.alertMessage))
+            }
+            .environmentObject(alertManager)
         }
     }
 }
+
+
+class AlertManager: ObservableObject {
+    static let shared = AlertManager()
+
+    @Published var isShowingAlert = false
+    @Published var alertMessage = ""
+
+    private init() {}
+
+    func showAlert(message: String) {
+        alertMessage = message
+        isShowingAlert = true
+    }
+
+    func hideAlert() {
+        isShowingAlert = false
+        alertMessage = ""
+    }
+}
+
