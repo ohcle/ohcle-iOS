@@ -4,7 +4,7 @@
 //
 //  Created by Do Yi Lee on 2022/10/04.
 //
- 
+
 import SwiftUI
 import KakaoSDKCommon
 import KakaoSDKAuth
@@ -18,7 +18,6 @@ struct Ohcle_App: App {
     }
     
     @State var didSeeOnBoarding: Bool = UserDefaults.standard.bool(forKey: "didSeeOnBoarding")
-    
     @StateObject private var alertManager = AlertManager.shared
     
     var body: some Scene {
@@ -26,12 +25,12 @@ struct Ohcle_App: App {
             ZStack {
                 LoginView(mainLogoTitle: "main logo",
                           receptionURL: URL(string: ""))
-                    .onOpenURL { url in
-                        if (AuthApi.isKakaoTalkLoginUrl(url)) {
-                            _ =  AuthController.handleOpenUrl(url: url)
-                        }
+                .onOpenURL { url in
+                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                        _ =  AuthController.handleOpenUrl(url: url)
                     }
-                    .preferredColorScheme(.light)
+                }
+                .preferredColorScheme(.light)
                 
                 if !didSeeOnBoarding {
                     OnBoardingView {
@@ -41,20 +40,30 @@ struct Ohcle_App: App {
                         #if DEBUG // 지속적으로 OnBoarding 화면 확인을 위함
                         UserDefaults.standard.set(true, forKey: "didSeeOnBoarding")
                         #endif
+                        
                     }
                 }
             }
-            .alert(isPresented: $alertManager.isShowingAlert) {
-                Alert(title: Text(""), message: Text(alertManager.alertMessage))
+            .onReceive(alertManager.$isShowingAlert) { isShowingAlert in
+                if isShowingAlert {
+                    showAlert(alertManager.alertMessage)
+                }
             }
             .environmentObject(alertManager)
         }
     }
+    
+    private func showAlert(_ message: String) {
+        DispatchQueue.main.async {
+            alertManager.alertMessage = message
+            alertManager.isShowingAlert = true
+        }
+    }
 }
-
 
 class AlertManager: ObservableObject {
     static let shared = AlertManager()
+    static let showAlertNotification = Notification.Name("AlertManager.showAlert")
 
     @Published var isShowingAlert = false
     @Published var alertMessage = ""
@@ -64,6 +73,7 @@ class AlertManager: ObservableObject {
     func showAlert(message: String) {
         alertMessage = message
         isShowingAlert = true
+        NotificationCenter.default.post(name: AlertManager.showAlertNotification, object: message)
     }
 
     func hideAlert() {
@@ -71,4 +81,3 @@ class AlertManager: ObservableObject {
         alertMessage = ""
     }
 }
-

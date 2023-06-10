@@ -37,7 +37,6 @@ struct NewMemoView: View {
     @State private var isPhotoPickerTapped = false
     
     @Binding var id: Int
-//    @State private var climbingLocation: String? = "클라임웍스 클라이밍"
     @State private var climbingLocation: ClimbingLocation = ClimbingLocation()
     @State private var typedText = ""
     @State private var levelColor = Color.yellow
@@ -56,7 +55,7 @@ struct NewMemoView: View {
     var deleteCompletion: ((Int) -> (Void))?
     
     private let colors: [Color] = [.red, .orange, .yellow,
-                                   .green, .blue, .purple, .black, .gray, .white]
+                                   Color(.systemGreen), .blue, .purple, .black, .gray, .white]
     
     private func converToLevelInt(color: Color) -> Int {
         switch color {
@@ -66,7 +65,7 @@ struct NewMemoView: View {
             return 2
         case .yellow:
             return 3
-        case .green:
+        case Color(.systemGreen):
             return 4
         case .blue:
             return 5
@@ -171,21 +170,7 @@ struct NewMemoView: View {
                     
                 }
                 .padding(.bottom, -5)
-                
-// <<<<<<< develop_tacocat
-//                 HStack {
-//                     Spacer()
-//                     photo?
-//                         .resizable()
-//                         .scaledToFit()
-//                     PickerView(isShowingGalleryPicker: $isPhotoPickerTapped,
-//                                selectedImage: $selectedPhoto)
-//                     .sheet(isPresented: $isPhotoPickerTapped) {
-//                         GalleryPickerView(isPresented: $isPhotoPickerTapped,
-//                                           selectedImage: $selectedPhoto)
-//                     }
-//                     Spacer()
-// =======
+
                 HStack() {
                     ScoreStar(rating: $score)
                 }
@@ -208,8 +193,9 @@ struct NewMemoView: View {
                             .scaledToFit()
                         PickerView(isShowingGalleryPicker: $isPhotoPickerTapped,
                                    selectedImage: $selectedPhoto)
-                        .sheet(isPresented: $isPhotoPickerTapped) {                 GalleryPickerView(isPresented: $isPhotoPickerTapped,
-                                                                                                      selectedImage: $selectedPhoto)
+                        .sheet(isPresented: $isPhotoPickerTapped) {
+                            GalleryPickerView(isPresented: $isPhotoPickerTapped,
+                                              selectedImage: $selectedPhoto)
                         }
                         Spacer()
                     }
@@ -220,7 +206,6 @@ struct NewMemoView: View {
                         .foregroundColor(Color.black)
                         .lineSpacing(5)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-//>>>>>>> develop
                 }
                 
                 Spacer()
@@ -232,12 +217,12 @@ struct NewMemoView: View {
                         }
                         
                         Task {
-                            let sendableData = SendableClibmingMemo(whereID: self.climbingLocation.id,
-                                                                    when: self.date,
-                                                                    level: levelColorInt,
-                                                                    score: Double(self.score),
-                                                                    memo: self.typedText, picture: [""],
-                                                                    video: "", tags: [""])
+                            let sendableData = SendableClibmingMemo(
+                                whereID: self.climbingLocation.id,
+                                when: self.date, level: levelColorInt,
+                                score: Double(self.score), memo: self.typedText,
+                                picture: [""], video: "", tags: [""]
+                            )
                             await saveDiary(sendableData)
                         }
                     }

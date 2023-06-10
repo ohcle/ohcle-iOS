@@ -40,9 +40,6 @@ final class LoginManager: ObservableObject {
     func saveOhcleToken(loginResult: LoginResultModel) {
         DispatchQueue.main.async {
             LoginManager.shared.ohcleID = loginResult.userID
-//            LoginManager.shared.ohcleID = loginResult.userID
-            
-            print(self.ohcleID)
         }
     }
     
