@@ -94,13 +94,7 @@ struct DiaryList: View {
         }
         .sheet(isPresented: $isModal) {
             NewMemoView(isModalView: $isModal,
-// <<<<<<< develop_tacocat
-//                         isMemoChanged: $calenderData.switchWhenMemoChanged, id: $diaryID)
-// =======
-                        id: $diaryID) { deleteId in
-                removeRows(deleteId)
-            }
-// >>>>>>> develop
+                        isMemoChanged: $calenderData.switchWhenMemoChanged, id: $diaryID)
         }
         
     }

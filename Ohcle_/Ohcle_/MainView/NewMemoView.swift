@@ -53,7 +53,6 @@ struct NewMemoView: View {
     @State private var selectedColor: Color = .clear
     @State private var selectedDate: Date = Date()
     
-    var deleteCompletion: ((Int) -> (Void))?
     
     private let colors: [Color] = [.red, .orange, .yellow,
                                    .green, .blue, .purple, .black, .gray, .white]
@@ -94,7 +93,6 @@ struct NewMemoView: View {
                         Task {
                             await deleteMemo(id: self.id)
                             self.isModalView.toggle()
-                            deleteCompletion?(self.id)
                         }
                         
                     } label: {
