@@ -50,11 +50,16 @@ class RecNetworkManager {
                         completion(.failure(URLError(.zeroByteResource)))
                     }
                 } else {
-                    print(String(data: data ?? Data(), encoding: .utf8))
+                    var messgae  = ""
+                    if let data = data {
+                        let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                        messgae = json?["message"] as? String ?? ""
+                    }
+                    
                     completion(.failure(URLError(.init(rawValue: response.statusCode))))
                     var errorMsg = "error Code:\(String(response.statusCode))\n"
                     errorMsg += (error?.localizedDescription ?? "")
-                    AlertManager.shared.showAlert(message: errorMsg)
+                    AlertManager.shared.showAlert(message: messgae)
                 }
             }.resume()
         } catch {
@@ -144,10 +149,11 @@ class RecNetworkManager {
         let level = CalendarDataManger.shared.record.level
         let photoNm = CalendarDataManger.shared.record.photoName
         let memo = CalendarDataManger.shared.record.memo
+        let location = CalendarDataManger.shared.record.climbingLocation
 
         let parameters: [String: Any] = [
             "where": [
-                "id": 1
+                "id": location.id
             ],
             "when": date,
             "level": getLevel(level),

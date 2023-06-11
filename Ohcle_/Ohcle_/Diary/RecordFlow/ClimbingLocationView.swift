@@ -144,9 +144,19 @@ struct ClimbingLocationView: View {
                     region = MKCoordinateRegion(center: location, latitudinalMeters: 300, longitudinalMeters: 300)
                 }
             }
+            
             // 뒤로 왔을 때 액션
             if CalendarDataManger.shared.record.climbingLocation.name != "" {
-                self.searchText = CalendarDataManger.shared.record.climbingLocation.name
+                let location  = CalendarDataManger.shared.record.climbingLocation
+                let locationPosition = CLLocationCoordinate2D(latitude: CLLocationDegrees(location.latitude), longitude: CLLocationDegrees(location.longitude))
+                let newAnnotation = AnnotationItem(coordinate: locationPosition, name: location.name)
+                annotations.append(newAnnotation)
+                region = MKCoordinateRegion(center: locationPosition, latitudinalMeters: 300, longitudinalMeters: 300)
+                
+                if self.searchText.isEmpty {
+                    self.searchText = location.name
+                }
+                
                 self.nextButton.userEvent.inform()
             }
             
@@ -157,6 +167,10 @@ struct ClimbingLocationView: View {
                 let newAnnotation = AnnotationItem(coordinate: locationPosition, name: selectedLocation.name)
                 annotations.append(newAnnotation)
                 region = MKCoordinateRegion(center: locationPosition, latitudinalMeters: 300, longitudinalMeters: 300)
+            }
+            
+            if selectedLocation.name == "" && CalendarDataManger.shared.record.climbingLocation.name != "" {
+                selectedLocation = CalendarDataManger.shared.record.climbingLocation
             }
             
             self.nextButton.userEvent.nextButtonTouched = {
