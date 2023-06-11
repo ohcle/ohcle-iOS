@@ -10,10 +10,10 @@ import SwiftUI
 struct Level: View {
     @State private var commonSize: CGSize = CGSize()
     @EnvironmentObject var nextPage: MyPageType
-    @State private var selectedColor: Color = .cyan
-    @State private var selectedIdx:Int = -1
+    @State private var selectedColor: Color = .pink
+    @State private var selectedIdx: Int = -1
     private let colors: [Color] = [.red, .orange, .yellow,
-                                   .green, .blue, Color.init("holder-darkblue"), .purple, .black, Color.init("holder-lightgray"), Color.init("holder-darkgray")]
+                                   Color(.systemGreen), .blue, Color.init("holder-darkblue"), .purple, .black, Color.init("holder-lightgray"), Color.init("holder-darkgray")]
 
     private var columns: [GridItem] {
         [GridItem(.adaptive(minimum: 60))]
@@ -152,7 +152,7 @@ extension Color {
         case "yellow" :
             return Color(.yellow)
         case "green" :
-            return  Color(.green)
+            return  Color(.systemGreen)
         case "holder-darkblue"  :
             return Color("holder-darkblue")
         case "blue":

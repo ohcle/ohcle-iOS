@@ -37,10 +37,9 @@ struct NewMemoView: View {
     @State private var isPhotoPickerTapped = false
     
     @Binding var id: Int
-//    @State private var climbingLocation: String? = "클라임웍스 클라이밍"
     @State private var climbingLocation: ClimbingLocation = ClimbingLocation()
     @State private var typedText = ""
-    @State private var levelColor = Color.yellow
+    @State private var levelColor = Color.white
     @State private var levelColorInt = 0
     @State private var date = "2020-02-02"
     @State private var score = 0
@@ -50,12 +49,13 @@ struct NewMemoView: View {
     @State private var selectedPhoto: UIImage?
     @State private var convertedPhotoFilename: String?
     
-    @State private var selectedColor: Color = .clear
+    @State private var selectedColor: Color = .white
     @State private var selectedDate: Date = Date()
     
     
     private let colors: [Color] = [.red, .orange, .yellow,
-                                   .green, .blue, .purple, .black, .gray, .white]
+                                   Color(.systemGreen), .blue, .indigo,
+                                   .purple, .black, .gray, .white]
     
     private func converToLevelInt(color: Color) -> Int {
         switch color {
@@ -65,7 +65,7 @@ struct NewMemoView: View {
             return 2
         case .yellow:
             return 3
-        case .green:
+        case Color(.systemGreen):
             return 4
         case .blue:
             return 5
@@ -105,16 +105,30 @@ struct NewMemoView: View {
                 Button {
                     self.isLevelCircleTapped = true
                 } label: {
-                    Circle()
-                        .fill(levelColor)
-                        .frame(width: 30, height: 30)
-                    
+                    if selectedColor == .white {
+                        Circle()
+                            .strokeBorder(.gray, lineWidth: 1)
+                            .background(Circle().foregroundColor(levelColor))
+                            .frame(width: 30, height: 30)
+                    } else {
+                        Circle()
+                            .fill(levelColor)
+                            .frame(width: 30, height: 30)
+                    }
+
                     if isLevelCircleTapped {
                         Picker("", selection: $selectedColor) {
                             ForEach(colors, id: \.self) { color in
-                                Circle()
-                                    .fill(color)
-                                    .frame(width: 30, height: 30)
+                                if selectedColor == .white {
+                                    Circle()
+                                        .strokeBorder(.gray, lineWidth: 1)
+                                        .background(Circle().foregroundColor(color))
+                                        .frame(width: 30, height: 30)
+                                } else {
+                                    Circle()
+                                        .fill(color)
+                                        .frame(width: 30, height: 30)
+                                }
                             }
                         }
                         .pickerStyle(.wheel)
@@ -169,21 +183,7 @@ struct NewMemoView: View {
                     
                 }
                 .padding(.bottom, -5)
-                
-// <<<<<<< develop_tacocat
-//                 HStack {
-//                     Spacer()
-//                     photo?
-//                         .resizable()
-//                         .scaledToFit()
-//                     PickerView(isShowingGalleryPicker: $isPhotoPickerTapped,
-//                                selectedImage: $selectedPhoto)
-//                     .sheet(isPresented: $isPhotoPickerTapped) {
-//                         GalleryPickerView(isPresented: $isPhotoPickerTapped,
-//                                           selectedImage: $selectedPhoto)
-//                     }
-//                     Spacer()
-// =======
+
                 HStack() {
                     ScoreStar(rating: $score)
                 }
@@ -206,8 +206,9 @@ struct NewMemoView: View {
                             .scaledToFit()
                         PickerView(isShowingGalleryPicker: $isPhotoPickerTapped,
                                    selectedImage: $selectedPhoto)
-                        .sheet(isPresented: $isPhotoPickerTapped) {                 GalleryPickerView(isPresented: $isPhotoPickerTapped,
-                                                                                                      selectedImage: $selectedPhoto)
+                        .sheet(isPresented: $isPhotoPickerTapped) {
+                            GalleryPickerView(isPresented: $isPhotoPickerTapped,
+                                              selectedImage: $selectedPhoto)
                         }
                         Spacer()
                     }
@@ -218,7 +219,6 @@ struct NewMemoView: View {
                         .foregroundColor(Color.black)
                         .lineSpacing(5)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-//>>>>>>> develop
                 }
                 
                 Spacer()
@@ -230,12 +230,12 @@ struct NewMemoView: View {
                         }
                         
                         Task {
-                            let sendableData = SendableClibmingMemo(whereID: self.climbingLocation.id,
-                                                                    when: self.date,
-                                                                    level: levelColorInt,
-                                                                    score: Double(self.score),
-                                                                    memo: self.typedText, picture: [""],
-                                                                    video: "", tags: [""])
+                            let sendableData = SendableClibmingMemo(
+                                whereID: self.climbingLocation.id,
+                                when: self.date, level: levelColorInt,
+                                score: Double(self.score), memo: self.typedText,
+                                picture: [""], video: "", tags: [""]
+                            )
                             await saveDiary(sendableData)
                         }
                     }
@@ -253,6 +253,9 @@ struct NewMemoView: View {
         .task {
             let data = await requestDetailMemo(id: self.id)
             await decodeData(data ?? Data())
+        }
+        .onTapGesture {
+            self.isLevelCircleTapped = false
         }
     }
 }
@@ -334,49 +337,37 @@ extension NewMemoView {
     }
     
     private func saveImage() async -> String? {
-        let urlString = "https://api-gw.todayclimbing.com/v1/media/image/"
-        
-        guard let url = URL(string: urlString) else {
-            return nil
-        }
-        
-        var currentImageBase64: String? = ""
+        var currentImageData: Data = Data()
+        var fileName: String = ""
         
         if selectedPhoto == nil {
             let uiImage = self.photo?.asUIImage()
-            currentImageBase64 = convertImageToBase64(image: uiImage)
+            currentImageData = uiImage?.jpegData(compressionQuality: 0.2) ?? Data()
         } else {
-            var currentImageBase64String = convertImageToBase64(image: self.selectedPhoto)
-            currentImageBase64 = currentImageBase64String
-        }
-        
-        if currentImageBase64 ==  nil {
-            return nil
+            let uiImage = self.selectedPhoto
+            currentImageData = uiImage?.jpegData(compressionQuality: 0.2) ?? Data()
         }
         
         do {
-            var request = try URLRequest(url: url, method: .post)
-            
-            let parameters: [String: Any?] = ["image": currentImageBase64]
-            
-            request.setValue("application/json",
-                             forHTTPHeaderField: "Content-Type")
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
-            
-            let (data, response) = try await URLSession.shared.data(for: request)
-            
-            if let response = response as? HTTPURLResponse,
-               response.statusCode != 200 {
-                print("Status code: \(response.statusCode)")
-                print("Response message: \(String(data: data, encoding: .utf8) ?? "")")
-            }
-            
+            let data = try await postImageAsync(currentImageData)
             let decodedData = try JSONDecoder().decode(ConvertedClimbingImageModel.self, from: data)
-            
-            return decodedData.filename
+            fileName = decodedData.filename
+            return fileName
         } catch {
-            print(error)
-            return nil
+            return ""
+        }
+    }
+    
+    private func postImageAsync(_ imageData: Data) async throws -> Data {
+        return try await withCheckedThrowingContinuation { continuation in
+            RecNetworkManager.shared.postImage(imageData) { result in
+                switch result {
+                case .success(let value):
+                    continuation.resume(returning: value)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
         }
     }
     
@@ -420,7 +411,7 @@ extension NewMemoView {
             self.date = decodedData.when
             self.typedText = decodedData.memo
             self.score = Int(decodedData.score)
-//            self.climbingLocation = decodedData.where
+
             if let location = decodedData.where {
                 self.climbingLocation = ClimbingLocation(id: (location.id ?? 0 ),name: location.name, address: location.address,latitude: location.latitude, longitude: location.longitude)
             } else {
