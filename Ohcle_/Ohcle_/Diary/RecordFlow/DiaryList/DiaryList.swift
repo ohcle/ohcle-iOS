@@ -31,10 +31,9 @@ struct DiaryList: View {
     @State private var switchWehnMemoChanged: Bool = false
     @State var selectedDiaryIndex: Int = .zero
     
-    //    @State var date: Date = Date()
     @State private var isSelected: Bool = false
     @State private var isDismissed: Bool = true
-    @ObservedObject var calenderData: CalenderData = CalenderData()
+    @ObservedObject var calenderData: CalenderData
     @State private var isModal: Bool = false
     @State private var diaryID: Int = 0
     

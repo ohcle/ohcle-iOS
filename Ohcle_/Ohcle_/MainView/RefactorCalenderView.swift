@@ -188,14 +188,13 @@ class CalenderData: ObservableObject {
             
             // Add dates from the previous month
             for day in (previousMonthRange.upperBound - previousMonthOffset)..<previousMonthRange.upperBound {
-                let components = calendar.dateComponents([.year, .month], from: previousMonthDate)
+                _ = calendar.dateComponents([.year, .month], from: previousMonthDate)
                 let date = calendar.date(byAdding: .day, value: day - (previousMonthRange.upperBound - previousMonthOffset), to: previousMonthDate)!
                 dates.append((date, false))
             }
             
             // Add dates from the current month
             for day in 1...numberOfDaysInMonth {
-                let components = calendar.dateComponents([.year, .month], from: startDate)
                 let date = calendar.date(byAdding: .day, value: day - 1, to: startDate)!
                 dates.append((date, true))
             }
@@ -203,11 +202,9 @@ class CalenderData: ObservableObject {
             // Calculate the number of days to display from the next month
             let remainingDays = 42 - (previousMonthOffset + numberOfDaysInMonth)
             let nextMonthDate = calendar.date(byAdding: .month, value: 1, to: startDate)!
-            let nextMonthRange = calendar.range(of: .day, in: .month, for: nextMonthDate)!
             
             // Add dates from the next month
             for day in 1...remainingDays {
-                let components = calendar.dateComponents([.year, .month], from: nextMonthDate)
                 let date = calendar.date(byAdding: .day, value: day - 1, to: nextMonthDate)!
                 dates.append((date, false))
             }
@@ -216,12 +213,12 @@ class CalenderData: ObservableObject {
     }
 }
 
-struct RefacotCalenderView: View {
+struct RefactorCalenderView: View {
     @State private var isSelected: Bool = false
     @State private var isDismissed: Bool = true
     @State private var isModal: Bool = true
     
-    @ObservedObject var calenderData: CalenderData = CalenderData()
+    @ObservedObject var calenderData: CalenderData
     
     var body: some View {
         ZStack {
@@ -355,8 +352,8 @@ struct UpperBar: View {
     }
 }
 
-struct RefacotCalenderView_Previews: PreviewProvider {
-    static var previews: some View {
-        RefacotCalenderView()
-    }
-}
+//struct RefacotCalenderView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RefactorCalenderView()
+//    }
+//}
