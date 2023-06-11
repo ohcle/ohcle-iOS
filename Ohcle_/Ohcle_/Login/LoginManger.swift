@@ -14,7 +14,6 @@ final class LoginManager: ObservableObject {
     @AppStorage("userNickName") var userNickName: String = ""
     @AppStorage("userImageString") var userImageString: String = ""
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-//    @AppStorage("ohcleToken") var ohcleToken: Int = .zero
     @AppStorage("ohcleID") var ohcleID: Int = .zero
     
     @Published var currentLoggedIn: Bool = false

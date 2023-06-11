@@ -321,51 +321,40 @@ extension NewMemoView {
     }
     
     private func saveImage() async -> String? {
-        let urlString = "https://api-gw.todayclimbing.com/v1/media/image/"
-        
-        guard let url = URL(string: urlString) else {
-            return nil
-        }
-        
-        var currentImageBase64: String? = ""
+        var currentImageData: Data = Data()
+        var fileName: String = ""
         
         if selectedPhoto == nil {
             let uiImage = self.photo?.asUIImage()
-            currentImageBase64 = convertImageToBase64(image: uiImage)
+            currentImageData = uiImage?.jpegData(compressionQuality: 0.2) ?? Data()
         } else {
-            var currentImageBase64String = convertImageToBase64(image: self.selectedPhoto)
-            currentImageBase64 = currentImageBase64String
-        }
-        
-        if currentImageBase64 ==  nil {
-            return nil
+            let uiImage = self.selectedPhoto
+            currentImageData = uiImage?.jpegData(compressionQuality: 0.2) ?? Data()
         }
         
         do {
-            var request = try URLRequest(url: url, method: .post)
-            
-            let parameters: [String: Any?] = ["image": currentImageBase64]
-            
-            request.setValue("application/json",
-                             forHTTPHeaderField: "Content-Type")
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
-            
-            let (data, response) = try await URLSession.shared.data(for: request)
-            
-            if let response = response as? HTTPURLResponse,
-               response.statusCode != 200 {
-                print("Status code: \(response.statusCode)")
-                print("Response message: \(String(data: data, encoding: .utf8) ?? "")")
-            }
-            
+            let data = try await postImageAsync(currentImageData)
             let decodedData = try JSONDecoder().decode(ConvertedClimbingImageModel.self, from: data)
-            
-            return decodedData.filename
+            fileName = decodedData.filename
+            return fileName
         } catch {
-            print(error)
-            return nil
+            return ""
         }
     }
+    
+    private func postImageAsync(_ imageData: Data) async throws -> Data {
+        return try await withCheckedThrowingContinuation { continuation in
+            RecNetworkManager.shared.postImage(imageData) { result in
+                switch result {
+                case .success(let value):
+                    continuation.resume(returning: value)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
     
     private func requestDetailMemo(id: Int) async -> Data? {
         let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(id)"
@@ -407,7 +396,7 @@ extension NewMemoView {
             self.date = decodedData.when
             self.typedText = decodedData.memo
             self.score = Int(decodedData.score)
-//            self.climbingLocation = decodedData.where
+
             if let location = decodedData.where {
                 self.climbingLocation = ClimbingLocation(id: (location.id ?? 0 ),name: location.name, address: location.address,latitude: location.latitude, longitude: location.longitude)
             } else {

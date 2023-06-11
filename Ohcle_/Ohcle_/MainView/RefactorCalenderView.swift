@@ -55,7 +55,8 @@ class CalenderData: ObservableObject {
         }
         
         do {
-            let request = try URLRequest(url: url, method: .get)
+            var request = try URLRequest(url: url, method: .get)
+//            request.setValue("token \(LoginManager.shared.ohcleID)", forHTTPHeaderField: "Authorization")
             URLSession.shared.dataTask(with: request) { data, response, error in
                 
                 if let response = response as? HTTPURLResponse,
@@ -212,47 +213,6 @@ class CalenderData: ObservableObject {
             }
             
             return dates
-//        var dates: [Date] = []
-//
-//        let components = calendar.dateComponents([.month, .day], from: selectedDate)
-//        let startDate = calendar.date(from: components)!
-//
-//        let startComponents = calendar.dateComponents([.year, .month, .weekday], from: startDate)
-//        let startWeekday = startComponents.weekday!
-//        let numberOfDaysInMonth = calendar.range(of: .day, in: .month, for: startDate)!.count
-//
-//        // Calculate the number of days to display from the previous month
-//        let previousMonthOffset = (startWeekday - calendar.firstWeekday + 7) % 7
-//        let previousMonthDate = calendar.date(byAdding: .day, value: -previousMonthOffset, to: startDate)!
-//        let previousMonthRange = calendar.range(of: .day, in: .month, for: previousMonthDate)!
-//
-//        // Add dates from the previous month
-//        for day in (previousMonthRange.upperBound - previousMonthOffset)..<previousMonthRange.upperBound {
-//            let components = calendar.dateComponents([.year, .month], from: previousMonthDate)
-//            let date = calendar.date(byAdding: .day, value: day - (previousMonthRange.upperBound - previousMonthOffset), to: previousMonthDate)!
-//            dates.append(date)
-//        }
-//
-//        // Add dates from the current month
-//        for day in 1...numberOfDaysInMonth {
-//            let components = calendar.dateComponents([.year, .month], from: startDate)
-//            let date = calendar.date(byAdding: .day, value: day - 1, to: startDate)!
-//            dates.append(date)
-//        }
-//
-//        // Calculate the number of days to display from the next month
-//        let nextMonthOffset = 42 - (previousMonthOffset + numberOfDaysInMonth)
-//        let nextMonthDate = calendar.date(byAdding: .month, value: 1, to: startDate)!
-//        let nextMonthRange = calendar.range(of: .day, in: .month, for: nextMonthDate)!
-//
-//        // Add dates from the next month
-//        for day in 1...nextMonthOffset {
-//            let components = calendar.dateComponents([.year, .month], from: nextMonthDate)
-//            let date = calendar.date(byAdding: .day, value: day - 1, to: nextMonthDate)!
-//            dates.append(date)
-//        }
-//
-//        return dates
     }
 }
 
@@ -326,7 +286,7 @@ struct CalenderHolderView: View {
                         
                         CalenderHolderGridView(isClimbedDate: true,
                                                holderType: holderType,
-                                               date: calenderData.dateRange()[((week - 1) * 7 + day - 1)])
+                                               date: calenderData.dateRange()[((week - 1) * 7 + day)])
                         .onTapGesture {
                             if let recordID = calenderData.data[week]?[day]?.id {
                                 diaryID = recordID
