@@ -52,7 +52,6 @@ struct KakaoLoginView: View {
                         
                         do {
                             let userIDInt = Int(userInfo[.userID] as? Int64 ?? .zero)
-                            print(userIDInt)
                             let isSucceded = try await isValidOhcleUser(kakaoUserID: userIDInt,
                                                                         nickName: LoginManager.shared.userNickName)
                             

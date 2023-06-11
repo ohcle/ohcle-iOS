@@ -39,7 +39,6 @@ func fetchData(urlString: String, method: HTTPMethod) async throws -> Data {
             response.statusCode != 200 {
             print(response.statusCode)
         }
-        print(data)
         return data
     } catch {
         print(error)

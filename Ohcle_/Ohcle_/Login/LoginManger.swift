@@ -14,7 +14,6 @@ final class LoginManager: ObservableObject {
     @AppStorage("userNickName") var userNickName: String = ""
     @AppStorage("userImageString") var userImageString: String = ""
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-//    @AppStorage("ohcleToken") var ohcleToken: Int = .zero
     @AppStorage("ohcleID") var ohcleID: Int = .zero
     
     @Published var currentLoggedIn: Bool = false
@@ -40,9 +39,6 @@ final class LoginManager: ObservableObject {
     func saveOhcleToken(loginResult: LoginResultModel) {
         DispatchQueue.main.async {
             LoginManager.shared.ohcleID = loginResult.userID
-//            LoginManager.shared.ohcleID = loginResult.userID
-            
-            print(self.ohcleID)
         }
     }
     

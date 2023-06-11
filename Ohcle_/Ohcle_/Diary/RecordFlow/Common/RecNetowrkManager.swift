@@ -153,7 +153,7 @@ class RecNetworkManager {
             "level": getLevel(level),
             "score": score,
             "memo": memo,
-            "picture": (photoNm.count==0 ? nil : [photoNm])
+            "picture": (photoNm.count == 0 ? nil : [photoNm])
         ]
         
         performRequest(urlString: urlStr, method: .post, parameters: parameters) { result in

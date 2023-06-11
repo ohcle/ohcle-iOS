@@ -26,19 +26,15 @@ struct DiaryList: View {
         GridItem(.flexible(minimum: 250))
     ]
     
-    
     @State private var isPresented: Bool = false
-    @State private var isEdited: Bool = true
+    @State private var switchWehnMemoChanged: Bool = false
     @State var selectedDiaryIndex: Int = .zero
-
-//    @State var date: Date = Date()
+    
     @State private var isSelected: Bool = false
     @State private var isDismissed: Bool = true
-    @ObservedObject var calenderData: CalenderData = CalenderData()
+    @ObservedObject var calenderData: CalenderData
     @State private var isModal: Bool = false
-    @State private var diaryID:Int = 0
-    
-    
+    @State private var diaryID: Int = 0
     
     var body: some View {
         VStack(spacing: listSpacing) {
@@ -46,7 +42,7 @@ struct DiaryList: View {
                 .onTapGesture {
                     self.isDismissed = false
                 }
-
+            
             
             ZStack (alignment: .top){
                 if calenderData.data.flatMap{ $0.value.values.compactMap { $0 }}.count == 0 {
@@ -65,7 +61,7 @@ struct DiaryList: View {
                                   alignment: .leading,
                                   spacing: listSpacing) {
                             ForEach(calenderData.data.flatMap{ $0.value.values.compactMap { $0 } }.sorted { $0.when > $1.when }) { calenderViewModel in
-
+                                
                                 DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where?.name, levelColor: calenderViewModel.level , score: Int16(calenderViewModel.score), memoImageData: calenderViewModel.thumbnail)
                                     .onTapGesture {
                                         diaryID = calenderViewModel.id
@@ -73,7 +69,10 @@ struct DiaryList: View {
                                     }
                             }
                             
-                        } // End Of LazyVGrid
+                        }
+                                  .padding(.leading, 20)
+                        // End Of LazyVGrid
+                        
                         
                     }
                 }
@@ -93,19 +92,14 @@ struct DiaryList: View {
             }
         }
         .sheet(isPresented: $isModal) {
-            NewMemoView(isModalView: $isModal,
-// <<<<<<< develop_tacocat
-//                         isMemoChanged: $calenderData.switchWhenMemoChanged, id: $diaryID)
-// =======
-                        id: $diaryID) { deleteId in
-                removeRows(deleteId)
+            NewMemoView(isModalView: $isModal, isMemoChanged: $calenderData.switchWhenMemoChanged, id: $diaryID) { deletedID in
+                removeRows(deletedID)
             }
-// >>>>>>> develop
         }
         
     }
     
-    func removeRows(_ id: Int) {
+    private func removeRows(_ id: Int) {
         for weekDict in calenderData.data {
             for dayDict in weekDict.value {
                 let obj = dayDict.value
