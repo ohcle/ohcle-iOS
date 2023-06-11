@@ -47,9 +47,9 @@ struct DiaryListViewGridItem: View {
             case 4:
                 return Color(.green)
             case 5:
-                return Color("holder-darkblue")
-            case 6:
                 return Color(.blue)
+            case 6:
+                return Color("holder-darkblue")
             case 7:
                 return Color(.purple)
             case 8:
