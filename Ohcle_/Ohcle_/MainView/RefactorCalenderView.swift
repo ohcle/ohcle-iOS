@@ -124,7 +124,6 @@ class CalenderData: ObservableObject {
         return calender
     }()
     
-    
     func changeSelectedDate() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM yyyy"

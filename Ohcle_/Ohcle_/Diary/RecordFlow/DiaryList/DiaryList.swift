@@ -26,7 +26,6 @@ struct DiaryList: View {
         GridItem(.flexible(minimum: 250))
     ]
     
-    
     @State private var isPresented: Bool = false
     @State private var switchWehnMemoChanged: Bool = false
     @State var selectedDiaryIndex: Int = .zero

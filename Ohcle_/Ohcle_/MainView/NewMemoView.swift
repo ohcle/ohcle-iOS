@@ -39,7 +39,7 @@ struct NewMemoView: View {
     @Binding var id: Int
     @State private var climbingLocation: ClimbingLocation = ClimbingLocation()
     @State private var typedText = ""
-    @State private var levelColor = Color.yellow
+    @State private var levelColor = Color.white
     @State private var levelColorInt = 0
     @State private var date = "2020-02-02"
     @State private var score = 0
@@ -49,13 +49,14 @@ struct NewMemoView: View {
     @State private var selectedPhoto: UIImage?
     @State private var convertedPhotoFilename: String?
     
-    @State private var selectedColor: Color = .clear
+    @State private var selectedColor: Color = .white
     @State private var selectedDate: Date = Date()
     
     var deleteCompletion: ((Int) -> (Void))?
     
     private let colors: [Color] = [.red, .orange, .yellow,
-                                   Color(.systemGreen), .blue, .purple, .black, .gray, .white]
+                                   Color(.systemGreen), .blue, .indigo,
+                                   .purple, .black, .gray, .white]
     
     private func converToLevelInt(color: Color) -> Int {
         switch color {
@@ -106,16 +107,30 @@ struct NewMemoView: View {
                 Button {
                     self.isLevelCircleTapped = true
                 } label: {
-                    Circle()
-                        .fill(levelColor)
-                        .frame(width: 30, height: 30)
-                    
+                    if selectedColor == .white {
+                        Circle()
+                            .strokeBorder(.gray, lineWidth: 1)
+                            .background(Circle().foregroundColor(levelColor))
+                            .frame(width: 30, height: 30)
+                    } else {
+                        Circle()
+                            .fill(levelColor)
+                            .frame(width: 30, height: 30)
+                    }
+
                     if isLevelCircleTapped {
                         Picker("", selection: $selectedColor) {
                             ForEach(colors, id: \.self) { color in
-                                Circle()
-                                    .fill(color)
-                                    .frame(width: 30, height: 30)
+                                if selectedColor == .white {
+                                    Circle()
+                                        .strokeBorder(.gray, lineWidth: 1)
+                                        .background(Circle().foregroundColor(color))
+                                        .frame(width: 30, height: 30)
+                                } else {
+                                    Circle()
+                                        .fill(color)
+                                        .frame(width: 30, height: 30)
+                                }
                             }
                         }
                         .pickerStyle(.wheel)
@@ -241,6 +256,9 @@ struct NewMemoView: View {
             let data = await requestDetailMemo(id: self.id)
             await decodeData(data ?? Data())
         }
+        .onTapGesture {
+            self.isLevelCircleTapped = false
+        }
     }
 }
 
@@ -354,7 +372,6 @@ extension NewMemoView {
             }
         }
     }
-    
     
     private func requestDetailMemo(id: Int) async -> Data? {
         let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(id)"
