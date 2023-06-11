@@ -111,8 +111,7 @@ struct MemoView: View {
                         
                         RecNetworkManager.shared.saveDiaryToServer { res in
                             if !res {
-                                showAlert = true
-                                alertMsg  = "기록 업로드실패"
+
                             } else {
                                 DispatchQueue.main.async {
                                     currentPageType.type = .done
