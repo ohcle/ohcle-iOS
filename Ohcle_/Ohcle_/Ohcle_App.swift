@@ -44,21 +44,24 @@ struct Ohcle_App: App {
                     }
                 }
             }
-            .onReceive(alertManager.$isShowingAlert) { isShowingAlert in
-                if isShowingAlert {
-                    showAlert(alertManager.alertMessage)
-                }
+            .alert(isPresented: $alertManager.isShowingAlert) {
+                Alert(title: Text(""), message: Text(alertManager.alertMessage))
             }
+//            .onReceive(alertManager.$isShowingAlert) { isShowingAlert in
+//                if isShowingAlert {
+//                    showAlert(alertManager.alertMessage)
+//                }
+//            }
             .environmentObject(alertManager)
         }
     }
     
-    private func showAlert(_ message: String) {
-        DispatchQueue.main.async {
-            alertManager.alertMessage = message
-            alertManager.isShowingAlert = true
-        }
-    }
+//    private func showAlert(_ message: String) {
+//        DispatchQueue.main.async {
+//            alertManager.alertMessage = message
+//            alertManager.isShowingAlert = true
+//        }
+//    }
 }
 
 class AlertManager: ObservableObject {
@@ -71,9 +74,12 @@ class AlertManager: ObservableObject {
     private init() {}
 
     func showAlert(message: String) {
-        alertMessage = message
-        isShowingAlert = true
-        NotificationCenter.default.post(name: AlertManager.showAlertNotification, object: message)
+        DispatchQueue.main.async {
+            self.alertMessage = message
+            self.isShowingAlert = true
+        }
+        
+//        NotificationCenter.default.post(name: AlertManager.showAlertNotification, object: message)
     }
 
     func hideAlert() {
