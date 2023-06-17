@@ -88,7 +88,7 @@ struct Level: View {
         case "yellow" :
             return 2
         case "green" :
-            return  3
+            return 3
         case "blue":
             return 4
         case "holder-darkblue"  :
@@ -153,7 +153,7 @@ extension Color {
             return Color(.yellow)
         case "green" :
             return  Color(.systemGreen)
-        case "holder-darkblue"  :
+        case "indigo"  :
             return Color("holder-darkblue")
         case "blue":
             return Color(.blue)

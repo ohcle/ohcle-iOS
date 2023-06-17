@@ -19,6 +19,7 @@ struct Ohcle_App: App {
     
     @State var didSeeOnBoarding: Bool = UserDefaults.standard.bool(forKey: "didSeeOnBoarding")
     @StateObject private var alertManager = AlertManager.shared
+    @StateObject private var progressManger = ProgressManager.shared
     
     var body: some Scene {
         WindowGroup {
@@ -43,27 +44,35 @@ struct Ohcle_App: App {
                         
                     }
                 }
-            }
-            .onReceive(alertManager.$isShowingAlert) { isShowingAlert in
-                if isShowingAlert {
-                    showAlert(alertManager.alertMessage)
+                
+                if progressManger.isShowing {
+                    VStack {
+                        Spacer()
+                        HStack {
+                            ProgressView("Loading")
+                        }
+                        .frame(width: UIScreen.screenWidth)
+                        Spacer()
+                    }
+                    .frame(height: UIScreen.screenHeight)
+                    .background(.gray)
+                    .opacity(0.5)
                 }
+                
+                
             }
-            .environmentObject(alertManager)
+            .alert(isPresented: $alertManager.isShowingAlert) {
+                Alert(title: Text(""), message: Text(alertManager.alertMessage))
+            }
+//            .environmentObject(alertManager)
+            
         }
     }
     
-    private func showAlert(_ message: String) {
-        DispatchQueue.main.async {
-            alertManager.alertMessage = message
-            alertManager.isShowingAlert = true
-        }
-    }
 }
 
 class AlertManager: ObservableObject {
     static let shared = AlertManager()
-    static let showAlertNotification = Notification.Name("AlertManager.showAlert")
 
     @Published var isShowingAlert = false
     @Published var alertMessage = ""
@@ -71,13 +80,35 @@ class AlertManager: ObservableObject {
     private init() {}
 
     func showAlert(message: String) {
-        alertMessage = message
-        isShowingAlert = true
-        NotificationCenter.default.post(name: AlertManager.showAlertNotification, object: message)
+        DispatchQueue.main.async {
+            self.alertMessage = message
+            self.isShowingAlert = true
+        }
     }
 
     func hideAlert() {
-        isShowingAlert = false
-        alertMessage = ""
+        DispatchQueue.main.async {
+            self.isShowingAlert = false
+            self.alertMessage = ""
+        }
+    }
+}
+
+
+class ProgressManager: ObservableObject {
+    static let shared = ProgressManager()
+    @Published var isShowing = false
+    private init() {}
+
+    func show(){
+        DispatchQueue.main.async {
+            self.isShowing = true
+        }
+    }
+
+    func hide(){
+        DispatchQueue.main.async {
+            self.isShowing = false
+        }
     }
 }

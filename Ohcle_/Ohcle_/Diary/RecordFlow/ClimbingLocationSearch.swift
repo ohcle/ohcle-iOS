@@ -12,6 +12,7 @@ struct ClimbingLocationSearch: View {
     @State private var climbingLocations: [ClimbingLocation] = []
     @Binding var selectedLocation:ClimbingLocation
     @Binding var selectedname: String
+    @State var getResFromServer: Bool = false
     @Environment(\.presentationMode) var presetntationMode
     
     var body: some View {
@@ -35,6 +36,7 @@ struct ClimbingLocationSearch: View {
                             case .failure(let error):
                                 print(error)
                             }
+                            getResFromServer = true
                         }
                     }
                     .padding(.leading, 30)
@@ -42,27 +44,36 @@ struct ClimbingLocationSearch: View {
             .frame(height: 20)
             .padding(.top, 10)
             
-            
-            List(climbingLocations){ climbingLocation in
-                HStack {
-                    Text(climbingLocation.name)
-                        .frame(width:150, alignment: .leading)
-                    Text(climbingLocation.address)
-                        .frame(alignment: .leading)
+            if getResFromServer {
+                if climbingLocations.count != 0 {
+                    List(climbingLocations){ climbingLocation in
+                        HStack {
+                            Text(climbingLocation.name)
+                                .frame(width:150, alignment: .leading)
+                            Text(climbingLocation.address)
+                                .frame(alignment: .leading)
+                        }
+                        .frame(height:50, alignment: .leading)
+                        .listRowInsets(EdgeInsets())
+                        .onTapGesture {
+                            print("tapped \(climbingLocation.name),\(climbingLocation.latitude),\(climbingLocation.longitude)")
+                            selectedname = climbingLocation.name
+                            selectedLocation = climbingLocation
+                            
+                            presetntationMode.wrappedValue.dismiss()
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                    }
+                    .listStyle(.plain)
+                } else {
+                    Text("검색 결과가 없습니다. 지역명/클라이밍 장소명으로 검색해 주세요☺️")
+                        .padding()
                 }
-                .frame(height:50, alignment: .leading)
-                .listRowInsets(EdgeInsets())
-                .onTapGesture {
-                    print("tapped \(climbingLocation.name),\(climbingLocation.latitude),\(climbingLocation.longitude)")
-                    selectedname = climbingLocation.name
-                    selectedLocation = climbingLocation
-                    
-                    presetntationMode.wrappedValue.dismiss()
-                }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 10)
             }
-            .listStyle(.plain)
+            
+            Spacer()
+            
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {

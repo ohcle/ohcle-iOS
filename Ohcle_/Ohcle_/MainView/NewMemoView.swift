@@ -86,162 +86,174 @@ struct NewMemoView: View {
     
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading, spacing: 15) {
-                HStack{
-                    Spacer()
+            ZStack {
+                VStack(alignment: .leading, spacing: 15) {
+                    HStack{
+                        Spacer()
+                        Button {
+                            Task {
+                                await deleteMemo(id: self.id)
+                                self.isModalView.toggle()
+                            }
+                            
+                        } label: {
+                            Image(systemName: "trash.fill")
+                                .font(.system(size: 24))
+                                .foregroundColor(.gray)
+                                .padding(.top, 20)
+                        }
+                    }
                     Button {
-                        Task {
-                            await deleteMemo(id: self.id)
-                            self.isModalView.toggle()
+                        self.isLevelCircleTapped = true
+                    } label: {
+                        if selectedColor == .white {
+                            Circle()
+                                .strokeBorder(.gray, lineWidth: 1)
+                                .background(Circle().foregroundColor(levelColor))
+                                .frame(width: 30, height: 30)
+                        } else {
+                            Circle()
+                                .fill(levelColor)
+                                .frame(width: 30, height: 30)
                         }
                         
-                    } label: {
-                        Image(systemName: "trash.fill")
-                            .font(.system(size: 24))
-                            .foregroundColor(.gray)
-                            .padding(.top, 20)
-                    }
-                }
-                Button {
-                    self.isLevelCircleTapped = true
-                } label: {
-                    if selectedColor == .white {
-                        Circle()
-                            .strokeBorder(.gray, lineWidth: 1)
-                            .background(Circle().foregroundColor(levelColor))
-                            .frame(width: 30, height: 30)
-                    } else {
-                        Circle()
-                            .fill(levelColor)
-                            .frame(width: 30, height: 30)
-                    }
-
-                    if isLevelCircleTapped {
-                        Picker("", selection: $selectedColor) {
-                            ForEach(colors, id: \.self) { color in
-                                if selectedColor == .white {
-                                    Circle()
-                                        .strokeBorder(.gray, lineWidth: 1)
-                                        .background(Circle().foregroundColor(color))
-                                        .frame(width: 30, height: 30)
-                                } else {
-                                    Circle()
-                                        .fill(color)
-                                        .frame(width: 30, height: 30)
+                        ZStack {
+                            if isLevelCircleTapped {
+                                Picker("", selection: $selectedColor) {
+                                    ForEach(colors, id: \.self) { color in
+                                        if selectedColor == .white {
+                                            Circle()
+                                                .strokeBorder(.gray, lineWidth: 1)
+                                                .background(Circle().foregroundColor(color))
+                                                .frame(width: 30, height: 30)
+                                        } else {
+                                            Circle()
+                                                .fill(color)
+                                                .frame(width: 30, height: 30)
+                                        }
+                                    }
+                                }
+                                .pickerStyle(.wheel)
+                                .background(.clear)
+                                .cornerRadius(15)
+                                .padding()
+                                .onChange(of: selectedColor) { newValue in
+                                    withAnimation {
+                                        self.levelColor = selectedColor
+                                        self.isLevelCircleTapped = false
+                                        let colorInt = converToLevelInt(color: self.selectedColor)
+                                        self.levelColorInt = colorInt
+                                    }
                                 }
                             }
                         }
-                        .pickerStyle(.wheel)
-                        .background(.clear)
-                        .cornerRadius(15)
-                        .padding()
-                        .onChange(of: selectedColor) { newValue in
-                            withAnimation {
-                                self.levelColor = selectedColor
-                                self.isLevelCircleTapped = false
-                                let colorInt = converToLevelInt(color: self.selectedColor)
-                                self.levelColorInt = colorInt
-                            }
-                        }
+                        .background(.white)
+                        
                     }
-                }
-                
-                Button {
-                    self.isDateTapped = true
-                } label: {
-                    Text("\(date.convertToOhcleDateLiteral())")
-                        .font(.title)
-                        .foregroundColor(.black)
-                    if isDateTapped {
-                        DatePicker("Select a date",
-                                   selection: $selectedDate,
-                                   displayedComponents: [.date])
-                        .datePickerStyle(.compact)
-                        .labelsHidden()
-                    }
-                }
-                .onChange(of: selectedDate) { newValue in
-                    withAnimation {
-                        self.isDateTapped = false
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "yyyy-MM-dd"
-                        let dateString = dateFormatter.string(from: newValue)
-                        self.date = dateString
-                    }
-                }
-                
-                HStack(spacing: 5) {
-                    NavigationLink {
-                        ClimbingLocationSearch(selectedLocation: $climbingLocation, selectedname: $climbingLocation.name)
+                    
+                    
+                    Button {
+                        self.isDateTapped = true
                     } label: {
-                        Image(systemName: mapImageName)
-                            .foregroundColor(.gray)
-                        Text(climbingLocation.name.isEmpty ? "오클 클라이밍" : climbingLocation.name)
-                            .font(.body)
-                            .foregroundColor(.gray)
-                    }
-                    
-                }
-                .padding(.bottom, -5)
-
-                HStack() {
-                    ScoreStar(rating: $score)
-                }
-                
-                VStack(alignment: .leading) {
-                    Text("MEMO")
-                        .font(.title)
-                        .bold()
-                        .padding(.top, 10)
-                    
-                    Divider()
-                        .frame(minHeight: 2)
-                        .overlay(Color.black)
-                        .padding(.top, -10)
-                    
-                    HStack {
-                        Spacer()
-                        photo?
-                            .resizable()
-                            .scaledToFit()
-                        PickerView(isShowingGalleryPicker: $isPhotoPickerTapped,
-                                   selectedImage: $selectedPhoto)
-                        .sheet(isPresented: $isPhotoPickerTapped) {
-                            GalleryPickerView(isPresented: $isPhotoPickerTapped,
-                                              selectedImage: $selectedPhoto)
+                        Text("\(date.convertToOhcleDateLiteral())")
+                            .font(.title)
+                            .foregroundColor(.black)
+                        if isDateTapped {
+                            DatePicker("Select a date",
+                                       selection: $selectedDate,
+                                       displayedComponents: [.date])
+                            .datePickerStyle(.compact)
+                            .labelsHidden()
                         }
-                        Spacer()
+                    }
+                    .onChange(of: selectedDate) { newValue in
+                        withAnimation {
+                            self.isDateTapped = false
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "yyyy-MM-dd"
+                            let dateString = dateFormatter.string(from: newValue)
+                            self.date = dateString
+                        }
                     }
                     
-                    TextEditor(text: $typedText)
-                        .scrollContentBackground(.hidden)
-                        .background(memoBackgroundColor)
-                        .foregroundColor(Color.black)
-                        .lineSpacing(5)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-                
-                Spacer()
-                HStack {
-                    Spacer()
-                    MemoButton(isEdited: $isEdited) {
-                        withAnimation {
-                            self.isModalView.toggle()
+                    HStack(spacing: 5) {
+                        NavigationLink {
+                            ClimbingLocationSearch(selectedLocation: $climbingLocation, selectedname: $climbingLocation.name)
+                        } label: {
+                            Image(systemName: mapImageName)
+                                .foregroundColor(.gray)
+                            Text(climbingLocation.name.isEmpty ? "오클 클라이밍" : climbingLocation.name)
+                                .font(.body)
+                                .foregroundColor(.gray)
                         }
                         
-                        Task {
-                            let sendableData = SendableClibmingMemo(
-                                whereID: self.climbingLocation.id,
-                                when: self.date, level: levelColorInt,
-                                score: Double(self.score), memo: self.typedText,
-                                picture: [""], video: "", tags: [""]
-                            )
-                            await saveDiary(sendableData)
+                    }
+                    .padding(.bottom, -5)
+
+                    HStack() {
+                        ScoreStar(rating: $score)
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("MEMO")
+                            .font(.title)
+                            .bold()
+                            .padding(.top, 10)
+                        
+                        Divider()
+                            .frame(minHeight: 2)
+                            .overlay(Color.black)
+                            .padding(.top, -10)
+                        
+                        HStack {
+                            Spacer()
+                            photo?
+                                .resizable()
+                                .scaledToFit()
+                            PickerView(isShowingGalleryPicker: $isPhotoPickerTapped,
+                                       selectedImage: $selectedPhoto)
+                            .sheet(isPresented: $isPhotoPickerTapped) {
+                                GalleryPickerView(isPresented: $isPhotoPickerTapped,
+                                                  selectedImage: $selectedPhoto)
+                            }
+                            Spacer()
                         }
+                        
+                        TextEditor(text: $typedText)
+                            .scrollContentBackground(.hidden)
+                            .background(memoBackgroundColor)
+                            .foregroundColor(Color.black)
+                            .lineSpacing(5)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                    
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        MemoButton(isEdited: $isEdited) {
+                            withAnimation {
+                                self.isModalView.toggle()
+                            }
+                            
+                            Task {
+                                let sendableData = SendableClibmingMemo(
+                                    whereID: self.climbingLocation.id,
+                                    when: self.date, level: levelColorInt,
+                                    score: Double(self.score), memo: self.typedText,
+                                    picture: [""], video: "", tags: [""]
+                                )
+                                await saveDiary(sendableData)
+                            }
+                        }
+                        Spacer()
                     }
                     Spacer()
                 }
-                Spacer()
+            }
+            .background(.white)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .onTapGesture {
+                self.isLevelCircleTapped = false
             }
         }
         .preferredColorScheme(.light)
@@ -254,9 +266,9 @@ struct NewMemoView: View {
             let data = await requestDetailMemo(id: self.id)
             await decodeData(data ?? Data())
         }
-        .onTapGesture {
-            self.isLevelCircleTapped = false
-        }
+//        .onTapGesture {
+//            self.isLevelCircleTapped = false
+//        }
     }
 }
 
