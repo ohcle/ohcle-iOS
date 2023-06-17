@@ -32,9 +32,12 @@ class RecNetworkManager {
                 request.httpBody = try JSONSerialization.data(withJSONObject: parameters)
             }
             
+            ProgressManager.shared.show()
             URLSession.shared.dataTask(with: request) { data, response, error in
+                ProgressManager.shared.hide()
                 if let error = error {
                     completion(.failure(error))
+                    AlertManager.shared.showAlert(message: error.localizedDescription)
                     return
                 }
 
