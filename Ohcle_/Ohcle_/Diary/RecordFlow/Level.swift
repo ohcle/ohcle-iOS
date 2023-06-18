@@ -124,6 +124,8 @@ extension Color {
             return "yellow"
         case .green:
             return "green"
+        case Color(.systemGreen):
+            return "green"
         case .blue:
             return "blue"
         case Color("holder-darkblue"):
