@@ -111,11 +111,3 @@ struct DiaryList: View {
         }
     }
 }
-
-
-
-//struct example_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DiaryList(selectedDiaryIndex: 1)
-//    }
-//}

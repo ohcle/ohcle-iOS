@@ -37,7 +37,6 @@
 		A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */; };
 		A887D60129A20D9800C0A75D /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D60029A20D9800C0A75D /* Networking.swift */; };
 		A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA060290D49C5000F87A8 /* MemoView.swift */; };
-		A88C9ABE2A46AB83008CD174 /* BackgroundHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88C9ABD2A46AB83008CD174 /* BackgroundHolderView.swift */; };
 		A89E181E29A389A900F27045 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89E181D29A389A900F27045 /* NextButton.swift */; };
 		A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EF9B3294A1A390018BDFD /* Debouncer.swift */; };
 		A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812EC29A73EE900E7C6A2 /* DataController.swift */; };
@@ -89,7 +88,6 @@
 		A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenManager.swift; sourceTree = "<group>"; };
 		A887D60029A20D9800C0A75D /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		A88BA060290D49C5000F87A8 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
-		A88C9ABD2A46AB83008CD174 /* BackgroundHolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundHolderView.swift; sourceTree = "<group>"; };
 		A89E181D29A389A900F27045 /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		A89EF9B3294A1A390018BDFD /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		A8A812EC29A73EE900E7C6A2 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -226,7 +224,6 @@
 			children = (
 				A859A63D28EC3E6500F217F3 /* MainView.swift */,
 				A83132212A03BC160087A82C /* RefactorCalenderView.swift */,
-				A88C9ABD2A46AB83008CD174 /* BackgroundHolderView.swift */,
 				A83132232A070B370087A82C /* NewMemoView.swift */,
 				A8050EE92A23220C000E0E10 /* EditMemoPickerView.swift */,
 				A80A484229F3AEDE00F3F186 /* DateFilterView.swift */,
@@ -403,7 +400,6 @@
 				A89E181E29A389A900F27045 /* NextButton.swift in Sources */,
 				A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */,
 				A8CBB2F1291F96570013A74F /* MyPageUserInfoView.swift in Sources */,
-				A88C9ABE2A46AB83008CD174 /* BackgroundHolderView.swift in Sources */,
 				A887D60129A20D9800C0A75D /* Networking.swift in Sources */,
 				A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */,
 				FECB29A52A2310CC005EF41A /* RecNetowrkManager.swift in Sources */,
@@ -556,12 +552,10 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = Ohcle_/Ohcle_.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Ohcle_/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7MJ69FU8BU;
+				DEVELOPMENT_TEAM = 7MJ69FU8BU;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -588,7 +582,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "todaysClimbing.Ohcle-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "ver1 release";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
@@ -605,12 +598,10 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = Ohcle_/Ohcle_.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Ohcle_/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7MJ69FU8BU;
+				DEVELOPMENT_TEAM = 7MJ69FU8BU;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -637,7 +628,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "todaysClimbing.Ohcle-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "ver1 release";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;

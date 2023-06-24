@@ -39,7 +39,7 @@ struct NewMemoView: View {
     @Binding var id: Int
     @State private var climbingLocation: ClimbingLocation = ClimbingLocation()
     @State private var typedText = ""
-    @State private var levelColor = Color.white
+    @State private var levelColor = Color(.systemBlue)
     @State private var levelColorInt = 0
     @State private var date = "2020-02-02"
     @State private var score = 0
@@ -49,40 +49,12 @@ struct NewMemoView: View {
     @State private var selectedPhoto: UIImage?
     @State private var convertedPhotoFilename: String?
     
-    @State private var selectedColor: Color = .white
+    @State private var selectedColor: Color = .purple
     @State private var selectedDate: Date = Date()
     
-    
     private let colors: [Color] = [.red, .orange, .yellow,
-                                   Color(.systemGreen), .blue, .indigo,
+                                   Color(.systemGreen), .blue, Color("holder-darkblue"),
                                    .purple, .black, .gray, .white]
-    
-    private func converToLevelInt(color: Color) -> Int {
-        switch color {
-        case .red:
-            return 1
-        case .orange:
-            return 2
-        case .yellow:
-            return 3
-        case Color(.systemGreen):
-            return 4
-        case .blue:
-            return 5
-        case .indigo:
-            return 6
-        case .purple:
-            return 7
-        case .black:
-            return 8
-        case .white:
-            return 9
-        case .gray:
-            return 10
-        default:
-            return .zero
-        }
-    }
     
     var body: some View {
         NavigationView {
@@ -109,7 +81,6 @@ struct NewMemoView: View {
                         if selectedColor == .white {
                             Circle()
                                 .strokeBorder(.gray, lineWidth: 1)
-                                .background(Circle().foregroundColor(levelColor))
                                 .frame(width: 30, height: 30)
                         } else {
                             Circle()
@@ -121,16 +92,10 @@ struct NewMemoView: View {
                             if isLevelCircleTapped {
                                 Picker("", selection: $selectedColor) {
                                     ForEach(colors, id: \.self) { color in
-                                        if selectedColor == .white {
-                                            Circle()
-                                                .strokeBorder(.gray, lineWidth: 1)
-                                                .background(Circle().foregroundColor(color))
-                                                .frame(width: 30, height: 30)
-                                        } else {
-                                            Circle()
-                                                .fill(color)
-                                                .frame(width: 30, height: 30)
-                                        }
+                                        Circle()
+                                            .strokeBorder(.gray, lineWidth: 1)
+                                            .background(Circle().foregroundColor(color))
+                                            .frame(width: 30, height: 30)
                                     }
                                 }
                                 .pickerStyle(.wheel)
@@ -147,10 +112,8 @@ struct NewMemoView: View {
                                 }
                             }
                         }
-                        .background(.white)
-                        
+                        .background(.clear)
                     }
-                    
                     
                     Button {
                         self.isDateTapped = true
@@ -256,7 +219,6 @@ struct NewMemoView: View {
                 self.isLevelCircleTapped = false
             }
         }
-        .preferredColorScheme(.light)
         .padding(.leading, 30)
         .padding(.trailing, 30)
         .onAppear() {
@@ -266,9 +228,33 @@ struct NewMemoView: View {
             let data = await requestDetailMemo(id: self.id)
             await decodeData(data ?? Data())
         }
-//        .onTapGesture {
-//            self.isLevelCircleTapped = false
-//        }
+    }
+    
+    private func converToLevelInt(color: Color) -> Int {
+        switch color {
+        case .red:
+            return 1
+        case .orange:
+            return 2
+        case .yellow:
+            return 3
+        case Color(.systemGreen):
+            return 4
+        case .blue:
+            return 5
+        case Color("holder-darkblue"):
+            return 6
+        case .purple:
+            return 7
+        case .black:
+            return 8
+        case .white:
+            return 9
+        case .gray:
+            return 10
+        default:
+            return .zero
+        }
     }
 }
 

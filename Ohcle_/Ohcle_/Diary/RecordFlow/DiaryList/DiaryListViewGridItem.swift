@@ -45,9 +45,9 @@ struct DiaryListViewGridItem: View {
             case 3:
                 return Color(.yellow)
             case 4:
-                return Color(.green)
+                return Color(.systemGreen)
             case 5:
-                return Color(.blue)
+                return Color(.systemBlue)
             case 6:
                 return Color("holder-darkblue")
             case 7:
@@ -59,7 +59,7 @@ struct DiaryListViewGridItem: View {
             case 10:
                 return Color("holder-darkgray")
             default:
-                return Color(.cyan)
+                return Color(.systemPink)
             }
         }
     }
