@@ -43,7 +43,7 @@ struct ClimbingLocationView: View {
     @State private var annotations:[AnnotationItem] = []
     @State private var showAlert = false
     
-
+    
     var body: some View {
         VStack {
             (Text("어디서")
@@ -91,7 +91,6 @@ struct ClimbingLocationView: View {
             ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
                 Map(coordinateRegion: $region, annotationItems: annotations) { annotation in
                     MapAnnotation(coordinate: annotation.coordinate) {
-                        
                         VStack(spacing: 0){
                             Image("1-1")
                                 .resizable()

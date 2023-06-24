@@ -10,7 +10,7 @@ import SwiftUI
 struct ClimbingLocationSearch: View {
     @State private var searchText = ""
     @State private var climbingLocations: [ClimbingLocation] = []
-    @Binding var selectedLocation:ClimbingLocation
+    @Binding var selectedLocation: ClimbingLocation
     @Binding var selectedname: String
     @State var getResFromServer: Bool = false
     @Environment(\.presentationMode) var presetntationMode

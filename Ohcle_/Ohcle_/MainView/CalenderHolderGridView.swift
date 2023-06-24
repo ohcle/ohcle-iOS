@@ -96,14 +96,14 @@ struct HolderType {
 struct CalenderHolderGridView: View {
     let isClimbedDate: Bool
     let holderType: HolderType?
-    let date: (Date, Bool)
+    let date: (Date, Bool)?
     
     private let holderLocatedType: HolderLocatedType = .allCases.randomElement() ?? .big
     private let backgroundColor = Color("holder_background")
     private let widthHeightRatio: CGFloat = 5/3
     private let widthRatio: CGFloat = 2/16
     
-    init(isClimbedDate: Bool = false, holderType: HolderType?, date: (Date, Bool)) {
+    init(isClimbedDate: Bool = false, holderType: HolderType?, date: (Date, Bool)?) {
         self.isClimbedDate = isClimbedDate
         self.holderType = holderType
         

@@ -18,18 +18,18 @@ enum GreetingTextOptions: String {
 struct LoginView: View {
     @State private var appleLoginViewSize: CGSize = CGSize()
     @ObservedObject var loginManager = LoginManager.shared
-
+    @State private var isError: Bool = false
+    
     private let mainLogoTitle: String
     private let receptionURL: URL
     private let usePolicy: URL
     private let privatePolicy: URL
     private let informationLinkFont: Font = .caption2
     
-    init(mainLogoTitle: String, receptionURL: URL?) {
+    init(mainLogoTitle: String) {
         self.mainLogoTitle = mainLogoTitle
-        let receptionURL = URL(string: ExternalOhcleLinks.customerSurport)!
+        self.receptionURL = URL(string: ExternalOhcleLinks.customerSurport)!
         
-        self.receptionURL = receptionURL
         self.usePolicy = URL(string: ExternalOhcleLinks.serviceInfomation)!
         self.privatePolicy = URL(string: ExternalOhcleLinks.personalInfoPolicy)!
     }
@@ -47,6 +47,7 @@ struct LoginView: View {
                     .padding(.bottom, 11)
                     .padding(.leading, 20)
                     .padding(.trailing, 20)
+
                 AppleLoginView()
                     .padding(.bottom, 32)
                     .padding(.leading, 20)
@@ -112,7 +113,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(mainLogoTitle: "main logo",
-                  receptionURL: URL(string: ""))
+        LoginView(mainLogoTitle: "main logo")
     }
 }

@@ -55,8 +55,7 @@ class CalenderData: ObservableObject {
         }
         
         do {
-            var request = try URLRequest(url: url, method: .get)
-//            request.setValue("token \(LoginManager.shared.ohcleID)", forHTTPHeaderField: "Authorization")
+            let request = try URLRequest(url: url, method: .get)
             URLSession.shared.dataTask(with: request) { data, response, error in
                 
                 if let response = response as? HTTPURLResponse,
@@ -91,7 +90,7 @@ class CalenderData: ObservableObject {
         let calendar = Calendar(identifier: .gregorian)
         var dividedData: DividedMonthDataType = [1: [:], 2: [:], 3: [:], 4: [:], 5: [:]]
         
-        data.map { data in
+        _ = data.map { data in
             let dateString = data.when
             let date = dateFormatter.date(from: dateString) ?? Date()
             
@@ -295,10 +294,10 @@ struct CalenderHolderView: View {
         }
         .sheet(isPresented: $isModal) {
             NewMemoView(isModalView: $isModal,
-                        isMemoChanged: $calenderData.switchWhenMemoChanged, id: $diaryID)
+                        isMemoChanged: $calenderData.switchWhenMemoChanged,
+                        id: $diaryID)
         }
     }
-    
 }
 
 struct CalenderMiddleView<Content>: View {
@@ -350,9 +349,3 @@ struct UpperBar: View {
         .padding(.horizontal)
     }
 }
-
-//struct RefacotCalenderView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RefactorCalenderView()
-//    }
-//}

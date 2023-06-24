@@ -12,10 +12,8 @@ import SwiftUI
     var nextButtonTouched: (() -> Void)?
     
     func inform() {
-            self.isUserEventHappend = true
+        self.isUserEventHappend = true
     }
-    
-    
 }
 
 struct NextPageButton: View {
