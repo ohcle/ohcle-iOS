@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Focuser
 
 extension UIApplication {
     func endEditing() {
