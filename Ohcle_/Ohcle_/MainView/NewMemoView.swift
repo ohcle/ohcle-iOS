@@ -53,7 +53,8 @@ struct NewMemoView: View {
     @State private var selectedDate: Date = Date()
     
     private let colors: [Color] = [.red, .orange, .yellow,
-                                   Color(.systemGreen), .blue, Color("holder-darkblue"),
+                                   Color(.systemGreen), .blue,
+                                   Color("holder-darkblue"),
                                    .purple, .black, .gray, .white]
     
     var body: some View {

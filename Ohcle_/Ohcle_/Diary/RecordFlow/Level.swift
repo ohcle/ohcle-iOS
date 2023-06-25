@@ -160,6 +160,8 @@ extension Color {
             return  Color(.systemGreen)
         case "holder-darkblue"  :
             return Color("holder-darkblue")
+        case "indigo" :
+            return Color("holder-darkblue")
         case "blue":
             return Color(.systemBlue)
         case "purple" :
