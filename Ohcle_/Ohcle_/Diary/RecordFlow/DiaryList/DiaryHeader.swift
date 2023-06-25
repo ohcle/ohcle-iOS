@@ -11,13 +11,20 @@ import SwiftUI
 struct DiaryHeader: View {
     var year: String = OhcleDate.currentYear ?? "2023"
     var month: String = OhcleDate.currentMonthString ?? "04"
+    @Binding var isDismissed: Bool
+    
     var body: some View {
         VStack {
             HStack {
                 Text("\(year)년 \(month)월")
                     .font(.title)
                     .padding(.bottom, 10)
-                Image(systemName: "chevron.down")
+                Button {
+                    self.isDismissed.toggle()
+                } label: {
+                    Image(systemName: "chevron.down")
+                        .foregroundColor(.black)
+                }
             }
             Divider()
                 .frame(minHeight: 1)
@@ -30,7 +37,8 @@ struct DiaryHeader: View {
 
 
 struct DiaryHeader_Previews: PreviewProvider {
+    @State static var isdismissed = true
     static var previews: some View {
-        DiaryHeader()
+        DiaryHeader(isDismissed: $isdismissed)
     }
 }

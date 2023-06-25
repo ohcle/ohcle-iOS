@@ -99,7 +99,7 @@ struct NewMemoView: View {
                                     }
                                 }
                                 .pickerStyle(.wheel)
-                                .background(.clear)
+                                .background(Color.clear)
                                 .cornerRadius(15)
                                 .padding()
                                 .onChange(of: selectedColor) { newValue in
@@ -112,7 +112,7 @@ struct NewMemoView: View {
                                 }
                             }
                         }
-                        .background(.clear)
+                        .background(Color.clear)
                     }
                     
                     Button {
@@ -141,7 +141,9 @@ struct NewMemoView: View {
                     
                     HStack(spacing: 5) {
                         NavigationLink {
-                            ClimbingLocationSearch(selectedLocation: $climbingLocation, selectedname: $climbingLocation.name)
+                            ClimbingLocationSearch(selectedLocation: $climbingLocation,
+                                                   selectedname: $climbingLocation.name)
+                            
                         } label: {
                             Image(systemName: mapImageName)
                                 .foregroundColor(.gray)
@@ -182,12 +184,20 @@ struct NewMemoView: View {
                             Spacer()
                         }
                         
-                        TextEditor(text: $typedText)
-                            .scrollContentBackground(.hidden)
-                            .background(memoBackgroundColor)
-                            .foregroundColor(Color.black)
-                            .lineSpacing(5)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        if #available(iOS 16.0, *) {
+                            TextEditor(text: $typedText)
+                                .scrollContentBackground(.hidden)
+                                .background(memoBackgroundColor)
+                                .foregroundColor(Color.black)
+                                .lineSpacing(5)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        } else {
+                            TextEditor(text: $typedText)
+                                .background(memoBackgroundColor)
+                                .foregroundColor(Color.black)
+                                .lineSpacing(5)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
                     }
                     
                     Spacer()
@@ -201,9 +211,12 @@ struct NewMemoView: View {
                             Task {
                                 let sendableData = SendableClibmingMemo(
                                     whereID: self.climbingLocation.id,
-                                    when: self.date, level: levelColorInt,
-                                    score: Double(self.score), memo: self.typedText,
-                                    picture: [""], video: "", tags: [""]
+                                    when: self.date,
+                                    level: levelColorInt,
+                                    score: Double(self.score),
+                                    memo: self.typedText,
+                                    picture: [""],
+                                    video: "", tags: [""]
                                 )
                                 await saveDiary(sendableData)
                             }
@@ -213,7 +226,8 @@ struct NewMemoView: View {
                     Spacer()
                 }
             }
-            .background(.white)
+            .edgesIgnoringSafeArea(.top)
+            .background(Color.white)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .onTapGesture {
                 self.isLevelCircleTapped = false
@@ -221,12 +235,13 @@ struct NewMemoView: View {
         }
         .padding(.leading, 30)
         .padding(.trailing, 30)
-        .onAppear() {
+
+        .onAppear {
             UITextView.appearance().backgroundColor = .clear
-        }
-        .task {
-            let data = await requestDetailMemo(id: self.id)
-            await decodeData(data ?? Data())
+            Task {
+                let data = await requestDetailMemo(id: self.id)
+                await decodeData(data ?? Data())
+            }
         }
     }
     
@@ -398,9 +413,6 @@ extension NewMemoView {
     private func decodeData(_ data: Data) async {
         do {
             let decodedData = try JSONDecoder().decode(DetailClimbingModel.self, from: data)
-            
-            print("🎉🎉🎉",decodedData.level)
-            
             let levelColorString = HolderColorNumber(rawValue: "\(decodedData.level)") ?? HolderColorNumber.nonSelected
             let levleColor = Color.convert(from: levelColorString.colorName)
             

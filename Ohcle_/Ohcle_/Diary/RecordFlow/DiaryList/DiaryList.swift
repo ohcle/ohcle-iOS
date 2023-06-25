@@ -37,14 +37,13 @@ struct DiaryList: View {
     @State private var diaryID: Int = 0
     
     var body: some View {
-        VStack(spacing: listSpacing) {
-            DiaryHeader(year: calenderData.year, month: calenderData.month)
-                .onTapGesture {
-                    self.isDismissed = false
-                }
-            
-            
-            ZStack (alignment: .top){
+        ZStack (alignment: .top){
+            VStack(spacing: listSpacing) {
+                DiaryHeader(year: calenderData.year,
+                            month: calenderData.month,
+                            isDismissed: $isDismissed)
+                .padding(.top, 10)
+                
                 if calenderData.data.flatMap{ $0.value.values.compactMap { $0 }}.count == 0 {
                     // DefaultImageView
                     VStack {
@@ -56,45 +55,47 @@ struct DiaryList: View {
                 } else {
                     // DiaryList
                     ScrollView(.vertical) {
-                        
                         LazyVGrid(columns: column,
                                   alignment: .leading,
                                   spacing: listSpacing) {
-                            ForEach(calenderData.data.flatMap{ $0.value.values.compactMap { $0 } }.sorted { $0.when > $1.when }) { calenderViewModel in
-                                
-                                DiaryListViewGridItem(date: calenderViewModel.when, location: calenderViewModel.where?.name, levelColor: calenderViewModel.level , score: Int16(calenderViewModel.score), memoImageData: calenderViewModel.thumbnail)
-                                    .onTapGesture {
-                                        diaryID = calenderViewModel.id
-                                        isModal = true
-                                    }
-                            }
                             
+                            ForEach(calenderData.data.flatMap { $0.value.values.compactMap { $0 } }.sorted { $0.when > $1.when }) { calenderViewModel in
+                                
+                                DiaryListViewGridItem(date: calenderViewModel.when,
+                                                      location: calenderViewModel.where?.name,
+                                                      levelColor: calenderViewModel.level ,
+                                                      score: Int16(calenderViewModel.score),
+                                                      memoImageData: calenderViewModel.thumbnail)
+                                .onTapGesture {
+                                    diaryID = calenderViewModel.id
+                                    isModal = true
+                                }
+                            }
                         }
                                   .padding(.leading, 20)
                         // End Of LazyVGrid
-                        
-                        
                     }
                 }
-                
-                
-                if !self.isDismissed {
-                    withAnimation {
-                        DateFilterView(currentYear: Int(OhcleDate.currentYear ?? "2023") ?? 2023, isSelected: $isSelected, isDismissed: $isDismissed, calenderData: calenderData)
-                            .frame(width: 250, height: 250, alignment: .center)
-                            .background(Color.white)
-                            .padding(.top, 20)
-                        
-                        
-                    }
+            }
+            if !self.isDismissed {
+                withAnimation {
+                    DateFilterView(currentYear: Int(OhcleDate.currentYear ?? "2023") ?? 2023,
+                                   isSelected: $isSelected,
+                                   isDismissed: $isDismissed,
+                                   calenderData: calenderData)
+                        .frame(minWidth: 250, idealWidth: 250,
+                               maxWidth: 250, minHeight: 250,
+                               idealHeight: 250, maxHeight: 250,
+                               alignment: .center)
+                        .background(Color.white)
+                        .padding(.top, 55)
                 }
-                
             }
         }
         .sheet(isPresented: $isModal) {
             NewMemoView(isModalView: $isModal,
-                        isMemoChanged: $calenderData.switchWhenMemoChanged, id: $diaryID)
-
+                        isMemoChanged: $calenderData.switchWhenMemoChanged,
+                        id: $diaryID)
         }
         
     }

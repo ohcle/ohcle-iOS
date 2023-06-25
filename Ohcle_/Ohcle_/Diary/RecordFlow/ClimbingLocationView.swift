@@ -103,9 +103,10 @@ struct ClimbingLocationView: View {
                     }
                 }
                 .frame(width: 400, height: 300)
-
+                
                 Button {
                     if locationDataManager.locationManager.authorizationStatus == .authorizedWhenInUse {
+                        
                         locationDataManager.locationManager.requestLocation()
                         locationDataManager.updateCurrentLocation = { location in
                             region = MKCoordinateRegion(center: location, latitudinalMeters: 300, longitudinalMeters: 300)
@@ -114,7 +115,7 @@ struct ClimbingLocationView: View {
                     } else {
                         showAlert = true
                     }
-
+                    
                 } label: {
                     Image(systemName: "scope")
                         .resizable()
@@ -124,7 +125,7 @@ struct ClimbingLocationView: View {
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text(""), message: Text("현재 위치 추적을 위해서\n설정 > 개인정보 보호 및 보안 > 위치서비스\n에서 위치 권한을 허용해주세요."), dismissButton: .default(Text("확인")))
                 }
-
+                
             }
             
             
@@ -185,8 +186,15 @@ struct ClimbingLocationView: View {
 struct SearchView: View {
     @State private var searchText = ""
     var body: some View {
-        Text(searchText)
-            .searchable(text: $searchText, prompt: "장소를 입력해주세요.")
+            if #available(iOS 15.0, *) {
+                Text(searchText)
+                    .searchable(text: $searchText, prompt: "장소를 입력해주세요.")
+            } else {
+                TextField("장소를 입력해주세요", text: $searchText)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                
+            }
     }
 }
 

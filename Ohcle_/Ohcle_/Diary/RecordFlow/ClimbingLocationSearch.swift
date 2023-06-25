@@ -18,28 +18,26 @@ struct ClimbingLocationSearch: View {
     var body: some View {
         
         VStack (spacing: 25){
-            
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.gray, lineWidth: 2)
-                    .padding(.horizontal,20)
+                    .padding(.horizontal, 20)
                 
-                TextField("장소를 입력해 주세요",text: $searchText)
-                    .frame(height: 40)
-                    .onSubmit {
-                        print("Submit")
-                        climbingLocations.removeAll()
-                        RecNetworkManager.shared.fetchClimbingPlace(with: searchText) { result in
-                            switch result {
-                            case .success(let climbLocations):
-                                self.climbingLocations = climbLocations
-                            case .failure(let error):
-                                print(error)
-                            }
-                            getResFromServer = true
+                TextField("장소를 입력해 주세요", text: $searchText, onCommit: {
+                    print("Submit")
+                    climbingLocations.removeAll()
+                    RecNetworkManager.shared.fetchClimbingPlace(with: searchText) { result in
+                        switch result {
+                        case .success(let climbLocations):
+                            self.climbingLocations = climbLocations
+                        case .failure(let error):
+                            print(error)
                         }
+                        getResFromServer = true
                     }
-                    .padding(.leading, 30)
+                })
+                .frame(height: 40)
+                .padding(.leading, 30)
             }
             .frame(height: 20)
             .padding(.top, 10)
@@ -59,7 +57,7 @@ struct ClimbingLocationSearch: View {
                             print("tapped \(climbingLocation.name),\(climbingLocation.latitude),\(climbingLocation.longitude)")
                             selectedname = climbingLocation.name
                             selectedLocation = climbingLocation
-                            
+                            print(selectedname, selectedLocation)
                             presetntationMode.wrappedValue.dismiss()
                         }
                         .padding(.horizontal, 20)

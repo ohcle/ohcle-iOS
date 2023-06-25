@@ -11,7 +11,7 @@ struct AddNewDiary: View {
     @State private var imageSize = CGSize()
     var body: some View {
         VStack{
-            DiaryHeader()
+//            DiaryHeader()
             Spacer()
             
             Group {

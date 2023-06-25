@@ -53,12 +53,14 @@ struct LoginView: View {
                     .padding(.leading, 20)
                     .padding(.trailing, 20)
                 
-                Link("문의하기", destination: receptionURL)
-                    .font(.body)
-                    .bold()
-                    .foregroundColor(.black)
-                    .padding(.bottom, 30)
-                    .padding(.top, 40)
+                Link(destination: receptionURL) {
+                    Text("문의하기")
+                        .font(.body)
+                        .bold()
+                        .foregroundColor(.black)
+                        .padding(.bottom, 30)
+                        .padding(.top, 40)
+                }
                 
                 HStack(spacing: 0) {
                     Text("로그인시 ")

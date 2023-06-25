@@ -74,21 +74,36 @@ struct MemoView: View {
                 
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
 
-                    TextEditor(text: $typedText)
-                        .scrollContentBackground(.hidden)
-                        .background(memoBackgroundColor)
-                        .foregroundColor(Color.black)
-                        .lineSpacing(5)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .onChange(of: typedText) { newValue in
-                            if newValue.count >= 100 {
-                                typedText = String(typedText.prefix(100))
-                                
-                                alertMsg = "최대글자는 100자 제한입니다."
-                                showAlert = true
+                    if #available(iOS 16.0, *) {
+                        TextEditor(text: $typedText)
+                            .scrollContentBackground(.hidden)
+                            .background(memoBackgroundColor)
+                            .foregroundColor(Color.black)
+                            .lineSpacing(5)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .onChange(of: typedText) { newValue in
+                                if newValue.count >= 100 {
+                                    typedText = String(typedText.prefix(100))
+                                    
+                                    alertMsg = "최대글자는 100자 제한입니다."
+                                    showAlert = true
+                                }
                             }
-//                            self.diary?.memo = typedText
-                        }
+                    } else {
+                        TextEditor(text: $typedText)
+                            .background(memoBackgroundColor)
+                            .foregroundColor(Color.black)
+                            .lineSpacing(5)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .onChange(of: typedText) { newValue in
+                                if newValue.count >= 100 {
+                                    typedText = String(typedText.prefix(100))
+                                    
+                                    alertMsg = "최대글자는 100자 제한입니다."
+                                    showAlert = true
+                                }
+                            }
+                    }
                     
                     
                     if typedText.isEmpty {

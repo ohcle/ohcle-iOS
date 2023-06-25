@@ -34,7 +34,6 @@ struct AddPhotoView: View {
 
             HStack {
                 Image("add-climbing-photo2")
-//                    .padding(.top, 10)
                     .onTapGesture {
                         if selectedImage == nil {
                             isShowingGalleryPicker = true
@@ -52,9 +51,6 @@ struct AddPhotoView: View {
                         
                         Image(uiImage: selectedImage ?? UIImage())
                             .resizable()
-//                            .scaledToFit()
-//                            .aspectRatio(contentMode: .fill)
-//                            .padding(.all, 10)
                             .frame(width: 64, height: 64)
 
                         Button {
@@ -64,24 +60,19 @@ struct AddPhotoView: View {
                             Image(systemName: "xmark")
                                 .foregroundColor(.white)
                                 .padding(.all, 10)
-                                .background(.gray)
+                                .background(Color.gray)
                                 .frame(width: 24, height: 24)
                                 .cornerRadius(12)
-                            
-                            
                         }
                     }
-//                        .frame(maxHeight: UIScreen.screenHeight/2)
                 }
-
             }
-            
             
             if isShowingGalleryPicker {
                 GalleryPickerView(isPresented: $isShowingGalleryPicker, selectedImage: $selectedImage)
                     .frame(maxHeight: UIScreen.screenHeight/2) // view의 반절에만 나오도록 설정
                     .edgesIgnoringSafeArea(.bottom) // Safe Area를 무시하여 밑에만 나오도록 설정
-                    .background(.gray)
+                    .background(Color.gray)
             }
         }
         
