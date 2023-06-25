@@ -37,6 +37,7 @@
 		A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */; };
 		A887D60129A20D9800C0A75D /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D60029A20D9800C0A75D /* Networking.swift */; };
 		A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA060290D49C5000F87A8 /* MemoView.swift */; };
+		A88C9AC12A483F29008CD174 /* Focuser in Frameworks */ = {isa = PBXBuildFile; productRef = A88C9AC02A483F29008CD174 /* Focuser */; };
 		A89E181E29A389A900F27045 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89E181D29A389A900F27045 /* NextButton.swift */; };
 		A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EF9B3294A1A390018BDFD /* Debouncer.swift */; };
 		A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812EC29A73EE900E7C6A2 /* DataController.swift */; };
@@ -117,6 +118,7 @@
 			files = (
 				FE918FBC29F451CB00484731 /* CoreLocation.framework in Frameworks */,
 				A859A64528EC3EB300F217F3 /* KakaoSDKCommon in Frameworks */,
+				A88C9AC12A483F29008CD174 /* Focuser in Frameworks */,
 				A859A64328EC3EB300F217F3 /* KakaoSDKAuth in Frameworks */,
 				A859A64728EC3EB300F217F3 /* KakaoSDKUser in Frameworks */,
 			);
@@ -320,6 +322,7 @@
 				A859A64228EC3EB300F217F3 /* KakaoSDKAuth */,
 				A859A64428EC3EB300F217F3 /* KakaoSDKCommon */,
 				A859A64628EC3EB300F217F3 /* KakaoSDKUser */,
+				A88C9AC02A483F29008CD174 /* Focuser */,
 			);
 			productName = Ohcle_;
 			productReference = A859A62A28EC3E1500F217F3 /* Ohcle_.app */;
@@ -351,6 +354,7 @@
 			mainGroup = A859A62128EC3E1500F217F3;
 			packageReferences = (
 				A859A64128EC3EB300F217F3 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				A88C9ABF2A483F29008CD174 /* XCRemoteSwiftPackageReference "swift-focuser" */,
 			);
 			productRefGroup = A859A62B28EC3E1500F217F3 /* Products */;
 			projectDirPath = "";
@@ -563,6 +567,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Ohcle--Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Ohcle;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치사용한다";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치사용한다";
@@ -570,8 +575,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = SplashView;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -609,6 +613,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Ohcle--Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Ohcle;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치사용한다";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치사용한다";
@@ -616,8 +621,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = SplashView;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -667,6 +671,14 @@
 				kind = branch;
 			};
 		};
+		A88C9ABF2A483F29008CD174 /* XCRemoteSwiftPackageReference "swift-focuser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:art-technologies/swift-focuser.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -684,6 +696,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A859A64128EC3EB300F217F3 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		A88C9AC02A483F29008CD174 /* Focuser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A88C9ABF2A483F29008CD174 /* XCRemoteSwiftPackageReference "swift-focuser" */;
+			productName = Focuser;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

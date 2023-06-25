@@ -6,14 +6,23 @@
 //
 
 import SwiftUI
+import Focuser
 
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder),
+                   to: nil, from: nil, for: nil)
+    }
+}
 
 struct MemoView: View {
     private let mapImageName: String = "map"
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
-    
+
     @EnvironmentObject var currentPageType: MyPageType
     @Binding var isModal: Bool
+    
+    @State private var keyboardHeight: CGFloat = 0
     
     @State private var climbingLocationPlaceHolder: String = CalendarDataManger.shared.record.climbingLocation.name
     @State private var typedText: String =  CalendarDataManger.shared.record.temMemo
@@ -23,7 +32,6 @@ struct MemoView: View {
     @State private var photoData =  CalendarDataManger.shared.record.temPhoto
     @State private var isEdited = false
     
-//    @State var diary: Diary?
     @Binding var selectedTab: Int
     
     @State private var showAlert = false
@@ -72,8 +80,8 @@ struct MemoView: View {
                     }
                 }
                 
+                
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
-
                     if #available(iOS 16.0, *) {
                         TextEditor(text: $typedText)
                             .scrollContentBackground(.hidden)
@@ -104,10 +112,10 @@ struct MemoView: View {
                                 }
                             }
                     }
-                    
+                        
                     
                     if typedText.isEmpty {
-                        Text("오늘의 클라이밍은 어땠나요?")
+                        Text(" 오늘의 클라이밍은 어땠나요?")
                             .foregroundColor(.gray)
                             .lineSpacing(5)
                             .padding(.top,10)
@@ -116,14 +124,11 @@ struct MemoView: View {
                 }
 
             }
-            
             Spacer()
             HStack {
                 Spacer()
                 MemoButton(isEdited: $isEdited) {
-                   
                         CalendarDataManger.shared.record.saveTemporaryMemo(typedText)
-                        
                         RecNetworkManager.shared.saveDiaryToServer { res in
                             if !res {
 
@@ -139,20 +144,38 @@ struct MemoView: View {
                         }
 
                 }
-
                 Spacer()
             }
             Spacer()
         }
+        .offset(y: -self.keyboardHeight)
 
         .padding(.leading, 30)
         .padding(.trailing, 30)
-        .onAppear() {
+        .ignoresSafeArea(.keyboard)
+        .onAppear {
             UITextView.appearance().backgroundColor = .clear
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+                guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+                    return
+                }
+                
+                self.keyboardHeight = keyboardFrame.height/2
+            }
+            
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notification in
+                
+                self.keyboardHeight = 0
+            }
         }
         
         .alert(isPresented: $showAlert) {
             Alert(title: Text(alertMsg))
+        }
+        
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+
         }
     }
 }

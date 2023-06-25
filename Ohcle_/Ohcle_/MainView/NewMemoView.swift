@@ -30,7 +30,8 @@ struct NewMemoView: View {
     @EnvironmentObject var currentPageType: MyPageType
     @Binding var isModalView: Bool
     @Binding var isMemoChanged: Bool
-
+    
+    @State private var keyboardHeight: CGFloat = 0
     @State private var isEdited = true
     @State private var isLevelCircleTapped = false
     @State private var isDateTapped = false
@@ -236,6 +237,8 @@ struct NewMemoView: View {
         }
         .padding(.leading, 30)
         .padding(.trailing, 30)
+        .offset(y: -self.keyboardHeight)
+        .ignoresSafeArea(.keyboard)
 
         .onAppear {
             UITextView.appearance().backgroundColor = .clear
@@ -243,6 +246,23 @@ struct NewMemoView: View {
                 let data = await requestDetailMemo(id: self.id)
                 await decodeData(data ?? Data())
             }
+            
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+                guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+                    return
+                }
+                
+                self.keyboardHeight = keyboardFrame.height / 2
+            }
+            
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notification in
+                
+                self.keyboardHeight = 0
+            }
+        }
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                            to:nil, from:nil, for:nil)
         }
     }
     
