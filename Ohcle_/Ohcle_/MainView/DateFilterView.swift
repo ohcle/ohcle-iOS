@@ -55,12 +55,17 @@ struct DateFilterView: View {
                     }
                 }
             }
+            .background(Color.white)
             .padding(.all)
         }
         .padding(.all)
         .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.gray, lineWidth: 0.5)
+            RoundedRectangle(cornerRadius: 2)
+                .stroke(Color.gray, lineWidth: 0.3)
+                .frame(minWidth: 250, idealWidth: 250,
+                       maxWidth: 250, minHeight: 250,
+                       idealHeight: 250, maxHeight: 250,
+                       alignment: .center)
         )
     }
 }

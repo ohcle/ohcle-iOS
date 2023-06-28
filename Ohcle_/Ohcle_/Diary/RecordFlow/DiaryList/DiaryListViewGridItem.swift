@@ -45,9 +45,9 @@ struct DiaryListViewGridItem: View {
             case 3:
                 return Color(.yellow)
             case 4:
-                return Color(.green)
+                return Color(.systemGreen)
             case 5:
-                return Color(.blue)
+                return Color(.systemBlue)
             case 6:
                 return Color("holder-darkblue")
             case 7:
@@ -59,7 +59,7 @@ struct DiaryListViewGridItem: View {
             case 10:
                 return Color("holder-darkgray")
             default:
-                return Color(.cyan)
+                return Color(.systemPink)
             }
         }
     }
@@ -78,16 +78,19 @@ struct DiaryListViewGridItem: View {
         HStack(spacing: 10) {
             self.generateMemoImage()
                 .resizable()
-                .frame(width: UIScreen.screenSize.width * 2/7, height: UIScreen.screenSize.width * 2/7)
+                .frame(width: UIScreen.screenSize.width * 2/7,
+                       height: UIScreen.screenSize.width * 2/7)
             LazyVStack(alignment: .leading, spacing: 13) {
                 Text("날짜  ")
                     .foregroundColor(.gray)
                 + Text(self.date ?? OhcleDate.currentDate)
                 
-                Text("장소  ")
-                    .foregroundColor(.gray)
-                +
-                Text(self.location ?? "오클 클라이밍")
+                HStack(alignment: .top) {
+                    Text("장소  ")
+                        .foregroundColor(.gray)
+                    Text(self.location ?? "오클 클라이밍")
+                    Spacer()
+                }
                 
                 HStack {
                     Text("레벨 ")

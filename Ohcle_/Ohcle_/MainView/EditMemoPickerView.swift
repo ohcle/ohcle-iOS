@@ -46,7 +46,7 @@ struct PickerView: View {
                             Image(systemName: "xmark")
                                 .foregroundColor(.white)
                                 .padding(.all, 10)
-                                .background(.gray)
+                                .background(Color.gray)
                                 .frame(width: 24, height: 24)
                                 .cornerRadius(12)
                         }

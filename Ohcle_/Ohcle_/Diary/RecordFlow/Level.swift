@@ -13,7 +13,10 @@ struct Level: View {
     @State private var selectedColor: Color = .pink
     @State private var selectedIdx: Int = -1
     private let colors: [Color] = [.red, .orange, .yellow,
-                                   Color(.systemGreen), .blue, Color.init("holder-darkblue"), .purple, .black, Color.init("holder-lightgray"), Color.init("holder-darkgray")]
+                                   Color(.systemGreen), .blue,
+                                   Color.init("holder-darkblue"), .purple, .black,
+                                   Color.init("holder-lightgray"),
+                                   Color.init("holder-darkgray")]
 
     private var columns: [GridItem] {
         [GridItem(.adaptive(minimum: 60))]
@@ -155,10 +158,12 @@ extension Color {
             return Color(.yellow)
         case "green" :
             return  Color(.systemGreen)
-        case "indigo"  :
+        case "holder-darkblue"  :
+            return Color("holder-darkblue")
+        case "indigo" :
             return Color("holder-darkblue")
         case "blue":
-            return Color(.blue)
+            return Color(.systemBlue)
         case "purple" :
             return Color(.purple)
         case  "black" :

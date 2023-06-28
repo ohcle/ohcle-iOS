@@ -55,8 +55,7 @@ class CalenderData: ObservableObject {
         }
         
         do {
-            var request = try URLRequest(url: url, method: .get)
-//            request.setValue("token \(LoginManager.shared.ohcleID)", forHTTPHeaderField: "Authorization")
+            let request = try URLRequest(url: url, method: .get)
             URLSession.shared.dataTask(with: request) { data, response, error in
                 
                 if let response = response as? HTTPURLResponse,
@@ -91,7 +90,7 @@ class CalenderData: ObservableObject {
         let calendar = Calendar(identifier: .gregorian)
         var dividedData: DividedMonthDataType = [1: [:], 2: [:], 3: [:], 4: [:], 5: [:]]
         
-        data.map { data in
+        _ = data.map { data in
             let dateString = data.when
             let date = dateFormatter.date(from: dateString) ?? Date()
             
@@ -225,24 +224,26 @@ struct RefactorCalenderView: View {
                 UpperBar {
                     calenderData.fetchCalenderData()
                 }
-                Spacer()
-                CalenderMiddleView(yearString: self.calenderData.year,
-                                   monthString: self.calenderData.month) {
-                    self.isDismissed = false
-                }
                 
+                Spacer()
+                
+                CalenderMiddleView(yearString: self.calenderData.year,
+                                   monthString: self.calenderData.month,
+                                   isDismissed: $isDismissed)
                 CalenderHolderView(calenderData: calenderData)
                 
                 Spacer()
             }
+            .padding(.all, 10)
             
             if !self.isDismissed {
                 withAnimation {
                     DateFilterView(currentYear: 2023, isSelected: $isSelected,
                                    isDismissed: $isDismissed, calenderData: calenderData)
-                    .frame(width: 250, height: 250, alignment: .center)
+                    .frame(minWidth: 250, idealWidth: 250, maxWidth: 250, minHeight: 250,
+                           idealHeight: 250, maxHeight: 250, alignment: .center)
                     .background(Color.white)
-                    .padding(.top, 20)
+                    .padding(.top, -30)
                     .onDisappear {
                         self.calenderData.changeSelectedDate()
                     }
@@ -295,34 +296,24 @@ struct CalenderHolderView: View {
         }
         .sheet(isPresented: $isModal) {
             NewMemoView(isModalView: $isModal,
-                        isMemoChanged: $calenderData.switchWhenMemoChanged, id: $diaryID)
+                        isMemoChanged: $calenderData.switchWhenMemoChanged,
+                        id: $diaryID)
         }
     }
-    
 }
 
-struct CalenderMiddleView<Content>: View {
-    let content: () -> Content
-    let title: String
+struct CalenderMiddleView: View {
+    private let title: String = "클라이밍 히스토리"
     var yearString: String
     var monthString: String
-    
-    init(title: String = "클라이밍 히스토리",
-         yearString: String,
-         monthString: String,
-         content: @escaping () -> Content) {
-        self.title = title
-        self.yearString = yearString
-        self.monthString = monthString
-        self.content = content
-    }
+    @Binding var isDismissed: Bool
     
     var body: some View {
         Text(title)
             .font(.title)
             .padding(.bottom, 10)
         Button {
-            content()
+            self.isDismissed.toggle()
         } label: {
             VStack {
                 Text("\(yearString)")
@@ -344,15 +335,8 @@ struct UpperBar: View {
             } label: {
                 Image("MainRefresh")
             }
-            
             Spacer()
         }
         .padding(.horizontal)
     }
 }
-
-//struct RefacotCalenderView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RefactorCalenderView()
-//    }
-//}

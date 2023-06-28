@@ -67,12 +67,9 @@ struct MyPageView: View {
     ]
      
     var body: some View {
-        NavigationStack {
+        NavigationView {
             List {
-                NavigationLink {
-                    MyPageUserInfoView(thumbnailImage: $userImage, userName: $userName)
-                    
-                } label: {
+                NavigationLink(destination: MyPageUserInfoView(thumbnailImage: $userImage, userName: $userName)) {
                     HStack {
                         userImage
                             .resizable()
@@ -102,7 +99,7 @@ struct MyPageView: View {
                     }
             }
         }
-        .task {
+        .onAppear {
             let userDefaultsName = UserDefaults.standard.object(forKey: "userNickName")
             if let nickName = userDefaultsName as? String {
                 self.userName = nickName
@@ -127,8 +124,6 @@ struct MyPageView: View {
                     }
                     .resume()
                     
-                } catch {
-                    print(error)
                 }
             }
         }

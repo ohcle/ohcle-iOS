@@ -44,7 +44,6 @@ struct ClimbingScore: View {
                 CalendarDataManger.shared.record.saveTemporaryScore(Int16(self.finalScore))
             }
         }
-        
     }
 }
 
