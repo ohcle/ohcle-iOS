@@ -73,7 +73,7 @@ struct LoginView: View {
                     Text(" 및 ")
                     
                     Link(destination: self.privatePolicy) {
-                        Text("개인정보 이용약관")
+                        Text("개인정보 보호정책")
                             .underline()
                             .accentColor(.black)
                     }
