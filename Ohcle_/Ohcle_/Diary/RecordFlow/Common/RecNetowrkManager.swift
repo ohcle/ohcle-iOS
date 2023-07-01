@@ -28,6 +28,7 @@ class RecNetworkManager {
             var request = try createURLRequest(urlString: urlString, method: method)
             
             if let parameters = parameters, method == .post {
+                request.headers.add(name: "Authorization", value: "Bearer " + LoginManager.shared.ohcleToken)
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.httpBody = try JSONSerialization.data(withJSONObject: parameters)
             }

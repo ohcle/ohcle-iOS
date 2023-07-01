@@ -115,7 +115,6 @@ struct Record {
 
 class CalendarDataManger {
     static let shared = CalendarDataManger()
-//    var calenderData = CalenderData()
     var year: String = "2023"
     var month: String = "03"
     var calenderList:[CalenderModel] = []
@@ -130,13 +129,8 @@ class CalendarDataManger {
         
         do {
             let fetchedData = try await fetchData(urlString: OhcleURLs.generateMonthRecordURLString(year: year, month: month), method: .get)
-            print(fetchedData)
             let decoded = try JSONDecoder().decode([CalenderModel].self, from: fetchedData)
-            print(decoded)
-//            let divided = divideWeekData2(decoded)
-//            self.calenderData.data = divided
             self.calenderList = decoded
-            
         } catch {
             print("error")
         }

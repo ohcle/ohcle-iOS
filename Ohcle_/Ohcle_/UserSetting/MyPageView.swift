@@ -63,7 +63,7 @@ struct MyPageView: View {
         MyPageSetting(type: .personalInfo, title: "개인정보 보호정책",
                       iconImageString: "mypage-personal-info"),
         MyPageSetting(type: .servicePolicy, title: "서비스 이용약관", iconImageString: "mypage-use-service"),
-        MyPageSetting(type: .customerService, title: "문의", iconImageString: "mypage-question")
+        MyPageSetting(type: .customerService, title: "문의", iconImageString: "ohcle_question")
     ]
      
     var body: some View {

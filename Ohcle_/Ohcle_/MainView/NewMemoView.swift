@@ -312,8 +312,10 @@ extension NewMemoView {
         }
         
         do {
-            let reqeust = try URLRequest(url: url, method: .delete)
-            let (_, response) = try await URLSession.shared.data(for: reqeust)
+            var request = try URLRequest(url: url, method: .delete)
+            request.headers.add(name: "Authorization",
+                                value: "Bearer " + LoginManager.shared.ohcleToken)
+            let (_, response) = try await URLSession.shared.data(for: request)
             
             if let response = response as? HTTPURLResponse,
                response.statusCode != 200 {
@@ -339,6 +341,8 @@ extension NewMemoView {
         
         do {
             var request = try URLRequest(url: url, method: .patch)
+            request.headers.add(name: "Authorization",
+                                value: "Bearer " + LoginManager.shared.ohcleToken)
             
             let parameters: [String: Any?] = ["where": ["id": diary.whereID],
                                               "when": diary.when,
@@ -406,16 +410,17 @@ extension NewMemoView {
     }
     
     private func requestDetailMemo(id: Int) async -> Data? {
-        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(id)"
-        
+        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(id)/"
+        print("💜", urlStr)
         guard let url = URL(string: urlStr) else {
             print("Fail to InitURL")
             return nil
         }
         
         do {
-            let request = try URLRequest(url: url, method: .get)
-            
+            var request = try URLRequest(url: url, method: .get)
+            request.headers.add(name: "Authorization",
+                                value: "Bearer " + LoginManager.shared.ohcleToken)
             let (data, response) = try await URLSession.shared.data(for: request)
             
             if let response = response as? HTTPURLResponse,

@@ -8,13 +8,11 @@
 import Foundation
 
 struct LoginResultModel: Decodable {
-    let userID: Int
-    let isUserSignedIn: Bool
-    let token: String
+    let accessToken: String
+    let refreshToken: String
     
     enum CodingKeys: String, CodingKey {
-        case userID = "id"
-        case isUserSignedIn = "is_newbie"
-        case token = "token"
+        case accessToken = "access"
+        case refreshToken = "refresh"
     }
 }

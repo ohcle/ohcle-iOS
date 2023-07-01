@@ -33,12 +33,14 @@ extension UserApi {
 
 struct KakaoLoginView: View {
 
+    
     var body: some View {
         Button {
              //MARK: 카카오톡 존재 시
             if (UserApi.isKakaoTalkLoginAvailable()) {
                 UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                     Task {
+                    
                         await LoginManager.shared.signInKakaoAccount()
                     }
                 }

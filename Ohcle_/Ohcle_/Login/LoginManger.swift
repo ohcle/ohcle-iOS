@@ -16,7 +16,7 @@ final class LoginManager: ObservableObject {
     @AppStorage("userNickName") var userNickName: String = ""
     @AppStorage("userImageString") var userImageString: String = ""
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-    @AppStorage("ohcleID") var ohcleID: Int = .zero
+    @AppStorage("ohcleID") var ohcleToken: String = ""
     
     @Published var currentLoggedIn: Bool = false
     
@@ -44,7 +44,7 @@ final class LoginManager: ObservableObject {
     //MARK: - Common methods
     func saveOhcleToken(loginResult: LoginResultModel) {
         DispatchQueue.main.async {
-            LoginManager.shared.ohcleID = loginResult.userID
+            LoginManager.shared.ohcleToken = loginResult.accessToken
         }
     }
     
@@ -179,7 +179,7 @@ final class LoginManager: ObservableObject {
         }
     }
     
-    func saveKakaoUserInfomation() async -> [UserInfo: Any?] {
+    private func saveKakaoUserInfomation() async -> [UserInfo: Any?] {
         let user = await UserApi.shared.me()
         let urlString = user?.properties?["profile_image"] ?? ""
         let userNickName = user?.properties?["nickname"] ?? "오클"
@@ -195,12 +195,15 @@ final class LoginManager: ObservableObject {
     }
     
     private func isValidOhcleUser(kakaoUserID: Int,
-                                  nickName: String, gender: String? = nil) async throws -> Bool {
+                                  nickName: String,
+                                  gender: String? = nil) async throws -> Bool {
         let url = getAccessTokenURL(.kakaoLogin)
+        print(url)
         var request = try URLRequest(url: url, method: .post)
-        let para = ["id": "\(kakaoUserID)",
+        let para = ["social_id": "\(kakaoUserID)",
                     "nickname": nickName,
-                    "gender": gender]
+                    "gender": "male"]
+        print(para)
         
         let httpBody = try JSONSerialization.data(withJSONObject: para, options: [])
         request.httpBody = httpBody
@@ -292,7 +295,7 @@ final class LoginManager: ObservableObject {
     }
     
     private func signOutOhcleAccount() async {
-        let ohcleID = LoginManager.shared.ohcleID
+        let ohcleID = LoginManager.shared.ohcleToken
         print(ohcleID)
         
         let urlString = "https://api-gw.todayclimbing.com/v1/user/\(ohcleID)"
@@ -314,7 +317,7 @@ final class LoginManager: ObservableObject {
     }
     
     private func logoutOhcleAccount() async {
-        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(self.ohcleID)/signout"
+        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(self.ohcleToken)/signout"
         
         guard let url = URL(string: urlString) else {
             return

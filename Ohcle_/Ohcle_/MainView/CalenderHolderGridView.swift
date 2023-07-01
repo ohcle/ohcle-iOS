@@ -106,8 +106,8 @@ struct CalenderHolderGridView: View {
     init(isClimbedDate: Bool = false, holderType: HolderType?, date: (Date, Bool)?) {
         self.isClimbedDate = isClimbedDate
         self.holderType = holderType
-        
         self.date = date
+        print("💜", date)
     }
     
     var body: some View {
@@ -116,13 +116,13 @@ struct CalenderHolderGridView: View {
                 .foregroundColor(backgroundColor)
                 .frame(width: UIScreen.screenWidth * widthRatio, height: UIScreen.screenWidth * widthRatio * widthHeightRatio)
             Image(self.holderLocatedType.typeImageString)
-            if self.isClimbedDate {
+//            if self.isClimbedDate {
                 self.holderType?.holder
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: UIScreen.screenWidth * widthRatio * (3/5))
                     .padding(.bottom, 10)
-            }
+//            }
             
             if let date = date, date.1 == true {
                 Text("\(date.0.toOhcleDateString() ?? .zero)")

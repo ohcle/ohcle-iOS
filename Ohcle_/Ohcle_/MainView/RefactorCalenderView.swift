@@ -25,11 +25,14 @@ func getDayOfWeek(dateString: String) -> Int {
     return weekday - 1
 }
 
-class CalenderData: ObservableObject {
+final class CalenderData: ObservableObject {
     @Published var year: String = "2023"
     @Published var month: String = OhcleDate.currentMonthString ?? ""
     @Published var switchWhenMemoChanged: Bool = false
     @Published var data: DividedMonthDataType = [:]
+    
+    private(set) var dateRange: [(date: Date, isCurrentMonth: Bool)]?
+    
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
@@ -38,6 +41,7 @@ class CalenderData: ObservableObject {
             .sink { [weak self] year, month in
                 self?.fetchCalenderData()
                 self?.changeSelectedDate()
+                self?.dateRange = self?.organizeDateRange()
             }
             .store(in: &cancellables)
         
@@ -55,7 +59,11 @@ class CalenderData: ObservableObject {
         }
         
         do {
-            let request = try URLRequest(url: url, method: .get)
+            var request = try URLRequest(url: url, method: .get)
+            
+            request.headers.add(name: "Authorization",
+                                value: "Bearer " + LoginManager.shared.ohcleToken)
+            print(LoginManager.shared.ohcleToken, "💜")
             URLSession.shared.dataTask(with: request) { data, response, error in
                 
                 if let response = response as? HTTPURLResponse,
@@ -67,7 +75,7 @@ class CalenderData: ObservableObject {
                     do {
                         let decoded = try JSONDecoder().decode([CalenderModel].self, from: data)
                         let divided = self.divideWeekData(decoded)
-                        
+                        print(divided)
                         DispatchQueue.main.async {
                             self.data = divided
                         }
@@ -89,6 +97,7 @@ class CalenderData: ObservableObject {
         dateFormatter.locale = Locale(identifier: "kr")
         let calendar = Calendar(identifier: .gregorian)
         var dividedData: DividedMonthDataType = [1: [:], 2: [:], 3: [:], 4: [:], 5: [:]]
+        print(dividedData)
         
         _ = data.map { data in
             let dateString = data.when
@@ -96,8 +105,13 @@ class CalenderData: ObservableObject {
             
             let weekOfMonth = calendar.component(.weekOfMonth, from: date)
             let dayOfWeek = getDayOfWeek(dateString: dateString)
-            
-            dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
+            if dayOfWeek == 0 {
+                dividedData[weekOfMonth]?.updateValue(data, forKey: 7)
+
+            } else {
+                dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
+
+            }
         }
         
         return dividedData
@@ -169,7 +183,7 @@ class CalenderData: ObservableObject {
         selectedDate = calendar.date(byAdding: .month, value: -1, to: selectedDate)!
     }
     
-    func dateRange() -> [(date: Date, isCurrentMonth: Bool)] {
+    func organizeDateRange() -> [(date: Date, isCurrentMonth: Bool)] {
         var dates: [(date: Date, isCurrentMonth: Bool)] = []
             
             let components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
@@ -207,6 +221,7 @@ class CalenderData: ObservableObject {
                 dates.append((date, false))
             }
             
+            print("💜",dates, "💜")
             return dates
     }
 }
@@ -265,6 +280,7 @@ struct CalenderHolderView: View {
     @ObservedObject var calenderData: CalenderData
     @State private var isModal: Bool = false
     @State private var diaryID: Int = .zero
+    @State private var dateRange:  [(date: Date, isCurrentMonth: Bool)]?
     
     init(calenderData: CalenderData) {
         self.calenderData = calenderData
@@ -283,7 +299,7 @@ struct CalenderHolderView: View {
                         
                         CalenderHolderGridView(isClimbedDate: true,
                                                holderType: holderType,
-                                               date: calenderData.dateRange()[((week - 1) * 7 + day)])
+                                               date: calenderData.dateRange?[((week - 1) * 7 + day)])
                         .onTapGesture {
                             if let recordID = calenderData.data[week]?[day]?.id {
                                 diaryID = recordID
