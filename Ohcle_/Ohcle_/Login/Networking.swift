@@ -33,7 +33,10 @@ func fetchData(urlString: String, method: HTTPMethod) async throws -> Data {
     }
     
     do {
-        let request = try URLRequest(url: url, method: method)
+        var request = try URLRequest(url: url, method: method)
+        request.headers.add(name: "Authorization",
+                            value: "Bearer " + LoginManager.shared.ohcleAccessToken)
+        
         let (data, response) = try await URLSession.shared.data(for: request)
         if let response = response as? HTTPURLResponse,
             response.statusCode != 200 {

@@ -40,7 +40,7 @@ struct NewMemoView: View {
     @Binding var id: Int
     @State private var climbingLocation: ClimbingLocation = ClimbingLocation()
     @State private var typedText = ""
-    @State private var levelColor = Color(.systemBlue)
+    @State private var levelColor = Color.white
     @State private var levelColorInt = 0
     @State private var date = "2020-02-02"
     @State private var score = 0
@@ -80,22 +80,17 @@ struct NewMemoView: View {
                     Button {
                         self.isLevelCircleTapped = true
                     } label: {
-                        if selectedColor == .white {
-                            Circle()
-                                .strokeBorder(.gray, lineWidth: 1)
-                                .frame(width: 30, height: 30)
-                        } else {
-                            Circle()
-                                .fill(levelColor)
-                                .frame(width: 30, height: 30)
-                        }
+                        Circle()
+                            .strokeBorder(Color.gray.opacity(0.5), lineWidth: 0.5)
+                            .frame(width: 30, height: 30)
+                            .background(Circle().foregroundColor(levelColor))
                         
                         ZStack {
                             if isLevelCircleTapped {
                                 Picker("", selection: $selectedColor) {
                                     ForEach(colors, id: \.self) { color in
                                         Circle()
-                                            .strokeBorder(.gray, lineWidth: 1)
+                                            .strokeBorder(.gray.opacity(0.5), lineWidth: 0.5)
                                             .background(Circle().foregroundColor(color))
                                             .frame(width: 30, height: 30)
                                     }
@@ -153,10 +148,9 @@ struct NewMemoView: View {
                                 .font(.body)
                                 .foregroundColor(.gray)
                         }
-                        
                     }
                     .padding(.bottom, -5)
-
+                    
                     HStack() {
                         ScoreStar(rating: $score)
                     }
@@ -239,7 +233,7 @@ struct NewMemoView: View {
         .padding(.trailing, 30)
         .offset(y: -self.keyboardHeight)
         .ignoresSafeArea(.keyboard)
-
+        
         .onAppear {
             UITextView.appearance().backgroundColor = .clear
             Task {
@@ -261,8 +255,7 @@ struct NewMemoView: View {
             }
         }
         .onTapGesture {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
-                                            to:nil, from:nil, for:nil)
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
     }
     
@@ -314,7 +307,7 @@ extension NewMemoView {
         do {
             var request = try URLRequest(url: url, method: .delete)
             request.headers.add(name: "Authorization",
-                                value: "Bearer " + LoginManager.shared.ohcleToken)
+                                value: "Bearer " + LoginManager.shared.ohcleAccessToken)
             let (_, response) = try await URLSession.shared.data(for: request)
             
             if let response = response as? HTTPURLResponse,
@@ -323,7 +316,6 @@ extension NewMemoView {
             }
             
             refreshCalenderView()
-            
         } catch {
             
         }
@@ -337,19 +329,25 @@ extension NewMemoView {
             return
         }
         
-        let currentImageFileName = await saveImage()
+        // 재글 확인 해야하는 부분 : 빈 스트링일 때 프론트에서 이미지 call을 하는지 확인 필요, 빈 스트링일땐 오클 이미지로 보여주는
+        var fileName: String = ""
+        
+        if photo != nil {
+            let currentImageFileName = await saveImage()
+            fileName = currentImageFileName ?? ""
+        }
         
         do {
             var request = try URLRequest(url: url, method: .patch)
             request.headers.add(name: "Authorization",
-                                value: "Bearer " + LoginManager.shared.ohcleToken)
+                                value: "Bearer " + LoginManager.shared.ohcleAccessToken)
             
             let parameters: [String: Any?] = ["where": ["id": diary.whereID],
                                               "when": diary.when,
                                               "level": diary.level,
                                               "score": diary.score,
                                               "memo": diary.memo,
-                                              "picture": [currentImageFileName],
+                                              "picture": [fileName],
                                               "video": nil,
                                               "tags": nil]
             
@@ -420,7 +418,7 @@ extension NewMemoView {
         do {
             var request = try URLRequest(url: url, method: .get)
             request.headers.add(name: "Authorization",
-                                value: "Bearer " + LoginManager.shared.ohcleToken)
+                                value: "Bearer " + LoginManager.shared.ohcleAccessToken)
             let (data, response) = try await URLSession.shared.data(for: request)
             
             if let response = response as? HTTPURLResponse,
@@ -447,7 +445,7 @@ extension NewMemoView {
             self.date = decodedData.when
             self.typedText = decodedData.memo
             self.score = Int(decodedData.score)
-
+            
             if let location = decodedData.where {
                 self.climbingLocation = ClimbingLocation(id: (location.id ?? 0 ),name: location.name, address: location.address,latitude: location.latitude, longitude: location.longitude)
             } else {
@@ -461,6 +459,11 @@ extension NewMemoView {
     }
     
     private func requestMemoPicture(name: String) async {
+        
+        if name == "" {
+             return
+        }
+        
         let urlStr = "https://api-gw.todayclimbing.com/v1/media/image?filename=\(name)"
         
         guard let url = URL(string: urlStr) else {
@@ -469,7 +472,10 @@ extension NewMemoView {
         }
         
         do {
-            let request = try URLRequest(url: url, method: .get)
+            var request = try URLRequest(url: url, method: .get)
+            
+            request.headers.add(name: "Authorization",
+                                value: "Bearer " + LoginManager.shared.ohcleAccessToken)
             
             let (data, response) = try await URLSession.shared.data(for: request)
             

@@ -173,7 +173,7 @@ struct GalleryPickerView: UIViewControllerRepresentable {
         
         func postImage(_ imgData: Data, completion: @escaping (Data,HTTPURLResponse) -> Void ) {
  
-            let urlStr = "https://api-gw.todayclimbing.com/" +  "v1/media/image/"
+            let urlStr = "https://api-gw.todayclimbing.com/v1/media/image/"
             guard let url = URL(string: urlStr) else {
                 print("Fail to InitURL")
                 return
@@ -182,7 +182,10 @@ struct GalleryPickerView: UIViewControllerRepresentable {
             let parameters = ["image":imgData.base64EncodedString()]
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
             request.httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+            request.headers.add(name: "Authorization",
+                                value: "Bearer " + LoginManager.shared.ohcleAccessToken)
             
             let session = URLSession.shared
             let task = session.dataTask(with: request) { data, response, error in
@@ -201,7 +204,6 @@ struct GalleryPickerView: UIViewControllerRepresentable {
             }
             task.resume()
         }
-        
     }
 }
 

@@ -20,15 +20,20 @@ class RecNetworkManager {
         }
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
+        request.headers.add(name: "Authorization",
+                            value: "Bearer " + LoginManager.shared.ohcleAccessToken)
         return request
     }
 
     private func performRequest(urlString: String, method: HTTPMethod, parameters: [String: Any]? = nil, completion: @escaping (Result<Data, Error>) -> Void) {
         do {
             var request = try createURLRequest(urlString: urlString, method: method)
+            request.headers.add(name: "Authorization",
+                                value: "Bearer \(LoginManager.shared.ohcleAccessToken)")
+
+            print(LoginManager.shared.ohcleAccessToken)
             
             if let parameters = parameters, method == .post {
-                request.headers.add(name: "Authorization", value: "Bearer " + LoginManager.shared.ohcleToken)
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.httpBody = try JSONSerialization.data(withJSONObject: parameters)
             }
@@ -173,7 +178,6 @@ class RecNetworkManager {
             case .failure(_):
                 completion(false)
             }
-            
         }
     }
     

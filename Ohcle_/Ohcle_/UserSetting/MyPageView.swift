@@ -113,7 +113,6 @@ struct MyPageView: View {
                 do {
                     guard let request = try? URLRequest(url: url, method: .get) else {
                         self.userImage = Image("")
-                        
                         return
                     }
                     

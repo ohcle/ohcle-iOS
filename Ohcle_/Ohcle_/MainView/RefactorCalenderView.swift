@@ -62,8 +62,8 @@ final class CalenderData: ObservableObject {
             var request = try URLRequest(url: url, method: .get)
             
             request.headers.add(name: "Authorization",
-                                value: "Bearer " + LoginManager.shared.ohcleToken)
-            print(LoginManager.shared.ohcleToken, "💜")
+                                 value: "Bearer " + LoginManager.shared.ohcleAccessToken)
+            print(LoginManager.shared.ohcleAccessToken, "💜")
             URLSession.shared.dataTask(with: request) { data, response, error in
                 
                 if let response = response as? HTTPURLResponse,
@@ -96,8 +96,9 @@ final class CalenderData: ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier: "kr")
         let calendar = Calendar(identifier: .gregorian)
-        var dividedData: DividedMonthDataType = [1: [:], 2: [:], 3: [:], 4: [:], 5: [:]]
-        print(dividedData)
+        var dividedData: DividedMonthDataType = [1: [:], 2: [:], 3: [:],
+                                                 4: [:], 5: [:], 6:[:]]
+        print("dividedData", dividedData)
         
         _ = data.map { data in
             let dateString = data.when
@@ -105,9 +106,9 @@ final class CalenderData: ObservableObject {
             
             let weekOfMonth = calendar.component(.weekOfMonth, from: date)
             let dayOfWeek = getDayOfWeek(dateString: dateString)
+            // 0: 일요일, 1: 월, 2: 화, 3: 수
             if dayOfWeek == 0 {
-                dividedData[weekOfMonth]?.updateValue(data, forKey: 7)
-
+                dividedData[weekOfMonth - 1]?.updateValue(data, forKey: 7)
             } else {
                 dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
 
@@ -201,7 +202,8 @@ final class CalenderData: ObservableObject {
             // Add dates from the previous month
             for day in (previousMonthRange.upperBound - previousMonthOffset)..<previousMonthRange.upperBound {
                 _ = calendar.dateComponents([.year, .month], from: previousMonthDate)
-                let date = calendar.date(byAdding: .day, value: day - (previousMonthRange.upperBound - previousMonthOffset), to: previousMonthDate)!
+                let date = calendar.date(byAdding: .day, value: day - (previousMonthRange.upperBound - previousMonthOffset),
+                                         to: previousMonthDate)!
                 dates.append((date, false))
             }
             
