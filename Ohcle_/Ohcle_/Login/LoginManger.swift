@@ -43,7 +43,7 @@ final class LoginManager: ObservableObject {
     }
     
     //MARK: - Common methods
-    func saveOhcleToken(loginResult: LoginResultModel) {
+    private func saveOhcleToken(loginResult: LoginResultModel) {
         DispatchQueue.main.async {
             self.ohcleAccessToken = loginResult.accessToken
             self.ohcleRefreshToken = loginResult.refreshToken
@@ -54,7 +54,7 @@ final class LoginManager: ObservableObject {
         do {
             let decodedData = try JSONDecoder().decode(LoginResultModel.self, from: data)
             
-            LoginManager.shared.saveOhcleToken(loginResult: decodedData)
+            self.saveOhcleToken(loginResult: decodedData)
             
             return true
         } catch {
@@ -70,36 +70,41 @@ final class LoginManager: ObservableObject {
     }
     
     //MARK: - Sign in Apple
-    func singInAppleAccount(_ result : Result<ASAuthorization, Error>) async {
-        if await self.isAppleLoginSucceded(result) {
-            do {
-                let loginResultData = try await requestLogin()
-                
-                guard (loginResultData as Data?) != nil else {
-                    self.deleteUserInformation()
-                    return
-                }
-                
-                decodeAndSaveLoginResult(data: loginResultData)
-                
-                withAnimation {
-                    signIn()
-                }
-            } catch {
-                
+    func singInWithAppleAccount(_ credential: ASAuthorizationAppleIDCredential) async {
+        saveApplLoginUsrInfo(credential: credential)
+        do {
+            let loginResultData = try await requestOhcleLogin()
+            
+            guard (loginResultData as Data?) != nil else {
+                self.deleteUserInformation()
+                return
             }
+            
+            decodeAndSaveLoginResult(data: loginResultData)
+            
+            withAnimation {
+                signIn()
+            }
+        } catch {
+            
         }
     }
     
-    private func deleteUserInformation() {
-        self.userFirstName = ""
-        self.userLastName = ""
-        self.userEmail = ""
-        self.userID = ""
+    private func saveApplLoginUsrInfo(credential: ASAuthorizationAppleIDCredential) {
+        let userID = credential.user
+        
+        let firstName = credential.fullName?.familyName ?? ""
+        let lastName = credential.fullName?.givenName ?? "무명의 클라이머"
+        let email = credential.email ?? "ohcle@gmail.com"
+        
+        self.saveAppleUserInformation(userID: userID,
+                                      firstName: firstName,
+                                      lastName: lastName,
+                                      email: email)
     }
     
     private func saveAppleUserInformation(userID: String, firstName: String,
-                                  lastName: String, email: String) {
+                                          lastName: String, email: String) {
         self.userFirstName = firstName
         self.userLastName = lastName
         self.userEmail = email
@@ -109,11 +114,11 @@ final class LoginManager: ObservableObject {
         }
     }
     
-    private func requestLogin() async throws -> Data? {
+    private func requestOhcleLogin() async throws -> Data? {
         let url = getAccessTokenURL(.appleLogin)
         var request = try URLRequest(url: url, method: .post)
         
-        let parameter = ["id": userID,
+        let parameter = ["social_id": userID,
                          "nickname": (userFirstName + userLastName),
                          "gender": "female"]
         
@@ -145,28 +150,7 @@ final class LoginManager: ObservableObject {
             return
         }
     }
-    
-    private func isAppleLoginSucceded(_ result: Result<ASAuthorization, Error>) async -> Bool {
-        switch result {
-        case .success(let auth):
-            if let credential = auth.credential as? ASAuthorizationAppleIDCredential {
-                let userID = credential.user
-                
-                let firstName = credential.fullName?.familyName ?? ""
-                let lastName = credential.fullName?.givenName ?? "무명의 클라이머"
-                let email = credential.email ?? "ohcle@gmail.com"
 
-                LoginManager.shared.saveAppleUserInformation(userID: userID, firstName: firstName,
-                                                             lastName: lastName, email: email)
-                return true
-            }
-            
-        case .failure(let error):
-            print("Apple Login Error. Error Message : \(error.localizedDescription)")
-            return false
-        }
-        return false
-    }
     
     //MARK: - Sign in Kakao
     func signInKakaoAccount() async {
@@ -213,7 +197,7 @@ final class LoginManager: ObservableObject {
                                   nickName: String,
                                   gender: String? = nil) async throws -> Bool {
         let url = getAccessTokenURL(.kakaoLogin)
-
+        
         var request = try URLRequest(url: url, method: .post)
         let para = ["social_id": "\(kakaoUserID)",
                     "nickname": nickName,
@@ -222,16 +206,16 @@ final class LoginManager: ObservableObject {
         let httpBody = try JSONSerialization.data(withJSONObject: para, options: [])
         request.httpBody = httpBody
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         let (loginResult, response) = try await URLSession.shared.data(for: request)
         
         if let response = response as? HTTPURLResponse,
-              response.statusCode != 200 {
-               print("Response Code is: \(response.statusCode)")
-               let errorData = try JSONSerialization.jsonObject(with: loginResult, options: []) as? [String: Any]
-               let errorMessage = errorData?["message"] as? String
-               throw NSError(domain: "NetworkE  rror", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: errorMessage ?? ""])
-           }
+           response.statusCode != 200 {
+            print("Response Code is: \(response.statusCode)")
+            let errorData = try JSONSerialization.jsonObject(with: loginResult, options: []) as? [String: Any]
+            let errorMessage = errorData?["message"] as? String
+            throw NSError(domain: "NetworkE  rror", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: errorMessage ?? ""])
+        }
         
         
         return decodeAndSaveLoginResult(loginResult)
@@ -275,6 +259,13 @@ final class LoginManager: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func deleteUserInformation() {
+        self.userFirstName = ""
+        self.userLastName = ""
+        self.userEmail = ""
+        self.userID = ""
     }
     
     func signOut() async {

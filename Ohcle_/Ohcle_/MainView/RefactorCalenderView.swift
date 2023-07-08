@@ -283,7 +283,7 @@ struct CalenderHolderView: View {
     @State private var isModal: Bool = false
     @State private var diaryID: Int = .zero
     @State private var dateRange:  [(date: Date, isCurrentMonth: Bool)]?
-    
+    // 해당 월이 몇 주까지 가지고 있는지
     init(calenderData: CalenderData) {
         self.calenderData = calenderData
         self.isModal = isModal
@@ -311,6 +311,7 @@ struct CalenderHolderView: View {
                     }
                 }
             }
+            
         }
         .sheet(isPresented: $isModal) {
             NewMemoView(isModalView: $isModal,

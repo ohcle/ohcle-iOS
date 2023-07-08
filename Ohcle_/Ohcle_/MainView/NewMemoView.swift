@@ -330,9 +330,10 @@ extension NewMemoView {
         }
         
         // 재글 확인 해야하는 부분 : 빈 스트링일 때 프론트에서 이미지 call을 하는지 확인 필요, 빈 스트링일땐 오클 이미지로 보여주는
-        var fileName: String = ""
+        var fileName: String = convertedPhotoFilename ?? ""
+        // 현재 선택된 이미지가 없는 경우 원래 사진이름 넣고 이미지 post하지 않기
         
-        if photo != nil {
+        if selectedPhoto != nil {
             let currentImageFileName = await saveImage()
             fileName = currentImageFileName ?? ""
         }
@@ -386,7 +387,8 @@ extension NewMemoView {
         
         do {
             let data = try await postImageAsync(currentImageData)
-            let decodedData = try JSONDecoder().decode(ConvertedClimbingImageModel.self, from: data)
+            let decodedData = try JSONDecoder().decode(ConvertedClimbingImageModel.self,
+                                                       from: data)
             fileName = decodedData.filename
             return fileName
         } catch {
@@ -445,7 +447,7 @@ extension NewMemoView {
             self.date = decodedData.when
             self.typedText = decodedData.memo
             self.score = Int(decodedData.score)
-            
+            self.convertedPhotoFilename = decodedData.picture?.first ?? ""
             if let location = decodedData.where {
                 self.climbingLocation = ClimbingLocation(id: (location.id ?? 0 ),name: location.name, address: location.address,latitude: location.latitude, longitude: location.longitude)
             } else {
@@ -453,17 +455,13 @@ extension NewMemoView {
             }
             
             await requestMemoPicture(name: (decodedData.picture?.first ?? "이름이 없어요") ?? "")
+            
         } catch {
             print(error)
         }
     }
     
     private func requestMemoPicture(name: String) async {
-        
-        if name == "" {
-             return
-        }
-        
         let urlStr = "https://api-gw.todayclimbing.com/v1/media/image?filename=\(name)"
         
         guard let url = URL(string: urlStr) else {
@@ -478,6 +476,8 @@ extension NewMemoView {
                                 value: "Bearer " + LoginManager.shared.ohcleAccessToken)
             
             let (data, response) = try await URLSession.shared.data(for: request)
+            
+            
             
             if let response = response as? HTTPURLResponse,
                response.statusCode != 200 {
