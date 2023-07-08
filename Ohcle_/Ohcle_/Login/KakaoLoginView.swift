@@ -39,13 +39,21 @@ struct KakaoLoginView: View {
              //MARK: 카카오톡 존재 시
             if (UserApi.isKakaoTalkLoginAvailable()) {
                 UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                    Task {
                     
+                    if let error =  error {
+                        AlertManager.shared.showAlert(message: "\(error.localizedDescription)")
+                    }
+                    
+                    Task {
                         await LoginManager.shared.signInKakaoAccount()
                     }
                 }
             } else {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                    if let error =  error {
+                        AlertManager.shared.showAlert(message: "\(error.localizedDescription)")
+                    }
+                    
                     Task {
                         await LoginManager.shared.signInKakaoAccount()
                     }

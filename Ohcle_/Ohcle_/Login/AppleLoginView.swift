@@ -18,6 +18,7 @@ struct AppleLoginView: View {
         .onReceive(vm.$isSuccessed) { isSuccessed in
             if !isSuccessed {
                 AlertManager.shared.showAlert(message: "\(vm.errorMessage)")
+                vm.isSuccessed = true
             }
         }
         
