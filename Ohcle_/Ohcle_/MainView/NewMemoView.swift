@@ -472,13 +472,19 @@ extension NewMemoView {
         do {
             var request = try URLRequest(url: url, method: .get)
             
-            request.headers.add(name: "Authorization",
-                                value: "Bearer " + LoginManager.shared.ohcleAccessToken)
-            
+            print(LoginManager.shared.ohcleAccessToken)
+            let test = LoginManager.shared.ohcleAccessToken
+//            request.headers.add(name: "Authorization",
+//                                value: "Bearer" + " " + test)
+//            request.headers.add(name: "Content-Type", value: "")
+//            request.headers.add(name: "Connection", value: "keep-alive")
+//            request.headers.add(name: "Accept-Encoding", value: "gzip, deflate, br")
+//            request.headers.add(name: "Accept", value: "*/*")
+            request.setValue("Bearer" + " " + LoginManager.shared.ohcleAccessToken, forHTTPHeaderField: "Authorization")
+
+            print(request.allHTTPHeaderFields, request.url)
             let (data, response) = try await URLSession.shared.data(for: request)
-            
-            
-            
+             
             if let response = response as? HTTPURLResponse,
                response.statusCode != 200 {
                 print("Status code: \(response.statusCode)")

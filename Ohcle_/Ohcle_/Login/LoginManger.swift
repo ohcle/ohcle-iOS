@@ -168,6 +168,7 @@ final class LoginManager: ObservableObject {
             if isSucceded {
                 withAnimation {
                     signIn()
+                    print(self.ohcleAccessToken, "카카오 로그인 시 토큰")
                 }
             } else {
                 self.errorMessages = "사용자 정보 반환 후 카카오 로그인 실패"
@@ -286,7 +287,8 @@ final class LoginManager: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "userNickName")
         UserDefaults.standard.removeObject(forKey: "didSeeOnBoarding")
         UserDefaults.standard.removeObject(forKey: "isLoggedIn")
-        UserDefaults.standard.removeObject(forKey: "ohcleToken")
+        UserDefaults.standard.removeObject(forKey: "ohcleID")
+        
         UserDefaults.standard.removeObject(forKey: "isLoggohcleIDedIn")
         UserDefaults.standard.removeObject(forKey: "ohcleRefreshToken")
     }

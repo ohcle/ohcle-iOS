@@ -13,7 +13,6 @@ class RecNetworkManager {
 
     private init() {}
 
-
     private func createURLRequest(urlString: String, method: HTTPMethod) throws -> URLRequest {
         guard let url = URL(string: urlString) else {
             throw URLError(.badURL)
