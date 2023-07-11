@@ -291,6 +291,13 @@ final class LoginManager: ObservableObject {
         
         UserDefaults.standard.removeObject(forKey: "isLoggohcleIDedIn")
         UserDefaults.standard.removeObject(forKey: "ohcleRefreshToken")
+        
+//        @AppStorage("userNickName") var userNickName: String = ""
+//        @AppStorage("userImageString") var userImageString: String = ""
+//        @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
+//        @AppStorage("ohcleID") var ohcleAccessToken: String = ""
+//        @AppStorage("ohcleRefreshToken") var ohcleRefreshToken: String = ""
+        
     }
     
     private func signOutKakaoAccount() {

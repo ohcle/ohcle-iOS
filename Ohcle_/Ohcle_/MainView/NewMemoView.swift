@@ -7,6 +7,50 @@
 
 import SwiftUI
 import UIKit
+import Alamofire
+
+
+class TacoNetwork {
+    static let shared = TacoNetwork()
+    
+    private init() { }
+    
+    
+    func request(urlString: String, parameter: [String: String]? = nil, method: HTTPMethod) -> Data? {
+        guard let url = URL(string: urlString) else {
+            return nil
+        }
+        var testData: Data = Data()
+        do {
+            var request = try URLRequest(url: url, method: method)
+            request.headers.add(name: "Authorization",
+                                value: "Bearer " + LoginManager.shared.ohcleAccessToken)
+            
+            if let parameter = parameter {
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.httpBody = try JSONSerialization.data(withJSONObject: parameter, options: [])
+            }
+            
+            URLSession.shared.dataTask(with: request) { data, reponse, error in
+                if let error = error {
+                    print(error)
+                }
+                
+                if let response = reponse as? HTTPURLResponse, response.statusCode != 200 {
+                    print(response.statusCode)
+                }
+                
+                testData = data ?? Data()
+     
+            }.resume()
+            
+        } catch {
+            
+        }
+        return testData
+    }
+    
+}
 
 extension String {
     func convertToOhcleDateLiteral() -> String {
@@ -455,7 +499,6 @@ extension NewMemoView {
             }
             
             await requestMemoPicture(name: (decodedData.picture?.first ?? "이름이 없어요") ?? "")
-            
         } catch {
             print(error)
         }
@@ -472,17 +515,9 @@ extension NewMemoView {
         do {
             var request = try URLRequest(url: url, method: .get)
             
-            print(LoginManager.shared.ohcleAccessToken)
-            let test = LoginManager.shared.ohcleAccessToken
-//            request.headers.add(name: "Authorization",
-//                                value: "Bearer" + " " + test)
-//            request.headers.add(name: "Content-Type", value: "")
-//            request.headers.add(name: "Connection", value: "keep-alive")
-//            request.headers.add(name: "Accept-Encoding", value: "gzip, deflate, br")
-//            request.headers.add(name: "Accept", value: "*/*")
-            request.setValue("Bearer" + " " + LoginManager.shared.ohcleAccessToken, forHTTPHeaderField: "Authorization")
-
-            print(request.allHTTPHeaderFields, request.url)
+            request.setValue("Bearer" + " " + LoginManager.shared.ohcleAccessToken,
+                             forHTTPHeaderField: "Authorization")
+            
             let (data, response) = try await URLSession.shared.data(for: request)
              
             if let response = response as? HTTPURLResponse,
@@ -491,8 +526,7 @@ extension NewMemoView {
                 print("Response data: \(String(data: data, encoding: .utf8) ?? "")")
             }
             
-            let decoded = try? JSONDecoder().decode(ClimbingImageModel.self,
-                                                    from: data)
+            let decoded = try? JSONDecoder().decode(ClimbingImageModel.self, from: data)
             
             if let base64String = decoded?.image,
                let data = Data(base64Encoded: base64String),

@@ -69,7 +69,8 @@ struct MyPageView: View {
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: MyPageUserInfoView(thumbnailImage: $userImage, userName: $userName)) {
+                NavigationLink(destination: MyPageUserInfoView(thumbnailImage: $userImage,
+                                                               userName: $userName)) {
                     HStack {
                         userImage
                             .resizable()
