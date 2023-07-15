@@ -270,7 +270,7 @@ struct RefactorCalenderView: View {
     
     var body: some View {
         ZStack {
-            VStack {
+            VStack(spacing: 0) {
                 UpperBar {
                     calenderData.fetchCalenderData()
                 }
