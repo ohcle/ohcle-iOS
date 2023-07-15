@@ -117,12 +117,7 @@ final class CalenderData: ObservableObject {
             let weekOfMonth = calendar.component(.weekOfMonth, from: date)
             let dayOfWeek = getDayOfWeek(dateString: dateString)
             // 0: 일요일, 1: 월, 2: 화, 3: 수
-            if dayOfWeek == 0 {
-                dividedData[weekOfMonth - 1]?.updateValue(data, forKey: 7)
-            } else {
-                dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
-
-            }
+            dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
         }
         
         return dividedData
