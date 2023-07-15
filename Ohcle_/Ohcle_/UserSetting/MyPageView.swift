@@ -60,16 +60,17 @@ struct MyPageView: View {
                       iconImageString: "mypage-alarm"),
         MyPageSetting(type: .serviceNotification, title: "서비스 공지",
                       iconImageString: "mypage-service-noti"),
-        MyPageSetting(type: .personalInfo, title: "개인정보",
+        MyPageSetting(type: .personalInfo, title: "개인정보 보호정책",
                       iconImageString: "mypage-personal-info"),
-        MyPageSetting(type: .servicePolicy, title: "서비스이용", iconImageString: "mypage-use-service"),
-        MyPageSetting(type: .customerService, title: "문의", iconImageString: "mypage-question")
+        MyPageSetting(type: .servicePolicy, title: "서비스 이용약관", iconImageString: "mypage-use-service"),
+        MyPageSetting(type: .customerService, title: "문의", iconImageString: "ohcle_question")
     ]
      
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: MyPageUserInfoView(thumbnailImage: $userImage, userName: $userName)) {
+                NavigationLink(destination: MyPageUserInfoView(thumbnailImage: $userImage,
+                                                               userName: $userName)) {
                     HStack {
                         userImage
                             .resizable()
@@ -113,7 +114,6 @@ struct MyPageView: View {
                 do {
                     guard let request = try? URLRequest(url: url, method: .get) else {
                         self.userImage = Image("")
-                        
                         return
                     }
                     

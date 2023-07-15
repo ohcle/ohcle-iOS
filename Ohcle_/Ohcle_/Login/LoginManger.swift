@@ -16,7 +16,8 @@ final class LoginManager: ObservableObject {
     @AppStorage("userNickName") var userNickName: String = ""
     @AppStorage("userImageString") var userImageString: String = ""
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-    @AppStorage("ohcleID") var ohcleID: Int = .zero
+    @AppStorage("ohcleID") var ohcleAccessToken: String = ""
+    @AppStorage("ohcleRefreshToken") var ohcleRefreshToken: String = ""
     
     @Published var currentLoggedIn: Bool = false
     
@@ -42,9 +43,10 @@ final class LoginManager: ObservableObject {
     }
     
     //MARK: - Common methods
-    func saveOhcleToken(loginResult: LoginResultModel) {
+    private func saveOhcleToken(loginResult: LoginResultModel) {
         DispatchQueue.main.async {
-            LoginManager.shared.ohcleID = loginResult.userID
+            self.ohcleAccessToken = loginResult.accessToken
+            self.ohcleRefreshToken = loginResult.refreshToken
         }
     }
     
@@ -52,7 +54,7 @@ final class LoginManager: ObservableObject {
         do {
             let decodedData = try JSONDecoder().decode(LoginResultModel.self, from: data)
             
-            LoginManager.shared.saveOhcleToken(loginResult: decodedData)
+            self.saveOhcleToken(loginResult: decodedData)
             
             return true
         } catch {
@@ -68,23 +70,41 @@ final class LoginManager: ObservableObject {
     }
     
     //MARK: - Sign in Apple
-    func singInAppleAccount(_ result : Result<ASAuthorization, Error>) async {
-        if await self.isAppleLoginSucceded(result) {
-            do {
-                let loginResultData = try await requestLogin()
-                decodeAndSaveLoginResult(data: loginResultData)
-                withAnimation {
-                    signIn()
-                }
-            } catch {
-                
+    func singInWithAppleAccount(_ credential: ASAuthorizationAppleIDCredential) async {
+        saveApplLoginUsrInfo(credential: credential)
+        do {
+            let loginResultData = try await requestOhcleLogin()
+            
+            guard (loginResultData as Data?) != nil else {
+                self.deleteUserInformation()
+                return
             }
+            
+            decodeAndSaveLoginResult(data: loginResultData)
+            
+            withAnimation {
+                signIn()
+            }
+        } catch {
+            
         }
+    }
+    
+    private func saveApplLoginUsrInfo(credential: ASAuthorizationAppleIDCredential) {
+        let userID = credential.user
         
+        let firstName = credential.fullName?.familyName ?? ""
+        let lastName = credential.fullName?.givenName ?? "무명의 클라이머"
+        let email = credential.email ?? "ohcle@gmail.com"
+        
+        self.saveAppleUserInformation(userID: userID,
+                                      firstName: firstName,
+                                      lastName: lastName,
+                                      email: email)
     }
     
     private func saveAppleUserInformation(userID: String, firstName: String,
-                                  lastName: String, email: String) {
+                                          lastName: String, email: String) {
         self.userFirstName = firstName
         self.userLastName = lastName
         self.userEmail = email
@@ -94,14 +114,13 @@ final class LoginManager: ObservableObject {
         }
     }
     
-    private func requestLogin() async throws -> Data? {
+    private func requestOhcleLogin() async throws -> Data? {
         let url = getAccessTokenURL(.appleLogin)
         var request = try URLRequest(url: url, method: .post)
-        let parameter = ["id": LoginManager.shared.userID,
-                         "first_name": LoginManager.shared.userFirstName,
-                         "last_name": LoginManager.shared.userLastName,
-                         "email": LoginManager.shared.userEmail,
-                         "gender": ""]
+        
+        let parameter = ["social_id": userID,
+                         "nickname": (userFirstName + userLastName),
+                         "gender": "female"]
         
         let httpBody = try JSONSerialization.data(withJSONObject: parameter, options: [])
         request.httpBody = httpBody
@@ -131,27 +150,7 @@ final class LoginManager: ObservableObject {
             return
         }
     }
-    
-    private func isAppleLoginSucceded(_ result: Result<ASAuthorization, Error>) async -> Bool {
-        switch result {
-        case .success(let auth):
-            if let credential = auth.credential as? ASAuthorizationAppleIDCredential {
-                let userID = credential.user
-                
-                let firstName = credential.fullName?.familyName ?? ""
-                let lastName = credential.fullName?.givenName ?? "무명의 클라이머"
-                let email = credential.email ?? "ohcle@gmail.com"
-                print("🎉🎉🎉🎉🎉", firstName, lastName, email)
-                LoginManager.shared.saveAppleUserInformation(userID: userID, firstName: firstName, lastName: lastName, email: email)
-                return true
-            }
-            
-        case .failure(let error):
-            print("Apple Login Error. Error Message : \(error.localizedDescription)")
-            return false
-        }
-        return false
-    }
+
     
     //MARK: - Sign in Kakao
     func signInKakaoAccount() async {
@@ -169,6 +168,7 @@ final class LoginManager: ObservableObject {
             if isSucceded {
                 withAnimation {
                     signIn()
+                    print(self.ohcleAccessToken, "카카오 로그인 시 토큰")
                 }
             } else {
                 self.errorMessages = "사용자 정보 반환 후 카카오 로그인 실패"
@@ -179,7 +179,7 @@ final class LoginManager: ObservableObject {
         }
     }
     
-    func saveKakaoUserInfomation() async -> [UserInfo: Any?] {
+    private func saveKakaoUserInfomation() async -> [UserInfo: Any?] {
         let user = await UserApi.shared.me()
         let urlString = user?.properties?["profile_image"] ?? ""
         let userNickName = user?.properties?["nickname"] ?? "오클"
@@ -195,12 +195,14 @@ final class LoginManager: ObservableObject {
     }
     
     private func isValidOhcleUser(kakaoUserID: Int,
-                                  nickName: String, gender: String? = nil) async throws -> Bool {
+                                  nickName: String,
+                                  gender: String? = nil) async throws -> Bool {
         let url = getAccessTokenURL(.kakaoLogin)
+        
         var request = try URLRequest(url: url, method: .post)
-        let para = ["id": "\(kakaoUserID)",
+        let para = ["social_id": "\(kakaoUserID)",
                     "nickname": nickName,
-                    "gender": gender]
+                    "gender": "male"]
         
         let httpBody = try JSONSerialization.data(withJSONObject: para, options: [])
         request.httpBody = httpBody
@@ -210,8 +212,12 @@ final class LoginManager: ObservableObject {
         
         if let response = response as? HTTPURLResponse,
            response.statusCode != 200 {
-            print("reponse Code is :\(response.statusCode)")
+            print("Response Code is: \(response.statusCode)")
+            let errorData = try JSONSerialization.jsonObject(with: loginResult, options: []) as? [String: Any]
+            let errorMessage = errorData?["message"] as? String
+            throw NSError(domain: "NetworkE  rror", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: errorMessage ?? ""])
         }
+        
         
         return decodeAndSaveLoginResult(loginResult)
     }
@@ -245,12 +251,22 @@ final class LoginManager: ObservableObject {
     
     //MARK: - Log out, Sing out
     func logOut() async {
-        await logoutOhcleAccount()
-        withAnimation {
-            DispatchQueue.main.async {
-                self.isLoggedIn = false
+        let logoutResult = await logoutOhcleAccount()
+        
+        if logoutResult {
+            withAnimation {
+                DispatchQueue.main.async {
+                    self.isLoggedIn = false
+                }
             }
         }
+    }
+    
+    private func deleteUserInformation() {
+        self.userFirstName = ""
+        self.userLastName = ""
+        self.userEmail = ""
+        self.userID = ""
     }
     
     func signOut() async {
@@ -271,8 +287,17 @@ final class LoginManager: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "userNickName")
         UserDefaults.standard.removeObject(forKey: "didSeeOnBoarding")
         UserDefaults.standard.removeObject(forKey: "isLoggedIn")
-        UserDefaults.standard.removeObject(forKey: "ohcleToken")
+        UserDefaults.standard.removeObject(forKey: "ohcleID")
+        
         UserDefaults.standard.removeObject(forKey: "isLoggohcleIDedIn")
+        UserDefaults.standard.removeObject(forKey: "ohcleRefreshToken")
+        
+//        @AppStorage("userNickName") var userNickName: String = ""
+//        @AppStorage("userImageString") var userImageString: String = ""
+//        @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
+//        @AppStorage("ohcleID") var ohcleAccessToken: String = ""
+//        @AppStorage("ohcleRefreshToken") var ohcleRefreshToken: String = ""
+        
     }
     
     private func signOutKakaoAccount() {
@@ -292,18 +317,19 @@ final class LoginManager: ObservableObject {
     }
     
     private func signOutOhcleAccount() async {
-        let ohcleID = LoginManager.shared.ohcleID
-        print(ohcleID)
+        let ohcleID = LoginManager.shared.ohcleAccessToken
         
-        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(ohcleID)"
+        let urlString = "https://api-gw.todayclimbing.com/v1/user/me"
         
         guard let url = URL(string: urlString) else {
             return
         }
         
         do {
-            let request = try URLRequest(url: url, method: .delete)
+            var request = try URLRequest(url: url, method: .delete)
             let (_, response) = try await URLSession.shared.data(for: request)
+            
+            request.headers.add(name: "Authorization", value: "Bearer \(self.ohcleAccessToken)")
             
             if let response = response as? HTTPURLResponse, response.statusCode != 200 {
                 print(response)
@@ -313,22 +339,41 @@ final class LoginManager: ObservableObject {
         }
     }
     
-    private func logoutOhcleAccount() async {
-        let urlString = "https://api-gw.todayclimbing.com/v1/user/\(self.ohcleID)/signout"
+    private func logoutOhcleAccount() async -> Bool {
+        let urlString = "https://api-gw.todayclimbing.com/v1/user/logout"
         
         guard let url = URL(string: urlString) else {
-            return
+            return false
         }
         
         do {
-            let request = try URLRequest(url: url, method: .patch)
+            var request = try URLRequest(url: url, method: .post)
+            let para = ["access": self.ohcleAccessToken,
+                        "refresh": self.ohcleRefreshToken]
+            
+            let httpBody = try JSONSerialization.data(withJSONObject: para, options: [])
+            request.httpBody = httpBody
+            
             let (_, response) = try await URLSession.shared.data(for: request)
             
-            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+            guard let response = response as? HTTPURLResponse else {
                 print(response)
+                return false
             }
+            
+            return isLogoutSucceded(responseCode: response.statusCode)
+            
         } catch {
             print(error)
+            return false
+        }
+    }
+    
+    private func isLogoutSucceded(responseCode: Int) -> Bool {
+        if responseCode == 204 {
+            return true
+        } else {
+            return false
         }
     }
 }

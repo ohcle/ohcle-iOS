@@ -25,11 +25,14 @@ func getDayOfWeek(dateString: String) -> Int {
     return weekday - 1
 }
 
-class CalenderData: ObservableObject {
+final class CalenderData: ObservableObject {
     @Published var year: String = "2023"
     @Published var month: String = OhcleDate.currentMonthString ?? ""
     @Published var switchWhenMemoChanged: Bool = false
     @Published var data: DividedMonthDataType = [:]
+    
+    private(set) var dateRange: [(date: Date, isCurrentMonth: Bool)]?
+    
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
@@ -38,6 +41,7 @@ class CalenderData: ObservableObject {
             .sink { [weak self] year, month in
                 self?.fetchCalenderData()
                 self?.changeSelectedDate()
+                self?.dateRange = self?.organizeDateRange()
             }
             .store(in: &cancellables)
         
@@ -62,7 +66,11 @@ class CalenderData: ObservableObject {
         }
         
         do {
-            let request = try URLRequest(url: url, method: .get)
+            var request = try URLRequest(url: url, method: .get)
+            
+            request.headers.add(name: "Authorization",
+                                 value: "Bearer " + LoginManager.shared.ohcleAccessToken)
+            print(LoginManager.shared.ohcleAccessToken, "💜")
             URLSession.shared.dataTask(with: request) { data, response, error in
                 
                 if let response = response as? HTTPURLResponse,
@@ -74,7 +82,7 @@ class CalenderData: ObservableObject {
                     do {
                         let decoded = try JSONDecoder().decode([CalenderModel].self, from: data)
                         let divided = self.divideWeekData(decoded)
-                        
+                        print(divided)
                         DispatchQueue.main.async {
                             self.data = divided
                         }
@@ -95,7 +103,9 @@ class CalenderData: ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale(identifier: "kr")
         let calendar = Calendar(identifier: .gregorian)
-        var dividedData: DividedMonthDataType = [1: [:], 2: [:], 3: [:], 4: [:], 5: [:]]
+        var dividedData: DividedMonthDataType = [1: [:], 2: [:], 3: [:],
+                                                 4: [:], 5: [:], 6:[:]]
+        print("dividedData", dividedData)
         
         _ = data.map { data in
             let dateString = data.when
@@ -103,8 +113,13 @@ class CalenderData: ObservableObject {
             
             let weekOfMonth = calendar.component(.weekOfMonth, from: date)
             let dayOfWeek = getDayOfWeek(dateString: dateString)
-            
-            dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
+            // 0: 일요일, 1: 월, 2: 화, 3: 수
+            if dayOfWeek == 0 {
+                dividedData[weekOfMonth - 1]?.updateValue(data, forKey: 7)
+            } else {
+                dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
+
+            }
         }
         
         return dividedData
@@ -176,7 +191,7 @@ class CalenderData: ObservableObject {
         selectedDate = calendar.date(byAdding: .month, value: -1, to: selectedDate)!
     }
     
-    func dateRange() -> [(date: Date, isCurrentMonth: Bool)] {
+    func organizeDateRange() -> [(date: Date, isCurrentMonth: Bool)] {
         var dates: [(date: Date, isCurrentMonth: Bool)] = []
             
             let components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
@@ -194,7 +209,8 @@ class CalenderData: ObservableObject {
             // Add dates from the previous month
             for day in (previousMonthRange.upperBound - previousMonthOffset)..<previousMonthRange.upperBound {
                 _ = calendar.dateComponents([.year, .month], from: previousMonthDate)
-                let date = calendar.date(byAdding: .day, value: day - (previousMonthRange.upperBound - previousMonthOffset), to: previousMonthDate)!
+                let date = calendar.date(byAdding: .day, value: day - (previousMonthRange.upperBound - previousMonthOffset),
+                                         to: previousMonthDate)!
                 dates.append((date, false))
             }
             
@@ -214,6 +230,7 @@ class CalenderData: ObservableObject {
                 dates.append((date, false))
             }
             
+            print("💜",dates, "💜")
             return dates
     }
 }
@@ -272,7 +289,8 @@ struct CalenderHolderView: View {
     @ObservedObject var calenderData: CalenderData
     @State private var isModal: Bool = false
     @State private var diaryID: Int = .zero
-    
+    @State private var dateRange:  [(date: Date, isCurrentMonth: Bool)]?
+    // 해당 월이 몇 주까지 가지고 있는지
     init(calenderData: CalenderData) {
         self.calenderData = calenderData
         self.isModal = isModal
@@ -290,7 +308,7 @@ struct CalenderHolderView: View {
                         
                         CalenderHolderGridView(isClimbedDate: true,
                                                holderType: holderType,
-                                               date: calenderData.dateRange()[((week - 1) * 7 + day)])
+                                               date: calenderData.dateRange?[((week - 1) * 7 + day)])
                         .onTapGesture {
                             if let recordID = calenderData.data[week]?[day]?.id {
                                 diaryID = recordID
@@ -300,6 +318,7 @@ struct CalenderHolderView: View {
                     }
                 }
             }
+            
         }
         .sheet(isPresented: $isModal) {
             NewMemoView(isModalView: $isModal,

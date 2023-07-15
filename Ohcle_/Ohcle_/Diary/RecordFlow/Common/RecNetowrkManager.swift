@@ -13,19 +13,24 @@ class RecNetworkManager {
 
     private init() {}
 
-
     private func createURLRequest(urlString: String, method: HTTPMethod) throws -> URLRequest {
         guard let url = URL(string: urlString) else {
             throw URLError(.badURL)
         }
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
+        request.headers.add(name: "Authorization",
+                            value: "Bearer " + LoginManager.shared.ohcleAccessToken)
         return request
     }
 
     private func performRequest(urlString: String, method: HTTPMethod, parameters: [String: Any]? = nil, completion: @escaping (Result<Data, Error>) -> Void) {
         do {
             var request = try createURLRequest(urlString: urlString, method: method)
+            request.headers.add(name: "Authorization",
+                                value: "Bearer \(LoginManager.shared.ohcleAccessToken)")
+
+            print(LoginManager.shared.ohcleAccessToken)
             
             if let parameters = parameters, method == .post {
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -172,7 +177,6 @@ class RecNetworkManager {
             case .failure(_):
                 completion(false)
             }
-            
         }
     }
     

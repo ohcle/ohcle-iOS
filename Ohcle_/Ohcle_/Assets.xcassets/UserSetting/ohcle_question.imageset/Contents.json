@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "apple_login_medium_wide_Anna.png",
+      "filename" : "ohcle_question.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "ohcle_question@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "ohcle_question@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

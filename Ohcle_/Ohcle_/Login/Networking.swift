@@ -18,8 +18,8 @@ func getAccessTokenURL(_ url: OhcleURLs) -> URL {
 
 enum OhcleURLs: String {
     case baseURL = "https://api-gw.todayclimbing.com/"
-    case kakaoLogin = "https://api-gw.todayclimbing.com/v1/signin/kakao"
-    case appleLogin = "https://api-gw.todayclimbing.com/v1/signin/apple"
+    case kakaoLogin = "https://api-gw.todayclimbing.com/v1/user/login/kakao"
+    case appleLogin = "https://api-gw.todayclimbing.com/v1/user/login/apple"
     
     static func generateMonthRecordURLString(year: String, month: String,
                                        baseURL: OhcleURLs = .baseURL) -> String {
@@ -33,7 +33,10 @@ func fetchData(urlString: String, method: HTTPMethod) async throws -> Data {
     }
     
     do {
-        let request = try URLRequest(url: url, method: method)
+        var request = try URLRequest(url: url, method: method)
+        request.headers.add(name: "Authorization",
+                            value: "Bearer " + LoginManager.shared.ohcleAccessToken)
+        
         let (data, response) = try await URLSession.shared.data(for: request)
         if let response = response as? HTTPURLResponse,
             response.statusCode != 200 {
