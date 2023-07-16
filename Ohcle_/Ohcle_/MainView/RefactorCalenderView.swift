@@ -51,7 +51,14 @@ final class CalenderData: ObservableObject {
                 self?.fetchCalenderData()
             }
             .store(in: &cancellables)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didRecieveFetchCalendarNotification(_:)), name: NSNotification.Name("fetchCalendarData"), object: nil)
     }
+    
+    @objc func didRecieveFetchCalendarNotification(_ notification: Notification) {
+        print("Fetch")
+        fetchCalenderData()
+     }
     
     func fetchCalenderData() {
         guard let url = URL(string: OhcleURLs.generateMonthRecordURLString(year: self.year, month: self.month)) else {
