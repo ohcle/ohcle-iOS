@@ -30,6 +30,7 @@ final class CalenderData: ObservableObject {
     @Published var month: String = OhcleDate.currentMonthString ?? ""
     @Published var switchWhenMemoChanged: Bool = false
     @Published var data: DividedMonthDataType = [:]
+    @Published var weekCnt = 5
     
     private(set) var dateRange: [(date: Date, isCurrentMonth: Bool)]?
     
@@ -39,6 +40,7 @@ final class CalenderData: ObservableObject {
         $year.combineLatest($month)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] year, month in
+                self?.setWeekCnt()
                 self?.fetchCalenderData()
                 self?.changeSelectedDate()
                 self?.dateRange = self?.organizeDateRange()
@@ -52,6 +54,7 @@ final class CalenderData: ObservableObject {
             }
             .store(in: &cancellables)
         
+        setWeekCnt()
         NotificationCenter.default.addObserver(self, selector: #selector(didRecieveFetchCalendarNotification(_:)), name: NSNotification.Name("fetchCalendarData"), object: nil)
     }
     
@@ -114,12 +117,8 @@ final class CalenderData: ObservableObject {
             let weekOfMonth = calendar.component(.weekOfMonth, from: date)
             let dayOfWeek = getDayOfWeek(dateString: dateString)
             // 0: 일요일, 1: 월, 2: 화, 3: 수
-            if dayOfWeek == 0 {
-                dividedData[weekOfMonth - 1]?.updateValue(data, forKey: 7)
-            } else {
-                dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
-                
-            }
+            dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
+
         }
         
         return dividedData
@@ -233,6 +232,29 @@ final class CalenderData: ObservableObject {
         print("💜",dates, "💜")
         return dates
     }
+    
+    func setWeekCnt() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier: "kr")
+        let calendar = Calendar(identifier: .gregorian)
+        
+        guard let startDate = dateFormatter.date(from: self.year + "-" + self.month + "-" + "01") else { return }
+        guard let lastDayOfMonth = calendar.range(of: .day, in: .month, for: startDate) else { return }
+        guard let lastDate = dateFormatter.date(from: self.year + "-" + self.month + "-" + String(lastDayOfMonth.upperBound-1)) else { return }
+        guard let startWeekday = calendar.dateComponents([.year, .month, .weekday], from: startDate).weekday else { return }
+
+        var curDate = 1
+        var weekCnt = 1 + Int(((lastDayOfMonth.upperBound - 1) - curDate) / 7)
+        curDate = curDate + Int(((lastDayOfMonth.upperBound - 1) - curDate) / 7) * 7
+        let remainDay = (lastDayOfMonth.upperBound - 1) - curDate
+        if (startWeekday + remainDay) > 7 {
+            weekCnt += 1
+        }
+        
+        self.weekCnt = weekCnt
+    }
+    
 }
 
 struct RefactorCalenderView: View {
@@ -244,7 +266,7 @@ struct RefactorCalenderView: View {
     
     var body: some View {
         ZStack {
-            VStack {
+            VStack(spacing: 0) {
                 UpperBar {
                     calenderData.fetchCalenderData()
                 }
@@ -300,9 +322,9 @@ struct CalenderHolderView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(1...5, id:\.self) { week in
+            ForEach(1...calenderData.weekCnt, id:\.self) { week in
                 HStack(spacing: 0) {
-                    ForEach(1...7, id: \.self) { day in
+                    ForEach(0...6, id: \.self) { day in
                         let level = calenderData.data[week]?[day]?.level ?? 11
                         let holderColor: HolderColorNumber = HolderColorNumber(rawValue: "\(level)") ?? .red
                         let holderType = HolderType(holderColor: holderColor, nil)
