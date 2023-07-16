@@ -344,19 +344,25 @@ struct SendableClibmingMemo: Codable {
 
 extension NewMemoView {
     private func deleteMemo(id: Int) async {
-        guard let url = URL(string: "https://api-gw.todayclimbing.com/v1/climbing/\(id)") else {
+        guard let url = URL(string: "https://api-gw.todayclimbing.com/v1/climbing/\(id)/") else {
             return
         }
+        
+        print(url)
         
         do {
             var request = try URLRequest(url: url, method: .delete)
             request.headers.add(name: "Authorization",
                                 value: "Bearer " + LoginManager.shared.ohcleAccessToken)
-            let (_, response) = try await URLSession.shared.data(for: request)
+            print(LoginManager.shared.ohcleAccessToken)
+            let (data, response) = try await URLSession.shared.data(for: request)
             
             if let response = response as? HTTPURLResponse,
-               response.statusCode != 200 {
-                print(response.statusCode)
+               response.statusCode >= 200 && response.statusCode < 300 {
+                let errorMessage = String(data: data, encoding: .utf8)
+                print("Error message: \(errorMessage)")
+            } else {
+                refreshCalenderView()
             }
             
             refreshCalenderView()
@@ -406,8 +412,8 @@ extension NewMemoView {
                 print("Status code: \(response.statusCode)")
                 print("Response message: \(String(data: data, encoding: .utf8) ?? "")")
             }
-            
             refreshCalenderView()
+
         } catch {
             print(error)
         }

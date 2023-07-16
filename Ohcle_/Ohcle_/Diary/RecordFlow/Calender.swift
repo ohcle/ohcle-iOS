@@ -36,6 +36,7 @@ struct Calender: View {
             
             DatePicker(
                 "", selection: $date,
+                in: ...date,
                 displayedComponents: [.date]
             )
 
