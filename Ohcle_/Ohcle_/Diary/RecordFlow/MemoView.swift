@@ -19,6 +19,7 @@ struct MemoView: View {
     private let memoBackgroundColor = Color("DiaryBackgroundColor")
 
     @EnvironmentObject var currentPageType: MyPageType
+    
     @Binding var isModal: Bool
     
     @State private var keyboardHeight: CGFloat = 0
@@ -43,7 +44,7 @@ struct MemoView: View {
                 .frame(width: 30, height: 30)
                 .padding(.top, 20)
             
-            Text("\(date)")
+            Text("\(date.convertToOhcleDateLiteral())")
                 .font(.title)
             
             HStack(spacing: 5) {
@@ -133,11 +134,11 @@ struct MemoView: View {
 
                             } else {
                                 DispatchQueue.main.async {
-                                    currentPageType.type = .done
-                                    currentPageType.type = .calender
-                                }
-                                
-                                
+                                    withAnimation {
+                                        currentPageType.type = .done
+                                        currentPageType.type = .calender
+                                    }
+                                }                 
                                 NotificationCenter.default.post(name: NSNotification.Name("fetchCalendarData"), object: nil, userInfo: nil)
                                 self.selectedTab = 1
                                 CalendarDataManger.shared.record.clearRecord()

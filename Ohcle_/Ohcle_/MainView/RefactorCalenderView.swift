@@ -72,7 +72,7 @@ final class CalenderData: ObservableObject {
             var request = try URLRequest(url: url, method: .get)
             
             request.headers.add(name: "Authorization",
-                                 value: "Bearer " + LoginManager.shared.ohcleAccessToken)
+                                value: "Bearer " + LoginManager.shared.ohcleAccessToken)
             print(LoginManager.shared.ohcleAccessToken, "💜")
             URLSession.shared.dataTask(with: request) { data, response, error in
                 
@@ -118,6 +118,7 @@ final class CalenderData: ObservableObject {
             let dayOfWeek = getDayOfWeek(dateString: dateString)
             // 0: 일요일, 1: 월, 2: 화, 3: 수
             dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
+
         }
         
         return dividedData
@@ -191,45 +192,45 @@ final class CalenderData: ObservableObject {
     
     func organizeDateRange() -> [(date: Date, isCurrentMonth: Bool)] {
         var dates: [(date: Date, isCurrentMonth: Bool)] = []
-            
-            let components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
-            let startDate = calendar.date(from: components)!
-            
-            let startComponents = calendar.dateComponents([.year, .month, .weekday], from: startDate)
-            let startWeekday = startComponents.weekday!
-            let numberOfDaysInMonth = calendar.range(of: .day, in: .month, for: startDate)!.count
-            
-            // Calculate the number of days to display from the previous month
-            let previousMonthOffset = (startWeekday - calendar.firstWeekday + 7) % 7
-            let previousMonthDate = calendar.date(byAdding: .month, value: -1, to: startDate)!
-            let previousMonthRange = calendar.range(of: .day, in: .month, for: previousMonthDate)!
-            
-            // Add dates from the previous month
-            for day in (previousMonthRange.upperBound - previousMonthOffset)..<previousMonthRange.upperBound {
-                _ = calendar.dateComponents([.year, .month], from: previousMonthDate)
-                let date = calendar.date(byAdding: .day, value: day - (previousMonthRange.upperBound - previousMonthOffset),
-                                         to: previousMonthDate)!
-                dates.append((date, false))
-            }
-            
-            // Add dates from the current month
-            for day in 1...numberOfDaysInMonth {
-                let date = calendar.date(byAdding: .day, value: day - 1, to: startDate)!
-                dates.append((date, true))
-            }
-            
-            // Calculate the number of days to display from the next month
-            let remainingDays = 42 - (previousMonthOffset + numberOfDaysInMonth)
-            let nextMonthDate = calendar.date(byAdding: .month, value: 1, to: startDate)!
-            
-            // Add dates from the next month
-            for day in 1...remainingDays {
-                let date = calendar.date(byAdding: .day, value: day - 1, to: nextMonthDate)!
-                dates.append((date, false))
-            }
-            
-            print("💜",dates, "💜")
-            return dates
+        
+        let components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
+        let startDate = calendar.date(from: components)!
+        
+        let startComponents = calendar.dateComponents([.year, .month, .weekday], from: startDate)
+        let startWeekday = startComponents.weekday!
+        let numberOfDaysInMonth = calendar.range(of: .day, in: .month, for: startDate)!.count
+        
+        // Calculate the number of days to display from the previous month
+        let previousMonthOffset = (startWeekday - calendar.firstWeekday + 7) % 7
+        let previousMonthDate = calendar.date(byAdding: .month, value: -1, to: startDate)!
+        let previousMonthRange = calendar.range(of: .day, in: .month, for: previousMonthDate)!
+        
+        // Add dates from the previous month
+        for day in (previousMonthRange.upperBound - previousMonthOffset)..<previousMonthRange.upperBound {
+            _ = calendar.dateComponents([.year, .month], from: previousMonthDate)
+            let date = calendar.date(byAdding: .day, value: day - (previousMonthRange.upperBound - previousMonthOffset),
+                                     to: previousMonthDate)!
+            dates.append((date, false))
+        }
+        
+        // Add dates from the current month
+        for day in 1...numberOfDaysInMonth {
+            let date = calendar.date(byAdding: .day, value: day - 1, to: startDate)!
+            dates.append((date, true))
+        }
+        
+        // Calculate the number of days to display from the next month
+        let remainingDays = 42 - (previousMonthOffset + numberOfDaysInMonth)
+        let nextMonthDate = calendar.date(byAdding: .month, value: 1, to: startDate)!
+        
+        // Add dates from the next month
+        for day in 1...remainingDays {
+            let date = calendar.date(byAdding: .day, value: day - 1, to: nextMonthDate)!
+            dates.append((date, false))
+        }
+        
+        print("💜",dates, "💜")
+        return dates
     }
     
     func setWeekCnt() {
@@ -311,6 +312,7 @@ struct CalenderHolderView: View {
     @State private var isModal: Bool = false
     @State private var diaryID: Int = .zero
     @State private var dateRange:  [(date: Date, isCurrentMonth: Bool)]?
+    
     // 해당 월이 몇 주까지 가지고 있는지
     init(calenderData: CalenderData) {
         self.calenderData = calenderData
