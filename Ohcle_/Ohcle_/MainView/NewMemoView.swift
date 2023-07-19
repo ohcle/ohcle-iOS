@@ -165,8 +165,9 @@ struct NewMemoView: View {
                         if isDateTapped {
                             DatePicker("Select a date",
                                        selection: $selectedDate,
+                                       in: ...Date(),
                                        displayedComponents: [.date])
-                            .datePickerStyle(.compact)
+                            .datePickerStyle(.automatic)
                             .labelsHidden()
                         }
                     }
@@ -520,10 +521,9 @@ extension NewMemoView {
         
         do {
             var request = try URLRequest(url: url, method: .get)
-            
-            request.setValue("Bearer" + " " + LoginManager.shared.ohcleAccessToken,
+            request.addValue("Bearer \(LoginManager.shared.ohcleAccessToken)",
                              forHTTPHeaderField: "Authorization")
-            
+
             let (data, response) = try await URLSession.shared.data(for: request)
              
             if let response = response as? HTTPURLResponse,

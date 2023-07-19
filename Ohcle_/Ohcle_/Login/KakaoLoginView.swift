@@ -32,8 +32,6 @@ extension UserApi {
 }
 
 struct KakaoLoginView: View {
-
-    
     var body: some View {
         Button {
              //MARK: 카카오톡 존재 시
