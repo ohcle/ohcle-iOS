@@ -180,7 +180,7 @@ struct NewMemoView: View {
                                    selection: $selectedDate,
                                    in: ...Date(),
                                    displayedComponents: [.date])
-                        .datePickerStyle(.graphical)
+                        .datePickerStyle(.wheel)
                         .labelsHidden()
                         .accentColor(.orange)
                         .environment(\.locale, Locale.init(identifier: "ko"))
