@@ -329,6 +329,8 @@ final class LoginManager: ObservableObject {
                 clearUserDefaults()
                 signOutAppleAccount()
                 signOutKakaoAccount()
+                
+                CalendarDataManger.shared.record.clearRecord()
             } else {
                 let _ = String(data: data, encoding: .utf8)
             }

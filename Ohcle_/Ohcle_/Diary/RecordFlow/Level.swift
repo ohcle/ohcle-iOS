@@ -144,7 +144,7 @@ extension Color {
         case Color("holder-darkgray"):
             return "holder-darkgray"
         default:
-            return "Level Color Error"
+            return "orange"
         }
     }
     
@@ -177,7 +177,7 @@ extension Color {
         case "holder-darkgray" :
             return Color("holder-darkgray")
         default:
-            return Color(.cyan)
+            return Color(.orange)
         }
     }
 }

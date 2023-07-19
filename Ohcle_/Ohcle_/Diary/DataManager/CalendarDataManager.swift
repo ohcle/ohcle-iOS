@@ -121,9 +121,7 @@ class CalendarDataManger {
     var record:Record = Record()
     
     
-    private init() {
-        
-    }
+    private init() { }
     
     func getData(year: String, month: String) async {
         
