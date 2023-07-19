@@ -25,11 +25,11 @@ struct MyPageUserInfoView: View {
                 
                 (Text("계정\n")
                     .foregroundColor(.gray)
-                    .bold()
                  +
                  Text(String(userName))
                     .foregroundColor(.black)
                 )
+                .padding(.bottom, 10)
                 .multilineTextAlignment(.center)
                 
                 Button {
@@ -47,9 +47,7 @@ struct MyPageUserInfoView: View {
                         .foregroundColor(.white)
                 }
                 .padding(.bottom, 76)
-                
-                Spacer()
-                
+                                
                 Button {
                     Task {
                         await LoginManager.shared.signOut()
@@ -57,7 +55,7 @@ struct MyPageUserInfoView: View {
                 } label: {
                     Text("탈퇴하기")
                         .foregroundColor(.gray)
-                        .bold()
+                        .font(.caption)
                 }
                 
                 Spacer()

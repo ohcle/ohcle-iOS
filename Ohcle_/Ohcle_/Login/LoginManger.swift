@@ -306,7 +306,6 @@ final class LoginManager: ObservableObject {
     }
     
     private func signOutOhcleAccount() async {
-        let ohcleID = LoginManager.shared.ohcleAccessToken
         let urlString = "https://api-gw.todayclimbing.com/v1/user/me"
         
         guard let url = URL(string: urlString) else {

@@ -41,7 +41,7 @@ class TacoNetwork {
                 }
                 
                 testData = data ?? Data()
-     
+                
             }.resume()
             
         } catch {
@@ -121,6 +121,7 @@ struct NewMemoView: View {
                                 .padding(.top, 20)
                         }
                     }
+                    
                     Button {
                         self.isLevelCircleTapped = true
                     } label: {
@@ -157,35 +158,37 @@ struct NewMemoView: View {
                     }
                     
                     Button {
-                        self.isDateTapped = true
+                        withAnimation {
+                            self.isDateTapped.toggle()
+                        }
                     } label: {
                         Text("\(date.convertToOhcleDateLiteral())")
                             .font(.title)
                             .foregroundColor(.black)
-                        if isDateTapped {
-                            DatePicker("Select a date",
-                                       selection: $selectedDate,
-                                       in: ...Date(),
-                                       displayedComponents: [.date])
-                            .datePickerStyle(.automatic)
-                            .labelsHidden()
-                        }
                     }
                     .onChange(of: selectedDate) { newValue in
                         withAnimation {
-                            self.isDateTapped = false
                             let dateFormatter = DateFormatter()
                             dateFormatter.dateFormat = "yyyy-MM-dd"
                             let dateString = dateFormatter.string(from: newValue)
                             self.date = dateString
+                            self.isDateTapped = false
                         }
                     }
-                    
+                    if isDateTapped {
+                        DatePicker("Select a date",
+                                   selection: $selectedDate,
+                                   in: ...Date(),
+                                   displayedComponents: [.date])
+                        .datePickerStyle(.graphical)
+                        .labelsHidden()
+                        .accentColor(.orange)
+                        .environment(\.locale, Locale.init(identifier: "ko"))
+                    }
+
                     HStack(spacing: 5) {
                         NavigationLink {
-                            ClimbingLocationSearch(selectedLocation: $climbingLocation,
-                                                   selectedname: $climbingLocation.name)
-                            
+                            ClimbingLocationSearch(selectedLocation: $climbingLocation, selectedname: $climbingLocation.name)
                         } label: {
                             Image(systemName: mapImageName)
                                 .foregroundColor(.gray)
@@ -413,8 +416,9 @@ extension NewMemoView {
                 print("Status code: \(response.statusCode)")
                 print("Response message: \(String(data: data, encoding: .utf8) ?? "")")
             }
+            
             refreshCalenderView()
-
+            
         } catch {
             print(error)
         }
@@ -523,9 +527,9 @@ extension NewMemoView {
             var request = try URLRequest(url: url, method: .get)
             request.addValue("Bearer \(LoginManager.shared.ohcleAccessToken)",
                              forHTTPHeaderField: "Authorization")
-
+            
             let (data, response) = try await URLSession.shared.data(for: request)
-             
+            
             if let response = response as? HTTPURLResponse,
                response.statusCode != 200 {
                 print("Status code: \(response.statusCode)")
