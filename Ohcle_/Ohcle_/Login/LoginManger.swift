@@ -365,7 +365,6 @@ final class LoginManager: ObservableObject {
             }
             
             return isLogoutSucceded(responseCode: response.statusCode)
-            
         } catch {
             print(error)
             return false

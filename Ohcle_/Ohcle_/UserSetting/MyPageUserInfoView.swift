@@ -34,10 +34,10 @@ struct MyPageUserInfoView: View {
                 
                 Button {
                     Task {
-                        await LoginManager.shared.logOut()
+                        await LoginManager.shared.signOut()
                     }
                 } label: {
-                    Text("로그아웃")
+                    Text("탈퇴하기")
                         .font(.body)
                         .frame(width: geometry.size.width * 8/10
                         )
@@ -47,19 +47,8 @@ struct MyPageUserInfoView: View {
                         .foregroundColor(.white)
                 }
                 .padding(.bottom, 76)
-                                
-                Button {
-                    Task {
-                        await LoginManager.shared.signOut()
-                    }
-                } label: {
-                    Text("탈퇴하기")
-                        .foregroundColor(.gray)
-                        .font(.caption)
-                }
-                
+
                 Spacer()
-                
             }.padding()
         }
     }
