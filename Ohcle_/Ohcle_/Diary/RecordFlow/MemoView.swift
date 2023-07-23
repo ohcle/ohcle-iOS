@@ -144,7 +144,6 @@ struct MemoView: View {
                                 CalendarDataManger.shared.record.clearRecord()
                             }
                         }
-
                 }
                 Spacer()
             }
