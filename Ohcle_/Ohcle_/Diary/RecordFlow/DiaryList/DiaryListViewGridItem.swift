@@ -80,34 +80,50 @@ struct DiaryListViewGridItem: View {
                 .resizable()
                 .frame(width: UIScreen.screenSize.width * 2/7,
                        height: UIScreen.screenSize.width * 2/7)
-            LazyVStack(alignment: .leading, spacing: 13) {
+                .cornerRadius(10)
+            
+            LazyVStack(alignment: .leading, spacing: 10) {
                 Text("날짜  ")
                     .foregroundColor(.gray)
+                    .font(.caption)
                 + Text(self.date ?? OhcleDate.currentDate)
+                    .font(.caption)
+
                 
                 HStack(alignment: .top) {
-                    Text("장소  ")
+                    Text("장소")
                         .foregroundColor(.gray)
+                        .font(.caption)
                     Text(self.location ?? "오클 클라이밍")
+                        .font(.caption)
+
                     Spacer()
                 }
                 
                 HStack {
                     Text("레벨 ")
                         .foregroundColor(.gray)
+                        .font(.caption)
+
                     Circle()
                         .foregroundColor(self.levelColor)
-                        .frame(width: 18)
+                        .frame(width: 15)
                 }
                 
                 HStack {
                     Text("점수")
                         .foregroundColor(.gray)
+                        .font(.caption)
+
                     ScoreStar(rating: $scoreNumber)
                         .allowsHitTesting(false)
+                        .font(.caption)
                         .padding(.bottom, 3)
                 }
             }
+            .frame(minWidth: 0, maxWidth: .infinity,
+                   minHeight: UIScreen.screenSize.width * 2/7, maxHeight: UIScreen.screenSize.width * 2/7)
+
         }
     }
 }
