@@ -284,8 +284,10 @@ struct RefactorCalenderView: View {
             
             if !self.isDismissed {
                 withAnimation {
-                    DateFilterView(currentYear: 2023, isSelected: $isSelected,
-                                   isDismissed: $isDismissed, calenderData: calenderData)
+                    DateFilterView(currentYear: 2023,
+                                   isSelected: $isSelected,
+                                   isDismissed: $isDismissed,
+                                   calenderData: calenderData)
                     .frame(minWidth: 250, idealWidth: 250, maxWidth: 250, minHeight: 250,
                            idealHeight: 250, maxHeight: 250, alignment: .center)
                     .background(Color.white)
@@ -313,7 +315,6 @@ struct CalenderHolderView: View {
     @State private var diaryID: Int = .zero
     @State private var dateRange:  [(date: Date, isCurrentMonth: Bool)]?
     
-    // 해당 월이 몇 주까지 가지고 있는지
     init(calenderData: CalenderData) {
         self.calenderData = calenderData
         self.isModal = isModal

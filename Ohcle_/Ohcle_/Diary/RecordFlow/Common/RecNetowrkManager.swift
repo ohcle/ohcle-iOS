@@ -193,6 +193,6 @@ class RecNetworkManager {
             "holder-lightgray": 9,
             "holder-darkgray": 10
         ]
-        return levelDict[levelStr] ?? 0
+        return levelDict[levelStr] ?? 2
     }
 }

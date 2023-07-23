@@ -41,7 +41,7 @@ class TacoNetwork {
                 }
                 
                 testData = data ?? Data()
-     
+                
             }.resume()
             
         } catch {
@@ -50,6 +50,72 @@ class TacoNetwork {
         return testData
     }
     
+}
+
+extension UIImage {
+    /// Fix image orientaton to protrait up
+    func fixedOrientation() -> UIImage? {
+        guard imageOrientation != UIImage.Orientation.up else {
+            // This is default orientation, don't need to do anything
+            return self.copy() as? UIImage
+        }
+
+        guard let cgImage = self.cgImage else {
+            // CGImage is not available
+            return nil
+        }
+
+        guard let colorSpace = cgImage.colorSpace, let ctx = CGContext(data: nil, width: Int(size.width), height: Int(size.height), bitsPerComponent: cgImage.bitsPerComponent, bytesPerRow: 0, space: colorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else {
+            return nil // Not able to create CGContext
+        }
+
+        var transform: CGAffineTransform = CGAffineTransform.identity
+
+        switch imageOrientation {
+        case .down, .downMirrored:
+            transform = transform.translatedBy(x: size.width, y: size.height)
+            transform = transform.rotated(by: CGFloat.pi)
+        case .left, .leftMirrored:
+            transform = transform.translatedBy(x: size.width, y: 0)
+            transform = transform.rotated(by: CGFloat.pi / 2.0)
+        case .right, .rightMirrored:
+            transform = transform.translatedBy(x: 0, y: size.height)
+            transform = transform.rotated(by: CGFloat.pi / -2.0)
+        case .up, .upMirrored:
+            break
+        @unknown default:
+            fatalError("Missing...")
+            break
+        }
+
+        // Flip image one more time if needed to, this is to prevent flipped image
+        switch imageOrientation {
+        case .upMirrored, .downMirrored:
+            transform = transform.translatedBy(x: size.width, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+        case .leftMirrored, .rightMirrored:
+            transform = transform.translatedBy(x: size.height, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+        case .up, .down, .left, .right:
+            break
+        @unknown default:
+            fatalError("Missing...")
+            break
+        }
+
+        ctx.concatenate(transform)
+
+        switch imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            ctx.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.height, height: size.width))
+        default:
+            ctx.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            break
+        }
+
+        guard let newCGImage = ctx.makeImage() else { return nil }
+        return UIImage.init(cgImage: newCGImage, scale: 1, orientation: .up)
+    }
 }
 
 extension String {
@@ -121,6 +187,7 @@ struct NewMemoView: View {
                                 .padding(.top, 20)
                         }
                     }
+                    
                     Button {
                         self.isLevelCircleTapped = true
                     } label: {
@@ -157,34 +224,37 @@ struct NewMemoView: View {
                     }
                     
                     Button {
-                        self.isDateTapped = true
+                        withAnimation {
+                            self.isDateTapped.toggle()
+                        }
                     } label: {
                         Text("\(date.convertToOhcleDateLiteral())")
                             .font(.title)
                             .foregroundColor(.black)
-                        if isDateTapped {
-                            DatePicker("Select a date",
-                                       selection: $selectedDate,
-                                       displayedComponents: [.date])
-                            .datePickerStyle(.compact)
-                            .labelsHidden()
-                        }
                     }
                     .onChange(of: selectedDate) { newValue in
                         withAnimation {
-                            self.isDateTapped = false
                             let dateFormatter = DateFormatter()
                             dateFormatter.dateFormat = "yyyy-MM-dd"
                             let dateString = dateFormatter.string(from: newValue)
                             self.date = dateString
+                            self.isDateTapped = false
                         }
                     }
-                    
+                    if isDateTapped {
+                        DatePicker("Select a date",
+                                   selection: $selectedDate,
+                                   in: ...Date(),
+                                   displayedComponents: [.date])
+                        .datePickerStyle(.wheel)
+                        .labelsHidden()
+                        .accentColor(.orange)
+                        .environment(\.locale, Locale.init(identifier: "ko"))
+                    }
+
                     HStack(spacing: 5) {
                         NavigationLink {
-                            ClimbingLocationSearch(selectedLocation: $climbingLocation,
-                                                   selectedname: $climbingLocation.name)
-                            
+                            ClimbingLocationSearch(selectedLocation: $climbingLocation, selectedname: $climbingLocation.name)
                         } label: {
                             Image(systemName: mapImageName)
                                 .foregroundColor(.gray)
@@ -215,11 +285,11 @@ struct NewMemoView: View {
                             photo?
                                 .resizable()
                                 .scaledToFit()
+                                
                             PickerView(isShowingGalleryPicker: $isPhotoPickerTapped,
                                        selectedImage: $selectedPhoto)
                             .sheet(isPresented: $isPhotoPickerTapped) {
-                                GalleryPickerView(isPresented: $isPhotoPickerTapped,
-                                                  selectedImage: $selectedPhoto)
+                                GalleryPickerView(isPresented: $isPhotoPickerTapped,selectedImage: $selectedPhoto)
                             }
                             Spacer()
                         }
@@ -275,9 +345,10 @@ struct NewMemoView: View {
         }
         .padding(.leading, 30)
         .padding(.trailing, 30)
+        
+        //MARK: Set Keyboard
         .offset(y: -self.keyboardHeight)
         .ignoresSafeArea(.keyboard)
-        
         .onAppear {
             UITextView.appearance().backgroundColor = .clear
             Task {
@@ -285,6 +356,7 @@ struct NewMemoView: View {
                 await decodeData(data ?? Data())
             }
             
+            //MARK: Set Keyboard
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
                 guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
                     return
@@ -412,8 +484,9 @@ extension NewMemoView {
                 print("Status code: \(response.statusCode)")
                 print("Response message: \(String(data: data, encoding: .utf8) ?? "")")
             }
+            
             refreshCalenderView()
-
+            
         } catch {
             print(error)
         }
@@ -520,12 +593,11 @@ extension NewMemoView {
         
         do {
             var request = try URLRequest(url: url, method: .get)
-            
-            request.setValue("Bearer" + " " + LoginManager.shared.ohcleAccessToken,
+            request.addValue("Bearer \(LoginManager.shared.ohcleAccessToken)",
                              forHTTPHeaderField: "Authorization")
             
             let (data, response) = try await URLSession.shared.data(for: request)
-             
+            
             if let response = response as? HTTPURLResponse,
                response.statusCode != 200 {
                 print("Status code: \(response.statusCode)")
@@ -540,6 +612,8 @@ extension NewMemoView {
                 self.photoData = data
                 self.photo = Image(uiImage: image)
             }
+
+
             
         } catch {
             print(error)

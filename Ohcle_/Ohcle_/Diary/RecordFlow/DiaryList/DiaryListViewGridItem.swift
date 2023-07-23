@@ -25,7 +25,7 @@ struct DiaryListViewGridItem: View {
     
     init(date: String?, location: String?,
          levelColor: Int, score: Int16?, memoImageData: String?) {
-        self.date = date
+        self.date = date?.convertToOhcleDateLiteral()
         self.location = location
         self.levelColor = getColor(levelColor)
         self.scoreNumber = Int(score ?? .zero)

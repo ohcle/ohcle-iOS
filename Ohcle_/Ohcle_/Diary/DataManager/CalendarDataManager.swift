@@ -29,9 +29,9 @@ struct Record {
         self.score = Int16(0)
         self.level = ""
         self.photo = Data()
+        self.photoName = ""
         self.memo = ""
         self.climbingLocation = ClimbingLocation()
-        
     }
     
     mutating func deliverTemDiary(_ record: Record) {
@@ -121,9 +121,7 @@ class CalendarDataManger {
     var record:Record = Record()
     
     
-    private init() {
-        
-    }
+    private init() { }
     
     func getData(year: String, month: String) async {
         

@@ -150,7 +150,7 @@ final class LoginManager: ObservableObject {
             return
         }
     }
-
+    
     
     //MARK: - Sign in Kakao
     func signInKakaoAccount() async {
@@ -259,6 +259,9 @@ final class LoginManager: ObservableObject {
                     self.isLoggedIn = false
                 }
             }
+            clearUserDefaults()
+            signOutAppleAccount()
+            signOutKakaoAccount()
         }
     }
     
@@ -270,16 +273,8 @@ final class LoginManager: ObservableObject {
     }
     
     func signOut() async {
-        clearUserDefaults()
-        signOutAppleAccount()
-        signOutKakaoAccount()
         await signOutOhcleAccount()
         
-        DispatchQueue.main.async {
-            withAnimation {
-                self.isLoggedIn = false
-            }
-        }
     }
     
     private func clearUserDefaults() {
@@ -287,17 +282,11 @@ final class LoginManager: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "userNickName")
         UserDefaults.standard.removeObject(forKey: "didSeeOnBoarding")
         UserDefaults.standard.removeObject(forKey: "isLoggedIn")
-        UserDefaults.standard.removeObject(forKey: "ohcleID")
         
-        UserDefaults.standard.removeObject(forKey: "isLoggohcleIDedIn")
+        UserDefaults.standard.removeObject(forKey: "ohcleID")
         UserDefaults.standard.removeObject(forKey: "ohcleRefreshToken")
         
-//        @AppStorage("userNickName") var userNickName: String = ""
-//        @AppStorage("userImageString") var userImageString: String = ""
-//        @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-//        @AppStorage("ohcleID") var ohcleAccessToken: String = ""
-//        @AppStorage("ohcleRefreshToken") var ohcleRefreshToken: String = ""
-        
+        UserDefaults.standard.removeObject(forKey: "isLoggohcleIDedIn")
     }
     
     private func signOutKakaoAccount() {
@@ -317,8 +306,6 @@ final class LoginManager: ObservableObject {
     }
     
     private func signOutOhcleAccount() async {
-        let ohcleID = LoginManager.shared.ohcleAccessToken
-        
         let urlString = "https://api-gw.todayclimbing.com/v1/user/me"
         
         guard let url = URL(string: urlString) else {
@@ -327,13 +314,27 @@ final class LoginManager: ObservableObject {
         
         do {
             var request = try URLRequest(url: url, method: .delete)
-            let (_, response) = try await URLSession.shared.data(for: request)
+            request.addValue("Bearer \(self.ohcleAccessToken)", forHTTPHeaderField: "Authorization")
             
-            request.headers.add(name: "Authorization", value: "Bearer \(self.ohcleAccessToken)")
+            let (data, response) = try await URLSession.shared.data(for: request)
             
-            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-                print(response)
+            if let response = response as? HTTPURLResponse,
+               response.statusCode == 204 {
+                DispatchQueue.main.async {
+                    withAnimation {
+                        self.isLoggedIn = false
+                    }
+                }
+                
+                clearUserDefaults()
+                signOutAppleAccount()
+                signOutKakaoAccount()
+                
+                CalendarDataManger.shared.record.clearRecord()
+            } else {
+                let _ = String(data: data, encoding: .utf8)
             }
+            
         } catch {
             print(error)
         }
@@ -348,10 +349,12 @@ final class LoginManager: ObservableObject {
         
         do {
             var request = try URLRequest(url: url, method: .post)
+            request.headers.add(name: "Authorization", value: "Bearer \(self.ohcleAccessToken)")
+
             let para = ["access": self.ohcleAccessToken,
                         "refresh": self.ohcleRefreshToken]
-            
             let httpBody = try JSONSerialization.data(withJSONObject: para, options: [])
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = httpBody
             
             let (_, response) = try await URLSession.shared.data(for: request)
@@ -362,7 +365,6 @@ final class LoginManager: ObservableObject {
             }
             
             return isLogoutSucceded(responseCode: response.statusCode)
-            
         } catch {
             print(error)
             return false

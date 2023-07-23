@@ -144,7 +144,6 @@ struct MemoView: View {
                                 CalendarDataManger.shared.record.clearRecord()
                             }
                         }
-
                 }
                 Spacer()
             }
@@ -162,7 +161,7 @@ struct MemoView: View {
                     return
                 }
                 
-                self.keyboardHeight = keyboardFrame.height/2
+                self.keyboardHeight = keyboardFrame.height / 2
             }
             
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notification in

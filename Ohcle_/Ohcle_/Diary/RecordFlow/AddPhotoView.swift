@@ -173,7 +173,6 @@ struct GalleryPickerView: UIViewControllerRepresentable {
             parent.isPresented = false
         }
         
-        
         func postImage(_ imgData: Data, completion: @escaping (Data,HTTPURLResponse) -> Void ) {
  
             let urlStr = "https://api-gw.todayclimbing.com/v1/media/image/"

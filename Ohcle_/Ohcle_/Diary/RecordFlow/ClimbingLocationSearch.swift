@@ -13,6 +13,8 @@ struct ClimbingLocationSearch: View {
     @Binding var selectedLocation: ClimbingLocation
     @Binding var selectedname: String
     @State var getResFromServer: Bool = false
+    @State private var keyboardHeight: CGFloat = 0
+
     @Environment(\.presentationMode) var presetntationMode
     
     var body: some View {
@@ -85,6 +87,27 @@ struct ClimbingLocationSearch: View {
                 }
                 
             }
+        }
+        .offset(y: self.keyboardHeight)
+        .ignoresSafeArea(.keyboard)
+        .onAppear {
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+                    guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+                        return
+                    }
+                    
+                    self.keyboardHeight = keyboardFrame.height / 2
+                }
+                
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notification in
+                    
+                    self.keyboardHeight = 0
+                }
+
+        }
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+
         }
         
         
