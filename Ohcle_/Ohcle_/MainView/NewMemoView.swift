@@ -15,7 +15,6 @@ class TacoNetwork {
     
     private init() { }
     
-    
     func request(urlString: String, parameter: [String: String]? = nil, method: HTTPMethod) -> Data? {
         guard let url = URL(string: urlString) else {
             return nil
