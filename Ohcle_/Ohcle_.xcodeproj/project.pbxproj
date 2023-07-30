@@ -565,7 +565,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Ohcle--Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Ohcle;
+				INFOPLIST_KEY_CFBundleDisplayName = "오늘의 클라이밍";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치사용한다";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치사용한다";
@@ -617,7 +617,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Ohcle--Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Ohcle;
+				INFOPLIST_KEY_CFBundleDisplayName = "오늘의 클라이밍";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치사용한다";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치사용한다";
