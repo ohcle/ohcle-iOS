@@ -303,6 +303,20 @@ final class LoginManager: ObservableObject {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedOperation = .operationLogout
+        
+        //client_secret을 생성 할 수 있도록 한다. → Apple Developer Key Info 필요
+
+        //alg : ES256
+        //kid : D74JT58G9V
+        //iss : 7MJ69FU8BU
+        //iat : 현재시간주기
+        //esp : client secret이 만료되는 일시(6개월 초과하면 안됨)
+        //adu :  "https://appleid.apple.com"
+        //sub : 번들아이디 값
+        if let bundleIdentifier = Bundle.main.bundleIdentifier {
+            
+        }
+        
     }
     
     private func signOutOhcleAccount() async {

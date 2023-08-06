@@ -32,6 +32,7 @@
 		A859A64728EC3EB300F217F3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64628EC3EB300F217F3 /* KakaoSDKUser */; };
 		A866B509293CC5C5001E182F /* KakaoLoginResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A866B508293CC5C5001E182F /* KakaoLoginResultModel.swift */; };
 		A86A596828F2A1F100C500E1 /* Calender.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86A596728F2A1F100C500E1 /* Calender.swift */; };
+		A86B2F802A7F27AF005C72B1 /* SwiftJWT in Frameworks */ = {isa = PBXBuildFile; productRef = A86B2F7F2A7F27AF005C72B1 /* SwiftJWT */; };
 		A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B249297E5B5A00704688 /* CurrentDate.swift */; };
 		A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B24B297E779700704688 /* CalenderHolderGridView.swift */; };
 		A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */; };
@@ -118,6 +119,7 @@
 				FE918FBC29F451CB00484731 /* CoreLocation.framework in Frameworks */,
 				A859A64528EC3EB300F217F3 /* KakaoSDKCommon in Frameworks */,
 				A859A64328EC3EB300F217F3 /* KakaoSDKAuth in Frameworks */,
+				A86B2F802A7F27AF005C72B1 /* SwiftJWT in Frameworks */,
 				A859A64728EC3EB300F217F3 /* KakaoSDKUser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +322,7 @@
 				A859A64228EC3EB300F217F3 /* KakaoSDKAuth */,
 				A859A64428EC3EB300F217F3 /* KakaoSDKCommon */,
 				A859A64628EC3EB300F217F3 /* KakaoSDKUser */,
+				A86B2F7F2A7F27AF005C72B1 /* SwiftJWT */,
 			);
 			productName = Ohcle_;
 			productReference = A859A62A28EC3E1500F217F3 /* Ohcle_.app */;
@@ -351,6 +354,7 @@
 			mainGroup = A859A62128EC3E1500F217F3;
 			packageReferences = (
 				A859A64128EC3EB300F217F3 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				A86B2F7E2A7F27AF005C72B1 /* XCRemoteSwiftPackageReference "Swift-JWT" */,
 			);
 			productRefGroup = A859A62B28EC3E1500F217F3 /* Products */;
 			projectDirPath = "";
@@ -679,6 +683,14 @@
 				kind = branch;
 			};
 		};
+		A86B2F7E2A7F27AF005C72B1 /* XCRemoteSwiftPackageReference "Swift-JWT" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/Swift-JWT";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -696,6 +708,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A859A64128EC3EB300F217F3 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		A86B2F7F2A7F27AF005C72B1 /* SwiftJWT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A86B2F7E2A7F27AF005C72B1 /* XCRemoteSwiftPackageReference "Swift-JWT" */;
+			productName = SwiftJWT;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

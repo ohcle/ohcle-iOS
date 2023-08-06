@@ -32,8 +32,9 @@ final class LoginViewModel: NSObject, ASAuthorizationControllerDelegate, Observa
     
     func authorizationController(controller: ASAuthorizationController,
                                  didCompleteWithAuthorization authorization: ASAuthorization) {
+        
+        //cliend_secret 만들기 
         if let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            
             Task {
                 await LoginManager.shared.singInWithAppleAccount(appleIdCredential)
             }
@@ -63,7 +64,7 @@ struct AppleLoginView_Previews: PreviewProvider {
 }
 
 struct CustomSocialButton: View {
-    var image: String = "koreanAppleLoginButtonImage"
+    private let image: String = "koreanAppleLoginButtonImage"
     var action: (() -> ())?
     
     var body: some View{
