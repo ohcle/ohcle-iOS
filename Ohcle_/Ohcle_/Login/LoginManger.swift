@@ -11,6 +11,7 @@ import AuthenticationServices
 import KakaoSDKUser
 import KakaoSDKAuth
 import KakaoSDKCommon
+import Alamofire
 
 final class LoginManager: ObservableObject {
     @AppStorage("userNickName") var userNickName: String = ""
@@ -18,7 +19,9 @@ final class LoginManager: ObservableObject {
     @AppStorage("isLoggedIn") var isLoggedIn : Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
     @AppStorage("ohcleID") var ohcleAccessToken: String = ""
     @AppStorage("ohcleRefreshToken") var ohcleRefreshToken: String = ""
-    
+    @AppStorage("AppleClientSecret") var appleClientSecret: String = ""
+    @AppStorage("AppleToken") var appleToken: String = ""
+
     @Published var currentLoggedIn: Bool = false
     
     @State private var errorMessages: String = "에러가 없습니다."
@@ -274,7 +277,6 @@ final class LoginManager: ObservableObject {
     
     func signOut() async {
         await signOutOhcleAccount()
-        
     }
     
     private func clearUserDefaults() {
@@ -287,8 +289,10 @@ final class LoginManager: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "ohcleRefreshToken")
         
         UserDefaults.standard.removeObject(forKey: "isLoggohcleIDedIn")
+        UserDefaults.standard.removeObject(forKey: "AppleClientSecret")
+        UserDefaults.standard.removeObject(forKey: "AppleToken")
     }
-    
+
     private func signOutKakaoAccount() {
         UserApi.shared.unlink {(error) in
             if let error = error {
@@ -303,7 +307,42 @@ final class LoginManager: ObservableObject {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedOperation = .operationLogout
+        
+        //error
+        print("clientSecret: \(self.appleClientSecret) token: \(self.appleToken))")
+        
+        revokeAppleToken(clientSecret: self.appleClientSecret,
+                         token: self.appleToken) {
+            print("Finished")
+        }
     }
+    
+    private func revokeAppleToken(clientSecret: String,
+                                  token: String,
+                                  completionHandler: @escaping () -> Void) {
+        guard let bundleIdentifier = Bundle.main.bundleIdentifier else {
+            return
+        }
+           let url = "https://appleid.apple.com/auth/revoke?client_id=\(bundleIdentifier)&client_secret=\(clientSecret)&token=\(token)&token_type_hint=refresh_token"
+           let header: HTTPHeaders = ["Content-Type": "application/x-www-form-urlencoded"]
+
+           AF.request(url,
+                      method: .post,
+                      headers: header)
+           .validate(statusCode: 200..<600)
+           .responseData { response in
+               
+               guard let statusCode = response.response?.statusCode else { return }
+               
+               if statusCode == 200 {
+                   print("애플 토큰 삭제 성공!")
+                   completionHandler()
+               } else {
+                   print(statusCode)
+               }
+           }
+       }
+    
     
     private func signOutOhcleAccount() async {
         let urlString = "https://api-gw.todayclimbing.com/v1/user/me"

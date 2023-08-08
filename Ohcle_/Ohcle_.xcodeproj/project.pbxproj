@@ -32,6 +32,8 @@
 		A859A64728EC3EB300F217F3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = A859A64628EC3EB300F217F3 /* KakaoSDKUser */; };
 		A866B509293CC5C5001E182F /* KakaoLoginResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A866B508293CC5C5001E182F /* KakaoLoginResultModel.swift */; };
 		A86A596828F2A1F100C500E1 /* Calender.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86A596728F2A1F100C500E1 /* Calender.swift */; };
+		A86B2F802A7F27AF005C72B1 /* SwiftJWT in Frameworks */ = {isa = PBXBuildFile; productRef = A86B2F7F2A7F27AF005C72B1 /* SwiftJWT */; };
+		A86B2F822A7F76B0005C72B1 /* AuthKey_D74JT58G9V.p8 in Resources */ = {isa = PBXBuildFile; fileRef = A86B2F812A7F76B0005C72B1 /* AuthKey_D74JT58G9V.p8 */; };
 		A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B249297E5B5A00704688 /* CurrentDate.swift */; };
 		A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A875B24B297E779700704688 /* CalenderHolderGridView.swift */; };
 		A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */; };
@@ -83,6 +85,7 @@
 		A859A64B28EC457700F217F3 /* Ohcle_.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ohcle_.entitlements; sourceTree = "<group>"; };
 		A866B508293CC5C5001E182F /* KakaoLoginResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginResultModel.swift; sourceTree = "<group>"; };
 		A86A596728F2A1F100C500E1 /* Calender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calender.swift; sourceTree = "<group>"; };
+		A86B2F812A7F76B0005C72B1 /* AuthKey_D74JT58G9V.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_D74JT58G9V.p8; sourceTree = "<group>"; };
 		A875B249297E5B5A00704688 /* CurrentDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDate.swift; sourceTree = "<group>"; };
 		A875B24B297E779700704688 /* CalenderHolderGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CalenderHolderGridView.swift; path = Ohcle_/MainView/CalenderHolderGridView.swift; sourceTree = SOURCE_ROOT; };
 		A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenManager.swift; sourceTree = "<group>"; };
@@ -118,6 +121,7 @@
 				FE918FBC29F451CB00484731 /* CoreLocation.framework in Frameworks */,
 				A859A64528EC3EB300F217F3 /* KakaoSDKCommon in Frameworks */,
 				A859A64328EC3EB300F217F3 /* KakaoSDKAuth in Frameworks */,
+				A86B2F802A7F27AF005C72B1 /* SwiftJWT in Frameworks */,
 				A859A64728EC3EB300F217F3 /* KakaoSDKUser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,6 +177,7 @@
 		A859A62C28EC3E1500F217F3 /* Ohcle_ */ = {
 			isa = PBXGroup;
 			children = (
+				A86B2F812A7F76B0005C72B1 /* AuthKey_D74JT58G9V.p8 */,
 				A8C0D69229FCFC9500DEB477 /* Ohcle--Info.plist */,
 				A80B452328FA50DE00343BB4 /* ReadViewSize.swift */,
 				A859A64B28EC457700F217F3 /* Ohcle_.entitlements */,
@@ -320,6 +325,7 @@
 				A859A64228EC3EB300F217F3 /* KakaoSDKAuth */,
 				A859A64428EC3EB300F217F3 /* KakaoSDKCommon */,
 				A859A64628EC3EB300F217F3 /* KakaoSDKUser */,
+				A86B2F7F2A7F27AF005C72B1 /* SwiftJWT */,
 			);
 			productName = Ohcle_;
 			productReference = A859A62A28EC3E1500F217F3 /* Ohcle_.app */;
@@ -351,6 +357,7 @@
 			mainGroup = A859A62128EC3E1500F217F3;
 			packageReferences = (
 				A859A64128EC3EB300F217F3 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				A86B2F7E2A7F27AF005C72B1 /* XCRemoteSwiftPackageReference "Swift-JWT" */,
 			);
 			productRefGroup = A859A62B28EC3E1500F217F3 /* Products */;
 			projectDirPath = "";
@@ -366,6 +373,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A86B2F822A7F76B0005C72B1 /* AuthKey_D74JT58G9V.p8 in Resources */,
 				A859A63528EC3E1600F217F3 /* Preview Assets.xcassets in Resources */,
 				A859A63228EC3E1600F217F3 /* Assets.xcassets in Resources */,
 			);
@@ -579,7 +587,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.06;
+				MARKETING_VERSION = 1.0.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "todaysClimbing.Ohcle-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -631,7 +639,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.06;
+				MARKETING_VERSION = 1.0.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "todaysClimbing.Ohcle-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -679,6 +687,14 @@
 				kind = branch;
 			};
 		};
+		A86B2F7E2A7F27AF005C72B1 /* XCRemoteSwiftPackageReference "Swift-JWT" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/Swift-JWT";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -696,6 +712,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A859A64128EC3EB300F217F3 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		A86B2F7F2A7F27AF005C72B1 /* SwiftJWT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A86B2F7E2A7F27AF005C72B1 /* XCRemoteSwiftPackageReference "Swift-JWT" */;
+			productName = SwiftJWT;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
