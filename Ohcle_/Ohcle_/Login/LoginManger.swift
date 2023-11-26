@@ -370,6 +370,8 @@ final class LoginManager: ObservableObject {
                 signOutKakaoAccount()
                 
                 CalendarDataManger.shared.record.clearRecord()
+                //FIXME: UserToken 구분 및 revoke 상태확인 필요
+                AlertManager.shared.showAlert(message: "탈퇴가 완료되었습니다.")
             } else {
                 let _ = String(data: data, encoding: .utf8)
             }
