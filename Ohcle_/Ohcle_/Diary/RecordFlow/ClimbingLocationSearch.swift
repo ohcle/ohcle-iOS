@@ -73,6 +73,10 @@ struct ClimbingLocationSearch: View {
             }
             
             Spacer()
+            HStack{
+                
+            }
+            .frame(height: keyboardHeight)
             
         }
         .navigationBarBackButtonHidden(true)
@@ -88,7 +92,7 @@ struct ClimbingLocationSearch: View {
                 
             }
         }
-        .offset(y: self.keyboardHeight)
+//        .offset(y: self.keyboardHeight)
         .ignoresSafeArea(.keyboard)
         .onAppear {
                 NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
@@ -96,7 +100,7 @@ struct ClimbingLocationSearch: View {
                         return
                     }
                     
-                    self.keyboardHeight = keyboardFrame.height / 2
+                    self.keyboardHeight = keyboardFrame.height / 2 + 30
                 }
                 
                 NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notification in
