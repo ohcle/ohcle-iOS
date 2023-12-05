@@ -48,8 +48,16 @@ struct KakaoLoginView: View {
                 }
             } else {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                    if let error =  error {
-                        AlertManager.shared.showAlert(message: "\(error.localizedDescription)")
+                    if error is KakaoSDKCommon.SdkError {
+
+                    }
+                        
+                   if let error =  error {
+                       if error.localizedDescription == "The operation couldn’t be completed. (KakaoSDKCommon.SdkError error 0.)" {
+                           return
+                       }
+                       
+                       AlertManager.shared.showAlert(message: "\(error.localizedDescription)")
                     }
                     
                     Task {

@@ -25,6 +25,10 @@ func getDayOfWeek(dateString: String) -> Int {
     return weekday - 1
 }
 
+final class TestDelegate: NSObject {
+    var isProgressActive: Bool = false
+}
+
 final class CalenderData: ObservableObject {
     @Published var year: String = "2023"
     @Published var month: String = OhcleDate.currentMonthString ?? ""
@@ -55,15 +59,18 @@ final class CalenderData: ObservableObject {
             .store(in: &cancellables)
         
         setWeekCnt()
-        NotificationCenter.default.addObserver(self, selector: #selector(didRecieveFetchCalendarNotification(_:)), name: NSNotification.Name("fetchCalendarData"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didRecieveFetchCalendarNotification(_:)),
+                                               name: NSNotification.Name("fetchCalendarData"), object: nil)
     }
     
-    @objc func didRecieveFetchCalendarNotification(_ notification: Notification) {
+    @objc func didRecieveFetchCalendarNotification(_ notification: Notification) async {
         print("Fetch")
         fetchCalenderData()
      }
     
     func fetchCalenderData() {
+        NotificationCenter.default.post(name: Notification.Name("startFetchingData"), object: nil)
+
         guard let url = URL(string: OhcleURLs.generateMonthRecordURLString(year: self.year, month: self.month)) else {
             return
         }
@@ -73,9 +80,8 @@ final class CalenderData: ObservableObject {
             
             request.headers.add(name: "Authorization",
                                 value: "Bearer " + LoginManager.shared.ohcleAccessToken)
-            print(LoginManager.shared.ohcleAccessToken, "💜")
+            
             URLSession.shared.dataTask(with: request) { data, response, error in
-                
                 if let response = response as? HTTPURLResponse,
                    response.statusCode != 200 {
                     print(response.statusCode)
@@ -85,10 +91,10 @@ final class CalenderData: ObservableObject {
                     do {
                         let decoded = try JSONDecoder().decode([CalenderModel].self, from: data)
                         let divided = self.divideWeekData(decoded)
-                        print(divided)
                         DispatchQueue.main.async {
                             self.data = divided
                         }
+                        NotificationCenter.default.post(name: Notification.Name("fechingDataDone"), object: nil)
                     } catch {
                         print(error)
                     }
@@ -241,7 +247,7 @@ final class CalenderData: ObservableObject {
         
         guard let startDate = dateFormatter.date(from: self.year + "-" + self.month + "-" + "01") else { return }
         guard let lastDayOfMonth = calendar.range(of: .day, in: .month, for: startDate) else { return }
-        guard let lastDate = dateFormatter.date(from: self.year + "-" + self.month + "-" + String(lastDayOfMonth.upperBound-1)) else { return }
+//        guard let lastDate = dateFormatter.date(from: self.year + "-" + self.month + "-" + String(lastDayOfMonth.upperBound-1)) else { return }
         guard let startWeekday = calendar.dateComponents([.year, .month, .weekday], from: startDate).weekday else { return }
 
         var curDate = 1
@@ -257,16 +263,45 @@ final class CalenderData: ObservableObject {
     
 }
 
+final class ProgressViewManager: ObservableObject {
+    var isActivated: Bool = false
+    
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(startProgressActivity),
+                                               name: Notification.Name("fechingDataDone"),
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(endProgressActivity),
+                                               name: Notification.Name("startFetchingData"),
+                                               object: nil)
+    }
+    
+    @objc func startProgressActivity() {
+        self.isActivated = true
+    }
+    
+    @objc func endProgressActivity() {
+        self.isActivated = true
+    }
+}
+
+
 struct RefactorCalenderView: View {
     @State private var isSelected: Bool = false
     @State private var isDismissed: Bool = true
     @State private var isModal: Bool = true
-    
+
     @ObservedObject var calenderData: CalenderData
+    @ObservedObject var progressviewManager = ProgressViewManager()
     
+    //fechingDataDone
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
+                if self.progressviewManager.isActivated {
+                    OhcleProgresView(isActivated: $progressviewManager.isActivated)
+                }
+                
                 UpperBar {
                     calenderData.fetchCalenderData()
                 }
@@ -299,7 +334,7 @@ struct RefactorCalenderView: View {
             }
         }
     }
-    
+        
     private func generateRandomHolderBackground(_ typeNumber: Int) -> HolderLocatedType {
         if typeNumber == .zero {
             return HolderLocatedType.big
@@ -307,6 +342,8 @@ struct RefactorCalenderView: View {
             return HolderLocatedType.small
         }
     }
+    
+    
 }
 
 struct CalenderHolderView: View {
