@@ -15,53 +15,6 @@ enum GetRequestPurpose {
     case diaryDetail
 }
 
-/*
- path, query item 을 네트워크 요청 종류 에 따라 구분
- -> url 만들기 -> 만들 url을 네트워크 요청하는 곳에 보내기
- 
- 네트워크 요청 하는아이는 url을 받아서 요청값을 보내주기만 함녀 됨. url만드는 것 까진 알 필요 없음
- 
- url만드는 객체, network 요청하는 객체 이렇게 두개 만들면 도리 듯
- 
-url 만든는 객체가 알아야하는 정보
- url scheme
- base url
- path or query
- 요청목적  -> 이에따라 path, query 정해짐
- 
- return 하는 값 = url
- 
- */
-
-//
-//class NetworManager {
-////    static func request(purpose: NetworkingPurpose, userId: String?) {
-////
-////    }
-//
-//
-//    func fetchData(urlString: String, method: HTTPMethod) async throws -> Data {
-//        guard let url = URL(string: urlString) else {
-//            return Data()
-//        }
-//
-//        do {
-//            let request = try URLRequest(url: url, method: method)
-//            let (data, response) = try await URLSession.shared.data(for: request)
-//            if let response = response as? HTTPURLResponse,
-//                response.statusCode != 200 {
-//                print(response.statusCode)
-//            }
-//            print(data)
-//            return data
-//        } catch {
-//            print(error)
-//            return Data()
-//        }
-//    }
-//
-//}
-
 class NetworkManager {
     typealias URLString = String
 
@@ -86,33 +39,6 @@ class NetworkManager {
             return Data()
         }
     }
-//
-//    func request(purpose: NetworkingPurpose,
-//                 month: String, year: String, view: OchleQueryItem) async -> Data {
-//
-//        let url = generateURL(purpose: purpose,
-//                              month: month, year: year, view: view)
-//
-//        do {
-//            let request = try URLRequest(url: url, method: httpMethod)
-//            let (data, response) = try await URLSession.shared.data(for: request)
-//            if let response = response as? HTTPURLResponse,
-//                response.statusCode != 200 {
-//                print(response.statusCode)
-//            }
-//
-//            print(data)
-//            return data
-//        } catch {
-//            print(error)
-//            return Data()
-//        }
-//    }
-    
-    // get, 년도와 월 넣기
-    // get, url에 id 넣기
-    // delete, url에 id 넣기
-    // get, 클라이밍 레벨
     
     func requestMonthMemo(year: String, month: String) async -> Data {
         
@@ -138,7 +64,6 @@ class NetworkManager {
     
     // post, patch
     // body에 클라이밍 정보 넣어야함. encoder 필요, 파라미터는 사전으로 받기
-
     private func generateURL(purpose: NetworkingPurpose, userMemoId: String) -> URL {
         var urlComponent = URLComponents()
 

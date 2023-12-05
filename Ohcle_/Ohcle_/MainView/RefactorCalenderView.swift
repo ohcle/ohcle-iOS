@@ -69,7 +69,7 @@ final class CalenderData: ObservableObject {
      }
     
     func fetchCalenderData() {
-        NotificationCenter.default.post(name: Notification.Name("startFetchingData"), object: nil)
+        ProgressManager.shared.show()
 
         guard let url = URL(string: OhcleURLs.generateMonthRecordURLString(year: self.year, month: self.month)) else {
             return
@@ -94,12 +94,12 @@ final class CalenderData: ObservableObject {
                         DispatchQueue.main.async {
                             self.data = divided
                         }
-                        NotificationCenter.default.post(name: Notification.Name("fechingDataDone"), object: nil)
+                        ProgressManager.shared.hide()
                     } catch {
                         print(error)
+                        ProgressManager.shared.hide()
                     }
                 }
-                
             }.resume()
             
         } catch {
@@ -263,27 +263,27 @@ final class CalenderData: ObservableObject {
     
 }
 
-final class ProgressViewManager: ObservableObject {
-    var isActivated: Bool = false
-    
-    init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(startProgressActivity),
-                                               name: Notification.Name("fechingDataDone"),
-                                               object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(endProgressActivity),
-                                               name: Notification.Name("startFetchingData"),
-                                               object: nil)
-    }
-    
-    @objc func startProgressActivity() {
-        self.isActivated = true
-    }
-    
-    @objc func endProgressActivity() {
-        self.isActivated = true
-    }
-}
+//final class ProgressViewManager: ObservableObject {
+//    var isActivated: Bool = false
+//
+//    init() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(startProgressActivity),
+//                                               name: Notification.Name("fechingDataDone"),
+//                                               object: nil)
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(endProgressActivity),
+//                                               name: Notification.Name("startFetchingData"),
+//                                               object: nil)
+//    }
+//
+//    @objc func startProgressActivity() {
+//        self.isActivated = true
+//    }
+//
+//    @objc func endProgressActivity() {
+//        self.isActivated = true
+//    }
+//}
 
 
 struct RefactorCalenderView: View {
@@ -292,14 +292,12 @@ struct RefactorCalenderView: View {
     @State private var isModal: Bool = true
 
     @ObservedObject var calenderData: CalenderData
-    @ObservedObject var progressviewManager = ProgressViewManager()
-    
-    //fechingDataDone
+
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                if self.progressviewManager.isActivated {
-                    OhcleProgresView(isActivated: $progressviewManager.isActivated)
+                if ProgressManager.shared.isShowing {
+                    ProgressView()
                 }
                 
                 UpperBar {

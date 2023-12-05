@@ -55,6 +55,9 @@ struct MainView: View {
         TabView (selection: $selectedTab){
             TabView {
                 RefactorCalenderView(calenderData: calenderData)
+                    .onAppear {
+                        self.calenderData.fetchCalenderData()
+                    }
                 DiaryList(calenderData: calenderData)
             }
             .tabViewStyle(.page)
@@ -65,10 +68,11 @@ struct MainView: View {
             .tag(1)
             
             NavigationView {
-                RecordView(currentPageState: pageState, selectedPage: $selectedPage, selectedTab: $selectedTab)
+                RecordView(currentPageState: pageState,
+                           selectedPage: $selectedPage,
+                           selectedTab: $selectedTab)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
-                        
                         // Right Button
                         ToolbarItem(placement:  .navigationBarTrailing) {
                             if pageState.type != .memo && pageState.type != .done {
@@ -79,7 +83,6 @@ struct MainView: View {
                                         .foregroundColor(.gray)
                                 }
                             }
-                            
                         }
                         
                         // Left Button
@@ -107,7 +110,6 @@ struct MainView: View {
             .tag(3)
         }
     }
-    
     
     private func nextPageInRecordView(_ currentPageState: MyPageType) {
         switch currentPageState.type {

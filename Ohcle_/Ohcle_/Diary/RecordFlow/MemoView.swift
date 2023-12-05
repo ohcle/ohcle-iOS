@@ -120,10 +120,9 @@ struct MemoView: View {
                             .lineSpacing(5)
                             .padding(.top,10)
                     }
-
                 }
-
             }
+            
             Spacer()
             HStack {
                 Spacer()
@@ -139,8 +138,6 @@ struct MemoView: View {
                                         currentPageType.type = .calender
                                     }
                                 }
-                                NotificationCenter.default.post(name: NSNotification.Name("fetchCalendarData"),
-                                                                object: nil, userInfo: nil)
                                 self.selectedTab = 1
                                 CalendarDataManger.shared.record.clearRecord()
                             }
