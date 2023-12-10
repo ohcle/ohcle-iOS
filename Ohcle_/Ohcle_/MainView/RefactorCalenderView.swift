@@ -263,29 +263,6 @@ final class CalenderData: ObservableObject {
     
 }
 
-//final class ProgressViewManager: ObservableObject {
-//    var isActivated: Bool = false
-//
-//    init() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(startProgressActivity),
-//                                               name: Notification.Name("fechingDataDone"),
-//                                               object: nil)
-//
-//        NotificationCenter.default.addObserver(self, selector: #selector(endProgressActivity),
-//                                               name: Notification.Name("startFetchingData"),
-//                                               object: nil)
-//    }
-//
-//    @objc func startProgressActivity() {
-//        self.isActivated = true
-//    }
-//
-//    @objc func endProgressActivity() {
-//        self.isActivated = true
-//    }
-//}
-
-
 struct RefactorCalenderView: View {
     @State private var isSelected: Bool = false
     @State private var isDismissed: Bool = true
