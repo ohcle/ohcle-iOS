@@ -77,9 +77,7 @@ struct Level: View {
                 let levelString = colors[selectedIdx].climbingLevelName
                 CalendarDataManger.shared.record.saveTemporaryLevel(levelString)
             }
-            
         }
-        
     }
     
     func getSelectedIdx(_ selectedColor: String) -> Int {
