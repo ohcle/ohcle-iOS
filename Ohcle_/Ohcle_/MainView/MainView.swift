@@ -55,9 +55,6 @@ struct MainView: View {
         TabView (selection: $selectedTab){
             TabView {
                 RefactorCalenderView(calenderData: calenderData)
-                    .onAppear {
-                        self.calenderData.fetchCalenderData()
-                    }
                 DiaryList(calenderData: calenderData)
             }
             .tabViewStyle(.page)
