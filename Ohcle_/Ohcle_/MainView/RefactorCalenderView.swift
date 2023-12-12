@@ -73,9 +73,10 @@ final class CalenderData: ObservableObject {
             
             request.headers.add(name: "Authorization",
                                 value: "Bearer " + LoginManager.shared.ohcleAccessToken)
-            print(LoginManager.shared.ohcleAccessToken, "💜")
+            
+            ProgressManager.shared.show()
             URLSession.shared.dataTask(with: request) { data, response, error in
-                
+                ProgressManager.shared.hide()
                 if let response = response as? HTTPURLResponse,
                    response.statusCode != 200 {
                     print(response.statusCode)

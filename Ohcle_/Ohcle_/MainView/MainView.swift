@@ -53,6 +53,9 @@ struct MainView: View {
 
     var body: some View {
         TabView (selection: $selectedTab){
+            if ProgressManager.shared.isShowing {
+                ProgressView()
+            }
             TabView {
                 RefactorCalenderView(calenderData: calenderData)
                 DiaryList(calenderData: calenderData)

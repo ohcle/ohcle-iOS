@@ -225,15 +225,6 @@ final class LoginManager: ObservableObject {
         return decodeAndSaveLoginResult(loginResult)
     }
     
-    private func defineKakaoLoginError(_ error: Error) {
-        if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true  {
-            print("Known KakaoLogin Error : \(error)")
-        }
-        else {
-            print("Unknown KakaoLogin Error : \(error)")
-        }
-    }
-    
     private func checkAndRefreshToken() {
         if (AuthApi.hasToken()) {
             UserApi.shared.accessTokenInfo { (_, error) in

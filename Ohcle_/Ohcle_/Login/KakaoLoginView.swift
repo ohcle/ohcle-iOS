@@ -34,7 +34,7 @@ extension UserApi {
 struct KakaoLoginView: View {
     var body: some View {
         Button {
-             //MARK: 카카오톡 존재 시
+            //MARK: 카카오톡 존재 시
             if (UserApi.isKakaoTalkLoginAvailable()) {
                 UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                     
@@ -48,8 +48,12 @@ struct KakaoLoginView: View {
                 }
             } else {
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                    if let error =  error {
-                        AlertManager.shared.showAlert(message: "\(error.localizedDescription)")
+                    if let sdkError = error as? KakaoSDKCommon.SdkError {
+                        if sdkError.isClientFailed {
+                            return
+                        } else {
+                            AlertManager.shared.showAlert(message: "\(error?.localizedDescription)")
+                        }
                     }
                     
                     Task {
