@@ -74,6 +74,7 @@ final class LoginManager: ObservableObject {
     
     //MARK: - Sign in Apple
     func singInWithAppleAccount(_ credential: ASAuthorizationAppleIDCredential) async {
+        ProgressManager.shared.show()
         saveApplLoginUsrInfo(credential: credential)
         do {
             let loginResultData = try await requestOhcleLogin()
@@ -84,7 +85,8 @@ final class LoginManager: ObservableObject {
             }
             
             decodeAndSaveLoginResult(data: loginResultData)
-            
+            ProgressManager.shared.hide()
+
             withAnimation {
                 signIn()
             }
@@ -220,7 +222,6 @@ final class LoginManager: ObservableObject {
             let errorMessage = errorData?["message"] as? String
             throw NSError(domain: "NetworkE  rror", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: errorMessage ?? ""])
         }
-        
         
         return decodeAndSaveLoginResult(loginResult)
     }

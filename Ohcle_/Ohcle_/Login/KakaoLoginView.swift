@@ -36,6 +36,7 @@ struct KakaoLoginView: View {
         Button {
             //MARK: 카카오톡 존재 시
             if (UserApi.isKakaoTalkLoginAvailable()) {
+                ProgressManager.shared.show()
                 UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                     
                     if let error =  error {
@@ -44,9 +45,11 @@ struct KakaoLoginView: View {
                     
                     Task {
                         await LoginManager.shared.signInKakaoAccount()
+                        ProgressManager.shared.hide()
                     }
                 }
             } else {
+                ProgressManager.shared.show()
                 UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
                     if let sdkError = error as? KakaoSDKCommon.SdkError {
                         if sdkError.isClientFailed {
@@ -55,9 +58,9 @@ struct KakaoLoginView: View {
                             AlertManager.shared.showAlert(message: "\(error?.localizedDescription)")
                         }
                     }
-                    
                     Task {
                         await LoginManager.shared.signInKakaoAccount()
+                        ProgressManager.shared.hide()
                     }
                 }
             }
