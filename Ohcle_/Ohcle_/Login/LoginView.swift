@@ -38,6 +38,9 @@ struct LoginView: View {
         if loginManager.isLoggedIn {
             MainView()
         } else {
+            if ProgressManager.shared.isShowing {
+                ProgressView()
+            }
             VStack(alignment: .center) {
                 createMainLogo()
                 showMainGreetings()
