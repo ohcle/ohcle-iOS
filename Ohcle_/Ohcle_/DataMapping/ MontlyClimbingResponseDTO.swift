@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Climbing Data Transfer Object
 struct MonthlyClimbingReponseDTO: Decodable, Identifiable, Hashable {
     let id: Int
-    let `where`: ClimbingLocationResponseDTO?
+    let `where`: ClimbingLocationDTO?
     let when: String
     let level: Int
     let score: Float
@@ -27,7 +27,7 @@ struct MonthlyClimbingReponseDTO: Decodable, Identifiable, Hashable {
         case thumbnail
     }
     
-    struct ClimbingLocationResponseDTO: Decodable {
+    struct ClimbingLocationDTO: Decodable {
         let id: Int
         let name: String
         let address: String
