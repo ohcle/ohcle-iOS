@@ -32,6 +32,6 @@ struct DetailClimbingResponseDTO: Decodable {
 }
 
 // MARK: - Mappings to Domain (실제페이지와 연결)
-extension ClimbingRecordList {
+extension ClimbingMonthRecord {
     
 }
