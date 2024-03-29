@@ -7,8 +7,8 @@
 
 import Foundation
 
-// MARK: - Daily Climbing Record Data Transfer Object
-struct DailyClimbingResponseDTO: Decodable {
+// MARK: - Detail Climbing Record Data Transfer Object
+struct DetailClimbingResponseDTO: Decodable {
     let id: Int
     let `where`: Location?
     let when: String
@@ -32,3 +32,6 @@ struct DailyClimbingResponseDTO: Decodable {
 }
 
 // MARK: - Mappings to Domain (실제페이지와 연결)
+extension ClimbingRecordList {
+    
+}

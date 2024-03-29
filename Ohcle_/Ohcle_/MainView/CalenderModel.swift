@@ -12,7 +12,7 @@ struct CalenderModel: Decodable, Identifiable,Hashable {
         hasher.combine(id)
     }
     
-    static func ==(lhs: CalenderModel,
+    static func == (lhs: CalenderModel,
                    rhs: CalenderModel) -> Bool {
         return lhs.id == rhs.id
     }
