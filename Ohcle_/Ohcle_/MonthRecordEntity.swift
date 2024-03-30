@@ -1,5 +1,5 @@
 //
-//  ClimbingRecord.swift
+//  MonthRecordEntity.swift
 //  Ohcle_
 //
 //  Created by Do Yi Lee on 3/28/24.

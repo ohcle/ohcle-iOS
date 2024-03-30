@@ -12,7 +12,6 @@ struct ClimbingMonthRecord: Decodable {
     let list: [ClimbingRecord]
 }
 
-//(기존에 CalenderModel이였던 것)
 struct ClimbingRecord: Decodable {
     let id: Int
     let `where`: ClimbingLocation?

@@ -21,6 +21,8 @@
 		A83132242A070B370087A82C /* NewMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83132232A070B370087A82C /* NewMemoView.swift */; };
 		A8335B69292F7BFA0006899D /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8335B68292F7BFA0006899D /* AppleLoginView.swift */; };
 		A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */; };
+		A8445EBD2BB840D8002A25F2 /* RecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8445EBC2BB840D8002A25F2 /* RecordRepository.swift */; };
+		A8445EBF2BB84923002A25F2 /* ClimbingRecordDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8445EBE2BB84923002A25F2 /* ClimbingRecordDate.swift */; };
 		A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */; };
 		A859A63228EC3E1600F217F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A859A63128EC3E1600F217F3 /* Assets.xcassets */; };
 		A859A63528EC3E1600F217F3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A859A63428EC3E1600F217F3 /* Preview Assets.xcassets */; };
@@ -42,10 +44,9 @@
 		A891353D2BB5931E001A6AFE /* ClimbingRecordListDTOt+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = A891353C2BB5931E001A6AFE /* ClimbingRecordListDTOt+Mapping.swift */; };
 		A891353F2BB5941D001A6AFE /* DetailClimbingResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A891353E2BB5941D001A6AFE /* DetailClimbingResponseDTO.swift */; };
 		A89135412BB59432001A6AFE /* ImageResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89135402BB59432001A6AFE /* ImageResponseDTO.swift */; };
-		A89135452BB5A06F001A6AFE /* ClimbingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89135442BB5A06F001A6AFE /* ClimbingRecord.swift */; };
+		A89135452BB5A06F001A6AFE /* MonthRecordEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89135442BB5A06F001A6AFE /* MonthRecordEntity.swift */; };
 		A891354D2BB6E86A001A6AFE /* Ohcle_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A891354C2BB6E86A001A6AFE /* Ohcle_Tests.swift */; };
-		A891355A2BB6F62A001A6AFE /* DefaultRefreshClimbingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89135592BB6F62A001A6AFE /* DefaultRefreshClimbingRecordUseCase.swift */; };
-		A891355E2BB6F838001A6AFE /* RecordsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A891355D2BB6F838001A6AFE /* RecordsRepository.swift */; };
+		A891355A2BB6F62A001A6AFE /* RefreshMonthClimbingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89135592BB6F62A001A6AFE /* RefreshMonthClimbingRecordUseCase.swift */; };
 		A89E181E29A389A900F27045 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89E181D29A389A900F27045 /* NextButton.swift */; };
 		A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EF9B3294A1A390018BDFD /* Debouncer.swift */; };
 		A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812EC29A73EE900E7C6A2 /* DataController.swift */; };
@@ -92,6 +93,8 @@
 		A83132232A070B370087A82C /* NewMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMemoView.swift; sourceTree = "<group>"; };
 		A8335B68292F7BFA0006899D /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
 		A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewGridItem.swift; sourceTree = "<group>"; };
+		A8445EBC2BB840D8002A25F2 /* RecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRepository.swift; sourceTree = "<group>"; };
+		A8445EBE2BB84923002A25F2 /* ClimbingRecordDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingRecordDate.swift; sourceTree = "<group>"; };
 		A859A62A28EC3E1500F217F3 /* Ohcle_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ohcle_.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ohcle_App.swift; sourceTree = "<group>"; };
 		A859A63128EC3E1600F217F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -111,11 +114,10 @@
 		A891353C2BB5931E001A6AFE /* ClimbingRecordListDTOt+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClimbingRecordListDTOt+Mapping.swift"; sourceTree = "<group>"; };
 		A891353E2BB5941D001A6AFE /* DetailClimbingResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailClimbingResponseDTO.swift; sourceTree = "<group>"; };
 		A89135402BB59432001A6AFE /* ImageResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResponseDTO.swift; sourceTree = "<group>"; };
-		A89135442BB5A06F001A6AFE /* ClimbingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingRecord.swift; sourceTree = "<group>"; };
+		A89135442BB5A06F001A6AFE /* MonthRecordEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthRecordEntity.swift; sourceTree = "<group>"; };
 		A891354A2BB6E86A001A6AFE /* Ohcle_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Ohcle_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A891354C2BB6E86A001A6AFE /* Ohcle_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ohcle_Tests.swift; sourceTree = "<group>"; };
-		A89135592BB6F62A001A6AFE /* DefaultRefreshClimbingRecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRefreshClimbingRecordUseCase.swift; sourceTree = "<group>"; };
-		A891355D2BB6F838001A6AFE /* RecordsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsRepository.swift; sourceTree = "<group>"; };
+		A89135592BB6F62A001A6AFE /* RefreshMonthClimbingRecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshMonthClimbingRecordUseCase.swift; sourceTree = "<group>"; };
 		A89E181D29A389A900F27045 /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		A89EF9B3294A1A390018BDFD /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		A8A812EC29A73EE900E7C6A2 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -290,7 +292,8 @@
 		A89135432BB5A00D001A6AFE /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				A89135442BB5A06F001A6AFE /* ClimbingRecord.swift */,
+				A89135442BB5A06F001A6AFE /* MonthRecordEntity.swift */,
+				A8445EBE2BB84923002A25F2 /* ClimbingRecordDate.swift */,
 			);
 			name = Entity;
 			path = ..;
@@ -308,7 +311,6 @@
 			isa = PBXGroup;
 			children = (
 				A89135432BB5A00D001A6AFE /* Entity */,
-				A891355B2BB6F808001A6AFE /* Interfaces */,
 				A89135582BB6F60F001A6AFE /* UseCases */,
 			);
 			path = Domain;
@@ -317,25 +319,9 @@
 		A89135582BB6F60F001A6AFE /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				A89135592BB6F62A001A6AFE /* DefaultRefreshClimbingRecordUseCase.swift */,
+				A89135592BB6F62A001A6AFE /* RefreshMonthClimbingRecordUseCase.swift */,
 			);
 			path = UseCases;
-			sourceTree = "<group>";
-		};
-		A891355B2BB6F808001A6AFE /* Interfaces */ = {
-			isa = PBXGroup;
-			children = (
-				A891355C2BB6F829001A6AFE /* Repository */,
-			);
-			path = Interfaces;
-			sourceTree = "<group>";
-		};
-		A891355C2BB6F829001A6AFE /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-				A891355D2BB6F838001A6AFE /* RecordsRepository.swift */,
-			);
-			path = Repository;
 			sourceTree = "<group>";
 		};
 		A89135612BB6FC0E001A6AFE /* Data */ = {
@@ -350,6 +336,7 @@
 		A89135622BB6FC2D001A6AFE /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				A8445EBC2BB840D8002A25F2 /* RecordRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -530,7 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */,
-				A891355A2BB6F62A001A6AFE /* DefaultRefreshClimbingRecordUseCase.swift in Sources */,
+				A891355A2BB6F62A001A6AFE /* RefreshMonthClimbingRecordUseCase.swift in Sources */,
 				A8C0D69629FE475E00DEB477 /* Refactor_Networking.swift in Sources */,
 				A83132242A070B370087A82C /* NewMemoView.swift in Sources */,
 				A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */,
@@ -554,13 +541,14 @@
 				A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */,
 				A8CBB2F1291F96570013A74F /* MyPageUserInfoView.swift in Sources */,
 				A887D60129A20D9800C0A75D /* Networking.swift in Sources */,
+				A8445EBD2BB840D8002A25F2 /* RecordRepository.swift in Sources */,
 				A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */,
 				FECB29A52A2310CC005EF41A /* RecNetowrkManager.swift in Sources */,
 				A8CBB2F3291F973E0013A74F /* MemoButton.swift in Sources */,
 				A8CBB2EF291F89A00013A74F /* MyPageView.swift in Sources */,
 				A80B452828FA5A8D00343BB4 /* ClimbingLocationView.swift in Sources */,
 				A8050EEA2A23220C000E0E10 /* EditMemoPickerView.swift in Sources */,
-				A89135452BB5A06F001A6AFE /* ClimbingRecord.swift in Sources */,
+				A89135452BB5A06F001A6AFE /* MonthRecordEntity.swift in Sources */,
 				A8CBB2E4291F6BE40013A74F /* DiaryList.swift in Sources */,
 				A8AB86BC29E2821700F5410F /* SplashView.swift in Sources */,
 				FE8E947329FD22B3008764DC /* CalendarDataManager.swift in Sources */,
@@ -570,7 +558,6 @@
 				A80A484529F3B8FC00F3F186 /* CircleDateView.swift in Sources */,
 				A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */,
 				A891353F2BB5941D001A6AFE /* DetailClimbingResponseDTO.swift in Sources */,
-				A891355E2BB6F838001A6AFE /* RecordsRepository.swift in Sources */,
 				A80A481B29EBC31B00F3F186 /* CalenderModel.swift in Sources */,
 				A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */,
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,
@@ -578,6 +565,7 @@
 				A86A596828F2A1F100C500E1 /* Calender.swift in Sources */,
 				FEB9B67C2A19B08900DCCE5A /* ClimbingLocationSearch.swift in Sources */,
 				A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */,
+				A8445EBF2BB84923002A25F2 /* ClimbingRecordDate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
