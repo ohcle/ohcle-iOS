@@ -349,7 +349,7 @@ struct SendableClibmingMemo: Codable {
 
 extension NewMemoView {
     private func deleteMemo(id: Int) async {
-        guard let url = URL(string: "https://api-gw.todayclimbing.com/v1/climbing/\(id)/") else {
+        guard let url = URL(string: "http://13.125.173.42/v1/climbing/\(id)/") else {
             return
         }
         
@@ -377,7 +377,7 @@ extension NewMemoView {
     }
     
     private func saveDiary(_ diary: SendableClibmingMemo) async {
-        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(self.id)/"
+        let urlStr = "http://13.125.173.42/v1/climbing/\(self.id)/"
         
         guard let url = URL(string: urlStr) else {
             print("Fail to InitURL")
@@ -466,7 +466,7 @@ extension NewMemoView {
     }
     
     private func requestDetailMemo(id: Int) async -> Data? {
-        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(id)/"
+        let urlStr = "http://13.125.173.42/v1/climbing/\(id)/"
         print("💜", urlStr)
         guard let url = URL(string: urlStr) else {
             print("Fail to InitURL")
@@ -517,7 +517,7 @@ extension NewMemoView {
     }
     
     private func requestMemoPicture(name: String) async {
-        let urlStr = "https://api-gw.todayclimbing.com/v1/media/image?filename=\(name)"
+        let urlStr = "http://13.125.173.42/v1/media/image?filename=\(name)"
         
         guard let url = URL(string: urlStr) else {
             print("Fail to InitURL")

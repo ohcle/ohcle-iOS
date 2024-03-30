@@ -345,7 +345,7 @@ final class LoginManager: ObservableObject {
     
     
     private func signOutOhcleAccount() async {
-        let urlString = "https://api-gw.todayclimbing.com/v1/user/me"
+        let urlString = "http://13.125.173.42/v1/user/me"
         
         guard let url = URL(string: urlString) else {
             return
@@ -382,7 +382,7 @@ final class LoginManager: ObservableObject {
     }
     
     private func logoutOhcleAccount() async -> Bool {
-        let urlString = "https://api-gw.todayclimbing.com/v1/user/logout"
+        let urlString = "http://13.125.173.42/user/logout"
         
         guard let url = URL(string: urlString) else {
             return false

@@ -17,9 +17,9 @@ func getAccessTokenURL(_ url: OhcleURLs) -> URL {
 }
 
 enum OhcleURLs: String {
-    case baseURL = "https://api-gw.todayclimbing.com/"
-    case kakaoLogin = "https://api-gw.todayclimbing.com/v1/user/login/kakao"
-    case appleLogin = "https://api-gw.todayclimbing.com/v1/user/login/apple"
+    case baseURL = "http://13.125.173.42/"
+    case kakaoLogin = "http://13.125.173.42/v1/user/login/kakao"
+    case appleLogin = "http://13.125.173.42/user/login/apple"
     
     static func generateMonthRecordURLString(year: String, month: String,
                                        baseURL: OhcleURLs = .baseURL) -> String {

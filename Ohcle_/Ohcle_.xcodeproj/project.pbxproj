@@ -39,11 +39,13 @@
 		A8795FF4298DE97E00A92AA8 /* UserTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */; };
 		A887D60129A20D9800C0A75D /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A887D60029A20D9800C0A75D /* Networking.swift */; };
 		A88BA061290D49C5000F87A8 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BA060290D49C5000F87A8 /* MemoView.swift */; };
-		A891353D2BB5931E001A6AFE /* ClimbingRecordList+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = A891353C2BB5931E001A6AFE /* ClimbingRecordList+Mapping.swift */; };
+		A891353D2BB5931E001A6AFE /* ClimbingRecordListDTOt+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = A891353C2BB5931E001A6AFE /* ClimbingRecordListDTOt+Mapping.swift */; };
 		A891353F2BB5941D001A6AFE /* DetailClimbingResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A891353E2BB5941D001A6AFE /* DetailClimbingResponseDTO.swift */; };
 		A89135412BB59432001A6AFE /* ImageResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89135402BB59432001A6AFE /* ImageResponseDTO.swift */; };
 		A89135452BB5A06F001A6AFE /* ClimbingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89135442BB5A06F001A6AFE /* ClimbingRecord.swift */; };
 		A891354D2BB6E86A001A6AFE /* Ohcle_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A891354C2BB6E86A001A6AFE /* Ohcle_Tests.swift */; };
+		A891355A2BB6F62A001A6AFE /* DefaultRefreshClimbingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89135592BB6F62A001A6AFE /* DefaultRefreshClimbingRecordUseCase.swift */; };
+		A891355E2BB6F838001A6AFE /* RecordsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A891355D2BB6F838001A6AFE /* RecordsRepository.swift */; };
 		A89E181E29A389A900F27045 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89E181D29A389A900F27045 /* NextButton.swift */; };
 		A89EF9B4294A1A390018BDFD /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EF9B3294A1A390018BDFD /* Debouncer.swift */; };
 		A8A812ED29A73EE900E7C6A2 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A812EC29A73EE900E7C6A2 /* DataController.swift */; };
@@ -106,12 +108,14 @@
 		A8795FF3298DE97E00A92AA8 /* UserTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenManager.swift; sourceTree = "<group>"; };
 		A887D60029A20D9800C0A75D /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		A88BA060290D49C5000F87A8 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
-		A891353C2BB5931E001A6AFE /* ClimbingRecordList+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClimbingRecordList+Mapping.swift"; sourceTree = "<group>"; };
+		A891353C2BB5931E001A6AFE /* ClimbingRecordListDTOt+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClimbingRecordListDTOt+Mapping.swift"; sourceTree = "<group>"; };
 		A891353E2BB5941D001A6AFE /* DetailClimbingResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailClimbingResponseDTO.swift; sourceTree = "<group>"; };
 		A89135402BB59432001A6AFE /* ImageResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResponseDTO.swift; sourceTree = "<group>"; };
 		A89135442BB5A06F001A6AFE /* ClimbingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingRecord.swift; sourceTree = "<group>"; };
 		A891354A2BB6E86A001A6AFE /* Ohcle_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Ohcle_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A891354C2BB6E86A001A6AFE /* Ohcle_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ohcle_Tests.swift; sourceTree = "<group>"; };
+		A89135592BB6F62A001A6AFE /* DefaultRefreshClimbingRecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRefreshClimbingRecordUseCase.swift; sourceTree = "<group>"; };
+		A891355D2BB6F838001A6AFE /* RecordsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsRepository.swift; sourceTree = "<group>"; };
 		A89E181D29A389A900F27045 /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		A89EF9B3294A1A390018BDFD /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		A8A812EC29A73EE900E7C6A2 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -213,8 +217,8 @@
 				A859A64B28EC457700F217F3 /* Ohcle_.entitlements */,
 				A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */,
 				FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */,
-				A89135432BB5A00D001A6AFE /* Entity */,
-				A891353B2BB59287001A6AFE /* DataMapping */,
+				A89135542BB6F508001A6AFE /* Domain */,
+				A89135612BB6FC0E001A6AFE /* Data */,
 				A859A63128EC3E1600F217F3 /* Assets.xcassets */,
 				A875B24D297E7C2200704688 /* MainView */,
 				A859A64E28F27A2600F217F3 /* Login */,
@@ -276,7 +280,7 @@
 		A891353B2BB59287001A6AFE /* DataMapping */ = {
 			isa = PBXGroup;
 			children = (
-				A891353C2BB5931E001A6AFE /* ClimbingRecordList+Mapping.swift */,
+				A891353C2BB5931E001A6AFE /* ClimbingRecordListDTOt+Mapping.swift */,
 				A891353E2BB5941D001A6AFE /* DetailClimbingResponseDTO.swift */,
 				A89135402BB59432001A6AFE /* ImageResponseDTO.swift */,
 			);
@@ -289,6 +293,7 @@
 				A89135442BB5A06F001A6AFE /* ClimbingRecord.swift */,
 			);
 			name = Entity;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		A891354B2BB6E86A001A6AFE /* Ohcle_Tests */ = {
@@ -297,6 +302,56 @@
 				A891354C2BB6E86A001A6AFE /* Ohcle_Tests.swift */,
 			);
 			path = Ohcle_Tests;
+			sourceTree = "<group>";
+		};
+		A89135542BB6F508001A6AFE /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				A89135432BB5A00D001A6AFE /* Entity */,
+				A891355B2BB6F808001A6AFE /* Interfaces */,
+				A89135582BB6F60F001A6AFE /* UseCases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		A89135582BB6F60F001A6AFE /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				A89135592BB6F62A001A6AFE /* DefaultRefreshClimbingRecordUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		A891355B2BB6F808001A6AFE /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				A891355C2BB6F829001A6AFE /* Repository */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		A891355C2BB6F829001A6AFE /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				A891355D2BB6F838001A6AFE /* RecordsRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		A89135612BB6FC0E001A6AFE /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A89135622BB6FC2D001A6AFE /* Repositories */,
+				A891353B2BB59287001A6AFE /* DataMapping */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		A89135622BB6FC2D001A6AFE /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		A89E181F29A389B500F27045 /* Buttons */ = {
@@ -341,8 +396,8 @@
 		A8CBB2EB291F80360013A74F /* UserSetting */ = {
 			isa = PBXGroup;
 			children = (
-				A8CBB2EE291F89A00013A74F /* MyPageView.swift */,
 				A8CBB2F0291F96570013A74F /* MyPageUserInfoView.swift */,
+				A8CBB2EE291F89A00013A74F /* MyPageView.swift */,
 				A8C0D69329FE459C00DEB477 /* ExternalLinks.swift */,
 			);
 			path = UserSetting;
@@ -475,6 +530,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */,
+				A891355A2BB6F62A001A6AFE /* DefaultRefreshClimbingRecordUseCase.swift in Sources */,
 				A8C0D69629FE475E00DEB477 /* Refactor_Networking.swift in Sources */,
 				A83132242A070B370087A82C /* NewMemoView.swift in Sources */,
 				A80B452428FA50DE00343BB4 /* ReadViewSize.swift in Sources */,
@@ -492,7 +548,7 @@
 				A866B509293CC5C5001E182F /* KakaoLoginResultModel.swift in Sources */,
 				A817166629038013005B1268 /* ClimbingScore.swift in Sources */,
 				A83132222A03BC160087A82C /* RefactorCalenderView.swift in Sources */,
-				A891353D2BB5931E001A6AFE /* ClimbingRecordList+Mapping.swift in Sources */,
+				A891353D2BB5931E001A6AFE /* ClimbingRecordListDTOt+Mapping.swift in Sources */,
 				A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */,
 				A89E181E29A389A900F27045 /* NextButton.swift in Sources */,
 				A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */,
@@ -514,6 +570,7 @@
 				A80A484529F3B8FC00F3F186 /* CircleDateView.swift in Sources */,
 				A817166C290386AE005B1268 /* AddPhotoView.swift in Sources */,
 				A891353F2BB5941D001A6AFE /* DetailClimbingResponseDTO.swift in Sources */,
+				A891355E2BB6F838001A6AFE /* RecordsRepository.swift in Sources */,
 				A80A481B29EBC31B00F3F186 /* CalenderModel.swift in Sources */,
 				A8CBB2E8291F74700013A74F /* AddNewDiary.swift in Sources */,
 				A859A64028EC3E7A00F217F3 /* LoginView.swift in Sources */,

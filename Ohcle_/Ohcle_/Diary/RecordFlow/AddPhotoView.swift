@@ -160,6 +160,7 @@ struct GalleryPickerView: UIViewControllerRepresentable {
                             self.parent.selectedImage = image
                         }
                     case .failure(let error):
+                        print("\(error.localizedDescription)-----")
                         break
                     }
                     

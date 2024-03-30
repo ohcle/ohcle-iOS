@@ -26,7 +26,6 @@ struct MonthRecordEntity {
                                                       WeekOfTheMonth.third.intLiteral: [:], WeekOfTheMonth.fourth.intLiteral: [:],
                                                       WeekOfTheMonth.fitth.intLiteral:  [:], WeekOfTheMonth.sixth.intLiteral: [:]]
         
-        
         monthRecord.list.forEach { record in
             //MARK: Chnage to Date Type
             let dateString = record.date

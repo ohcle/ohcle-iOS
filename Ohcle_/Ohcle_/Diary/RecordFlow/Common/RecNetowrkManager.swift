@@ -78,14 +78,14 @@ class RecNetworkManager {
     // MARK: - Public Methods
 
     func deleteClimbing(id: Int) {
-        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/\(id)"
+        let urlStr = "http://13.125.173.42/climbing/\(id)"
         performRequest(urlString: urlStr, method: .delete) { result in
             // Handle the result here
         }
     }
 
     func fetchClimbingPlaceWithLoc(latitude: Double, longitude: Double, completion: @escaping (Result<[ClimbingLocation], Error>) -> Void) {
-        let baseURLString = "https://api-gw.todayclimbing.com/v1/climbing/place/nearby"
+        let baseURLString = "http://13.125.173.42/v1/climbing/place/nearby"
         let urlString = "\(baseURLString)?latitude=\(latitude)&longitude=\(longitude)"
         performRequest(urlString: urlString, method: .get) { result in
             switch result {
@@ -111,7 +111,7 @@ class RecNetworkManager {
     }
 
     func fetchClimbingPlace(with keyword: String, completion: @escaping (Result<[ClimbingLocation], Error>) -> Void) {
-        let baseURLString = "https://api-gw.todayclimbing.com/v1/climbing/place/"
+        let baseURLString = "http://13.125.173.42/v1/climbing/place/"
         let encodedKeyword = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         let urlString = baseURLString + "?search_words=" + encodedKeyword
         performRequest(urlString: urlString, method: .get) { result in
@@ -139,7 +139,7 @@ class RecNetworkManager {
     
 
     func postImage(_ imgData: Data, completion: ((Result<Data, Error>) -> Void)? ) {
-        let urlStr = "https://api-gw.todayclimbing.com/v1/media/image/"
+        let urlStr = "http://13.125.173.42/v1/media/image/"
         
         performRequest(urlString: urlStr, method: .post, parameters: ["image": imgData.base64EncodedString()]) { result in
             // Handle the result here
@@ -150,7 +150,7 @@ class RecNetworkManager {
     }
     
     func saveDiaryToServer(completion: @escaping (Bool) -> Void) {
-        let urlStr = "https://api-gw.todayclimbing.com/v1/climbing/"
+        let urlStr = "http://13.125.173.42/v1/climbing/"
         
         let date = CalendarDataManger.shared.record.date
         let score = CalendarDataManger.shared.record.score
