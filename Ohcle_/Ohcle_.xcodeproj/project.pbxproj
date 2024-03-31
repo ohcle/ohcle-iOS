@@ -23,6 +23,8 @@
 		A8401E9C294218D700AD9DA0 /* DiaryListViewGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */; };
 		A8445EBD2BB840D8002A25F2 /* RecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8445EBC2BB840D8002A25F2 /* RecordRepository.swift */; };
 		A8445EBF2BB84923002A25F2 /* ClimbingRecordDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8445EBE2BB84923002A25F2 /* ClimbingRecordDate.swift */; };
+		A8445EC32BB99F78002A25F2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8445EC22BB99F78002A25F2 /* NetworkService.swift */; };
+		A8445EC52BB9A212002A25F2 /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8445EC42BB9A212002A25F2 /* NetworkingError.swift */; };
 		A859A62E28EC3E1500F217F3 /* Ohcle_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */; };
 		A859A63228EC3E1600F217F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A859A63128EC3E1600F217F3 /* Assets.xcassets */; };
 		A859A63528EC3E1600F217F3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A859A63428EC3E1600F217F3 /* Preview Assets.xcassets */; };
@@ -95,6 +97,8 @@
 		A8401E9B294218D700AD9DA0 /* DiaryListViewGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewGridItem.swift; sourceTree = "<group>"; };
 		A8445EBC2BB840D8002A25F2 /* RecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRepository.swift; sourceTree = "<group>"; };
 		A8445EBE2BB84923002A25F2 /* ClimbingRecordDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbingRecordDate.swift; sourceTree = "<group>"; };
+		A8445EC22BB99F78002A25F2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		A8445EC42BB9A212002A25F2 /* NetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
 		A859A62A28EC3E1500F217F3 /* Ohcle_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ohcle_.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ohcle_App.swift; sourceTree = "<group>"; };
 		A859A63128EC3E1600F217F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -190,6 +194,23 @@
 			path = RecordFlow;
 			sourceTree = "<group>";
 		};
+		A8445EC02BB99EEE002A25F2 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				A8445EC12BB99F03002A25F2 /* Network */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		A8445EC12BB99F03002A25F2 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A8445EC22BB99F78002A25F2 /* NetworkService.swift */,
+				A8445EC42BB9A212002A25F2 /* NetworkingError.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		A859A62128EC3E1500F217F3 = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +240,7 @@
 				A859A64B28EC457700F217F3 /* Ohcle_.entitlements */,
 				A859A62D28EC3E1500F217F3 /* Ohcle_App.swift */,
 				FEBCE2A629D45E0900677FBF /* OnBoardingView.swift */,
+				A8445EC02BB99EEE002A25F2 /* Infrastructure */,
 				A89135542BB6F508001A6AFE /* Domain */,
 				A89135612BB6FC0E001A6AFE /* Data */,
 				A859A63128EC3E1600F217F3 /* Assets.xcassets */,
@@ -538,6 +560,7 @@
 				A891353D2BB5931E001A6AFE /* ClimbingRecordListDTOt+Mapping.swift in Sources */,
 				A875B24A297E5B5A00704688 /* CurrentDate.swift in Sources */,
 				A89E181E29A389A900F27045 /* NextButton.swift in Sources */,
+				A8445EC32BB99F78002A25F2 /* NetworkService.swift in Sources */,
 				A859A63E28EC3E6500F217F3 /* MainView.swift in Sources */,
 				A8CBB2F1291F96570013A74F /* MyPageUserInfoView.swift in Sources */,
 				A887D60129A20D9800C0A75D /* Networking.swift in Sources */,
@@ -564,6 +587,7 @@
 				A859A63C28EC3E4300F217F3 /* KakaoLoginView.swift in Sources */,
 				A86A596828F2A1F100C500E1 /* Calender.swift in Sources */,
 				FEB9B67C2A19B08900DCCE5A /* ClimbingLocationSearch.swift in Sources */,
+				A8445EC52BB9A212002A25F2 /* NetworkingError.swift in Sources */,
 				A875B24C297E779700704688 /* CalenderHolderGridView.swift in Sources */,
 				A8445EBF2BB84923002A25F2 /* ClimbingRecordDate.swift in Sources */,
 			);
