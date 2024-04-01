@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Climbing Data Transfer Object (기존에 CalenderModel이였던 것)
-struct ClimbingMonthRecord: Decodable {
+struct ClimbingMonthRecord {
     let list: [ClimbingRecord]
 }
 
