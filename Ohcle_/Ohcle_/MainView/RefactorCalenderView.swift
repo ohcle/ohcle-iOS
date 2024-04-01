@@ -67,20 +67,22 @@ final class CalenderViewModel: ObservableObject {
     
     func askRefreshedData() {
         Task {
-            await didRefreshButtonTapped()
+            let result = await self.refreshUsecase.fetch(requestValue: ClimbingRecordDate(year: self.year, month: self.month))
+            
+            switch result {
+            case .success(let entity):
+                DispatchQueue.main.async {
+                    self.data = entity.dividedMonthRecord
+                }
+            case .failure(_):
+                break
+            }
         }
     }
     
     func didRefreshButtonTapped() async {
-        let result = await self.refreshUsecase.fetch(requestValue: ClimbingRecordDate(year: self.year, month: self.month))
-        
-        switch result {
-        case .success(let entity):
-            DispatchQueue.main.async {
-                self.data = entity.dividedMonthRecord
-            }
-        case .failure(_):
-            break
+        Task {
+            askRefreshedData()
         }
     }
     
