@@ -157,9 +157,4 @@ class CalendarDataManger {
         
         return dividedData
     }
-//    
-//    func updateDiary(diary: Diary) {
-//        // find specific reUcord & update in Server
-//    }
-    
 }

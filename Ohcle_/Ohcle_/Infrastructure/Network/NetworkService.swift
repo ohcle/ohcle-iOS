@@ -9,7 +9,7 @@ import Foundation
 
 final class NetworkService {
     //FIXME : Implement Network layer (Endpoint, URL, Request ..)
-    func request(value: ClimbingRecordDate) async -> Result<ClimbingRecord,Error> {
+    func request(value: ClimbingRecordDate) async -> Result<[ClimbingRecord],Error> {
         do {
             guard let url = URL(string: OhcleURLs.generateMonthRecordURLString(year: value.year, month: value.month)) else {
                 throw NetworkingError.invalidURL
@@ -31,8 +31,8 @@ final class NetworkService {
                 throw NetworkingError.getStatusCode(responseCode)
             }
             
-            let records = try JSONDecoder().decode(ClimbingRecord.self, from: data)
-            
+            let records = try JSONDecoder().decode([ClimbingRecord].self, from: data)
+
             return .success(records)
         } catch {
             return .failure(NetworkingError.undefined)

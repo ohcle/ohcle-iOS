@@ -43,7 +43,7 @@ struct MainView: View {
     @StateObject var pageState: MyPageType = MyPageType.init()
     @State private var selectedPage = 0
     @State var selectedTab = 1
-    @ObservedObject var calenderData = CalenderData()
+    @ObservedObject var calenderData = CalenderViewModel()
 
     init() {
         UIPageControl.appearance().currentPageIndicatorTintColor =  UIColor(named: "HomeCurIndicatorColor")
@@ -54,7 +54,7 @@ struct MainView: View {
     var body: some View {
         TabView (selection: $selectedTab){
             TabView {
-                RefactorCalenderView(calenderData: calenderData)
+                RefactorCalenderView(calenderViewModel: calenderData)
                 DiaryList(calenderData: calenderData)
             }
             .tabViewStyle(.page)

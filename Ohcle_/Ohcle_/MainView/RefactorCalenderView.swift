@@ -25,23 +25,23 @@ func getDayOfWeek(dateString: String) -> Int {
     return weekday - 1
 }
 
-final class CalenderData: ObservableObject {
-    @Published var year: String = "2023"
+final class CalenderViewModel: ObservableObject {
+    @Published var year: String = "2024"
     @Published var month: String = OhcleDate.currentMonthString ?? ""
     @Published var switchWhenMemoChanged: Bool = false
-    @Published var data: DividedMonthDataType = [:]
+    @Published var data: MonthRecordEntity.DividedRecord = [:]
     @Published var weekCnt = 5
     
     private(set) var dateRange: [(date: Date, isCurrentMonth: Bool)]?
-    
     private var cancellables: Set<AnyCancellable> = []
+    private let refreshUsecase = RefreshMonthClimbingRecordUseCase(repository: MonthRecordRepository(networkService: NetworkService()))
     
     init() {
         $year.combineLatest($month)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] year, month in
                 self?.setWeekCnt()
-                self?.fetchCalenderData()
+                self?.askRefreshedData()
                 self?.changeSelectedDate()
                 self?.dateRange = self?.organizeDateRange()
             }
@@ -50,7 +50,7 @@ final class CalenderData: ObservableObject {
         $switchWhenMemoChanged
             .receive(on: DispatchQueue.main)
             .sink { [weak self] changedValue in
-                self?.fetchCalenderData()
+                self?.askRefreshedData()
             }
             .store(in: &cancellables)
         
@@ -60,68 +60,28 @@ final class CalenderData: ObservableObject {
     
     @objc func didRecieveFetchCalendarNotification(_ notification: Notification) {
         print("Fetch")
-        fetchCalenderData()
+        Task {
+            await didRefreshButtonTapped()
+        }
      }
     
-    func fetchCalenderData() {
-        guard let url = URL(string: OhcleURLs.generateMonthRecordURLString(year: self.year, month: self.month)) else {
-            return
-        }
-        
-        do {
-            var request = try URLRequest(url: url, method: .get)
-            
-            request.headers.add(name: "Authorization",
-                                value: "Bearer " + LoginManager.shared.ohcleAccessToken)
-            print(LoginManager.shared.ohcleAccessToken, "💜")
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                
-                if let response = response as? HTTPURLResponse,
-                   response.statusCode != 200 {
-                    print(response.statusCode)
-                }
-                
-                if let data = data {
-                    do {
-                        let decoded = try JSONDecoder().decode([CalenderModel].self, from: data)
-                        let divided = self.divideWeekData(decoded)
-                        print(divided)
-                        DispatchQueue.main.async {
-                            self.data = divided
-                        }
-                    } catch {
-                        print(error)
-                    }
-                }
-                
-            }.resume()
-            
-        } catch {
-            print(error)
+    func askRefreshedData() {
+        Task {
+            await didRefreshButtonTapped()
         }
     }
     
-    private func divideWeekData(_ data: [CalenderModel]) -> DividedMonthDataType {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.locale = Locale(identifier: "kr")
-        let calendar = Calendar(identifier: .gregorian)
-        var dividedData: DividedMonthDataType = [1: [:], 2: [:], 3: [:],
-                                                 4: [:], 5: [:], 6:[:]]
-        print("dividedData", dividedData)
+    func didRefreshButtonTapped() async {
+        let result = await self.refreshUsecase.fetch(requestValue: ClimbingRecordDate(year: self.year, month: self.month))
         
-        _ = data.map { data in
-            let dateString = data.when
-            let date = dateFormatter.date(from: dateString) ?? Date()
-            
-            let weekOfMonth = calendar.component(.weekOfMonth, from: date)
-            let dayOfWeek = getDayOfWeek(dateString: dateString)
-            // 0: 일요일, 1: 월, 2: 화, 3: 수
-            dividedData[weekOfMonth]?.updateValue(data, forKey: dayOfWeek)
-
+        switch result {
+        case .success(let entity):
+            DispatchQueue.main.async {
+                self.data = entity.dividedMonthRecord
+            }
+        case .failure(_):
+            break
         }
-        
-        return dividedData
     }
     
     private lazy var selectedDate: Date = {
@@ -137,13 +97,14 @@ final class CalenderData: ObservableObject {
         }
     }()
     
+    //MARK: Generate Custom Calender
     private let calendar: Calendar = {
         var calender =  Calendar.current
         calender.timeZone = TimeZone(identifier: "Asia/Seoul")!
         calender.locale = Locale(identifier: "ko_KR")
         return calender
     }()
-    
+
     func changeSelectedDate() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM yyyy"
@@ -229,7 +190,6 @@ final class CalenderData: ObservableObject {
             dates.append((date, false))
         }
         
-        print("💜",dates, "💜")
         return dates
     }
     
@@ -254,7 +214,6 @@ final class CalenderData: ObservableObject {
         
         self.weekCnt = weekCnt
     }
-    
 }
 
 struct RefactorCalenderView: View {
@@ -262,22 +221,21 @@ struct RefactorCalenderView: View {
     @State private var isDismissed: Bool = true
     @State private var isModal: Bool = true
     
-    @ObservedObject var calenderData: CalenderData
+    @ObservedObject var calenderViewModel: CalenderViewModel
     
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
                 UpperBar {
-                    calenderData.fetchCalenderData()
+                    Task {
+                        await self.calenderViewModel.didRefreshButtonTapped()
+                    }
                 }
-                
                 Spacer()
-                
-                CalenderMiddleView(yearString: self.calenderData.year,
-                                   monthString: self.calenderData.month,
+                CalenderMiddleView(yearString: self.calenderViewModel.year,
+                                   monthString: self.calenderViewModel.month,
                                    isDismissed: $isDismissed)
-                CalenderHolderView(calenderData: calenderData)
-                
+                CalenderHolderView(calenderData: calenderViewModel)
                 Spacer()
             }
             .padding(.all, 10)
@@ -287,13 +245,13 @@ struct RefactorCalenderView: View {
                     DateFilterView(currentYear: 2023,
                                    isSelected: $isSelected,
                                    isDismissed: $isDismissed,
-                                   calenderData: calenderData)
+                                   calenderData: calenderViewModel)
                     .frame(minWidth: 250, idealWidth: 250, maxWidth: 250, minHeight: 250,
                            idealHeight: 250, maxHeight: 250, alignment: .center)
                     .background(Color.white)
                     .padding(.top, -30)
                     .onDisappear {
-                        self.calenderData.changeSelectedDate()
+                        self.calenderViewModel.changeSelectedDate()
                     }
                 }
             }
@@ -310,12 +268,12 @@ struct RefactorCalenderView: View {
 }
 
 struct CalenderHolderView: View {
-    @ObservedObject var calenderData: CalenderData
+    @ObservedObject var calenderData: CalenderViewModel
     @State private var isModal: Bool = false
     @State private var diaryID: Int = .zero
     @State private var dateRange:  [(date: Date, isCurrentMonth: Bool)]?
     
-    init(calenderData: CalenderData) {
+    init(calenderData: CalenderViewModel) {
         self.calenderData = calenderData
         self.isModal = isModal
         self.diaryID = diaryID

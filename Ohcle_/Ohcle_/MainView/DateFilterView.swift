@@ -14,7 +14,7 @@ struct DateFilterView: View {
     @Binding var isSelected: Bool
     @Binding var isDismissed: Bool
     
-    var calenderData: CalenderData
+    var calenderData: CalenderViewModel
     
     private let defaultYear = "2023"
     private let numberFormatter: NumberFormatter = {
@@ -74,7 +74,7 @@ struct DateFilterView_Previews: PreviewProvider {
     @State static var isSelected = true
     @State static var isdismissed = true
     
-    @ObservedObject static var calenderData: CalenderData = CalenderData()
+    @ObservedObject static var calenderData: CalenderViewModel = CalenderViewModel()
     static var previews: some View {
         DateFilterView(currentYear: 2023, isSelected: $isSelected, isDismissed: $isdismissed, calenderData: calenderData)
     }
