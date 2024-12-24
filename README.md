@@ -330,7 +330,7 @@ Entity가 가장 고수준에 있는 레이어이기 때문에 이걸 먼저해�
     - RecordRepository
 
 3. Presentaion 레이어
-- 해당 레이어는 구현해야하는 필요성을 아직 찾지 못해서 분리하지 않음. 
+- 기존의 뷰들 
 
 4. Infrastructure
     - NetworkService
@@ -708,7 +708,7 @@ In my case, I've organized the layers as below.
 - Repository
     - RecordRepository
 3. Presentaion Layer
-- I haven't separated this layer yet because I haven't found the need to implement it.
+- Views
 4. Infrastructure
     - NetworkService
 
