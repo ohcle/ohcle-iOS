@@ -324,12 +324,11 @@ Entity가 가장 고수준에 있는 레이어이기 때문에 이걸 먼저해�
 1. Domain 레이어
 - UseCases
     - RefreshClimbingRecordUseCase
+
 2. Data 레이어
-- Entity
-    - MonthRecordEntity
-    - ClimbingRecordDate
 - Repository
     - RecordRepository
+
 3. Presentaion 레이어
 - 해당 레이어는 구현해야하는 필요성을 아직 찾지 못해서 분리하지 않음. 
 
