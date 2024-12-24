@@ -705,9 +705,6 @@ In my case, I've organized the layers as below.
 - UseCases
     - RefreshClimbingRecordUseCase
 2. Data Layer
-- Entity
-    - MonthRecordEntity
-    - ClimbingRecordDate
 - Repository
     - RecordRepository
 3. Presentaion Layer
